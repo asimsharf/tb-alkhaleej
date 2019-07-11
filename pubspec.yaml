@@ -1,0 +1,46 @@
+name: tb_alkhalij
+description: A new Flutter project.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  splashscreen: ^1.2.0
+  flutter_localizations:
+    sdk: flutter
+  intl:
+  intl_translation:
+
+  video_player: ^0.10.1+2
+  google_fonts_arabic: ^1.1.7
+  font_awesome_flutter: ^8.0.0
+  cupertino_icons: ^0.1.2
+  scoped_model: ^1.0.1
+  smooth_star_rating: 1.0.2
+  rflutter_alert: ^1.0.2
+  transparent_image: ^1.0.0
+  url_launcher: ^5.0.2
+  http: ^0.12.0+1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+   - assets/logo.png
+   - assets/background_video.mp4
+   - assets/person.png
+   - assets/bg.png
+   - assets/photo_camera.png
+   - assets/avatar.png
+
+  fonts:
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/Amiri-Bold.ttf
+        - asset: assets/fonts/Amiri-BoldItalic.ttf
+        - asset: assets/fonts/Amiri-Italic.ttf
+        - asset: assets/fonts/Amiri-Regular.ttf
