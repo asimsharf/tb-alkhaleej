@@ -10,7 +10,7 @@ import 'package:tb_alkhalij/model/ModelClient.dart';
 import 'package:tb_alkhalij/model/ModelDoctors.dart';
 
 class ApiCentersServices {
-  static const _serviceUrl = 'http://149.255.57.16:4000/tb_alkhalij/api/center';
+  static const _serviceUrl = 'http://23.111.185.155:3000/api/centers';
   static final _headers = {'Content-Type': 'application/json'};
 
   Future<ModelCenters> createCenters(ModelCenters modelCenters) async {
@@ -35,253 +35,23 @@ class ApiCentersServices {
   ModelCenters _fromJson(String json) {
     Map<String, dynamic> map = jsonDecode(json);
     var modelCenters = new ModelCenters();
-    modelCenters.center_id = map['center_id'];
-    modelCenters.admin_id = map['admin_id'];
-    modelCenters.center = map['center'];
-    modelCenters.type_id = map['type_id'];
-    modelCenters.password = map['password'];
-    modelCenters.type_ar = map['type_ar'];
-    modelCenters.type_en = map['type_en'];
-    modelCenters.description = map['description'];
-    modelCenters.administrator = map['administrator'];
-    modelCenters.identity_number = map['identity_number'];
+    modelCenters.id = map['id'];
+    modelCenters.name = map['name'];
     modelCenters.email = map['email'];
+    modelCenters.description = map['description'];
     modelCenters.address = map['address'];
-    modelCenters.longitude = map['longitude'];
-    modelCenters.latitude = map['latitude'];
-    modelCenters.logo = map['logo'];
-    modelCenters.profile = map['profile'];
-    modelCenters.open_at = map['open_at'];
-    modelCenters.close_at = map['close_at'];
-    modelCenters.website = map['website'];
-    modelCenters.facebook = map['facebook'];
-    modelCenters.google = map['google'];
-    modelCenters.phone = map['phone'];
-    modelCenters.twitter = map['twitter'];
-    modelCenters.linkedin = map['linkedin'];
-    modelCenters.license = map['license'];
-    modelCenters.country_ar = map['country_ar'];
-    modelCenters.country_en = map['country_en'];
-    modelCenters.country_code = map['country_code'];
-    modelCenters.city_ar = map['city_ar'];
-    modelCenters.city_en = map['city_en'];
-    modelCenters.city_id = map['city_id'];
-    modelCenters.admin_join_date = map['admin_join_date'];
-    modelCenters.Expire_from = map['Expire_from'];
-    modelCenters.Expire_to = map['Expire_to'];
-    modelCenters.join_date = map['join_date'];
+    modelCenters.open = map['open_at'];
+    modelCenters.close = map['close_at'];
     return modelCenters;
   }
 
   String _toJson(ModelCenters modelCenters) {
     var mapData = new Map();
-    mapData["center"] = modelCenters.center;
-    mapData["type_id"] = modelCenters.type_id;
-    mapData["password"] = modelCenters.password;
-    mapData["description"] = modelCenters.description;
-    mapData["administrator"] = modelCenters.administrator;
-    mapData["identity_number"] = modelCenters.identity_number;
+    mapData["_id"] = modelCenters.id;
+    mapData["name"] = modelCenters.name;
     mapData["email"] = modelCenters.email;
-    mapData["address"] = modelCenters.address;
-    mapData["longitude"] = modelCenters.longitude;
-    mapData["latitude"] = modelCenters.latitude;
-    mapData["phone"] = modelCenters.phone;
-    mapData["logo"] = modelCenters.logo;
-    mapData["open_at"] = modelCenters.open_at;
-    mapData["close_at"] = modelCenters.close_at;
-    mapData["website"] = modelCenters.website;
-    mapData["facebook"] = modelCenters.facebook;
-    mapData["google"] = modelCenters.google;
-    mapData["twitter"] = modelCenters.twitter;
-    mapData["linkedin"] = modelCenters.linkedin;
-    mapData["license"] = modelCenters.license;
-    mapData["city_id"] = modelCenters.city_id;
-
-    String json = jsonEncode(mapData);
-    return json;
-  }
-}
-
-class ApiEditCentersServices {
-  static const _serviceUrl = 'http://149.255.57.16:4000/tb_alkhalij/api/center';
-  static final _headers = {'Content-Type': 'application/json'};
-
-  Future<ModelCenters> editCenters(ModelCenters modelCenters) async {
-    try {
-      String json = _toJson(modelCenters);
-      final response =
-          await http.post(_serviceUrl, headers: _headers, body: json).then(
-        (response) {
-          print("Response status: ${response.statusCode}");
-          print("Response body: ${response.body}");
-        },
-      );
-      var c = _fromJson(response.body);
-      return c;
-    } catch (e) {
-      print('Server Exception!!!');
-      print(e);
-      return null;
-    }
-  }
-
-  ModelCenters _fromJson(String json) {
-    Map<String, dynamic> map = jsonDecode(json);
-    var modelCenters = new ModelCenters();
-    modelCenters.center_id = map['center_id'];
-    modelCenters.admin_id = map['admin_id'];
-    modelCenters.center = map['center'];
-    modelCenters.type_id = map['type_id'];
-    modelCenters.password = map['password'];
-    modelCenters.type_ar = map['type_ar'];
-    modelCenters.type_en = map['type_en'];
-    modelCenters.description = map['description'];
-    modelCenters.administrator = map['administrator'];
-    modelCenters.identity_number = map['identity_number'];
-    modelCenters.email = map['email'];
-    modelCenters.address = map['address'];
-    modelCenters.longitude = map['longitude'];
-    modelCenters.latitude = map['latitude'];
-    modelCenters.logo = map['logo'];
-    modelCenters.profile = map['profile'];
-    modelCenters.open_at = map['open_at'];
-    modelCenters.close_at = map['close_at'];
-    modelCenters.website = map['website'];
-    modelCenters.facebook = map['facebook'];
-    modelCenters.google = map['google'];
-    modelCenters.phone = map['phone'];
-    modelCenters.twitter = map['twitter'];
-    modelCenters.linkedin = map['linkedin'];
-    modelCenters.license = map['license'];
-    modelCenters.country_ar = map['country_ar'];
-    modelCenters.country_en = map['country_en'];
-    modelCenters.country_code = map['country_code'];
-    modelCenters.city_ar = map['city_ar'];
-    modelCenters.city_en = map['city_en'];
-    modelCenters.city_id = map['city_id'];
-    modelCenters.admin_join_date = map['admin_join_date'];
-    modelCenters.Expire_from = map['Expire_from'];
-    modelCenters.Expire_to = map['Expire_to'];
-    modelCenters.join_date = map['join_date'];
-    return modelCenters;
-  }
-
-  String _toJson(ModelCenters modelCenters) {
-    var mapData = new Map();
-    mapData["center"] = modelCenters.center;
-    mapData["type_id"] = modelCenters.type_id;
-    mapData["password"] = modelCenters.password;
     mapData["description"] = modelCenters.description;
-    mapData["administrator"] = modelCenters.administrator;
-    mapData["identity_number"] = modelCenters.identity_number;
-    mapData["email"] = modelCenters.email;
     mapData["address"] = modelCenters.address;
-    mapData["longitude"] = modelCenters.longitude;
-    mapData["latitude"] = modelCenters.latitude;
-    mapData["phone"] = modelCenters.phone;
-    mapData["logo"] = modelCenters.logo;
-    mapData["open_at"] = modelCenters.open_at;
-    mapData["close_at"] = modelCenters.close_at;
-    mapData["website"] = modelCenters.website;
-    mapData["facebook"] = modelCenters.facebook;
-    mapData["google"] = modelCenters.google;
-    mapData["twitter"] = modelCenters.twitter;
-    mapData["linkedin"] = modelCenters.linkedin;
-    mapData["license"] = modelCenters.license;
-    mapData["city_id"] = modelCenters.city_id;
-
-    String json = jsonEncode(mapData);
-    return json;
-  }
-}
-
-class ApiEditAdministratorServices {
-  static const _serviceUrl = 'http://149.255.57.16:4000/tb_alkhalij/api/center';
-  static final _headers = {'Content-Type': 'application/json'};
-
-  Future<ModelCenters> editAdministrator(ModelCenters modelCenters) async {
-    try {
-      String json = _toJson(modelCenters);
-      final response =
-          await http.post(_serviceUrl, headers: _headers, body: json).then(
-        (response) {
-          print("Response status: ${response.statusCode}");
-          print("Response body: ${response.body}");
-        },
-      );
-      var c = _fromJson(response.body);
-      return c;
-    } catch (e) {
-      print('Server Exception!!!');
-      print(e);
-      return null;
-    }
-  }
-
-  ModelCenters _fromJson(String json) {
-    Map<String, dynamic> map = jsonDecode(json);
-    var modelCenters = new ModelCenters();
-    modelCenters.center_id = map['center_id'];
-    modelCenters.admin_id = map['admin_id'];
-    modelCenters.center = map['center'];
-    modelCenters.type_id = map['type_id'];
-    modelCenters.password = map['password'];
-    modelCenters.type_ar = map['type_ar'];
-    modelCenters.type_en = map['type_en'];
-    modelCenters.description = map['description'];
-    modelCenters.administrator = map['administrator'];
-    modelCenters.identity_number = map['identity_number'];
-    modelCenters.email = map['email'];
-    modelCenters.address = map['address'];
-    modelCenters.longitude = map['longitude'];
-    modelCenters.latitude = map['latitude'];
-    modelCenters.logo = map['logo'];
-    modelCenters.profile = map['profile'];
-    modelCenters.open_at = map['open_at'];
-    modelCenters.close_at = map['close_at'];
-    modelCenters.website = map['website'];
-    modelCenters.facebook = map['facebook'];
-    modelCenters.google = map['google'];
-    modelCenters.phone = map['phone'];
-    modelCenters.twitter = map['twitter'];
-    modelCenters.linkedin = map['linkedin'];
-    modelCenters.license = map['license'];
-    modelCenters.country_ar = map['country_ar'];
-    modelCenters.country_en = map['country_en'];
-    modelCenters.country_code = map['country_code'];
-    modelCenters.city_ar = map['city_ar'];
-    modelCenters.city_en = map['city_en'];
-    modelCenters.city_id = map['city_id'];
-    modelCenters.admin_join_date = map['admin_join_date'];
-    modelCenters.Expire_from = map['Expire_from'];
-    modelCenters.Expire_to = map['Expire_to'];
-    modelCenters.join_date = map['join_date'];
-    return modelCenters;
-  }
-
-  String _toJson(ModelCenters modelCenters) {
-    var mapData = new Map();
-    mapData["center"] = modelCenters.center;
-    mapData["type_id"] = modelCenters.type_id;
-    mapData["password"] = modelCenters.password;
-    mapData["description"] = modelCenters.description;
-    mapData["administrator"] = modelCenters.administrator;
-    mapData["identity_number"] = modelCenters.identity_number;
-    mapData["email"] = modelCenters.email;
-    mapData["address"] = modelCenters.address;
-    mapData["longitude"] = modelCenters.longitude;
-    mapData["latitude"] = modelCenters.latitude;
-    mapData["phone"] = modelCenters.phone;
-    mapData["logo"] = modelCenters.logo;
-    mapData["open_at"] = modelCenters.open_at;
-    mapData["close_at"] = modelCenters.close_at;
-    mapData["website"] = modelCenters.website;
-    mapData["facebook"] = modelCenters.facebook;
-    mapData["google"] = modelCenters.google;
-    mapData["twitter"] = modelCenters.twitter;
-    mapData["linkedin"] = modelCenters.linkedin;
-    mapData["license"] = modelCenters.license;
-    mapData["city_id"] = modelCenters.city_id;
 
     String json = jsonEncode(mapData);
     return json;

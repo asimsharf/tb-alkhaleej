@@ -6,17 +6,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/CentersDetails.dart';
+import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
 import 'package:tb_alkhalij/model/ModelCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
-class Consulting extends StatefulWidget {
+class Clinic extends StatefulWidget {
   final Widget child;
-  Consulting({Key key, this.child}) : super(key: key);
-  _ConsultingState createState() => _ConsultingState();
+  Clinic({Key key, this.child}) : super(key: key);
+  _ClinicState createState() => _ClinicState();
 }
 
-class _ConsultingState extends State<Consulting> {
+class _ClinicState extends State<Clinic> {
   TextEditingController __editingController = TextEditingController();
   final _duplicateItems = List<String>.generate(100, (i) => "إسم المركز $i");
   var _items = List<String>();
@@ -61,7 +61,7 @@ class _ConsultingState extends State<Consulting> {
       key: _scaffoldCentersPageKey,
       appBar: new AppBar(
         title: Text(
-          "شركات التأمين",
+          "العيادات",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
@@ -159,7 +159,7 @@ class _ConsultingState extends State<Consulting> {
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
-                              image: '${CentersObj.logo}',
+                              image: 'assets/logo.png',
                             ),
                           ),
                         ),
@@ -175,7 +175,7 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.center}',
+                                        '${CentersObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -198,7 +198,7 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${CentersObj.description}",
+                                        "this is a login description",
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
@@ -208,7 +208,7 @@ class _ConsultingState extends State<Consulting> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "من ${CentersObj.open_at}",
+                                      text: "من",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -221,7 +221,7 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.type_ar}',
+                                        'this also type',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -232,7 +232,7 @@ class _ConsultingState extends State<Consulting> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "الى ${CentersObj.close_at}",
+                                      text: "to",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -252,38 +252,7 @@ class _ConsultingState extends State<Consulting> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CentersDetails(
-                        center_id: CentersObj.center_id,
-                        address: CentersObj.address,
-                        longitude: CentersObj.longitude,
-                        latitude: CentersObj.latitude,
-                        center: CentersObj.center,
-                        description: CentersObj.description,
-                        logo: CentersObj.logo,
-                        profile: CentersObj.profile,
-                        open_at: CentersObj.open_at,
-                        close_at: CentersObj.close_at,
-                        website: CentersObj.website,
-                        facebook: CentersObj.facebook,
-                        google: CentersObj.google,
-                        twitter: CentersObj.twitter,
-                        linkedin: CentersObj.linkedin,
-                        administrator: CentersObj.administrator,
-                        identity_number: CentersObj.identity_number,
-                        email: CentersObj.email,
-                        phone: CentersObj.phone,
-                        join_date: CentersObj.join_date,
-                        Expire_from: CentersObj.Expire_from,
-                        Expire_to: CentersObj.Expire_to,
-                        license: CentersObj.license,
-                        country_ar: CentersObj.country_ar,
-                        country_en: CentersObj.country_en,
-                        country_code: CentersObj.country_code,
-                        city_ar: CentersObj.city_ar,
-                        city_en: CentersObj.city_en,
-                        type_ar: CentersObj.type_ar,
-                        type_en: CentersObj.type_en,
-                      ),
+                  builder: (context) => CentersDetails(),
                 ),
               );
             },

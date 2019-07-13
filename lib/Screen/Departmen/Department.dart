@@ -5,63 +5,58 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/CentersDetails.dart';
-import 'package:tb_alkhalij/model/ModelCenters.dart';
-import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
+import 'package:tb_alkhalij/model/ModelDepartment.dart';
 
-class Pharmacy extends StatefulWidget {
-  final Widget child;
-  Pharmacy({Key key, this.child}) : super(key: key);
-  _PharmacyState createState() => _PharmacyState();
+class Department extends StatefulWidget {
+  final String id;
+  final String name;
+  Department({this.id, this.name});
+  @override
+  _DepartmentState createState() => _DepartmentState();
 }
 
-class _PharmacyState extends State<Pharmacy> {
-  TextEditingController __editingController = TextEditingController();
-  final _duplicateItems = List<String>.generate(100, (i) => "إسم المركز $i");
-  var _items = List<String>();
+class _DepartmentState extends State<Department> {
+  TextEditingController editingController = TextEditingController();
+  final duplicateItems =
+      List<String>.generate(100, (i) => " الدكتور علي بن حجاج$i");
+  var items = List<String>();
 
-  bool _loading = false;
-
-  List<ModelCenters> _modelCenters = <ModelCenters>[];
-
-  Future<List<ModelCenters>> getCenters() async {
-    String link = "http://23.111.185.155:4000/takaful/api/center";
+  bool loading = false;
+  List<ModelDepartment> _Model_Department = <ModelDepartment>[];
+  Future<List<ModelDepartment>> getCenters() async {
+    String link =
+        "http://23.111.185.155:4000/takaful/api/center/${widget.id}/department";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
         var rest = data['response'] as List;
-        _modelCenters = rest
-            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+        _Model_Department = rest
+            .map<ModelDepartment>((rest) => ModelDepartment.fromJson(rest))
             .toList();
-        _loading = false;
+        loading = false;
       }
     });
-    return _modelCenters;
+    return _Model_Department;
   }
 
   @override
   void initState() {
+    items.addAll(duplicateItems);
     super.initState();
-    _items.addAll(_duplicateItems);
     this.getCenters();
     setState(() {
-      _loading = true;
+      loading = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldCentersPageKey =
-        new GlobalKey<ScaffoldState>();
-
-    return new Scaffold(
-      key: _scaffoldCentersPageKey,
+    return Scaffold(
       appBar: new AppBar(
         title: Text(
-          "الصيدليات",
+          'أقسام ${widget.name}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
@@ -69,27 +64,27 @@ class _PharmacyState extends State<Pharmacy> {
           ),
         ),
       ),
-      body: new Container(
-        child: new Column(
+      body: Container(
+        child: Column(
           children: <Widget>[
-            new Padding(
+            Padding(
               padding: const EdgeInsets.only(
                   top: 0.0, right: 0.0, left: 0.0, bottom: 5.0),
-              child: new TextField(
+              child: TextField(
                 onChanged: (value) {
                   filterSearchResults(value);
                 },
-                controller: __editingController,
-                decoration: new InputDecoration(
-                    hintText: "بحث بإسم المشفى...",
+                controller: editingController,
+                decoration: InputDecoration(
+                    hintText: "بحث بإسم القسم...",
                     hintStyle: TextStyle(
                       fontFamily: ArabicFonts.Cairo,
                       package: 'google_fonts_arabic',
                     ),
                     suffixIcon: InkWell(
-                      splashColor: Color(0xFF009AFF),
+                      splashColor: Color(0xFFD04668),
                       onTap: () {
-                        Navigator.of(context).pushNamed('/Filter');
+                        Navigator.pushNamed(context, '/Filter');
                       },
                       child: Icon(
                         FontAwesomeIcons.slidersH,
@@ -99,54 +94,44 @@ class _PharmacyState extends State<Pharmacy> {
                     prefixIcon: GestureDetector(
                       child: Icon(
                         Icons.search,
-                        color: Color(0xFF00C2E7),
+                        color: Color(0xFFE91E63),
                       ),
                       onTap: () {},
                     ),
                     border: UnderlineInputBorder()),
               ),
             ),
-            new Expanded(
-                child: _loading
-                    ? new Center(child: new CircularProgressIndicator())
+            Expanded(
+                child: loading
+                    ? Center(child: CircularProgressIndicator())
                     : _buildProductList()),
           ],
         ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          //Navigator.popAndPushNamed(context, '/HomeGoogleMap');
-          Navigator.pushNamed(context, '/HomeGoogleMap');
-        },
-        child: Icon(
-          Icons.location_on,
-        ),
-        backgroundColor: Color(0xFF00C2E7),
       ),
     );
   }
 
   Widget _buildProductList() {
-    Widget CentersList;
-    if (_modelCenters.length > 0) {
-      CentersList = new ListView.builder(
+    Widget DepartmentList;
+    if (_Model_Department.length > 0) {
+      DepartmentList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _modelCenters.length,
+        itemCount: _Model_Department.length,
         itemBuilder: (BuildContext context, index) {
-          final CentersObj = _modelCenters[index];
+          final DepartmentObj = _Model_Department[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 //This is the list view search result
                 child: Container(
-                  height: 140.0,
+                  height: 150.0,
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Row(
@@ -158,15 +143,18 @@ class _PharmacyState extends State<Pharmacy> {
                             borderRadius: BorderRadius.circular(20),
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
-                              placeholder: 'assets/logo.png',
-                              image: '${CentersObj.logo}',
+                              placeholder: 'assets/images/avatar.png',
+                              image:
+                                  'http://www.parthadental.com/assets/products/offers1.jpg',
                             ),
                           ),
                         ),
+                        SizedBox(
+                          width: 5.0,
+                        ),
                         Expanded(
                           child: Container(
-                            padding:
-                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            padding: const EdgeInsets.all(0.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +163,7 @@ class _PharmacyState extends State<Pharmacy> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.center}',
+                                        '${DepartmentObj.ar_name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -185,20 +173,22 @@ class _PharmacyState extends State<Pharmacy> {
                                         ),
                                       ),
                                     ),
-                                    SmoothStarRating(
-                                      rating: 3.2,
-                                      size: 15,
-                                      color: Colors.yellow,
-                                      borderColor: Colors.grey,
-                                      starCount: 5,
-                                    )
+                                    Text(
+                                      '  سعر الإستشارة ${DepartmentObj.consult_price} ريال ',
+                                      style: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.green,
+                                        fontFamily: ArabicFonts.Cairo,
+                                        package: 'google_fonts_arabic',
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${CentersObj.description}",
+                                        '${widget.name}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
@@ -206,35 +196,37 @@ class _PharmacyState extends State<Pharmacy> {
                                         ),
                                       ),
                                     ),
-                                    TextIcon(
-                                      size: 10.0,
-                                      text: "من ${CentersObj.open_at}",
-                                      icon: Icons.access_time,
-                                      isColumn: false,
-                                    ),
                                   ],
-                                ),
-                                SizedBox(
-                                  height: 5.0,
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.type_ar}',
+                                        'عدد المقابلات اليومية ${DepartmentObj.visits_per_day}',
                                         style: TextStyle(
-                                          fontSize: 8.0,
+                                          fontSize: 10.0,
                                           color: Colors.pinkAccent,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
                                       ),
                                     ),
-                                    TextIcon(
-                                      size: 10.0,
-                                      text: "الى ${CentersObj.close_at}",
-                                      icon: Icons.timer_off,
-                                      isColumn: false,
+                                    new MaterialButton(
+                                      onPressed: () {},
+                                      color: Color(0xFFE91E63),
+                                      splashColor: Color(0xFFFF1B5E),
+                                      textColor: Colors.white,
+                                      elevation: 0.2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: new Text("إستشارة",
+                                            style: TextStyle(
+                                                fontFamily: ArabicFonts.Cairo,
+                                                package: 'google_fonts_arabic',
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white)),
+                                      ),
                                     ),
                                   ],
                                 )
@@ -249,49 +241,20 @@ class _PharmacyState extends State<Pharmacy> {
               ),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CentersDetails(
-                        center_id: CentersObj.center_id,
-                        address: CentersObj.address,
-                        longitude: CentersObj.longitude,
-                        latitude: CentersObj.latitude,
-                        center: CentersObj.center,
-                        description: CentersObj.description,
-                        logo: CentersObj.logo,
-                        profile: CentersObj.profile,
-                        open_at: CentersObj.open_at,
-                        close_at: CentersObj.close_at,
-                        website: CentersObj.website,
-                        facebook: CentersObj.facebook,
-                        google: CentersObj.google,
-                        twitter: CentersObj.twitter,
-                        linkedin: CentersObj.linkedin,
-                        administrator: CentersObj.administrator,
-                        identity_number: CentersObj.identity_number,
-                        email: CentersObj.email,
-                        phone: CentersObj.phone,
-                        join_date: CentersObj.join_date,
-                        Expire_from: CentersObj.Expire_from,
-                        Expire_to: CentersObj.Expire_to,
-                        license: CentersObj.license,
-                        country_ar: CentersObj.country_ar,
-                        country_en: CentersObj.country_en,
-                        country_code: CentersObj.country_code,
-                        city_ar: CentersObj.city_ar,
-                        city_en: CentersObj.city_en,
-                        type_ar: CentersObj.type_ar,
-                        type_en: CentersObj.type_en,
-                      ),
-                ),
-              );
+//              Navigator.push(
+//                context,
+//                MaterialPageRoute(
+//                  builder: (context) => CenterServices(
+//                      center_id: DepartmentObj.center_id,
+//                      specialist_ar_name: DepartmentObj.ar_name),
+//                ),
+//              );
             },
           );
         },
       );
     } else {
-      CentersList = Center(
+      DepartmentList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -299,7 +262,7 @@ class _PharmacyState extends State<Pharmacy> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد مستشفيات !',
+              'عفواً لا توجد أقسام !',
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -311,12 +274,12 @@ class _PharmacyState extends State<Pharmacy> {
         ),
       );
     }
-    return CentersList;
+    return DepartmentList;
   }
 
   void filterSearchResults(String query) {
     List<String> dummySearchList = List<String>();
-    dummySearchList.addAll(_duplicateItems);
+    dummySearchList.addAll(duplicateItems);
     if (query.isNotEmpty) {
       List<String> dummyListData = List<String>();
       dummySearchList.forEach((item) {
@@ -325,14 +288,14 @@ class _PharmacyState extends State<Pharmacy> {
         }
       });
       setState(() {
-        _items.clear();
-        _items.addAll(dummyListData);
+        items.clear();
+        items.addAll(dummyListData);
       });
       return;
     } else {
       setState(() {
-        _items.clear();
-        _items.addAll(_duplicateItems);
+        items.clear();
+        items.addAll(duplicateItems);
       });
     }
   }

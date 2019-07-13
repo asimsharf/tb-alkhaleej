@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:tb_alkhalij/Account/UserProfile.dart';
 import 'package:tb_alkhalij/Language/Language.dart';
-import 'package:tb_alkhalij/Screen/Centers.dart';
-import 'package:tb_alkhalij/Screen/CentersDetails.dart';
-import 'package:tb_alkhalij/Screen/Clinic.dart';
-import 'package:tb_alkhalij/Screen/ClinicDetails.dart';
-import 'package:tb_alkhalij/Screen/Consulting.dart';
-import 'package:tb_alkhalij/Screen/ConsultingDetails.dart';
-import 'package:tb_alkhalij/Screen/Filter.dart';
-import 'package:tb_alkhalij/Screen/pharmacy.dart';
-import 'package:tb_alkhalij/Screen/pharmacyDetails.dart';
+import 'package:tb_alkhalij/Screen/Centers/Centers.dart';
+import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
+import 'package:tb_alkhalij/Screen/Clinic/Clinic.dart';
+import 'package:tb_alkhalij/Screen/Clinic/ClinicDetails.dart';
+import 'package:tb_alkhalij/Screen/Consulting/Consulting.dart';
+import 'package:tb_alkhalij/Screen/Consulting/ConsultingDetails.dart';
+import 'package:tb_alkhalij/Screen/Pharmacy/pharmacy.dart';
+import 'package:tb_alkhalij/Screen/Pharmacy/pharmacyDetails.dart';
+import 'package:tb_alkhalij/Static/Filter.dart';
 import 'package:tb_alkhalij/account/CreateUser.dart';
 import 'package:tb_alkhalij/account/UserLogin.dart';
 import 'package:tb_alkhalij/account/reset/ResetPassword.dart';
@@ -17,6 +17,7 @@ import 'package:tb_alkhalij/account/reset/ResetPassword.dart';
 import '../MainPage.dart';
 import 'About.dart';
 import 'Help.dart';
+import 'maps.dart';
 
 final routes = <String, WidgetBuilder>{
   '/UserLogin': (BuildContext context) => UserLogin(),
@@ -36,4 +37,5 @@ final routes = <String, WidgetBuilder>{
   '/Consulting': (BuildContext context) => Consulting(),
   '/ConsultingDetails': (BuildContext context) => ConsultingDetails(),
   '/Filter': (BuildContext context) => Filter(),
+  '/MapsSample': (BuildContext context) => MapsSample(),
 };

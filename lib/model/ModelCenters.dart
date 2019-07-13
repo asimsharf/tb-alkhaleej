@@ -1,112 +1,104 @@
 class ModelCenters {
-  int center_id;
-  int admin_id;
-  String type_id;
-  String password;
-  String center;
-  String type_ar;
-  String type_en;
-  String description;
-  String administrator;
-  String identity_number;
+  String id;
+  String name;
   String email;
-  String address;
-  String longitude;
-  String latitude;
-  String logo;
-  String profile;
-  String phone;
-  String open_at;
-  String close_at;
-  String website;
-  String facebook;
-  String google;
-  String twitter;
-  String linkedin;
-  String license;
-  String country_ar;
-  String country_en;
-  String country_code;
-  String city_ar;
-  String city_en;
-  String city_id;
-  String admin_join_date;
-  String Expire_from;
-  String Expire_to;
-  String join_date;
+  String description;
+  String close;
+  String open;
+  String lat;
+  String lang;
+  bool isActive;
+  bool inviled;
+  String center_type;
+  Address address;
+  Logo logo;
+  List<String> city;
 
   ModelCenters(
-      {this.center_id,
-      this.admin_id,
-      this.type_id,
-      this.password,
-      this.center,
-      this.type_ar,
-      this.type_en,
-      this.description,
-      this.administrator,
-      this.identity_number,
+      {this.id,
+      this.name,
       this.email,
+      this.description,
+      this.close,
+      this.open,
+      this.isActive,
+      this.inviled,
+      this.lat,
+      this.lang,
+      this.center_type,
       this.address,
-      this.longitude,
-      this.latitude,
       this.logo,
-      this.profile,
-      this.open_at,
-      this.close_at,
-      this.phone,
-      this.website,
-      this.facebook,
-      this.google,
-      this.twitter,
-      this.linkedin,
-      this.license,
-      this.country_ar,
-      this.country_en,
-      this.country_code,
-      this.city_ar,
-      this.city_en,
-      this.city_id,
-      this.admin_join_date,
-      this.Expire_from,
-      this.Expire_to,
-      this.join_date});
+      this.city});
 
   factory ModelCenters.fromJson(Map<String, dynamic> json) {
     return ModelCenters(
-      center_id: json['center_id'] as int,
-      admin_id: json['admin_id'] as int,
-      center: json['center'] as String,
-      type_ar: json['type_ar'] as String,
-      type_en: json['type_en'] as String,
-      description: json['description'] as String,
-      administrator: json['administrator'] as String,
-      identity_number: json['identity_number'] as String,
-      phone: json['phone'] as String,
+      id: json['_id'] as String,
+      name: json['name'] as String,
       email: json['email'] as String,
-      type_id: json['type_id'] as String,
-      address: json['address'] as String,
-      longitude: json['longitude'] as String,
-      latitude: json['latitude'] as String,
-      logo: json['logo'] as String,
-      profile: json['profile'] as String,
-      open_at: json['open_at'] as String,
-      close_at: json['close_at'] as String,
-      website: json['website'] as String,
-      facebook: json['facebook'] as String,
-      google: json['google'] as String,
-      twitter: json['twitter'] as String,
-      linkedin: json['linkedin'] as String,
-      license: json['license'] as String,
-      country_ar: json['country_ar'] as String,
-      country_en: json['country_en'] as String,
-      country_code: json['country_code'] as String,
-      city_ar: json['city_ar'] as String,
-      city_en: json['city_en'] as String,
-      admin_join_date: json['admin_join_date'] as String,
-      Expire_from: json['Expire_from'] as String,
-      Expire_to: json['Expire_to'] as String,
-      join_date: json['join_date'] as String,
+      description: json['description'] as String,
+      close: json['close'] as String,
+      open: json['open'] as String,
+      lat: json['lat'] as String,
+      lang: json['lang'] as String,
+      isActive: json['isActive'] as bool,
+      inviled: json['inviled'] as bool,
+      center_type: json['center_type'] as String,
+      address: Address.fromJson(json['address']),
+      logo: Logo.fromJson(json['logo']),
+      city: City(json['city']),
+    );
+  }
+
+  static List<String> City(city) {
+    List<String> City = new List<String>.from(city);
+    return City;
+  }
+}
+
+class Logo {
+  final String filename;
+  final int size;
+  final String mimetype;
+  final String path;
+  final String originalname;
+  final String url;
+
+  Logo(
+      {this.filename,
+      this.size,
+      this.mimetype,
+      this.path,
+      this.originalname,
+      this.url});
+
+  factory Logo.fromJson(Map<String, dynamic> json) {
+    return Logo(
+      filename: json['filename'] as String,
+      size: json['size'] as int,
+      mimetype: json['mimetype'] as String,
+      path: json['path'] as String,
+      originalname: json['originalname'] as String,
+      url: json['url'] as String,
+    );
+  }
+}
+
+class Address {
+  final String country;
+  final String postcode;
+  final String state;
+  final String street1;
+  final String suburb;
+
+  Address({this.country, this.postcode, this.state, this.street1, this.suburb});
+
+  factory Address.fromJson(Map<String, dynamic> json) {
+    return Address(
+      country: json['country'] as String,
+      postcode: json['postcode'] as String,
+      state: json['state'] as String,
+      street1: json['street1'] as String,
+      suburb: json['suburb'] as String,
     );
   }
 }

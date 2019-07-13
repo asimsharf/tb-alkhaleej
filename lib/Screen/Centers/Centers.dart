@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/CentersDetails.dart';
+import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
 import 'package:tb_alkhalij/model/ModelCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
@@ -26,13 +26,16 @@ class _CentersState extends State<Centers> {
   List<ModelCenters> _modelCenters = <ModelCenters>[];
 
   Future<List<ModelCenters>> getCenters() async {
-    String link = "http://23.111.185.155:4000/takaful/api/center";
+    String link = "http://23.111.185.155:3000/api/centers";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        var rest = data['response'] as List;
+        print(res.body);
+        print('***************');
+        print(data['Centers'][0]['_id']);
+        var rest = data['Centers'] as List;
         _modelCenters = rest
             .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
             .toList();
@@ -115,8 +118,7 @@ class _CentersState extends State<Centers> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          //Navigator.popAndPushNamed(context, '/HomeGoogleMap');
-          Navigator.pushNamed(context, '/HomeGoogleMap');
+          Navigator.pushNamed(context, '/MapsSample');
         },
         child: Icon(
           Icons.location_on,
@@ -159,7 +161,8 @@ class _CentersState extends State<Centers> {
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
-                              image: '${CentersObj.logo}',
+                              image:
+                                  'http://23.111.185.155:3000/uploads/files/${CentersObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -175,7 +178,7 @@ class _CentersState extends State<Centers> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.center}',
+                                        '${CentersObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -199,6 +202,7 @@ class _CentersState extends State<Centers> {
                                     Expanded(
                                       child: Text(
                                         "${CentersObj.description}",
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
@@ -208,7 +212,8 @@ class _CentersState extends State<Centers> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "من ${CentersObj.open_at}",
+                                      text:
+                                          "من ${CentersObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -221,7 +226,7 @@ class _CentersState extends State<Centers> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.type_ar}',
+                                        '${CentersObj.center_type}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -232,7 +237,8 @@ class _CentersState extends State<Centers> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "الى ${CentersObj.close_at}",
+                                      text:
+                                          "الى ${CentersObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -253,36 +259,23 @@ class _CentersState extends State<Centers> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CentersDetails(
-                        center_id: CentersObj.center_id,
-                        address: CentersObj.address,
-                        longitude: CentersObj.longitude,
-                        latitude: CentersObj.latitude,
-                        center: CentersObj.center,
-                        description: CentersObj.description,
-                        logo: CentersObj.logo,
-                        profile: CentersObj.profile,
-                        open_at: CentersObj.open_at,
-                        close_at: CentersObj.close_at,
-                        website: CentersObj.website,
-                        facebook: CentersObj.facebook,
-                        google: CentersObj.google,
-                        twitter: CentersObj.twitter,
-                        linkedin: CentersObj.linkedin,
-                        administrator: CentersObj.administrator,
-                        identity_number: CentersObj.identity_number,
+                        id: CentersObj.id,
+                        name: CentersObj.name,
                         email: CentersObj.email,
-                        phone: CentersObj.phone,
-                        join_date: CentersObj.join_date,
-                        Expire_from: CentersObj.Expire_from,
-                        Expire_to: CentersObj.Expire_to,
-                        license: CentersObj.license,
-                        country_ar: CentersObj.country_ar,
-                        country_en: CentersObj.country_en,
-                        country_code: CentersObj.country_code,
-                        city_ar: CentersObj.city_ar,
-                        city_en: CentersObj.city_en,
-                        type_ar: CentersObj.type_ar,
-                        type_en: CentersObj.type_en,
+                        description: CentersObj.description,
+                        close: CentersObj.close,
+                        open: CentersObj.open,
+                        isActive: CentersObj.isActive,
+                        inviled: CentersObj.inviled,
+                        country: CentersObj.address.country,
+                        postcode: CentersObj.address.postcode,
+                        state: CentersObj.address.state,
+                        street1: CentersObj.address.street1,
+                        suburb: CentersObj.address.suburb,
+                        center_type: CentersObj.center_type,
+                        logo: CentersObj.logo.filename,
+                        lang: CentersObj.lang,
+                        lat: CentersObj.lat,
                       ),
                 ),
               );
