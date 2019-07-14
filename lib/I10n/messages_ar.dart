@@ -68,5 +68,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "about_app": MessageLookupByLibrary.simpleMessage("حول التطبيق"),
         "contact_infos":
             MessageLookupByLibrary.simpleMessage("معلومات الإتصال"),
+    "pharmacy": MessageLookupByLibrary.simpleMessage("الصيدليات"),
+    "center": MessageLookupByLibrary.simpleMessage("المستشفيات"),
+    "clinic": MessageLookupByLibrary.simpleMessage("العيادات"),
+    "consulting": MessageLookupByLibrary.simpleMessage("الإستشارات"),
+    "department": MessageLookupByLibrary.simpleMessage("الأقسام"),
+    "settings": MessageLookupByLibrary.simpleMessage("الإعدادت"),
+    "booking": MessageLookupByLibrary.simpleMessage("الحجوزات"),
+    "insurance": MessageLookupByLibrary.simpleMessage("التأمين"),
       };
 }

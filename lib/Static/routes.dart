@@ -7,6 +7,7 @@ import 'package:tb_alkhalij/Screen/Clinic/Clinic.dart';
 import 'package:tb_alkhalij/Screen/Clinic/ClinicDetails.dart';
 import 'package:tb_alkhalij/Screen/Consulting/Consulting.dart';
 import 'package:tb_alkhalij/Screen/Consulting/ConsultingDetails.dart';
+import 'package:tb_alkhalij/Screen/Insurance/Insurance.dart';
 import 'package:tb_alkhalij/Screen/Pharmacy/pharmacy.dart';
 import 'package:tb_alkhalij/Screen/Pharmacy/pharmacyDetails.dart';
 import 'package:tb_alkhalij/Static/Filter.dart';
@@ -38,4 +39,5 @@ final routes = <String, WidgetBuilder>{
   '/ConsultingDetails': (BuildContext context) => ConsultingDetails(),
   '/Filter': (BuildContext context) => Filter(),
   '/MapsSample': (BuildContext context) => MapsSample(),
+  '/Insurance': (BuildContext context) => Insurance(),
 };

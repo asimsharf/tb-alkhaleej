@@ -6,8 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
-import 'package:tb_alkhalij/model/ModelCenters.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
+import 'package:tb_alkhalij/Screen/Consulting/ConsultingDetails.dart';
+import 'package:tb_alkhalij/model/ModelConsulting.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class Consulting extends StatefulWidget {
@@ -23,30 +24,39 @@ class _ConsultingState extends State<Consulting> {
 
   bool _loading = false;
 
-  List<ModelCenters> _modelCenters = <ModelCenters>[];
+  List<ModelConsulting> _modelConsulting = <ModelConsulting>[];
 
-  Future<List<ModelCenters>> getCenters() async {
-    String link = "http://23.111.185.155:4000/takaful/api/center";
+  Future<List<ModelConsulting>> getConsulting() async {
+    String link = "http://23.111.185.155:3000/api/consulting";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        var rest = data['response'] as List;
-        _modelCenters = rest
-            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+        print('***********************************');
+        print(res.body.toString());
+        print('***********************************');
+        print('***********************************');
+        print(data['consultings'][0]['_id']);
+        print(data['consultings'][0]['email']);
+        print(data['consultings'][0]['name']);
+        print(data['consultings'][0]['inviled']);
+        print('***********************************');
+        var rest = data['consultings'] as List;
+        _modelConsulting = rest
+            .map<ModelConsulting>((rest) => ModelConsulting.fromJson(rest))
             .toList();
         _loading = false;
       }
     });
-    return _modelCenters;
+    return _modelConsulting;
   }
 
   @override
   void initState() {
     super.initState();
     _items.addAll(_duplicateItems);
-    this.getCenters();
+    this.getConsulting();
     setState(() {
       _loading = true;
     });
@@ -54,14 +64,16 @@ class _ConsultingState extends State<Consulting> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldCentersPageKey =
+    final GlobalKey<ScaffoldState> _scaffoldConsultingPageKey =
         new GlobalKey<ScaffoldState>();
 
     return new Scaffold(
-      key: _scaffoldCentersPageKey,
+      key: _scaffoldConsultingPageKey,
       appBar: new AppBar(
         title: Text(
-          "شركات التأمين",
+          Translations
+              .of(context)
+              .consulting,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
@@ -81,7 +93,7 @@ class _ConsultingState extends State<Consulting> {
                 },
                 controller: __editingController,
                 decoration: new InputDecoration(
-                    hintText: "بحث بإسم المشفى...",
+                    hintText: "بحث بإسم الإستشاري...",
                     hintStyle: TextStyle(
                       fontFamily: ArabicFonts.Cairo,
                       package: 'google_fonts_arabic',
@@ -115,8 +127,7 @@ class _ConsultingState extends State<Consulting> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          //Navigator.popAndPushNamed(context, '/HomeGoogleMap');
-          Navigator.pushNamed(context, '/HomeGoogleMap');
+          Navigator.pushNamed(context, '/MapsSample');
         },
         child: Icon(
           Icons.location_on,
@@ -127,15 +138,15 @@ class _ConsultingState extends State<Consulting> {
   }
 
   Widget _buildProductList() {
-    Widget CentersList;
-    if (_modelCenters.length > 0) {
-      CentersList = new ListView.builder(
+    Widget ConsultingList;
+    if (_modelConsulting.length > 0) {
+      ConsultingList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _modelCenters.length,
+        itemCount: _modelConsulting.length,
         itemBuilder: (BuildContext context, index) {
-          final CentersObj = _modelCenters[index];
+          final ConsultingObj = _modelConsulting[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -159,7 +170,9 @@ class _ConsultingState extends State<Consulting> {
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
-                              image: 'assets/logo.png',
+                              image:
+                              'http://23.111.185.155:3000/uploads/files/${ConsultingObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),
@@ -175,7 +188,7 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.name}',
+                                        '${ConsultingObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -198,7 +211,8 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${CentersObj.description}",
+                                        "${ConsultingObj.description}",
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
@@ -208,7 +222,9 @@ class _ConsultingState extends State<Consulting> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "من ${CentersObj.open}",
+                                      text:
+                                      "من ${ConsultingObj.open.substring(
+                                          0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -221,7 +237,7 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        'ar type',
+                                        '${ConsultingObj.center_type}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -232,7 +248,9 @@ class _ConsultingState extends State<Consulting> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "الى ${CentersObj.close}",
+                                      text:
+                                      "الى ${ConsultingObj.close.substring(
+                                          0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -252,7 +270,26 @@ class _ConsultingState extends State<Consulting> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CentersDetails(),
+                  builder: (context) =>
+                      ConsultingDetails(
+                        id: ConsultingObj.id,
+                        name: ConsultingObj.name,
+                        email: ConsultingObj.email,
+                        description: ConsultingObj.description,
+                        close: ConsultingObj.close,
+                        open: ConsultingObj.open,
+                        isActive: ConsultingObj.isActive,
+                        inviled: ConsultingObj.inviled,
+                        country: ConsultingObj.address.country,
+                        postcode: ConsultingObj.address.postcode,
+                        state: ConsultingObj.address.state,
+                        street1: ConsultingObj.address.street1,
+                        suburb: ConsultingObj.address.suburb,
+                        center_type: ConsultingObj.center_type,
+                        logo: ConsultingObj.logo.filename,
+                        lang: ConsultingObj.lang,
+                        lat: ConsultingObj.lat,
+                      ),
                 ),
               );
             },
@@ -260,7 +297,7 @@ class _ConsultingState extends State<Consulting> {
         },
       );
     } else {
-      CentersList = Center(
+      ConsultingList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -268,7 +305,7 @@ class _ConsultingState extends State<Consulting> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد مستشفيات !',
+              'عفواً لا يوجد إستشارين !',
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -280,7 +317,7 @@ class _ConsultingState extends State<Consulting> {
         ),
       );
     }
-    return CentersList;
+    return ConsultingList;
   }
 
   void filterSearchResults(String query) {

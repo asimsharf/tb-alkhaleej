@@ -280,4 +280,60 @@ class Translations {
       name: 'contact_infos',
     );
   }
+
+  String get pharmacy {
+    return Intl.message(
+      'Pharmacy',
+      name: 'pharmacy',
+    );
+  }
+
+  String get center {
+    return Intl.message(
+      'Hospital',
+      name: 'center',
+    );
+  }
+
+  String get clinic {
+    return Intl.message(
+      'Clinic',
+      name: 'clinic',
+    );
+  }
+
+  String get consulting {
+    return Intl.message(
+      'Consult',
+      name: 'consulting',
+    );
+  }
+
+  String get department {
+    return Intl.message(
+      'Department',
+      name: 'department',
+    );
+  }
+
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+    );
+  }
+
+  String get booking {
+    return Intl.message(
+      'Booking',
+      name: 'booking',
+    );
+  }
+
+  String get insurance {
+    return Intl.message(
+      'Insurance',
+      name: 'insurance',
+    );
+  }
 }

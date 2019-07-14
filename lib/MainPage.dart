@@ -5,6 +5,18 @@ import 'package:tb_alkhalij/Language/translation_strings.dart';
 class MainPage extends StatelessWidget {
   MainPage({Key key}) : super(key: key);
 
+//  @override
+//  void initState() {
+//    super.initState();
+//    setState(() {
+//      int count;
+//      if (MediaQuery.of(context).orientation == Orientation.landscape)
+//        count = 4;
+//      else
+//        count = 2;
+//    });
+//  }
+//
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -20,63 +32,68 @@ class MainPage extends StatelessWidget {
                 color: Colors.white)),
       ),
       body: new Container(
-        padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 2.0),
+        padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
         child: GridView.count(
-          crossAxisCount: 3,
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          crossAxisCount: 2,
+          primary: false,
+          mainAxisSpacing: 1.0,
+          crossAxisSpacing: 1.0,
           padding: EdgeInsets.all(3.0),
           children: <Widget>[
-            GestureDetector(
-              child: makeDashboardItem("المستشفبات", Icons.local_hospital),
+            new GestureDetector(
+              child: makeDashboardItem(
+                  Translations
+                      .of(context)
+                      .center, Icons.local_hospital),
               onTap: () {
                 Navigator.pushNamed(context, '/Center');
               },
             ),
-            GestureDetector(
-              child: makeDashboardItem("الصيدليات", Icons.local_pharmacy),
+            new GestureDetector(
+              child: makeDashboardItem(
+                  Translations
+                      .of(context)
+                      .pharmacy, Icons.local_pharmacy),
               onTap: () {
                 Navigator.pushNamed(context, '/Pharmacy');
               },
             ),
-            GestureDetector(
-              child: makeDashboardItem("العيادات", Icons.local_activity),
+            new GestureDetector(
+              child: makeDashboardItem(
+                  Translations
+                      .of(context)
+                      .clinic, Icons.local_activity),
               onTap: () {
                 Navigator.pushNamed(context, '/Clinic');
               },
             ),
-            GestureDetector(
-              child: makeDashboardItem("شركات التأمين", Icons.style),
+            new GestureDetector(
+              child: makeDashboardItem(
+                  Translations
+                      .of(context)
+                      .insurance, Icons.style),
+              onTap: () {
+                Navigator.pushNamed(context, '/Insurance');
+              },
+            ),
+            new GestureDetector(
+              child: makeDashboardItem(
+                  Translations
+                      .of(context)
+                      .consulting, Icons.call_received),
               onTap: () {
                 Navigator.pushNamed(context, '/Consulting');
               },
             ),
-            GestureDetector(
-              child: makeDashboardItem("الإستشارات", Icons.call_received),
-              onTap: () {
-                Navigator.pushNamed(context, '/Consulting');
-              },
-            ),
-            GestureDetector(
-              child: makeDashboardItem("الأطباء", Icons.local_hospital),
-              onTap: () {
-                Navigator.pushNamed(context, '/Doctor');
-              },
-            ),
-            GestureDetector(
-              child: makeDashboardItem("الأخبار", Icons.show_chart),
-              onTap: () {
-                Navigator.pushNamed(context, '/News');
-              },
-            ),
-            GestureDetector(
-              child: makeDashboardItem("الحجوزات", Icons.book),
+            new GestureDetector(
+              child: makeDashboardItem(
+                  Translations
+                      .of(context)
+                      .booking, Icons.book),
               onTap: () {
                 Navigator.pushNamed(context, '/Booking');
-              },
-            ),
-            GestureDetector(
-              child: makeDashboardItem("الإعدادات", Icons.settings),
-              onTap: () {
-                Navigator.pushNamed(context, '/Setting');
               },
             ),
           ],
@@ -286,7 +303,7 @@ class MainPage extends StatelessWidget {
   Card makeDashboardItem(String title, IconData icon) {
     return Card(
         color: Color(0xFF00C4C2),
-        elevation: 20.0,
+        elevation: 3.0,
         margin: new EdgeInsets.all(1.0),
         child: Container(
           decoration: BoxDecoration(
@@ -298,14 +315,14 @@ class MainPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             verticalDirection: VerticalDirection.down,
             children: <Widget>[
-              SizedBox(height: 20.0),
+              SizedBox(height: 15.0),
               Center(
                   child: Icon(
                 icon,
-                size: 40.0,
+                    size: 70.0,
                 color: Colors.white,
               )),
-              SizedBox(height: 18.0),
+              SizedBox(height: 15.0),
               new Center(
                 child: new Text(
                   title,
@@ -314,7 +331,7 @@ class MainPage extends StatelessWidget {
                       fontFamily: ArabicFonts.Cairo,
                       package: 'google_fonts_arabic',
                       fontWeight: FontWeight.bold,
-                      fontSize: 18.0),
+                      fontSize: 20.0),
                 ),
               )
             ],

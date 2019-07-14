@@ -6,8 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
-import 'package:tb_alkhalij/model/ModelCenters.dart';
+import 'package:tb_alkhalij/Screen/Pharmacy/pharmacyDetails.dart';
+import 'package:tb_alkhalij/model/ModelPharmacy.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class Pharmacy extends StatefulWidget {
@@ -23,30 +23,36 @@ class _PharmacyState extends State<Pharmacy> {
 
   bool _loading = false;
 
-  List<ModelCenters> _modelCenters = <ModelCenters>[];
+  List<ModelPharmacy> _modelPharmacy = <ModelPharmacy>[];
 
-  Future<List<ModelCenters>> getCenters() async {
-    String link = "http://23.111.185.155:3000/api/center";
+  Future<List<ModelPharmacy>> getPharmacy() async {
+    String link = "http://23.111.185.155:3000/api/pharmacy";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        var rest = data['response'] as List;
-        _modelCenters = rest
-            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+        print(res.body);
+        print(
+            '******************************************************************************************');
+        print(data['pharmacys'][0]['_id']);
+        print(
+            '******************************************************************************************');
+        var rest = data['pharmacys'] as List;
+        _modelPharmacy = rest
+            .map<ModelPharmacy>((rest) => ModelPharmacy.fromJson(rest))
             .toList();
         _loading = false;
       }
     });
-    return _modelCenters;
+    return _modelPharmacy;
   }
 
   @override
   void initState() {
     super.initState();
     _items.addAll(_duplicateItems);
-    this.getCenters();
+    this.getPharmacy();
     setState(() {
       _loading = true;
     });
@@ -54,11 +60,11 @@ class _PharmacyState extends State<Pharmacy> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldCentersPageKey =
+    final GlobalKey<ScaffoldState> _scaffoldPharmacyPageKey =
         new GlobalKey<ScaffoldState>();
 
     return new Scaffold(
-      key: _scaffoldCentersPageKey,
+      key: _scaffoldPharmacyPageKey,
       appBar: new AppBar(
         title: Text(
           "الصيدليات",
@@ -81,7 +87,7 @@ class _PharmacyState extends State<Pharmacy> {
                 },
                 controller: __editingController,
                 decoration: new InputDecoration(
-                    hintText: "بحث بإسم المشفى...",
+                    hintText: "بحث بإسم الصيدلية...",
                     hintStyle: TextStyle(
                       fontFamily: ArabicFonts.Cairo,
                       package: 'google_fonts_arabic',
@@ -115,8 +121,7 @@ class _PharmacyState extends State<Pharmacy> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          //Navigator.popAndPushNamed(context, '/HomeGoogleMap');
-          Navigator.pushNamed(context, '/HomeGoogleMap');
+          Navigator.pushNamed(context, '/MapsSample');
         },
         child: Icon(
           Icons.location_on,
@@ -127,15 +132,15 @@ class _PharmacyState extends State<Pharmacy> {
   }
 
   Widget _buildProductList() {
-    Widget CentersList;
-    if (_modelCenters.length > 0) {
-      CentersList = new ListView.builder(
+    Widget PharmacyList;
+    if (_modelPharmacy.length > 0) {
+      PharmacyList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _modelCenters.length,
+        itemCount: _modelPharmacy.length,
         itemBuilder: (BuildContext context, index) {
-          final CentersObj = _modelCenters[index];
+          final PharmacyObj = _modelPharmacy[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -159,7 +164,9 @@ class _PharmacyState extends State<Pharmacy> {
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
-                              image: 'assets/logo.png',
+                              image:
+                              'http://23.111.185.155:3000/uploads/files/${PharmacyObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),
@@ -175,7 +182,7 @@ class _PharmacyState extends State<Pharmacy> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.name}',
+                                        '${PharmacyObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -198,7 +205,8 @@ class _PharmacyState extends State<Pharmacy> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${CentersObj.description}",
+                                        "${PharmacyObj.description}",
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
@@ -208,7 +216,8 @@ class _PharmacyState extends State<Pharmacy> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "من ${CentersObj.open}",
+                                      text:
+                                      "من ${PharmacyObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -221,7 +230,7 @@ class _PharmacyState extends State<Pharmacy> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        'ar type',
+                                        '${PharmacyObj.center_type}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -232,7 +241,9 @@ class _PharmacyState extends State<Pharmacy> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "الى ${CentersObj.close}",
+                                      text:
+                                      "الى ${PharmacyObj.close.substring(
+                                          0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -252,7 +263,26 @@ class _PharmacyState extends State<Pharmacy> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CentersDetails(),
+                  builder: (context) =>
+                      PharmacyDetails(
+                        id: PharmacyObj.id,
+                        name: PharmacyObj.name,
+                        email: PharmacyObj.email,
+                        description: PharmacyObj.description,
+                        close: PharmacyObj.close,
+                        open: PharmacyObj.open,
+                        isActive: PharmacyObj.isActive,
+                        inviled: PharmacyObj.inviled,
+                        country: PharmacyObj.address.country,
+                        postcode: PharmacyObj.address.postcode,
+                        state: PharmacyObj.address.state,
+                        street1: PharmacyObj.address.street1,
+                        suburb: PharmacyObj.address.suburb,
+                        center_type: PharmacyObj.center_type,
+                        logo: PharmacyObj.logo.filename,
+                        lang: PharmacyObj.lang,
+                        lat: PharmacyObj.lat,
+                      ),
                 ),
               );
             },
@@ -260,7 +290,7 @@ class _PharmacyState extends State<Pharmacy> {
         },
       );
     } else {
-      CentersList = Center(
+      PharmacyList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -268,7 +298,7 @@ class _PharmacyState extends State<Pharmacy> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد مستشفيات !',
+              'عفواً لا توجد صيدليات !',
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -280,7 +310,7 @@ class _PharmacyState extends State<Pharmacy> {
         ),
       );
     }
-    return CentersList;
+    return PharmacyList;
   }
 
   void filterSearchResults(String query) {

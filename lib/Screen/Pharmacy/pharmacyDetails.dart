@@ -1,81 +1,101 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class PharmacyDetails extends StatefulWidget {
-  int center_id;
-  int admin_id;
-  String address;
-  String center;
-  String longitude;
-  String latitude;
-  String description;
-  String logo;
-  String profile;
-  String join_date;
-  String open_at;
-  String close_at;
-  String website;
-  String facebook;
-  String google;
-  String twitter;
-  String linkedin;
-  String administrator;
-  String identity_number;
-  String phone;
-  String email;
-  String admin_join_date;
-  String Expire_from;
-  String Expire_to;
-  String license;
-  String country_ar;
-  String country_en;
-  String country_code;
-  String city_ar;
-  String city_en;
-  String type_ar;
-  String type_en;
-  PharmacyDetails({
-    this.center_id,
-    this.address,
-    this.latitude,
-    this.longitude,
-    this.center,
-    this.description,
-    this.logo,
-    this.profile,
-    this.join_date,
-    this.open_at,
-    this.close_at,
-    this.website,
-    this.facebook,
-    this.google,
-    this.twitter,
-    this.linkedin,
-    this.admin_id,
-    this.administrator,
-    this.identity_number,
-    this.phone,
+  final String id;
+  final String name;
+  final String email;
+  final String description;
+  final String close;
+  final String open;
+  final String lat;
+  final String lang;
+  final bool isActive;
+  final bool inviled;
+  final String center_type;
+  final String country;
+  final String postcode;
+  final String state;
+  final String street1;
+  final String suburb;
+  final String logo;
+
+  PharmacyDetails({this.id,
+    this.name,
     this.email,
-    this.admin_join_date,
-    this.Expire_from,
-    this.Expire_to,
-    this.license,
-    this.country_ar,
-    this.country_en,
-    this.country_code,
-    this.city_ar,
-    this.city_en,
-    this.type_ar,
-    this.type_en,
-  });
+    this.description,
+    this.close,
+    this.open,
+    this.lang,
+    this.lat,
+    this.isActive,
+    this.inviled,
+    this.country,
+    this.postcode,
+    this.state,
+    this.street1,
+    this.suburb,
+    this.center_type,
+    this.logo});
+
   @override
   _PharmacyDetailsState createState() => _PharmacyDetailsState();
 }
 
 class _PharmacyDetailsState extends State<PharmacyDetails> {
+  final Set<Marker> _markers = Set();
+  final double _zoom = 10;
+  CameraPosition _initialPosition = CameraPosition(target: LatLng(0, -0));
+  MapType _defaultMapType = MapType.normal;
+  Completer<GoogleMapController> _controller = Completer();
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  Future<void> _goToMaps() async {
+    double lat = double.parse(widget.lat) as double;
+    double long = double.parse(widget.lang) as double;
+    GoogleMapController controller = await _controller.future;
+    controller
+        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, long), _zoom));
+    setState(() {
+      _markers.clear();
+      _markers.add(
+        Marker(
+          markerId: MarkerId('${widget.id}'),
+          position: LatLng(lat, long),
+          infoWindow: InfoWindow(
+              title: '${widget.name}', snippet: '${widget.description}'),
+          icon: BitmapDescriptor.defaultMarker,
+        ),
+      );
+    });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    setState(() {
+      _goToMaps();
+    });
+  }
+
+  void _changeMapType() {
+    setState(() {
+      _defaultMapType = _defaultMapType == MapType.normal
+          ? MapType.satellite
+          : MapType.normal;
+    });
+  }
+
   var rating = 1.2;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -92,7 +112,8 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                   FadeInImage.assetNetwork(
                     fit: BoxFit.cover,
                     placeholder: 'assets/logo.png',
-                    image: '${widget.profile}',
+                    image:
+                    'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -148,7 +169,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          widget.center,
+                          widget.name,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 25.0,
@@ -171,7 +192,8 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                       ),
                       Expanded(
                         child: Text(
-                          widget.address,
+                          '${widget.country}, ${widget.postcode}, ${widget
+                              .state}, ${widget.street1}, ${widget.suburb}',
                           style: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             package: 'google_fonts_arabic',
@@ -206,7 +228,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                         ),
                       ),
                       TextIcon(
-                        text: widget.open_at,
+                        text: widget.open.substring(0, 9),
                         icon: Icons.access_time,
                         isColumn: true,
                       ),
@@ -219,7 +241,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          widget.type_ar,
+                          '${widget.center_type}',
                           style: TextStyle(
                             color: Colors.pinkAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -236,83 +258,82 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                   ),
                 ),
                 new Container(
-                    color: Colors.grey,
-                    height: 220.0,
-                    child: Image.network(
-                      'http://blog.praguemorning.cz/wp-content/uploads/2017/01/Schermata-2017-01-20-alle-17.03.08.png',
-                      fit: BoxFit.fill,
-                    )),
+                  height: 400.0,
+                  child: new Stack(
+                    children: <Widget>[
+                      new GoogleMap(
+                        markers: _markers,
+                        mapType: _defaultMapType,
+                        myLocationEnabled: true,
+                        initialCameraPosition: _initialPosition,
+                        onMapCreated: _onMapCreated,
+                        zoomGesturesEnabled: true,
+                        scrollGesturesEnabled: true,
+                        compassEnabled: true,
+                        tiltGesturesEnabled: true,
+                        rotateGesturesEnabled: true,
+                      ),
+                      new Container(
+                        margin: EdgeInsets.only(top: 80, right: 10),
+                        alignment: Alignment.topRight,
+                        child: Column(
+                          children: <Widget>[
+                            FloatingActionButton(
+                                child: Icon(Icons.layers),
+                                elevation: 5,
+                                backgroundColor: Colors.teal[200],
+                                onPressed: () {
+                                  _changeMapType();
+                                  print('Changing the Map Type');
+                                }),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ],
       ),
-      bottomNavigationBar: new Container(
-        color: Colors.white,
-        child: Row(
-          children: <Widget>[
-            new Expanded(
-              child: new MaterialButton(
-                onPressed: () {
+//      bottomNavigationBar: new Container(
+//        color: Colors.white,
+//        child: Row(
+//          children: <Widget>[
+//            new Expanded(
+//              child: new MaterialButton(
+//                onPressed: () {
+////                  Navigator.pushNamed(context, '/Department');
 //                  Navigator.push(
 //                    context,
 //                    MaterialPageRoute(
-//                      builder: (context) => CenterDoctors(
-//                            center_id: widget.center_id,
-//                            center: widget.center,
+//                      builder: (context) => Department(
+//                            id: widget.id,
+//                            name: widget.name,
 //                          ),
 //                    ),
 //                  );
-                },
-                color: Color(0xFFE91E63),
-                splashColor: Color(0xFF009AFF),
-                textColor: Colors.white,
-                elevation: 0.2,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: new Text("الأطباء",
-                      style: TextStyle(
-                          fontFamily: ArabicFonts.Cairo,
-                          fontSize: 20.0,
-                          package: 'google_fonts_arabic',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
-                ),
-              ),
-            ),
-            SizedBox(width: 3.0),
-            new Expanded(
-              child: new MaterialButton(
-                onPressed: () {
-//                  Navigator.push(
-//                    context,
-//                    MaterialPageRoute(
-//                      builder: (context) => CenterDepartment(
-//                            center_id: widget.center_id,
-//                            center: widget.center,
-//                          ),
-//                    ),
-//                  );
-                },
-                color: Color(0xFFE91E63),
-                splashColor: Color(0xFF009AFF),
-                textColor: Colors.white,
-                elevation: 0.2,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: new Text("التخصصات",
-                      style: TextStyle(
-                          fontFamily: ArabicFonts.Cairo,
-                          package: 'google_fonts_arabic',
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+//                },
+//                color: Color(0xFF00C2E7),
+//                splashColor: Color(0xFF009AFF),
+//                textColor: Colors.white,
+//                elevation: 0.2,
+//                child: Padding(
+//                  padding: const EdgeInsets.all(8.0),
+//                  child: new Text("الأقسام",
+//                      style: TextStyle(
+//                          fontFamily: ArabicFonts.Cairo,
+//                          package: 'google_fonts_arabic',
+//                          fontSize: 20.0,
+//                          fontWeight: FontWeight.bold,
+//                          color: Colors.white)),
+//                ),
+//              ),
+//            ),
+//          ],
+//        ),
+//      ),
     );
   }
 
@@ -384,7 +405,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                     child: Container(
                       padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                       decoration: BoxDecoration(
-                        color: Color(0xFFE91E63),
+                        color: Color(0xFF00C2E7),
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(32.0),
                             bottomRight: Radius.circular(32.0)),
@@ -392,11 +413,11 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                       child: Text(
                         "إضافة تقيم",
                         style: TextStyle(
-                            fontFamily: ArabicFonts.Cairo,
-                            package: 'google_fonts_arabic',
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),

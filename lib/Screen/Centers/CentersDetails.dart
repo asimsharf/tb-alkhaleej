@@ -5,7 +5,6 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Screen/Departmen/Department.dart';
-import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class CentersDetails extends StatefulWidget {
   final String id;
@@ -69,10 +68,12 @@ class _CentersDetailsState extends State<CentersDetails> {
       _markers.clear();
       _markers.add(
         Marker(
-            markerId: MarkerId('${widget.id}'),
-            position: LatLng(lat, long),
-            infoWindow: InfoWindow(
-                title: '${widget.name}', snippet: '${widget.description}')),
+          markerId: MarkerId('${widget.id}'),
+          position: LatLng(lat, long),
+          infoWindow: InfoWindow(
+              title: '${widget.name}', snippet: '${widget.description}'),
+          icon: BitmapDescriptor.defaultMarker,
+        ),
       );
     });
   }
@@ -80,7 +81,10 @@ class _CentersDetailsState extends State<CentersDetails> {
   @override
   initState() {
     super.initState();
-    _goToMaps();
+    setState(() {
+      _goToMaps();
+      //_getLocation();
+    });
   }
 
   void _changeMapType() {
@@ -165,7 +169,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          widget.name,
+                          '${widget.name}',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 25.0,
@@ -182,77 +186,19 @@ class _CentersDetailsState extends State<CentersDetails> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.location_on,
-                        size: 20.0,
-                      ),
                       Expanded(
                         child: Text(
-                          '${widget.country}, ${widget.postcode}, ${widget.state}, ${widget.street1}, ${widget.suburb}',
+                          'description',
                           style: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             package: 'google_fonts_arabic',
                           ),
                         ),
                       ),
-                      new FlatButton(
-                        onPressed: () => _ShowRattingAlert(),
-                        child: new Text(
-                          'تقييم',
-                          style: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
-                              color: Color(0xFFE91E63),
-                              fontSize: 20),
-                        ),
-                      ),
                     ],
                   ),
                 ),
-                new Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          widget.description,
-                          style: TextStyle(
-                            fontFamily: ArabicFonts.Cairo,
-                            package: 'google_fonts_arabic',
-                          ),
-                        ),
-                      ),
-                      TextIcon(
-                        text: widget.open.substring(0, 9),
-                        icon: Icons.access_time,
-                        isColumn: true,
-                      ),
-                    ],
-                  ),
-                ),
-                new Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          '${widget.center_type}',
-                          style: TextStyle(
-                            color: Colors.pinkAccent,
-                            fontFamily: ArabicFonts.Cairo,
-                            package: 'google_fonts_arabic',
-                          ),
-                        ),
-                      ),
-                      TextIcon(
-                        text: "${1.5} km",
-                        icon: Icons.location_on,
-                        isColumn: false,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
+                new Container(
                   height: 400.0,
                   child: new Stack(
                     children: <Widget>[
@@ -260,8 +206,13 @@ class _CentersDetailsState extends State<CentersDetails> {
                         markers: _markers,
                         mapType: _defaultMapType,
                         myLocationEnabled: true,
-                        onMapCreated: _onMapCreated,
                         initialCameraPosition: _initialPosition,
+                        onMapCreated: _onMapCreated,
+                        zoomGesturesEnabled: true,
+                        scrollGesturesEnabled: true,
+                        compassEnabled: true,
+                        tiltGesturesEnabled: true,
+                        rotateGesturesEnabled: true,
                       ),
                       new Container(
                         margin: EdgeInsets.only(top: 80, right: 10),

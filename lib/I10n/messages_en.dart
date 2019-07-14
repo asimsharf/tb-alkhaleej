@@ -68,5 +68,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "about_app": MessageLookupByLibrary.simpleMessage("About applicaton"),
         "contact_infos":
             MessageLookupByLibrary.simpleMessage("Contact informations"),
+    "pharmacy": MessageLookupByLibrary.simpleMessage("Pharmacy"),
+    "center": MessageLookupByLibrary.simpleMessage("Hospital"),
+    "clinic": MessageLookupByLibrary.simpleMessage("Clinic"),
+    "consulting": MessageLookupByLibrary.simpleMessage("Consult"),
+    "department": MessageLookupByLibrary.simpleMessage("Department"),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "booking": MessageLookupByLibrary.simpleMessage("Booking"),
+    "insurance": MessageLookupByLibrary.simpleMessage("Insurance"),
       };
 }

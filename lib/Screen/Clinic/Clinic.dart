@@ -6,35 +6,46 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
-import 'package:tb_alkhalij/model/ModelCenters.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
+import 'package:tb_alkhalij/Screen/Clinic/ClinicDetails.dart';
+import 'package:tb_alkhalij/model/ModelClinic.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class Clinic extends StatefulWidget {
   final Widget child;
   Clinic({Key key, this.child}) : super(key: key);
-  _ClinicState createState() => _ClinicState();
+
+  _CentersState createState() => _CentersState();
 }
 
-class _ClinicState extends State<Clinic> {
+class _CentersState extends State<Clinic> {
   TextEditingController __editingController = TextEditingController();
   final _duplicateItems = List<String>.generate(100, (i) => "إسم المركز $i");
   var _items = List<String>();
 
   bool _loading = false;
 
-  List<ModelCenters> _modelCenters = <ModelCenters>[];
+  List<ModelClinic> _modelCenters = <ModelClinic>[];
 
-  Future<List<ModelCenters>> getCenters() async {
-    String link = "http://23.111.185.155:4000/takaful/api/center";
+  Future<List<ModelClinic>> getCenters() async {
+    String link = "http://23.111.185.155:3000/api/clinic";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        var rest = data['response'] as List;
+        print('***********************************');
+        print(res.body.toString());
+        print('***********************************');
+        print('***********************************');
+        print(data['clinic'][0]['_id']);
+        print(data['clinic'][0]['email']);
+        print(data['clinic'][0]['name']);
+        print(data['clinic'][0]['inviled']);
+        print('***********************************');
+        var rest = data['clinic'] as List;
         _modelCenters = rest
-            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+            .map<ModelClinic>((rest) => ModelClinic.fromJson(rest))
             .toList();
         _loading = false;
       }
@@ -61,7 +72,9 @@ class _ClinicState extends State<Clinic> {
       key: _scaffoldCentersPageKey,
       appBar: new AppBar(
         title: Text(
-          "العيادات",
+          Translations
+              .of(context)
+              .clinic,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
@@ -81,7 +94,7 @@ class _ClinicState extends State<Clinic> {
                 },
                 controller: __editingController,
                 decoration: new InputDecoration(
-                    hintText: "بحث بإسم المشفى...",
+                    hintText: "بحث بإسم العياده...",
                     hintStyle: TextStyle(
                       fontFamily: ArabicFonts.Cairo,
                       package: 'google_fonts_arabic',
@@ -115,8 +128,7 @@ class _ClinicState extends State<Clinic> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
-          //Navigator.popAndPushNamed(context, '/HomeGoogleMap');
-          Navigator.pushNamed(context, '/HomeGoogleMap');
+          Navigator.pushNamed(context, '/MapsSample');
         },
         child: Icon(
           Icons.location_on,
@@ -135,7 +147,7 @@ class _ClinicState extends State<Clinic> {
         shrinkWrap: true,
         itemCount: _modelCenters.length,
         itemBuilder: (BuildContext context, index) {
-          final CentersObj = _modelCenters[index];
+          final ClinicObj = _modelCenters[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -159,7 +171,9 @@ class _ClinicState extends State<Clinic> {
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
-                              image: 'assets/logo.png',
+                              image:
+                              'http://23.111.185.155:3000/uploads/files/${ClinicObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),
@@ -175,7 +189,7 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.name}',
+                                        '${ClinicObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -198,7 +212,8 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "this is a login description",
+                                        "${ClinicObj.description}",
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
@@ -208,7 +223,8 @@ class _ClinicState extends State<Clinic> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "من",
+                                      text:
+                                      "من ${ClinicObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -221,7 +237,7 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        'this also type',
+                                        '${ClinicObj.center_type}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -232,7 +248,8 @@ class _ClinicState extends State<Clinic> {
                                     ),
                                     TextIcon(
                                       size: 10.0,
-                                      text: "to",
+                                      text:
+                                      "الى ${ClinicObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -252,7 +269,26 @@ class _ClinicState extends State<Clinic> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CentersDetails(),
+                  builder: (context) =>
+                      ClinicDetails(
+                        id: ClinicObj.id,
+                        name: ClinicObj.name,
+                        email: ClinicObj.email,
+                        description: ClinicObj.description,
+                        close: ClinicObj.close,
+                        open: ClinicObj.open,
+                        isActive: ClinicObj.isActive,
+                        inviled: ClinicObj.inviled,
+                        country: ClinicObj.address.country,
+                        postcode: ClinicObj.address.postcode,
+                        state: ClinicObj.address.state,
+                        street1: ClinicObj.address.street1,
+                        suburb: ClinicObj.address.suburb,
+                        center_type: ClinicObj.center_type,
+                        logo: ClinicObj.logo.filename,
+                        lang: ClinicObj.lang,
+                        lat: ClinicObj.lat,
+                      ),
                 ),
               );
             },
@@ -268,7 +304,7 @@ class _ClinicState extends State<Clinic> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد مستشفيات !',
+              'عفواً لا توجد عيادات !',
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

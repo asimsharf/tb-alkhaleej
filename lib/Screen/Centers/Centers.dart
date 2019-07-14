@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
 import 'package:tb_alkhalij/model/ModelCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
@@ -26,16 +27,22 @@ class _CentersState extends State<Centers> {
   List<ModelCenters> _modelCenters = <ModelCenters>[];
 
   Future<List<ModelCenters>> getCenters() async {
-    String link = "http://23.111.185.155:3000/api/centers";
+    String link = "http://23.111.185.155:3000/api/hospital";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        print(res.body);
-        print('***************');
-        print(data['Centers'][0]['_id']);
-        var rest = data['Centers'] as List;
+        print('***********************************');
+        print(res.body.toString());
+        print('***********************************');
+        print('***********************************');
+        print(data['hospitals'][0]['_id']);
+        print(data['hospitals'][0]['email']);
+        print(data['hospitals'][0]['name']);
+        print(data['hospitals'][0]['inviled']);
+        print('***********************************');
+        var rest = data['hospitals'] as List;
         _modelCenters = rest
             .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
             .toList();
@@ -64,7 +71,9 @@ class _CentersState extends State<Centers> {
       key: _scaffoldCentersPageKey,
       appBar: new AppBar(
         title: Text(
-          "المستشفيات",
+          Translations
+              .of(context)
+              .center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,

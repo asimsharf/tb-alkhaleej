@@ -13,6 +13,7 @@ dependencies:
   video_player: ^0.10.1+2
   google_fonts_arabic: ^1.1.7
   google_maps_flutter: ^0.5.5
+  location: ^2.3.5
   font_awesome_flutter: ^8.0.0
   cupertino_icons: ^0.1.2
   scoped_model: ^1.0.1

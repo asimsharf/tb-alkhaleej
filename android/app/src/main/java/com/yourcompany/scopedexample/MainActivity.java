@@ -1,4 +1,4 @@
-package com.yourcompany.scopedexample;
+package com.tb.alkhaleej;
 
 import android.os.Bundle;
 
