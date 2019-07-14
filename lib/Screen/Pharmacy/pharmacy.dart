@@ -32,12 +32,15 @@ class _PharmacyState extends State<Pharmacy> {
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        print(res.body);
-        print(
-            '******************************************************************************************');
+        print('***********************************');
+        print(res.body.toString());
+        print('***********************************');
+        print('***********************************');
         print(data['pharmacys'][0]['_id']);
-        print(
-            '******************************************************************************************');
+        print(data['pharmacys'][0]['email']);
+        print(data['pharmacys'][0]['name']);
+        print(data['pharmacys'][0]['inviled']);
+        print('***********************************');
         var rest = data['pharmacys'] as List;
         _modelPharmacy = rest
             .map<ModelPharmacy>((rest) => ModelPharmacy.fromJson(rest))

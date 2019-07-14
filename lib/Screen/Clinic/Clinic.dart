@@ -72,9 +72,7 @@ class _CentersState extends State<Clinic> {
       key: _scaffoldCentersPageKey,
       appBar: new AppBar(
         title: Text(
-          Translations
-              .of(context)
-              .clinic,
+          Translations.of(context).clinic,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
@@ -172,8 +170,7 @@ class _CentersState extends State<Clinic> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${ClinicObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/files/${ClinicObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -224,7 +221,7 @@ class _CentersState extends State<Clinic> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "من ${ClinicObj.open.substring(0, 9)}",
+                                          "من ${ClinicObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -249,7 +246,7 @@ class _CentersState extends State<Clinic> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "الى ${ClinicObj.close.substring(0, 9)}",
+                                          "الى ${ClinicObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -269,8 +266,7 @@ class _CentersState extends State<Clinic> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      ClinicDetails(
+                  builder: (context) => ClinicDetails(
                         id: ClinicObj.id,
                         name: ClinicObj.name,
                         email: ClinicObj.email,

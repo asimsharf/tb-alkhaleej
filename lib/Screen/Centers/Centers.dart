@@ -71,9 +71,7 @@ class _CentersState extends State<Centers> {
       key: _scaffoldCentersPageKey,
       appBar: new AppBar(
         title: Text(
-          Translations
-              .of(context)
-              .center,
+          Translations.of(context).center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,

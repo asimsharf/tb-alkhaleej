@@ -71,9 +71,7 @@ class _ConsultingState extends State<Consulting> {
       key: _scaffoldConsultingPageKey,
       appBar: new AppBar(
         title: Text(
-          Translations
-              .of(context)
-              .consulting,
+          Translations.of(context).consulting,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
@@ -171,8 +169,7 @@ class _ConsultingState extends State<Consulting> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${ConsultingObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/files/${ConsultingObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -223,8 +220,7 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "من ${ConsultingObj.open.substring(
-                                          0, 9)}",
+                                          "من ${ConsultingObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -249,8 +245,7 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "الى ${ConsultingObj.close.substring(
-                                          0, 9)}",
+                                          "الى ${ConsultingObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -270,8 +265,7 @@ class _ConsultingState extends State<Consulting> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      ConsultingDetails(
+                  builder: (context) => ConsultingDetails(
                         id: ConsultingObj.id,
                         name: ConsultingObj.name,
                         email: ConsultingObj.email,
