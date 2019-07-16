@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -17,12 +17,64 @@ class Pharmacy extends StatefulWidget {
 }
 
 class _PharmacyState extends State<Pharmacy> {
-  TextEditingController __editingController = TextEditingController();
-  final _duplicateItems = List<String>.generate(100, (i) => "إسم المركز $i");
-  var _items = List<String>();
-
+  //---------------------------------------------------------------
+  final TextEditingController _filter = new TextEditingController();
+  final dio = new Dio();
+  String _searchText = "";
+  List names = new List();
+  Icon _searchIcon = new Icon(
+    Icons.search,
+    color: Colors.white,
+  );
   bool _loading = false;
 
+  void _getPharmacyNames() async {
+    final response = await dio.get('http://23.111.185.155:3000/api/pharmacy');
+    List<ModelPharmacy> tempList = <ModelPharmacy>[];
+    for (int i = 0; i < response.data['pharmacys'].length; i++) {
+      var rest = response.data['pharmacys'] as List;
+      _modelPharmacy = rest
+          .map<ModelPharmacy>((rest) => ModelPharmacy.fromJson(rest))
+          .toList();
+      tempList.add(ModelPharmacy.fromJson(response.data['pharmacys'][i]));
+    }
+    setState(() {
+      if (response.statusCode == 200) {
+        names = tempList;
+        names.shuffle();
+        _modelPharmacy = names;
+      }
+    });
+  }
+
+  //---------------------------------------------------------------
+  Widget _appBarTitle = new Text(
+//    Translations.of(context).insurance,
+    'الصيدليات',
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: ArabicFonts.Cairo,
+      color: Colors.white,
+      package: 'google_fonts_arabic',
+    ),
+  );
+
+  _PharmacyState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          _modelPharmacy = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
+//---------------------------------------------------------------
   List<ModelPharmacy> _modelPharmacy = <ModelPharmacy>[];
 
   Future<List<ModelPharmacy>> getPharmacy() async {
@@ -32,15 +84,7 @@ class _PharmacyState extends State<Pharmacy> {
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        print('***********************************');
-        print(res.body.toString());
-        print('***********************************');
-        print('***********************************');
-        print(data['pharmacys'][0]['_id']);
-        print(data['pharmacys'][0]['email']);
-        print(data['pharmacys'][0]['name']);
-        print(data['pharmacys'][0]['inviled']);
-        print('***********************************');
+
         var rest = data['pharmacys'] as List;
         _modelPharmacy = rest
             .map<ModelPharmacy>((rest) => ModelPharmacy.fromJson(rest))
@@ -54,8 +98,8 @@ class _PharmacyState extends State<Pharmacy> {
   @override
   void initState() {
     super.initState();
-    _items.addAll(_duplicateItems);
     this.getPharmacy();
+    this._getPharmacyNames();
     setState(() {
       _loading = true;
     });
@@ -63,58 +107,11 @@ class _PharmacyState extends State<Pharmacy> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldPharmacyPageKey =
-        new GlobalKey<ScaffoldState>();
-
     return new Scaffold(
-      key: _scaffoldPharmacyPageKey,
-      appBar: new AppBar(
-        title: Text(
-          "الصيدليات",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-          ),
-        ),
-      ),
+      appBar: _buildBar(context),
       body: new Container(
         child: new Column(
           children: <Widget>[
-            new Padding(
-              padding: const EdgeInsets.only(
-                  top: 0.0, right: 0.0, left: 0.0, bottom: 5.0),
-              child: new TextField(
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-                controller: __editingController,
-                decoration: new InputDecoration(
-                    hintText: "بحث بإسم الصيدلية...",
-                    hintStyle: TextStyle(
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                    ),
-                    suffixIcon: InkWell(
-                      splashColor: Color(0xFF009AFF),
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/Filter');
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.slidersH,
-                        color: Color(0xFF00C2E7),
-                      ),
-                    ),
-                    prefixIcon: GestureDetector(
-                      child: Icon(
-                        Icons.search,
-                        color: Color(0xFF00C2E7),
-                      ),
-                      onTap: () {},
-                    ),
-                    border: UnderlineInputBorder()),
-              ),
-            ),
             new Expanded(
                 child: _loading
                     ? new Center(child: new CircularProgressIndicator())
@@ -122,21 +119,24 @@ class _PharmacyState extends State<Pharmacy> {
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/MapsSample');
-        },
-        child: Icon(
-          Icons.location_on,
-        ),
-        backgroundColor: Color(0xFF00C2E7),
-      ),
     );
   }
 
   Widget _buildProductList() {
     Widget PharmacyList;
     if (_modelPharmacy.length > 0) {
+      if (!(_searchText.isEmpty)) {
+        List<ModelPharmacy> tempList = <ModelPharmacy>[];
+        for (int i = 0; i < _modelPharmacy.length; i++) {
+          if (_modelPharmacy[i]
+              .name
+              .toLowerCase()
+              .contains(_searchText.toLowerCase())) {
+            tempList.add(_modelPharmacy[i]);
+          }
+        }
+        _modelPharmacy = tempList;
+      }
       PharmacyList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
@@ -176,7 +176,7 @@ class _PharmacyState extends State<Pharmacy> {
                         Expanded(
                           child: Container(
                             padding:
-                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            const EdgeInsets.only(left: 5.0, right: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,26 +316,52 @@ class _PharmacyState extends State<Pharmacy> {
     return PharmacyList;
   }
 
-  void filterSearchResults(String query) {
-    List<String> dummySearchList = List<String>();
-    dummySearchList.addAll(_duplicateItems);
-    if (query.isNotEmpty) {
-      List<String> dummyListData = List<String>();
-      dummySearchList.forEach((item) {
-        if (item.contains(query)) {
-          dummyListData.add(item);
-        }
-      });
-      setState(() {
-        _items.clear();
-        _items.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        _items.clear();
-        _items.addAll(_duplicateItems);
-      });
-    }
+  Widget _buildBar(BuildContext context) {
+    return new AppBar(
+      centerTitle: true,
+      title: _appBarTitle,
+      leading: new IconButton(
+        icon: _searchIcon,
+        onPressed: _searchPressed,
+      ),
+    );
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          controller: _filter,
+          decoration: new InputDecoration(
+            prefixIcon: new Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            hintText: 'بحث بإسم الصيدلية...',
+            hintStyle: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white),
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(
+          Icons.search,
+          color: Colors.white,
+        );
+        this._appBarTitle = new Text(
+          'الصيدليات',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: ArabicFonts.Cairo,
+            color: Colors.white,
+            package: 'google_fonts_arabic',
+          ),
+        );
+        _modelPharmacy = names;
+        _filter.clear();
+      }
+    });
   }
 }

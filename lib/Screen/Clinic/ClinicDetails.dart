@@ -104,6 +104,17 @@ class _CentersDetailsState extends State<ClinicDetails> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            title: Text(
+              widget.name,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: ArabicFonts.Cairo,
+                  package: 'google_fonts_arabic',
+                  color: Colors.white),
+            ),
+            centerTitle: true,
             pinned: true,
             floating: false,
             expandedHeight: 256,

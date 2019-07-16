@@ -12,6 +12,7 @@ class _AboutState extends State<About> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           Translations.of(context).about_app,
           style: TextStyle(

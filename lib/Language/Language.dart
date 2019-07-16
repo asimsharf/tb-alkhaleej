@@ -14,14 +14,15 @@ class _LanguageState extends State<Language> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: Text(
             Translations.of(context).select_language,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-            ),
+                fontWeight: FontWeight.bold,
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white),
           ),
         ),
         body: new ScopedModelDescendant<AppModel>(

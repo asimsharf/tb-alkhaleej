@@ -319,7 +319,7 @@ class MainPage extends StatelessWidget {
               Center(
                   child: Icon(
                 icon,
-                    size: 70.0,
+                    size: 105.0,
                 color: Colors.white,
               )),
               SizedBox(height: 15.0),

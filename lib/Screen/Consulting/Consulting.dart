@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Consulting/ConsultingDetails.dart';
 import 'package:tb_alkhalij/model/ModelConsulting.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
@@ -18,14 +17,66 @@ class Consulting extends StatefulWidget {
 }
 
 class _ConsultingState extends State<Consulting> {
-  TextEditingController __editingController = TextEditingController();
-  final _duplicateItems = List<String>.generate(100, (i) => "إسم المركز $i");
-  var _items = List<String>();
-
+  //---------------------------------------------------------------
+  final TextEditingController _filter = new TextEditingController();
+  final dio = new Dio();
+  String _searchText = "";
+  List names = new List();
+  Icon _searchIcon = new Icon(
+    Icons.search,
+    color: Colors.white,
+  );
   bool _loading = false;
 
-  List<ModelConsulting> _modelConsulting = <ModelConsulting>[];
+  void _getConsultingsNames() async {
+    final response = await dio.get('http://23.111.185.155:3000/api/consulting');
+    List<ModelConsulting> tempList = <ModelConsulting>[];
+    for (int i = 0; i < response.data['consultings'].length; i++) {
+      var rest = response.data['consultings'] as List;
+      _modelConsulting = rest
+          .map<ModelConsulting>((rest) => ModelConsulting.fromJson(rest))
+          .toList();
+      tempList.add(ModelConsulting.fromJson(response.data['consultings'][i]));
+    }
+    setState(() {
+      if (response.statusCode == 200) {
+        names = tempList;
+        names.shuffle();
+        _modelConsulting = names;
+      }
+    });
+  }
 
+  //---------------------------------------------------------------
+  Widget _appBarTitle = new Text(
+//    Translations.of(context).insurance,
+    'الإستشارين',
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: ArabicFonts.Cairo,
+      color: Colors.white,
+      package: 'google_fonts_arabic',
+    ),
+  );
+
+  _ConsultingState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          _modelConsulting = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
+//---------------------------------------------------------------
+
+  List<ModelConsulting> _modelConsulting = <ModelConsulting>[];
   Future<List<ModelConsulting>> getConsulting() async {
     String link = "http://23.111.185.155:3000/api/consulting";
     var res = await http
@@ -33,15 +84,7 @@ class _ConsultingState extends State<Consulting> {
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        print('***********************************');
-        print(res.body.toString());
-        print('***********************************');
-        print('***********************************');
-        print(data['consultings'][0]['_id']);
-        print(data['consultings'][0]['email']);
-        print(data['consultings'][0]['name']);
-        print(data['consultings'][0]['inviled']);
-        print('***********************************');
+
         var rest = data['consultings'] as List;
         _modelConsulting = rest
             .map<ModelConsulting>((rest) => ModelConsulting.fromJson(rest))
@@ -55,8 +98,8 @@ class _ConsultingState extends State<Consulting> {
   @override
   void initState() {
     super.initState();
-    _items.addAll(_duplicateItems);
     this.getConsulting();
+    this._getConsultingsNames();
     setState(() {
       _loading = true;
     });
@@ -64,58 +107,11 @@ class _ConsultingState extends State<Consulting> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldConsultingPageKey =
-        new GlobalKey<ScaffoldState>();
-
     return new Scaffold(
-      key: _scaffoldConsultingPageKey,
-      appBar: new AppBar(
-        title: Text(
-          Translations.of(context).consulting,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-          ),
-        ),
-      ),
+      appBar: _buildBar(context),
       body: new Container(
         child: new Column(
           children: <Widget>[
-            new Padding(
-              padding: const EdgeInsets.only(
-                  top: 0.0, right: 0.0, left: 0.0, bottom: 5.0),
-              child: new TextField(
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-                controller: __editingController,
-                decoration: new InputDecoration(
-                    hintText: "بحث بإسم الإستشاري...",
-                    hintStyle: TextStyle(
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                    ),
-                    suffixIcon: InkWell(
-                      splashColor: Color(0xFF009AFF),
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/Filter');
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.slidersH,
-                        color: Color(0xFF00C2E7),
-                      ),
-                    ),
-                    prefixIcon: GestureDetector(
-                      child: Icon(
-                        Icons.search,
-                        color: Color(0xFF00C2E7),
-                      ),
-                      onTap: () {},
-                    ),
-                    border: UnderlineInputBorder()),
-              ),
-            ),
             new Expanded(
                 child: _loading
                     ? new Center(child: new CircularProgressIndicator())
@@ -123,21 +119,24 @@ class _ConsultingState extends State<Consulting> {
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/MapsSample');
-        },
-        child: Icon(
-          Icons.location_on,
-        ),
-        backgroundColor: Color(0xFF00C2E7),
-      ),
     );
   }
 
   Widget _buildProductList() {
     Widget ConsultingList;
     if (_modelConsulting.length > 0) {
+      if (!(_searchText.isEmpty)) {
+        List<ModelConsulting> tempList = <ModelConsulting>[];
+        for (int i = 0; i < _modelConsulting.length; i++) {
+          if (_modelConsulting[i]
+              .name
+              .toLowerCase()
+              .contains(_searchText.toLowerCase())) {
+            tempList.add(_modelConsulting[i]);
+          }
+        }
+        _modelConsulting = tempList;
+      }
       ConsultingList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
@@ -169,14 +168,14 @@ class _ConsultingState extends State<Consulting> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                                  'http://23.111.185.155:3000/uploads/files/${ConsultingObj.logo.filename}',
+                              'http://23.111.185.155:3000/uploads/files/${ConsultingObj.logo.filename}',
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             padding:
-                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            const EdgeInsets.only(left: 5.0, right: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +219,7 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                          "من ${ConsultingObj.open.substring(0, 9)}",
+                                      "من ${ConsultingObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -245,7 +244,7 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                          "الى ${ConsultingObj.close.substring(0, 9)}",
+                                      "الى ${ConsultingObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -266,24 +265,24 @@ class _ConsultingState extends State<Consulting> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ConsultingDetails(
-                        id: ConsultingObj.id,
-                        name: ConsultingObj.name,
-                        email: ConsultingObj.email,
-                        description: ConsultingObj.description,
-                        close: ConsultingObj.close,
-                        open: ConsultingObj.open,
-                        isActive: ConsultingObj.isActive,
-                        inviled: ConsultingObj.inviled,
-                        country: ConsultingObj.address.country,
-                        postcode: ConsultingObj.address.postcode,
-                        state: ConsultingObj.address.state,
-                        street1: ConsultingObj.address.street1,
-                        suburb: ConsultingObj.address.suburb,
-                        center_type: ConsultingObj.center_type,
-                        logo: ConsultingObj.logo.filename,
-                        lang: ConsultingObj.lang,
-                        lat: ConsultingObj.lat,
-                      ),
+                    id: ConsultingObj.id,
+                    name: ConsultingObj.name,
+                    email: ConsultingObj.email,
+                    description: ConsultingObj.description,
+                    close: ConsultingObj.close,
+                    open: ConsultingObj.open,
+                    isActive: ConsultingObj.isActive,
+                    inviled: ConsultingObj.inviled,
+                    country: ConsultingObj.address.country,
+                    postcode: ConsultingObj.address.postcode,
+                    state: ConsultingObj.address.state,
+                    street1: ConsultingObj.address.street1,
+                    suburb: ConsultingObj.address.suburb,
+                    center_type: ConsultingObj.center_type,
+                    logo: ConsultingObj.logo.filename,
+                    lang: ConsultingObj.lang,
+                    lat: ConsultingObj.lat,
+                  ),
                 ),
               );
             },
@@ -314,26 +313,52 @@ class _ConsultingState extends State<Consulting> {
     return ConsultingList;
   }
 
-  void filterSearchResults(String query) {
-    List<String> dummySearchList = List<String>();
-    dummySearchList.addAll(_duplicateItems);
-    if (query.isNotEmpty) {
-      List<String> dummyListData = List<String>();
-      dummySearchList.forEach((item) {
-        if (item.contains(query)) {
-          dummyListData.add(item);
-        }
-      });
-      setState(() {
-        _items.clear();
-        _items.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        _items.clear();
-        _items.addAll(_duplicateItems);
-      });
-    }
+  Widget _buildBar(BuildContext context) {
+    return new AppBar(
+      centerTitle: true,
+      title: _appBarTitle,
+      leading: new IconButton(
+        icon: _searchIcon,
+        onPressed: _searchPressed,
+      ),
+    );
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          controller: _filter,
+          decoration: new InputDecoration(
+            prefixIcon: new Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            hintText: 'بحث بإسم الإستشاري...',
+            hintStyle: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white),
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(
+          Icons.search,
+          color: Colors.white,
+        );
+        this._appBarTitle = new Text(
+          'الإستشارين',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: ArabicFonts.Cairo,
+            color: Colors.white,
+            package: 'google_fonts_arabic',
+          ),
+        );
+        _modelConsulting = names;
+        _filter.clear();
+      }
+    });
   }
 }

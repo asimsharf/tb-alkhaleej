@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
 import 'package:tb_alkhalij/model/ModelCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
@@ -18,14 +17,66 @@ class Centers extends StatefulWidget {
 }
 
 class _CentersState extends State<Centers> {
-  TextEditingController __editingController = TextEditingController();
-  final _duplicateItems = List<String>.generate(100, (i) => "إسم المركز $i");
-  var _items = List<String>();
-
+  //---------------------------------------------------------------
+  final TextEditingController _filter = new TextEditingController();
+  final dio = new Dio();
+  String _searchText = "";
+  List names = new List();
+  Icon _searchIcon = new Icon(
+    Icons.search,
+    color: Colors.white,
+  );
   bool _loading = false;
 
-  List<ModelCenters> _modelCenters = <ModelCenters>[];
+  void _getCenterNames() async {
+    final response = await dio.get('http://23.111.185.155:3000/api/hospital');
+    List<ModelCenters> tempList = <ModelCenters>[];
+    for (int i = 0; i < response.data['hospitals'].length; i++) {
+      var rest = response.data['hospitals'] as List;
+      _modelCenters = rest
+          .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+          .toList();
+      tempList.add(ModelCenters.fromJson(response.data['hospitals'][i]));
+    }
+    setState(() {
+      if (response.statusCode == 200) {
+        names = tempList;
+        names.shuffle();
+        _modelCenters = names;
+      }
+    });
+  }
 
+  //---------------------------------------------------------------
+  Widget _appBarTitle = new Text(
+//    Translations.of(context).insurance,
+    'المستشفيات',
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: ArabicFonts.Cairo,
+      color: Colors.white,
+      package: 'google_fonts_arabic',
+    ),
+  );
+
+  _CentersState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          _modelCenters = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
+//---------------------------------------------------------------
+
+  List<ModelCenters> _modelCenters = <ModelCenters>[];
   Future<List<ModelCenters>> getCenters() async {
     String link = "http://23.111.185.155:3000/api/hospital";
     var res = await http
@@ -33,15 +84,7 @@ class _CentersState extends State<Centers> {
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        print('***********************************');
-        print(res.body.toString());
-        print('***********************************');
-        print('***********************************');
-        print(data['hospitals'][0]['_id']);
-        print(data['hospitals'][0]['email']);
-        print(data['hospitals'][0]['name']);
-        print(data['hospitals'][0]['inviled']);
-        print('***********************************');
+
         var rest = data['hospitals'] as List;
         _modelCenters = rest
             .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
@@ -55,8 +98,8 @@ class _CentersState extends State<Centers> {
   @override
   void initState() {
     super.initState();
-    _items.addAll(_duplicateItems);
     this.getCenters();
+    this._getCenterNames();
     setState(() {
       _loading = true;
     });
@@ -64,58 +107,11 @@ class _CentersState extends State<Centers> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldCentersPageKey =
-        new GlobalKey<ScaffoldState>();
-
     return new Scaffold(
-      key: _scaffoldCentersPageKey,
-      appBar: new AppBar(
-        title: Text(
-          Translations.of(context).center,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-          ),
-        ),
-      ),
+      appBar: _buildBar(context),
       body: new Container(
         child: new Column(
           children: <Widget>[
-            new Padding(
-              padding: const EdgeInsets.only(
-                  top: 0.0, right: 0.0, left: 0.0, bottom: 5.0),
-              child: new TextField(
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-                controller: __editingController,
-                decoration: new InputDecoration(
-                    hintText: "بحث بإسم المشفى...",
-                    hintStyle: TextStyle(
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                    ),
-                    suffixIcon: InkWell(
-                      splashColor: Color(0xFF009AFF),
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/Filter');
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.slidersH,
-                        color: Color(0xFF00C2E7),
-                      ),
-                    ),
-                    prefixIcon: GestureDetector(
-                      child: Icon(
-                        Icons.search,
-                        color: Color(0xFF00C2E7),
-                      ),
-                      onTap: () {},
-                    ),
-                    border: UnderlineInputBorder()),
-              ),
-            ),
             new Expanded(
                 child: _loading
                     ? new Center(child: new CircularProgressIndicator())
@@ -123,21 +119,24 @@ class _CentersState extends State<Centers> {
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/MapsSample');
-        },
-        child: Icon(
-          Icons.location_on,
-        ),
-        backgroundColor: Color(0xFF00C2E7),
-      ),
     );
   }
 
   Widget _buildProductList() {
     Widget CentersList;
     if (_modelCenters.length > 0) {
+      if (!(_searchText.isEmpty)) {
+        List<ModelCenters> tempList = <ModelCenters>[];
+        for (int i = 0; i < _modelCenters.length; i++) {
+          if (_modelCenters[i]
+              .name
+              .toLowerCase()
+              .contains(_searchText.toLowerCase())) {
+            tempList.add(_modelCenters[i]);
+          }
+        }
+        _modelCenters = tempList;
+      }
       CentersList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
@@ -169,14 +168,14 @@ class _CentersState extends State<Centers> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                                  'http://23.111.185.155:3000/uploads/files/${CentersObj.logo.filename}',
+                              'http://23.111.185.155:3000/uploads/files/${CentersObj.logo.filename}',
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             padding:
-                                const EdgeInsets.only(left: 5.0, right: 5.0),
+                            const EdgeInsets.only(left: 5.0, right: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +219,7 @@ class _CentersState extends State<Centers> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                          "من ${CentersObj.open.substring(0, 9)}",
+                                      "من ${CentersObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -245,7 +244,7 @@ class _CentersState extends State<Centers> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                          "الى ${CentersObj.close.substring(0, 9)}",
+                                      "الى ${CentersObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -266,24 +265,24 @@ class _CentersState extends State<Centers> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CentersDetails(
-                        id: CentersObj.id,
-                        name: CentersObj.name,
-                        email: CentersObj.email,
-                        description: CentersObj.description,
-                        close: CentersObj.close,
-                        open: CentersObj.open,
-                        isActive: CentersObj.isActive,
-                        inviled: CentersObj.inviled,
-                        country: CentersObj.address.country,
-                        postcode: CentersObj.address.postcode,
-                        state: CentersObj.address.state,
-                        street1: CentersObj.address.street1,
-                        suburb: CentersObj.address.suburb,
-                        center_type: CentersObj.center_type,
-                        logo: CentersObj.logo.filename,
-                        lang: CentersObj.lang,
-                        lat: CentersObj.lat,
-                      ),
+                    id: CentersObj.id,
+                    name: CentersObj.name,
+                    email: CentersObj.email,
+                    description: CentersObj.description,
+                    close: CentersObj.close,
+                    open: CentersObj.open,
+                    isActive: CentersObj.isActive,
+                    inviled: CentersObj.inviled,
+                    country: CentersObj.address.country,
+                    postcode: CentersObj.address.postcode,
+                    state: CentersObj.address.state,
+                    street1: CentersObj.address.street1,
+                    suburb: CentersObj.address.suburb,
+                    center_type: CentersObj.center_type,
+                    logo: CentersObj.logo.filename,
+                    lang: CentersObj.lang,
+                    lat: CentersObj.lat,
+                  ),
                 ),
               );
             },
@@ -314,26 +313,52 @@ class _CentersState extends State<Centers> {
     return CentersList;
   }
 
-  void filterSearchResults(String query) {
-    List<String> dummySearchList = List<String>();
-    dummySearchList.addAll(_duplicateItems);
-    if (query.isNotEmpty) {
-      List<String> dummyListData = List<String>();
-      dummySearchList.forEach((item) {
-        if (item.contains(query)) {
-          dummyListData.add(item);
-        }
-      });
-      setState(() {
-        _items.clear();
-        _items.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        _items.clear();
-        _items.addAll(_duplicateItems);
-      });
-    }
+  Widget _buildBar(BuildContext context) {
+    return new AppBar(
+      centerTitle: true,
+      title: _appBarTitle,
+      leading: new IconButton(
+        icon: _searchIcon,
+        onPressed: _searchPressed,
+      ),
+    );
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          controller: _filter,
+          decoration: new InputDecoration(
+            prefixIcon: new Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            hintText: 'بحث بإسم الصيدلية...',
+            hintStyle: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white),
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(
+          Icons.search,
+          color: Colors.white,
+        );
+        this._appBarTitle = new Text(
+          'الصيدليات',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: ArabicFonts.Cairo,
+            color: Colors.white,
+            package: 'google_fonts_arabic',
+          ),
+        );
+        _modelCenters = names;
+        _filter.clear();
+      }
+    });
   }
 }

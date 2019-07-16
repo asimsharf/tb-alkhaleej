@@ -103,6 +103,17 @@ class _CentersDetailsState extends State<CentersDetails> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            title: Text(
+              widget.name,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: ArabicFonts.Cairo,
+                  package: 'google_fonts_arabic',
+                  color: Colors.white),
+            ),
+            centerTitle: true,
             pinned: true,
             floating: false,
             expandedHeight: 256,
@@ -114,7 +125,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     fit: BoxFit.cover,
                     placeholder: 'assets/logo.png',
                     image:
-                        'http://23.111.185.155:3000/uploads/files/${widget.logo}',
+                    'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -305,7 +316,6 @@ class _CentersDetailsState extends State<CentersDetails> {
             new Expanded(
               child: new MaterialButton(
                 onPressed: () {
-//                  Navigator.pushNamed(context, '/Department');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -402,9 +412,12 @@ class _CentersDetailsState extends State<CentersDetails> {
                       maxLines: 8,
                     ),
                   ),
-                  InkWell(
+                  new InkWell(
+                    onTap: () {
+                      print("You just taped the Ratting buttom");
+                    },
                     child: Container(
-                      padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                       decoration: BoxDecoration(
                         color: Color(0xFF00C2E7),
                         borderRadius: BorderRadius.only(
@@ -417,6 +430,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
                           fontSize: 20.0,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.center,

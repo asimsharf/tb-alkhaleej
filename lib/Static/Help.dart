@@ -35,6 +35,7 @@ class _HelpState extends State<Help>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(Translations.of(context).contact_infos,
             style: TextStyle(
                 color: Colors.white,

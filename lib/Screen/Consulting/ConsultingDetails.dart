@@ -104,6 +104,17 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            title: Text(
+              widget.name,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: ArabicFonts.Cairo,
+                  package: 'google_fonts_arabic',
+                  color: Colors.white),
+            ),
+            centerTitle: true,
             pinned: true,
             floating: false,
             expandedHeight: 256,
@@ -306,7 +317,6 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
             new Expanded(
               child: new MaterialButton(
                 onPressed: () {
-//                  Navigator.pushNamed(context, '/Department');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -404,7 +414,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                       maxLines: 8,
                     ),
                   ),
-                  InkWell(
+                  new InkWell(
                     child: Container(
                       padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                       decoration: BoxDecoration(

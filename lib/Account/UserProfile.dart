@@ -30,6 +30,7 @@ class _UserProfileState extends State<UserProfile>
                 color: Colors.white,
               ),
             ),
+            centerTitle: true,
             pinned: true,
             floating: false,
             expandedHeight: 256,

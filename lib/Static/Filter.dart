@@ -16,6 +16,7 @@ class _FilterState extends State<Filter> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        centerTitle: true,
         title: new Text("فلترة على حسب",
             style: TextStyle(
                 fontFamily: ArabicFonts.Cairo,

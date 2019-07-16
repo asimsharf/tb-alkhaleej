@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/model/ModelDepartment.dart';
@@ -16,11 +15,6 @@ class Department extends StatefulWidget {
 }
 
 class _DepartmentState extends State<Department> {
-  TextEditingController editingController = TextEditingController();
-  final duplicateItems =
-      List<String>.generate(100, (i) => " الدكتور علي بن حجاج$i");
-  var items = List<String>();
-
   bool loading = false;
   List<ModelDepartment> _Model_Department = <ModelDepartment>[];
   Future<List<ModelDepartment>> getCenters() async {
@@ -43,7 +37,6 @@ class _DepartmentState extends State<Department> {
 
   @override
   void initState() {
-    items.addAll(duplicateItems);
     super.initState();
     this.getCenters();
     setState(() {
@@ -55,6 +48,7 @@ class _DepartmentState extends State<Department> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
+        centerTitle: true,
         title: Text(
           'أقسام ${widget.name}',
           style: TextStyle(
@@ -67,40 +61,6 @@ class _DepartmentState extends State<Department> {
       body: Container(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 0.0, right: 0.0, left: 0.0, bottom: 5.0),
-              child: TextField(
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-                controller: editingController,
-                decoration: InputDecoration(
-                    hintText: "بحث بإسم القسم...",
-                    hintStyle: TextStyle(
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                    ),
-                    suffixIcon: InkWell(
-                      splashColor: Color(0xFFD04668),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/Filter');
-                      },
-                      child: Icon(
-                        FontAwesomeIcons.slidersH,
-                        color: Color(0xFF00C2E7),
-                      ),
-                    ),
-                    prefixIcon: GestureDetector(
-                      child: Icon(
-                        Icons.search,
-                        color: Color(0xFFE91E63),
-                      ),
-                      onTap: () {},
-                    ),
-                    border: UnderlineInputBorder()),
-              ),
-            ),
             Expanded(
                 child: loading
                     ? Center(child: CircularProgressIndicator())
@@ -275,28 +235,5 @@ class _DepartmentState extends State<Department> {
       );
     }
     return DepartmentList;
-  }
-
-  void filterSearchResults(String query) {
-    List<String> dummySearchList = List<String>();
-    dummySearchList.addAll(duplicateItems);
-    if (query.isNotEmpty) {
-      List<String> dummyListData = List<String>();
-      dummySearchList.forEach((item) {
-        if (item.contains(query)) {
-          dummyListData.add(item);
-        }
-      });
-      setState(() {
-        items.clear();
-        items.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        items.clear();
-        items.addAll(duplicateItems);
-      });
-    }
   }
 }
