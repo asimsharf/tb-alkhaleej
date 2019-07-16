@@ -22,14 +22,37 @@ class SplashScreenPage extends StatelessWidget {
               fontSize: 40.0,
               fontFamily: ArabicFonts.Cairo,
               package: 'google_fonts_arabic',
-              fontWeight: FontWeight.bold)),
+              fontWeight: FontWeight.bold,
+              shadows: <Shadow>[
+                Shadow(
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 3.0,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                Shadow(
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 8.0,
+                  color: Color.fromARGB(125, 0, 0, 255),
+                ),
+              ])),
       loadingText: Text("يتم التحميل الأن...",
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-          )),
+              color: Colors.white,
+              fontSize: 20.0,
+              fontFamily: ArabicFonts.Cairo,
+              package: 'google_fonts_arabic',
+              shadows: <Shadow>[
+                Shadow(
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 3.0,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                Shadow(
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 8.0,
+                  color: Color.fromARGB(125, 0, 0, 255),
+                ),
+              ])),
       styleTextUnderTheLoader: new TextStyle(),
       onClick: () => print("Tb Alkhalij"),
     );

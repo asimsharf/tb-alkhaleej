@@ -5,18 +5,18 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/Pharmacy/pharmacyDetails.dart';
-import 'package:tb_alkhalij/model/ModelPharmacy.dart';
-import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
+import 'package:tb_alkhalij/Screen/Insurance/InsuranceDetails.dart';
+import 'package:tb_alkhalij/model/ModelInsurance.dart';
 
-class Pharmacy extends StatefulWidget {
+class Insurance extends StatefulWidget {
   final Widget child;
-  Pharmacy({Key key, this.child}) : super(key: key);
-  _PharmacyState createState() => _PharmacyState();
+
+  Insurance({Key key, this.child}) : super(key: key);
+
+  _InsuranceState createState() => _InsuranceState();
 }
 
-class _PharmacyState extends State<Pharmacy> {
+class _InsuranceState extends State<Insurance> {
   //---------------------------------------------------------------
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio();
@@ -28,29 +28,49 @@ class _PharmacyState extends State<Pharmacy> {
   );
   bool _loading = false;
 
-  void _getPharmacyNames() async {
-    final response = await dio.get('http://23.111.185.155:3000/api/pharmacy');
-    List<ModelPharmacy> tempList = <ModelPharmacy>[];
-    for (int i = 0; i < response.data['pharmacys'].length; i++) {
-      var rest = response.data['pharmacys'] as List;
-      _modelPharmacy = rest
-          .map<ModelPharmacy>((rest) => ModelPharmacy.fromJson(rest))
+  void _getInsuranceNames() async {
+    final response = await dio.get('http://23.111.185.155:3000/api/insurances');
+    List<ModelInsurance> tempList = <ModelInsurance>[];
+    for (int i = 0; i < response.data['committee'].length; i++) {
+      var rest = response.data['committee'] as List;
+      _modelInsurance = rest
+          .map<ModelInsurance>((rest) => ModelInsurance.fromJson(rest))
           .toList();
-      tempList.add(ModelPharmacy.fromJson(response.data['pharmacys'][i]));
+      tempList.add(ModelInsurance.fromJson(response.data['committee'][i]));
     }
     setState(() {
       if (response.statusCode == 200) {
         names = tempList;
         names.shuffle();
-        _modelPharmacy = names;
+        _modelInsurance = names;
       }
     });
+  }
+
+//---------------------------------------------------------------
+  List<ModelInsurance> _modelInsurance = <ModelInsurance>[];
+
+  Future<List<ModelInsurance>> getInsurance() async {
+    String link = "http://23.111.185.155:3000/api/insurances";
+    var res = await http
+        .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
+    setState(() {
+      if (res.statusCode == 200) {
+        var data = json.decode(res.body);
+        var rest = data['committee'] as List;
+        _modelInsurance = rest
+            .map<ModelInsurance>((rest) => ModelInsurance.fromJson(rest))
+            .toList();
+        _loading = false;
+      }
+    });
+    return _modelInsurance;
   }
 
   //---------------------------------------------------------------
   Widget _appBarTitle = new Text(
 //    Translations.of(context).insurance,
-    'الصيدليات',
+    'شركات التأمين',
     style: TextStyle(
         fontWeight: FontWeight.bold,
         fontFamily: ArabicFonts.Cairo,
@@ -70,12 +90,12 @@ class _PharmacyState extends State<Pharmacy> {
         ]),
   );
 
-  _PharmacyState() {
+  _InsuranceState() {
     _filter.addListener(() {
       if (_filter.text.isEmpty) {
         setState(() {
           _searchText = "";
-          _modelPharmacy = names;
+          _modelInsurance = names;
         });
       } else {
         setState(() {
@@ -86,31 +106,11 @@ class _PharmacyState extends State<Pharmacy> {
   }
 
 //---------------------------------------------------------------
-  List<ModelPharmacy> _modelPharmacy = <ModelPharmacy>[];
-
-  Future<List<ModelPharmacy>> getPharmacy() async {
-    String link = "http://23.111.185.155:3000/api/pharmacy";
-    var res = await http
-        .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
-    setState(() {
-      if (res.statusCode == 200) {
-        var data = json.decode(res.body);
-
-        var rest = data['pharmacys'] as List;
-        _modelPharmacy = rest
-            .map<ModelPharmacy>((rest) => ModelPharmacy.fromJson(rest))
-            .toList();
-        _loading = false;
-      }
-    });
-    return _modelPharmacy;
-  }
-
   @override
   void initState() {
     super.initState();
-    this.getPharmacy();
-    this._getPharmacyNames();
+    this.getInsurance();
+    this._getInsuranceNames();
     setState(() {
       _loading = true;
     });
@@ -134,27 +134,28 @@ class _PharmacyState extends State<Pharmacy> {
   }
 
   Widget _buildProductList() {
-    Widget PharmacyList;
-    if (_modelPharmacy.length > 0) {
+    Widget CentersList;
+    if (_modelInsurance.length > 0) {
       if (!(_searchText.isEmpty)) {
-        List<ModelPharmacy> tempList = <ModelPharmacy>[];
-        for (int i = 0; i < _modelPharmacy.length; i++) {
-          if (_modelPharmacy[i]
+        List<ModelInsurance> tempList = <ModelInsurance>[];
+        for (int i = 0; i < _modelInsurance.length; i++) {
+          if (_modelInsurance[i]
               .name
               .toLowerCase()
               .contains(_searchText.toLowerCase())) {
-            tempList.add(_modelPharmacy[i]);
+            tempList.add(_modelInsurance[i]);
           }
         }
-        _modelPharmacy = tempList;
+        _modelInsurance = tempList;
       }
-      PharmacyList = new ListView.builder(
+
+      CentersList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
-        itemExtent: 114.0,
+        itemExtent: 70.0,
         shrinkWrap: true,
-        itemCount: _modelPharmacy.length,
-        itemBuilder: (BuildContext context, index) {
-          final PharmacyObj = _modelPharmacy[index];
+        itemCount: names == null ? 0 : _modelInsurance.length,
+        itemBuilder: (BuildContext context, int index) {
+          final InsuranceObj = _modelInsurance[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -165,29 +166,28 @@ class _PharmacyState extends State<Pharmacy> {
                 padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 //This is the list view search result
                 child: Container(
-                  height: 140.0,
+                  height: 70.0,
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Row(
                       children: <Widget>[
                         Container(
-                          height: 100.0,
-                          width: 90.0,
+                          height: 50.0,
+                          width: 50.0,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${PharmacyObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/insurance/${InsuranceObj.logo.filename}',
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             padding:
-                            const EdgeInsets.only(left: 5.0, right: 5.0),
+                                const EdgeInsets.only(left: 20.0, right: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,73 +196,18 @@ class _PharmacyState extends State<Pharmacy> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${PharmacyObj.name}',
+                                        '${InsuranceObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize: 20.0,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
                                       ),
                                     ),
-                                    SmoothStarRating(
-                                      rating: 3.2,
-                                      size: 15,
-                                      color: Colors.yellow,
-                                      borderColor: Colors.grey,
-                                      starCount: 5,
-                                    )
                                   ],
                                 ),
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Text(
-                                        "${PharmacyObj.description}",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 8.0,
-                                          fontFamily: ArabicFonts.Cairo,
-                                          package: 'google_fonts_arabic',
-                                        ),
-                                      ),
-                                    ),
-                                    TextIcon(
-                                      size: 10.0,
-                                      text:
-                                      "من ${PharmacyObj.open.substring(0, 9)}",
-                                      icon: Icons.access_time,
-                                      isColumn: false,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Text(
-                                        '${PharmacyObj.center_type}',
-                                        style: TextStyle(
-                                          fontSize: 8.0,
-                                          color: Colors.pinkAccent,
-                                          fontFamily: ArabicFonts.Cairo,
-                                          package: 'google_fonts_arabic',
-                                        ),
-                                      ),
-                                    ),
-                                    TextIcon(
-                                      size: 10.0,
-                                      text:
-                                      "الى ${PharmacyObj.close.substring(
-                                          0, 9)}",
-                                      icon: Icons.timer_off,
-                                      isColumn: false,
-                                    ),
-                                  ],
-                                )
                               ],
                             ),
                           ),
@@ -277,25 +222,10 @@ class _PharmacyState extends State<Pharmacy> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      PharmacyDetails(
-                        id: PharmacyObj.id,
-                        name: PharmacyObj.name,
-                        email: PharmacyObj.email,
-                        description: PharmacyObj.description,
-                        close: PharmacyObj.close,
-                        open: PharmacyObj.open,
-                        isActive: PharmacyObj.isActive,
-                        inviled: PharmacyObj.inviled,
-                        country: PharmacyObj.address.country,
-                        postcode: PharmacyObj.address.postcode,
-                        state: PharmacyObj.address.state,
-                        street1: PharmacyObj.address.street1,
-                        suburb: PharmacyObj.address.suburb,
-                        center_type: PharmacyObj.center_type,
-                        logo: PharmacyObj.logo.filename,
-                        lang: PharmacyObj.lang,
-                        lat: PharmacyObj.lat,
+                  builder: (context) => InsuranceDetails(
+                        id: InsuranceObj.id,
+                        name: InsuranceObj.name,
+                        logo: InsuranceObj.logo.filename,
                       ),
                 ),
               );
@@ -304,7 +234,7 @@ class _PharmacyState extends State<Pharmacy> {
         },
       );
     } else {
-      PharmacyList = Center(
+      CentersList = new Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -312,7 +242,7 @@ class _PharmacyState extends State<Pharmacy> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد صيدليات !',
+              'عفواً لا توجد مستشفيات !',
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -324,7 +254,7 @@ class _PharmacyState extends State<Pharmacy> {
         ),
       );
     }
-    return PharmacyList;
+    return CentersList;
   }
 
   Widget _buildBar(BuildContext context) {
@@ -349,7 +279,7 @@ class _PharmacyState extends State<Pharmacy> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: 'بحث بإسم الصيدلية...',
+            hintText: 'بحث بإسم شركة التأمين...',
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -362,7 +292,7 @@ class _PharmacyState extends State<Pharmacy> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          'الصيدليات',
+          'شركات التأمين',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
@@ -370,7 +300,7 @@ class _PharmacyState extends State<Pharmacy> {
             package: 'google_fonts_arabic',
           ),
         );
-        _modelPharmacy = names;
+        _modelInsurance = names;
         _filter.clear();
       }
     });

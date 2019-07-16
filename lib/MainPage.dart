@@ -29,7 +29,19 @@ class MainPage extends StatelessWidget {
                 package: 'google_fonts_arabic',
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
-                color: Colors.white)),
+                color: Colors.white,
+                shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(3.0, 3.0),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  Shadow(
+                    offset: Offset(3.0, 3.0),
+                    blurRadius: 8.0,
+                    color: Color.fromARGB(125, 0, 0, 255),
+                  ),
+                ])),
       ),
       body: new Container(
         padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0),
@@ -121,7 +133,19 @@ class MainPage extends StatelessWidget {
                       fontFamily: ArabicFonts.Cairo,
                       fontSize: 18.0,
                       package: 'google_fonts_arabic',
-                      color: Colors.white),
+                      color: Colors.white,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(3.0, 3.0),
+                          blurRadius: 3.0,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        Shadow(
+                          offset: Offset(3.0, 3.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(125, 0, 0, 255),
+                        ),
+                      ]),
                 ),
               ),
               accountEmail: new Text(
@@ -130,7 +154,19 @@ class MainPage extends StatelessWidget {
                     fontSize: 14.0,
                     fontFamily: ArabicFonts.Cairo,
                     package: 'google_fonts_arabic',
-                    color: Colors.white),
+                    color: Colors.white,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 3.0,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 8.0,
+                        color: Color.fromARGB(125, 0, 0, 255),
+                      ),
+                    ]),
               ),
               currentAccountPicture: new CircleAvatar(
                 backgroundColor: new Color(0xFF00C2E7),
@@ -157,13 +193,30 @@ class MainPage extends StatelessWidget {
                   size: 20.0,
                 ),
               ),
-              title: Text(Translations.of(context).home,
-                  style: TextStyle(
-                      color: Color(0xFF37505D),
-                      fontFamily: ArabicFonts.Cairo,
-                      fontWeight: FontWeight.bold,
-                      package: 'google_fonts_arabic',
-                      fontSize: 20.0)),
+              title: Text(
+                Translations
+                    .of(context)
+                    .home,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: ArabicFonts.Cairo,
+                  fontWeight: FontWeight.bold,
+                  package: 'google_fonts_arabic',
+                  fontSize: 20.0,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 3.0,
+                      color: Colors.black,
+                    ),
+                    Shadow(
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 8.0,
+                      color: Colors.black38,
+                    ),
+                  ],
+                ),
+              ),
               onTap: () {
                 Navigator.of(context).pop();
               },
@@ -180,11 +233,24 @@ class MainPage extends StatelessWidget {
               ),
               title: Text(Translations.of(context).profile,
                   style: TextStyle(
-                      color: Color(0xFF37505D),
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0)),
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                    fontSize: 20.0,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  )),
               onTap: () {
                 Navigator.popAndPushNamed(context, '/UserProfile');
               },
@@ -201,11 +267,24 @@ class MainPage extends StatelessWidget {
               ),
               title: Text("Offers",
                   style: TextStyle(
-                      color: Color(0xFF37505D),
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0)),
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                    fontSize: 20.0,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  )),
               onTap: () {
                 Navigator.popAndPushNamed(context, '/CenterOffers');
               },
@@ -222,11 +301,24 @@ class MainPage extends StatelessWidget {
               ),
               title: Text(Translations.of(context).lang,
                   style: TextStyle(
-                      color: Color(0xFF37505D),
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0)),
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                    fontSize: 20.0,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  )),
               onTap: () {
                 Navigator.popAndPushNamed(context, '/Language');
               },
@@ -246,11 +338,24 @@ class MainPage extends StatelessWidget {
                 ),
                 title: Text(Translations.of(context).login,
                     style: TextStyle(
-                        color: Color(0xFF37505D),
-                        fontFamily: ArabicFonts.Cairo,
-                        fontWeight: FontWeight.bold,
-                        package: 'google_fonts_arabic',
-                        fontSize: 20.0)),
+                      color: Colors.white,
+                      fontFamily: ArabicFonts.Cairo,
+                      fontWeight: FontWeight.bold,
+                      package: 'google_fonts_arabic',
+                      fontSize: 20.0,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 3.0,
+                          color: Colors.black,
+                        ),
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 8.0,
+                          color: Colors.black38,
+                        ),
+                      ],
+                    )),
                 onTap: () {
                   Navigator.popAndPushNamed(context, '/UserLogin');
                 }),
@@ -266,11 +371,24 @@ class MainPage extends StatelessWidget {
                 ),
                 title: Text(Translations.of(context).support,
                     style: TextStyle(
-                        color: Color(0xFF37505D),
-                        fontFamily: ArabicFonts.Cairo,
-                        fontWeight: FontWeight.bold,
-                        package: 'google_fonts_arabic',
-                        fontSize: 20.0)),
+                      color: Colors.white,
+                      fontFamily: ArabicFonts.Cairo,
+                      fontWeight: FontWeight.bold,
+                      package: 'google_fonts_arabic',
+                      fontSize: 20.0,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 3.0,
+                          color: Colors.black,
+                        ),
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 8.0,
+                          color: Colors.black38,
+                        ),
+                      ],
+                    )),
                 onTap: () {
                   Navigator.of(context).pushNamed('/Help');
                 }),
@@ -286,11 +404,24 @@ class MainPage extends StatelessWidget {
                 ),
                 title: Text(Translations.of(context).about,
                     style: TextStyle(
-                        color: Color(0xFF37505D),
-                        fontFamily: ArabicFonts.Cairo,
-                        fontWeight: FontWeight.bold,
-                        package: 'google_fonts_arabic',
-                        fontSize: 20.0)),
+                      color: Colors.white,
+                      fontFamily: ArabicFonts.Cairo,
+                      fontWeight: FontWeight.bold,
+                      package: 'google_fonts_arabic',
+                      fontSize: 20.0,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 3.0,
+                          color: Colors.black,
+                        ),
+                        Shadow(
+                          offset: Offset(2.0, 2.0),
+                          blurRadius: 8.0,
+                          color: Colors.black38,
+                        ),
+                      ],
+                    )),
                 onTap: () {
                   Navigator.of(context).pushNamed('/About');
                 }),
@@ -331,7 +462,19 @@ class MainPage extends StatelessWidget {
                       fontFamily: ArabicFonts.Cairo,
                       package: 'google_fonts_arabic',
                       fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
+                      fontSize: 20.0,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(3.0, 3.0),
+                          blurRadius: 3.0,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        Shadow(
+                          offset: Offset(3.0, 3.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(125, 0, 0, 255),
+                        ),
+                      ]),
                 ),
               )
             ],

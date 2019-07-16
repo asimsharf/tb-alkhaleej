@@ -1,103 +1,42 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/Clinic/ClinicDetails.dart';
-import 'package:tb_alkhalij/model/ModelClinic.dart';
+import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
+import 'package:tb_alkhalij/model/ModelCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
-class Clinic extends StatefulWidget {
-  final Widget child;
-  Clinic({Key key, this.child}) : super(key: key);
+class InsuranceDetails extends StatefulWidget {
+  final String id;
+  final String name;
+  final String logo;
 
-  _ClinicState createState() => _ClinicState();
+  InsuranceDetails({this.id, this.name, this.logo});
+
+  @override
+  _InsuranceDetailsState createState() => _InsuranceDetailsState();
 }
 
-class _ClinicState extends State<Clinic> {
-  //---------------------------------------------------------------
-  final TextEditingController _filter = new TextEditingController();
-  final dio = new Dio();
-  String _searchText = "";
-  List names = new List();
-  Icon _searchIcon = new Icon(
-    Icons.search,
-    color: Colors.white,
-  );
+class _InsuranceDetailsState extends State<InsuranceDetails> {
   bool _loading = false;
 
-  void _getClinicNames() async {
-    final response = await dio.get('http://23.111.185.155:3000/api/clinic');
-    List<ModelClinic> tempList = <ModelClinic>[];
-    for (int i = 0; i < response.data['clinic'].length; i++) {
-      var rest = response.data['clinic'] as List;
-      _modelCenters =
-          rest.map<ModelClinic>((rest) => ModelClinic.fromJson(rest)).toList();
-      tempList.add(ModelClinic.fromJson(response.data['clinic'][i]));
-    }
-    setState(() {
-      if (response.statusCode == 200) {
-        names = tempList;
-        names.shuffle();
-        _modelCenters = names;
-      }
-    });
-  }
+  List<ModelCenters> _modelCenters = <ModelCenters>[];
 
-  //---------------------------------------------------------------
-  Widget _appBarTitle = new Text(
-//    Translations.of(context).insurance,
-    'العيادات',
-    style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontFamily: ArabicFonts.Cairo,
-        color: Colors.white,
-        package: 'google_fonts_arabic',
-        shadows: <Shadow>[
-          Shadow(
-            offset: Offset(3.0, 3.0),
-            blurRadius: 3.0,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ),
-          Shadow(
-            offset: Offset(3.0, 3.0),
-            blurRadius: 8.0,
-            color: Color.fromARGB(125, 0, 0, 255),
-          ),
-        ]),
-  );
-
-  _ClinicState() {
-    _filter.addListener(() {
-      if (_filter.text.isEmpty) {
-        setState(() {
-          _searchText = "";
-          _modelCenters = names;
-        });
-      } else {
-        setState(() {
-          _searchText = _filter.text;
-        });
-      }
-    });
-  }
-
-//---------------------------------------------------------------
-
-  List<ModelClinic> _modelCenters = <ModelClinic>[];
-  Future<List<ModelClinic>> getCenters() async {
-    String link = "http://23.111.185.155:3000/api/clinic";
+  Future<List<ModelCenters>> getCenters() async {
+    String link =
+        "http://23.111.185.155:3000/api/insurances/${widget.id}/centers";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        var rest = data['clinic'] as List;
+
+        var rest = data['Centers'] as List;
         _modelCenters = rest
-            .map<ModelClinic>((rest) => ModelClinic.fromJson(rest))
+            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
             .toList();
         _loading = false;
       }
@@ -109,7 +48,6 @@ class _ClinicState extends State<Clinic> {
   void initState() {
     super.initState();
     this.getCenters();
-    this._getClinicNames();
     setState(() {
       _loading = true;
     });
@@ -118,16 +56,119 @@ class _ClinicState extends State<Clinic> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: _buildBar(context),
-      body: new Container(
-        child: new Column(
-          children: <Widget>[
-            new Expanded(
-                child: _loading
-                    ? new Center(child: new CircularProgressIndicator())
-                    : _buildProductList()),
-          ],
-        ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            title: Text(
+              widget.name,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: ArabicFonts.Cairo,
+                  package: 'google_fonts_arabic',
+                  color: Colors.white),
+            ),
+            centerTitle: true,
+            pinned: true,
+            floating: false,
+            expandedHeight: 256,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  FadeInImage.assetNetwork(
+                    fit: BoxFit.cover,
+                    placeholder: 'assets/logo.png',
+                    image:
+                        'http://23.111.185.155:3000/uploads/insurance/${widget.logo}',
+                  ),
+                  const DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: <Color>[Colors.black54, Color(0x00000000)],
+                          stops: [0.0, 2.0],
+                          begin: FractionalOffset.bottomCenter,
+                          end: FractionalOffset.topCenter,
+                          tileMode: TileMode.mirror),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    left: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: [0.7, 0.9],
+                          colors: [
+                            Colors.white10,
+                            Colors.white12,
+                          ],
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      //color: Color.fromRGBO(255, 255, 255, 0.5),
+                      child: Text(
+                        widget.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          new SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                new Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          widget.name,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: ArabicFonts.Cairo,
+                            package: 'google_fonts_arabic',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                new Container(
+                  height: 400.0,
+                  child: new Stack(
+                    children: <Widget>[
+                      new Column(
+                        children: <Widget>[
+                          new Expanded(
+                              child: _loading
+                                  ? new Center(
+                                      child: new CircularProgressIndicator())
+                                  : _buildProductList()),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -135,25 +176,13 @@ class _ClinicState extends State<Clinic> {
   Widget _buildProductList() {
     Widget CentersList;
     if (_modelCenters.length > 0) {
-      if (!(_searchText.isEmpty)) {
-        List<ModelClinic> tempList = <ModelClinic>[];
-        for (int i = 0; i < _modelCenters.length; i++) {
-          if (_modelCenters[i]
-              .name
-              .toLowerCase()
-              .contains(_searchText.toLowerCase())) {
-            tempList.add(_modelCenters[i]);
-          }
-        }
-        _modelCenters = tempList;
-      }
       CentersList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
         itemCount: _modelCenters.length,
         itemBuilder: (BuildContext context, index) {
-          final ClinicObj = _modelCenters[index];
+          final CentersObj = _modelCenters[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -178,15 +207,14 @@ class _ClinicState extends State<Clinic> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${ClinicObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/files/${CentersObj.logo.filename}',
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             padding:
-                            const EdgeInsets.only(left: 5.0, right: 5.0),
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,7 +223,7 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ClinicObj.name}',
+                                        '${CentersObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -218,7 +246,7 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${ClinicObj.description}",
+                                        "${CentersObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 8.0,
@@ -230,7 +258,7 @@ class _ClinicState extends State<Clinic> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "من ${ClinicObj.open.substring(0, 9)}",
+                                          "من ${CentersObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -243,7 +271,7 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ClinicObj.center_type}',
+                                        '${CentersObj.center_type}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -255,7 +283,7 @@ class _ClinicState extends State<Clinic> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "الى ${ClinicObj.close.substring(0, 9)}",
+                                          "الى ${CentersObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -275,25 +303,25 @@ class _ClinicState extends State<Clinic> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ClinicDetails(
-                    id: ClinicObj.id,
-                    name: ClinicObj.name,
-                    email: ClinicObj.email,
-                    description: ClinicObj.description,
-                    close: ClinicObj.close,
-                    open: ClinicObj.open,
-                    isActive: ClinicObj.isActive,
-                    inviled: ClinicObj.inviled,
-                    country: ClinicObj.address.country,
-                    postcode: ClinicObj.address.postcode,
-                    state: ClinicObj.address.state,
-                    street1: ClinicObj.address.street1,
-                    suburb: ClinicObj.address.suburb,
-                    center_type: ClinicObj.center_type,
-                    logo: ClinicObj.logo.filename,
-                    lang: ClinicObj.lang,
-                    lat: ClinicObj.lat,
-                  ),
+                  builder: (context) => CentersDetails(
+                        id: CentersObj.id,
+                        name: CentersObj.name,
+                        email: CentersObj.email,
+                        description: CentersObj.description,
+                        close: CentersObj.close,
+                        open: CentersObj.open,
+                        isActive: CentersObj.isActive,
+                        inviled: CentersObj.inviled,
+                        country: CentersObj.address.country,
+                        postcode: CentersObj.address.postcode,
+                        state: CentersObj.address.state,
+                        street1: CentersObj.address.street1,
+                        suburb: CentersObj.address.suburb,
+                        center_type: CentersObj.center_type,
+                        logo: CentersObj.logo.filename,
+                        lang: CentersObj.lang,
+                        lat: CentersObj.lat,
+                      ),
                 ),
               );
             },
@@ -309,7 +337,7 @@ class _ClinicState extends State<Clinic> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد عيادات !',
+              'عفواً التأمين غير مستخدم  !',
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -322,54 +350,5 @@ class _ClinicState extends State<Clinic> {
       );
     }
     return CentersList;
-  }
-
-  Widget _buildBar(BuildContext context) {
-    return new AppBar(
-      centerTitle: true,
-      title: _appBarTitle,
-      leading: new IconButton(
-        icon: _searchIcon,
-        onPressed: _searchPressed,
-      ),
-    );
-  }
-
-  void _searchPressed() {
-    setState(() {
-      if (this._searchIcon.icon == Icons.search) {
-        this._searchIcon = new Icon(Icons.close);
-        this._appBarTitle = new TextField(
-          controller: _filter,
-          decoration: new InputDecoration(
-            prefixIcon: new Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            hintText: 'بحث بإسم العياده...',
-            hintStyle: TextStyle(
-                fontFamily: ArabicFonts.Cairo,
-                package: 'google_fonts_arabic',
-                color: Colors.white),
-          ),
-        );
-      } else {
-        this._searchIcon = new Icon(
-          Icons.search,
-          color: Colors.white,
-        );
-        this._appBarTitle = new Text(
-          'العيادات',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: ArabicFonts.Cairo,
-            color: Colors.white,
-            package: 'google_fonts_arabic',
-          ),
-        );
-        _modelCenters = names;
-        _filter.clear();
-      }
-    });
   }
 }

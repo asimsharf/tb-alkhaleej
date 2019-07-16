@@ -81,12 +81,23 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       Translations.of(context).login,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: ArabicFonts.Cairo,
-                        package: 'google_fonts_arabic',
-                      ),
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 8.0,
+                              color: Color.fromARGB(125, 0, 0, 255),
+                            ),
+                          ]),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(20.0),
@@ -95,7 +106,6 @@ class _HomePageState extends State<HomePage> {
                     textColor: Colors.white,
                     splashColor: Color(0xFF009AFF),
                     onPressed: () {
-//                      Navigator.popAndPushNamed(context, '/Login');
                       Navigator.pushNamed(context, '/UserLogin');
                     },
                   ),
@@ -113,12 +123,23 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       Translations.of(context).new_user,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: ArabicFonts.Cairo,
-                        package: 'google_fonts_arabic',
-                      ),
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 8.0,
+                              color: Color.fromARGB(125, 0, 0, 255),
+                            ),
+                          ]),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(20.0),
@@ -148,12 +169,23 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       Translations.of(context).skip,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: ArabicFonts.Cairo,
-                        package: 'google_fonts_arabic',
-                      ),
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 8.0,
+                              color: Color.fromARGB(125, 0, 0, 255),
+                            ),
+                          ]),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -167,13 +199,24 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         Translations.of(context).language,
                         style: new TextStyle(
-                          fontFamily: ArabicFonts.Cairo,
-                          package: 'google_fonts_arabic',
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.3,
-                        ),
+                            fontFamily: ArabicFonts.Cairo,
+                            package: 'google_fonts_arabic',
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.3,
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(3.0, 3.0),
+                                blurRadius: 3.0,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
+                              Shadow(
+                                offset: Offset(3.0, 3.0),
+                                blurRadius: 8.0,
+                                color: Color.fromARGB(125, 0, 0, 255),
+                              ),
+                            ]),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(14.0),
