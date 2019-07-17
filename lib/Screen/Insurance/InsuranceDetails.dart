@@ -63,11 +63,24 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
               widget.name,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: ArabicFonts.Cairo,
-                  package: 'google_fonts_arabic',
-                  color: Colors.white),
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white,
+                shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(3.0, 3.0),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  Shadow(
+                    offset: Offset(3.0, 3.0),
+                    blurRadius: 8.0,
+                    color: Color.fromARGB(125, 0, 0, 255),
+                  ),
+                ],
+              ),
             ),
             centerTitle: true,
             pinned: true,
@@ -91,36 +104,6 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                           begin: FractionalOffset.bottomCenter,
                           end: FractionalOffset.topCenter,
                           tileMode: TileMode.mirror),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 20,
-                    left: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: [0.7, 0.9],
-                          colors: [
-                            Colors.white10,
-                            Colors.white12,
-                          ],
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 16),
-                      //color: Color.fromRGBO(255, 255, 255, 0.5),
-                      child: Text(
-                        widget.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: ArabicFonts.Cairo,
-                          package: 'google_fonts_arabic',
-                        ),
-                      ),
                     ),
                   ),
                 ],
@@ -149,20 +132,23 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                     ],
                   ),
                 ),
-                new Container(
-                  height: 400.0,
-                  child: new Stack(
-                    children: <Widget>[
-                      new Column(
-                        children: <Widget>[
-                          new Expanded(
-                              child: _loading
-                                  ? new Center(
-                                      child: new CircularProgressIndicator())
-                                  : _buildProductList()),
-                        ],
-                      ),
-                    ],
+                new Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: new Container(
+                    height: 600.0,
+                    child: new Stack(
+                      children: <Widget>[
+                        new Column(
+                          children: <Widget>[
+                            new Expanded(
+                                child: _loading
+                                    ? new Center(
+                                        child: new CircularProgressIndicator())
+                                    : _buildProductList()),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

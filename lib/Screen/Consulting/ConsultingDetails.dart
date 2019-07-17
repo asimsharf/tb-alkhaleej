@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Screen/Departmen/Department.dart';
+import 'package:tb_alkhalij/model/ModelCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class ConsultingDetails extends StatefulWidget {
@@ -79,12 +82,38 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
     });
   }
 
+  //Future Rating for catch all the rating apis to display
+  bool loading = false;
+  List<ModelCenters> _Model_Department = <ModelCenters>[];
+
+  Future<List<ModelCenters>> getCenters() async {
+    String link = "http://23.111.185.155:3000/api/hospital";
+    var res = await http
+        .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
+    setState(() {
+      if (res.statusCode == 200) {
+        print(res.body);
+        print(res.body.length);
+        var data = json.decode(res.body);
+        var rest = data['hospitals'] as List;
+        _Model_Department = rest
+            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+            .toList();
+        loading = false;
+      }
+    });
+    return _Model_Department;
+  }
+
   @override
   initState() {
     super.initState();
     setState(() {
       _goToMaps();
-      //_getLocation();
+      this.getCenters();
+      setState(() {
+        loading = true;
+      });
     });
   }
 
@@ -108,11 +137,24 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
               widget.name,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: ArabicFonts.Cairo,
-                  package: 'google_fonts_arabic',
-                  color: Colors.white),
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white,
+                shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(3.0, 3.0),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  Shadow(
+                    offset: Offset(3.0, 3.0),
+                    blurRadius: 8.0,
+                    color: Color.fromARGB(125, 0, 0, 255),
+                  ),
+                ],
+              ),
             ),
             centerTitle: true,
             pinned: true,
@@ -334,13 +376,59 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("الأقسام",
+                  child: new Text("التخصصات",
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                          color: Colors.white,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 8.0,
+                              color: Color.fromARGB(125, 0, 0, 255),
+                            ),
+                          ])),
+                ),
+              ),
+            ),
+            new SizedBox(
+              width: 2.0,
+            ),
+            new Expanded(
+              child: new MaterialButton(
+                onPressed: _showModalSheet,
+                color: Color(0xFF00C2E7),
+                splashColor: Color(0xFF009AFF),
+                textColor: Colors.white,
+                elevation: 0.2,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Text("التقييمات",
+                      style: TextStyle(
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 8.0,
+                              color: Color.fromARGB(125, 0, 0, 255),
+                            ),
+                          ])),
                 ),
               ),
             ),
@@ -350,6 +438,214 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
     );
   }
 
+  //Show Modal Sheet that Display all the #Rating about specific Fields
+  void _showModalSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Scaffold(
+            extendBody: true,
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                "تقييمات المرضى",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: ArabicFonts.Cairo,
+                    color: Colors.white,
+                    package: 'google_fonts_arabic',
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 3.0,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 8.0,
+                        color: Color.fromARGB(125, 0, 0, 255),
+                      ),
+                    ]),
+              ),
+            ),
+            body: Container(
+              padding: EdgeInsets.only(top: 5.0, bottom: 3.0),
+              color: Colors.white,
+              child: Column(
+                children: <Widget>[
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SmoothStarRating(
+                        rating: 3.2,
+                        size: 30,
+                        color: Colors.yellow,
+                        borderColor: Colors.grey,
+                        starCount: 5,
+                      )
+                    ],
+                  ),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'التقييم العام',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                      child: loading
+                          ? Center(child: CircularProgressIndicator())
+                          : _buildRatingList()),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  //Show builder for #Rating list
+  Widget _buildRatingList() {
+    Widget DepartmentList;
+    if (_Model_Department.length > 0) {
+      DepartmentList = new ListView.builder(
+        padding: EdgeInsets.all(1.0),
+        itemExtent: 80.0,
+        shrinkWrap: true,
+        itemCount: _Model_Department.length,
+        itemBuilder: (BuildContext context, index) {
+          final DepartmentObj = _Model_Department[index];
+          return Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: new Card(
+              elevation: 0.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                child: Container(
+                  height: 50.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          height: 50.0,
+                          width: 50.0,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.fill,
+                              placeholder: 'assets/images/avatar.png',
+                              image:
+                              'http://www.parthadental.com/assets/products/offers1.jpg',
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                        new Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          'محمد علي احمد',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: ArabicFonts.Cairo,
+                                            package: 'google_fonts_arabic',
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        'عدد التقييمات 3',
+                                        style: TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.green,
+                                          fontFamily: ArabicFonts.Cairo,
+                                          package: 'google_fonts_arabic',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  new Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          'من أجمل ما وجدت من انواع الصيدليات حتى خدمات التأمين المقدمة من الشركة وكل ما هو جديد من شركات التأمين',
+                                          style: TextStyle(
+                                            fontSize: 10.0,
+                                            color: Colors.pinkAccent,
+                                            fontFamily: ArabicFonts.Cairo,
+                                            package: 'google_fonts_arabic',
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      DepartmentList = Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: Icon(Icons.hourglass_empty),
+            ),
+            Text(
+              'عفواً لا توجد تقييمات !',
+              style: TextStyle(
+                  fontFamily: ArabicFonts.Cairo,
+                  package: 'google_fonts_arabic',
+                  fontSize: 20.0,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      );
+    }
+    return DepartmentList;
+  }
+
+  //Show Rating alert for rate
   _ShowRattingAlert() {
     return showDialog(
         context: context,

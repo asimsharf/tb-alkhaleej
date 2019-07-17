@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tb_alkhalij/Account/UserProfile.dart';
 import 'package:tb_alkhalij/Language/Language.dart';
+import 'package:tb_alkhalij/Screen/Booking/BookingHistory.dart';
 import 'package:tb_alkhalij/Screen/Centers/Centers.dart';
 import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
 import 'package:tb_alkhalij/Screen/Clinic/Clinic.dart';
@@ -11,6 +12,7 @@ import 'package:tb_alkhalij/Screen/Insurance/Insurance.dart';
 import 'package:tb_alkhalij/Screen/Pharmacy/pharmacy.dart';
 import 'package:tb_alkhalij/Screen/Pharmacy/pharmacyDetails.dart';
 import 'package:tb_alkhalij/Static/Filter.dart';
+import 'package:tb_alkhalij/Static/Rating.dart';
 import 'package:tb_alkhalij/account/CreateUser.dart';
 import 'package:tb_alkhalij/account/UserLogin.dart';
 import 'package:tb_alkhalij/account/reset/ResetPassword.dart';
@@ -40,4 +42,6 @@ final routes = <String, WidgetBuilder>{
   '/Filter': (BuildContext context) => Filter(),
   '/MapsSample': (BuildContext context) => MapsSample(),
   '/Insurance': (BuildContext context) => Insurance(),
+  '/BookingHistory': (BuildContext context) => BookingHistory(),
+  '/Rating': (BuildContext context) => Rating(),
 };

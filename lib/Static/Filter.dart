@@ -17,12 +17,28 @@ class _FilterState extends State<Filter> {
     return new Scaffold(
       appBar: new AppBar(
         centerTitle: true,
-        title: new Text("فلترة على حسب",
-            style: TextStyle(
-                fontFamily: ArabicFonts.Cairo,
-                package: 'google_fonts_arabic',
-                fontWeight: FontWeight.bold,
-                color: Colors.white)),
+        title: new Text(
+          "فلترة على حسب",
+          style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            color: Colors.white,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 3.0,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 8.0,
+                color: Color.fromARGB(125, 0, 0, 255),
+              ),
+            ],
+          ),
+        ),
       ),
       body: Container(
         child: Padding(

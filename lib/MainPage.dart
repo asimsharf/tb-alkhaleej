@@ -105,7 +105,7 @@ class MainPage extends StatelessWidget {
                       .of(context)
                       .booking, Icons.book),
               onTap: () {
-                Navigator.pushNamed(context, '/Booking');
+                Navigator.pushNamed(context, '/BookingHistory');
               },
             ),
           ],
@@ -255,40 +255,7 @@ class MainPage extends StatelessWidget {
                 Navigator.popAndPushNamed(context, '/UserProfile');
               },
             ),
-            //Offers
-            new ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Color(0xFF00C2E7),
-                child: Icon(
-                  Icons.local_offer,
-                  color: Colors.white,
-                  size: 20.0,
-                ),
-              ),
-              title: Text("Offers",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: ArabicFonts.Cairo,
-                    fontWeight: FontWeight.bold,
-                    package: 'google_fonts_arabic',
-                    fontSize: 20.0,
-                    shadows: <Shadow>[
-                      Shadow(
-                        offset: Offset(2.0, 2.0),
-                        blurRadius: 3.0,
-                        color: Colors.black,
-                      ),
-                      Shadow(
-                        offset: Offset(2.0, 2.0),
-                        blurRadius: 8.0,
-                        color: Colors.black38,
-                      ),
-                    ],
-                  )),
-              onTap: () {
-                Navigator.popAndPushNamed(context, '/CenterOffers');
-              },
-            ),
+
             //Language
             new ListTile(
               leading: CircleAvatar(
