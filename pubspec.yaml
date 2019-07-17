@@ -41,6 +41,7 @@ flutter:
    - assets/bg.png
    - assets/photo_camera.png
    - assets/avatar.png
+   - assets/avatar_person.png
 
   fonts:
     - family: Amiri

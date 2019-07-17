@@ -273,6 +273,7 @@ class _InsuranceState extends State<Insurance> {
       if (this._searchIcon.icon == Icons.search) {
         this._searchIcon = new Icon(Icons.close);
         this._appBarTitle = new TextField(
+          autofocus: true,
           controller: _filter,
           decoration: new InputDecoration(
             prefixIcon: new Icon(
@@ -294,11 +295,22 @@ class _InsuranceState extends State<Insurance> {
         this._appBarTitle = new Text(
           'شركات التأمين',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: ArabicFonts.Cairo,
-            color: Colors.white,
-            package: 'google_fonts_arabic',
-          ),
+              fontWeight: FontWeight.bold,
+              fontFamily: ArabicFonts.Cairo,
+              color: Colors.white,
+              package: 'google_fonts_arabic',
+              shadows: <Shadow>[
+                Shadow(
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 3.0,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                Shadow(
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 8.0,
+                  color: Color.fromARGB(125, 0, 0, 255),
+                ),
+              ]),
         );
         _modelInsurance = names;
         _filter.clear();

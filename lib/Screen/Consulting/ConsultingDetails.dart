@@ -7,7 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Screen/Departmen/Department.dart';
-import 'package:tb_alkhalij/model/ModelCenters.dart';
+import 'package:tb_alkhalij/Static/Rating.dart';
+import 'package:tb_alkhalij/model/ModelRating.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class ConsultingDetails extends StatefulWidget {
@@ -84,25 +85,23 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
 
   //Future Rating for catch all the rating apis to display
   bool loading = false;
-  List<ModelCenters> _Model_Department = <ModelCenters>[];
+  List<ModelRating> _model_Rating = <ModelRating>[];
 
-  Future<List<ModelCenters>> getCenters() async {
-    String link = "http://23.111.185.155:3000/api/hospital";
+  Future<List<ModelRating>> getCenters() async {
+    String link = "http://23.111.185.155:3000/api/rating/${widget.id}/center";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
-        print(res.body);
-        print(res.body.length);
         var data = json.decode(res.body);
-        var rest = data['hospitals'] as List;
-        _Model_Department = rest
-            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+        var rest = data['Rating'] as List;
+        _model_Rating = rest
+            .map<ModelRating>((rest) => ModelRating.fromJson(rest))
             .toList();
         loading = false;
       }
     });
-    return _Model_Department;
+    return _model_Rating;
   }
 
   @override
@@ -256,7 +255,19 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                         ),
                       ),
                       new FlatButton(
-                        onPressed: () => _ShowRattingAlert(),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  Rating(
+                                    id: widget.id,
+                                    name: widget.name,
+                                    logo: widget.logo,
+                                  ),
+                            ),
+                          );
+                        },
                         child: new Text(
                           'تقييم',
                           style: TextStyle(
@@ -516,14 +527,14 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
   //Show builder for #Rating list
   Widget _buildRatingList() {
     Widget DepartmentList;
-    if (_Model_Department.length > 0) {
+    if (_model_Rating.length > 0) {
       DepartmentList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 80.0,
         shrinkWrap: true,
-        itemCount: _Model_Department.length,
+        itemCount: _model_Rating.length,
         itemBuilder: (BuildContext context, index) {
-          final DepartmentObj = _Model_Department[index];
+          final RatingObj = _model_Rating[index];
           return Padding(
             padding: const EdgeInsets.all(0.0),
             child: new Card(
@@ -546,9 +557,10 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                             borderRadius: BorderRadius.circular(20),
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
-                              placeholder: 'assets/images/avatar.png',
+                              placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://www.parthadental.com/assets/products/offers1.jpg',
+                              'http://23.111.185.155:3000/uploads/avtar/${RatingObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),
@@ -569,7 +581,8 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          'محمد علي احمد',
+                                          '${RatingObj.client.first + ' ' +
+                                              RatingObj.client.last}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 12.0,
@@ -580,7 +593,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات 3',
+                                        'عدد التقييمات ${RatingObj.rate}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -594,7 +607,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          'من أجمل ما وجدت من انواع الصيدليات حتى خدمات التأمين المقدمة من الشركة وكل ما هو جديد من شركات التأمين',
+                                          '${RatingObj.comment}',
                                           style: TextStyle(
                                             fontSize: 10.0,
                                             color: Colors.pinkAccent,
@@ -643,98 +656,5 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
       );
     }
     return DepartmentList;
-  }
-
-  //Show Rating alert for rate
-  _ShowRattingAlert() {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(32.0))),
-            contentPadding: EdgeInsets.only(top: 10.0),
-            content: Container(
-              width: 300.0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text("تقييم",
-                          style: TextStyle(
-                            fontFamily: ArabicFonts.Cairo,
-                            package: 'google_fonts_arabic',
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      Row(
-                        children: <Widget>[
-                          SmoothStarRating(
-                            rating: rating,
-                            size: 30,
-                            color: Colors.yellow,
-                            starCount: 5,
-                            onRatingChanged: (value) {
-                              setState(() {
-                                rating = value;
-                              });
-                            },
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Divider(
-                    color: Colors.grey,
-                    height: 4.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          hintText: "إضافة ملاحظة",
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(
-                            fontFamily: ArabicFonts.Cairo,
-                            package: 'google_fonts_arabic',
-                            fontSize: 15.0,
-                          )),
-                      maxLines: 8,
-                    ),
-                  ),
-                  new InkWell(
-                    child: Container(
-                      padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF00C2E7),
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(32.0),
-                            bottomRight: Radius.circular(32.0)),
-                      ),
-                      child: Text(
-                        "إضافة تقيم",
-                        style: TextStyle(
-                          fontFamily: ArabicFonts.Cairo,
-                          package: 'google_fonts_arabic',
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
   }
 }

@@ -1,30 +1,44 @@
 class ModelDepartment {
-  int center_id;
-  int department_id;
-  String ar_name;
-  String en_name;
-  String created_at;
-  int visits_per_day;
-  int consult_price;
+  String id;
+  String name;
+  String description;
+  Image image;
 
-  ModelDepartment(
-      {this.center_id,
-      this.department_id,
-      this.ar_name,
-      this.en_name,
-      this.created_at,
-      this.visits_per_day,
-      this.consult_price});
+  ModelDepartment({this.id, this.name, this.description, this.image});
 
   factory ModelDepartment.fromJson(Map<String, dynamic> json) {
     return ModelDepartment(
-      center_id: json['center_id'] as int,
-      department_id: json['department_id'] as int,
-      ar_name: json['ar_name'] as String,
-      en_name: json['en_name'] as String,
-      created_at: json['created_at'] as String,
-      visits_per_day: json['visits_per_day'] as int,
-      consult_price: json['consult_price'] as int,
+      id: json['_id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      image: Image.fromJson(json['image']),
+    );
+  }
+}
+
+class Image {
+  final String filename;
+  final int size;
+  final String mimetype;
+  final String path;
+  final String originalname;
+  final String url;
+
+  Image({this.filename,
+    this.size,
+    this.mimetype,
+    this.path,
+    this.originalname,
+    this.url});
+
+  factory Image.fromJson(Map<String, dynamic> json) {
+    return Image(
+      filename: json['filename'] as String,
+      size: json['size'] as int,
+      mimetype: json['mimetype'] as String,
+      path: json['path'] as String,
+      originalname: json['originalname'] as String,
+      url: json['url'] as String,
     );
   }
 }

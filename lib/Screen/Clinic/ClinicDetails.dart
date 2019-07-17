@@ -557,9 +557,10 @@ class _CentersDetailsState extends State<ClinicDetails> {
                             borderRadius: BorderRadius.circular(20),
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
-                              placeholder: 'assets/images/avatar.png',
+                              placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://www.parthadental.com/assets/products/offers1.jpg',
+                              'http://23.111.185.155:3000/uploads/avtar/${RatingObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),

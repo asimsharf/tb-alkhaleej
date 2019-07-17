@@ -176,7 +176,7 @@ class MainPage extends StatelessWidget {
                   decoration: new BoxDecoration(
                       borderRadius: new BorderRadius.circular(50.0),
                       image: new DecorationImage(
-                        image: new AssetImage("assets/person.png"),
+                        image: new AssetImage("assets/avatar_person.png"),
                         fit: BoxFit.cover,
                       ),
                       color: Color(0xFFFFF6E8)),

@@ -62,7 +62,7 @@ class _RatingState extends State<Rating> {
                 children: <Widget>[
                   new FadeInImage.assetNetwork(
                     fit: BoxFit.cover,
-                    placeholder: 'assets/logo.png',
+                    placeholder: 'assets/avatar_person.png',
                     image:
                         'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),

@@ -191,9 +191,10 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                             borderRadius: BorderRadius.circular(20),
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
-                              placeholder: 'assets/logo.png',
+                              placeholder: 'assets/avatar_person.png',
                               image:
-                                  'http://23.111.185.155:3000/uploads/files/${CentersObj.logo.filename}',
+                              'http://23.111.185.155:3000/uploads/avtar/${CentersObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),

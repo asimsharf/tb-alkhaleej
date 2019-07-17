@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
@@ -15,30 +16,103 @@ class Department extends StatefulWidget {
 }
 
 class _DepartmentState extends State<Department> {
+  //---------------------------------------------------------------
+  final TextEditingController _filter = new TextEditingController();
+  final dio = new Dio();
+  String _searchText = "";
+  List names = new List();
+  Icon _searchIcon = new Icon(
+    Icons.search,
+    color: Colors.white,
+  );
+
   bool loading = false;
-  List<ModelDepartment> _Model_Department = <ModelDepartment>[];
+
+  void _getCenterNames() async {
+    final response = await dio
+        .get('http://23.111.185.155:3000/api/center/${widget.id}/department');
+    List<ModelDepartment> tempList = <ModelDepartment>[];
+    for (int i = 0; i < response.data['departments'].length; i++) {
+      var rest = response.data['departments'] as List;
+      _modelDepartment = rest
+          .map<ModelDepartment>((rest) => ModelDepartment.fromJson(rest))
+          .toList();
+      tempList.add(ModelDepartment.fromJson(response.data['departments'][i]));
+    }
+    setState(() {
+      if (response.statusCode == 200) {
+        names = tempList;
+        names.shuffle();
+        _modelDepartment = names;
+      }
+    });
+  }
+
+  //---------------------------------------------------------------
+  Widget _appBarTitle = new Text(
+//    Translations.of(context).insurance,
+    'الأقسام',
+    style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontFamily: ArabicFonts.Cairo,
+        color: Colors.white,
+        package: 'google_fonts_arabic',
+        shadows: <Shadow>[
+          Shadow(
+            offset: Offset(3.0, 3.0),
+            blurRadius: 3.0,
+            color: Color.fromARGB(255, 0, 0, 0),
+          ),
+          Shadow(
+            offset: Offset(3.0, 3.0),
+            blurRadius: 8.0,
+            color: Color.fromARGB(125, 0, 0, 255),
+          ),
+        ]),
+  );
+
+  _DepartmentState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          _modelDepartment = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
+//---------------------------------------------------------------
+
+  List<ModelDepartment> _modelDepartment = <ModelDepartment>[];
+
   Future<List<ModelDepartment>> getCenters() async {
     String link =
-        "http://23.111.185.155:4000/takaful/api/center/${widget.id}/department";
+        "http://23.111.185.155:3000/api/center/${widget.id}/department";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        var rest = data['response'] as List;
-        _Model_Department = rest
+        var rest = data['departments'] as List;
+        _modelDepartment = rest
             .map<ModelDepartment>((rest) => ModelDepartment.fromJson(rest))
             .toList();
         loading = false;
       }
     });
-    return _Model_Department;
+    return _modelDepartment;
   }
 
   @override
   void initState() {
     super.initState();
     this.getCenters();
+    this._getCenterNames();
     setState(() {
       loading = true;
     });
@@ -47,30 +121,7 @@ class _DepartmentState extends State<Department> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        centerTitle: true,
-        title: Text(
-          'أقسام ${widget.name}',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-            color: Colors.white,
-            shadows: <Shadow>[
-              Shadow(
-                offset: Offset(3.0, 3.0),
-                blurRadius: 3.0,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
-              Shadow(
-                offset: Offset(3.0, 3.0),
-                blurRadius: 8.0,
-                color: Color.fromARGB(125, 0, 0, 255),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: _buildBar(context),
       body: Container(
         child: Column(
           children: <Widget>[
@@ -86,14 +137,26 @@ class _DepartmentState extends State<Department> {
 
   Widget _buildProductList() {
     Widget DepartmentList;
-    if (_Model_Department.length > 0) {
+    if (_modelDepartment.length > 0) {
+      if (!(_searchText.isEmpty)) {
+        List<ModelDepartment> tempList = <ModelDepartment>[];
+        for (int i = 0; i < _modelDepartment.length; i++) {
+          if (_modelDepartment[i]
+              .name
+              .toLowerCase()
+              .contains(_searchText.toLowerCase())) {
+            tempList.add(_modelDepartment[i]);
+          }
+        }
+        _modelDepartment = tempList;
+      }
       DepartmentList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _Model_Department.length,
+        itemCount: _modelDepartment.length,
         itemBuilder: (BuildContext context, index) {
-          final DepartmentObj = _Model_Department[index];
+          final DepartmentObj = _modelDepartment[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -116,9 +179,10 @@ class _DepartmentState extends State<Department> {
                             borderRadius: BorderRadius.circular(20),
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
-                              placeholder: 'assets/images/avatar.png',
+                              placeholder: 'assets/logo.png',
                               image:
-                                  'http://www.parthadental.com/assets/products/offers1.jpg',
+                              'http://23.111.185.155:3000/uploads/department/${DepartmentObj
+                                  .image.filename}',
                             ),
                           ),
                         ),
@@ -136,7 +200,7 @@ class _DepartmentState extends State<Department> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${DepartmentObj.ar_name}',
+                                        '${DepartmentObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -144,15 +208,6 @@ class _DepartmentState extends State<Department> {
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
-                                      ),
-                                    ),
-                                    Text(
-                                      '  سعر الإستشارة ${DepartmentObj.consult_price} ريال ',
-                                      style: TextStyle(
-                                        fontSize: 15.0,
-                                        color: Colors.green,
-                                        fontFamily: ArabicFonts.Cairo,
-                                        package: 'google_fonts_arabic',
                                       ),
                                     ),
                                   ],
@@ -175,7 +230,7 @@ class _DepartmentState extends State<Department> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        'عدد المقابلات اليومية ${DepartmentObj.visits_per_day}',
+                                        '${DepartmentObj.description}',
                                         style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.pinkAccent,
@@ -192,7 +247,7 @@ class _DepartmentState extends State<Department> {
                                       elevation: 0.2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
-                                        child: new Text("إستشارة",
+                                        child: new Text("أحجز الأن",
                                             style: TextStyle(
                                                 fontFamily: ArabicFonts.Cairo,
                                                 package: 'google_fonts_arabic',
@@ -213,16 +268,7 @@ class _DepartmentState extends State<Department> {
                 ),
               ),
             ),
-            onTap: () {
-//              Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                  builder: (context) => CenterServices(
-//                      center_id: DepartmentObj.center_id,
-//                      specialist_ar_name: DepartmentObj.ar_name),
-//                ),
-//              );
-            },
+            onTap: () {},
           );
         },
       );
@@ -248,5 +294,66 @@ class _DepartmentState extends State<Department> {
       );
     }
     return DepartmentList;
+  }
+
+  Widget _buildBar(BuildContext context) {
+    return new AppBar(
+      centerTitle: true,
+      title: _appBarTitle,
+      leading: new IconButton(
+        icon: _searchIcon,
+        onPressed: _searchPressed,
+      ),
+    );
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          autofocus: true,
+          controller: _filter,
+          decoration: new InputDecoration(
+            prefixIcon: new Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            hintText: 'بحث بإسم القسم...',
+            hintStyle: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white),
+          ),
+        );
+      } else {
+        this._searchIcon = new Icon(
+          Icons.search,
+          color: Colors.white,
+        );
+        this._appBarTitle = new Text(
+          'الأقسام',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontFamily: ArabicFonts.Cairo,
+              color: Colors.white,
+              package: 'google_fonts_arabic',
+              shadows: <Shadow>[
+                Shadow(
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 3.0,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                Shadow(
+                  offset: Offset(3.0, 3.0),
+                  blurRadius: 8.0,
+                  color: Color.fromARGB(125, 0, 0, 255),
+                ),
+              ]),
+        );
+        _modelDepartment = names;
+        _filter.clear();
+      }
+    });
   }
 }
