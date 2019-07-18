@@ -24,7 +24,7 @@ class _BookingHistoryState extends State<BookingHistory> {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
         print(res.body);
-        var rest = data['Booking'] as List;
+        var rest = data['departments'] as List;
         _model_BookingHistory = rest
             .map<ModelBookingHistory>(
                 (rest) => ModelBookingHistory.fromJson(rest))
@@ -114,9 +114,10 @@ class _BookingHistoryState extends State<BookingHistory> {
                             borderRadius: BorderRadius.circular(20),
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
-                              placeholder: 'assets/avatar.png',
+                              placeholder: 'assets/avatar_person.png',
                               image:
-                                  'http://www.parthadental.com/assets/products/offers1.jpg',
+                              'http://23.111.185.155:3000/uploads/avtar/${BookingHistoryObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),
@@ -134,7 +135,9 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${BookingHistoryObj.client.first + ' ' + BookingHistoryObj.client.last}',
+                                        '${BookingHistoryObj.patient.first +
+                                            ' ' +
+                                            BookingHistoryObj.patient.last}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -186,7 +189,8 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        'شركة التأمين:  ${BookingHistoryObj.insurance}',
+                                        'شركة التأمين:  ${BookingHistoryObj
+                                            .committee}',
                                         style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.pinkAccent,

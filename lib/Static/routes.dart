@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tb_alkhalij/Account/Reset/ResetPassword.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/pages/register_page.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/pages/splash_page.dart';
 import 'package:tb_alkhalij/Account/UserProfile.dart';
 import 'package:tb_alkhalij/Language/Language.dart';
 import 'package:tb_alkhalij/Screen/Booking/BookingHistory.dart';
@@ -13,9 +16,6 @@ import 'package:tb_alkhalij/Screen/Pharmacy/pharmacy.dart';
 import 'package:tb_alkhalij/Screen/Pharmacy/pharmacyDetails.dart';
 import 'package:tb_alkhalij/Static/Filter.dart';
 import 'package:tb_alkhalij/Static/Rating.dart';
-import 'package:tb_alkhalij/account/CreateUser.dart';
-import 'package:tb_alkhalij/account/UserLogin.dart';
-import 'package:tb_alkhalij/account/reset/ResetPassword.dart';
 
 import '../MainPage.dart';
 import 'About.dart';
@@ -23,8 +23,8 @@ import 'Help.dart';
 import 'maps.dart';
 
 final routes = <String, WidgetBuilder>{
-  '/UserLogin': (BuildContext context) => UserLogin(),
-  '/CreateUser': (BuildContext context) => CreateUser(),
+  '/SplashPageLoginTow': (BuildContext context) => SplashPageLoginTow(),
+  '/RegisterPage': (BuildContext context) => RegisterPage(),
   '/MainPage': (BuildContext context) => MainPage(),
   '/UserProfile': (BuildContext context) => UserProfile(),
   '/ResetPassword': (BuildContext context) => ResetPassword(),

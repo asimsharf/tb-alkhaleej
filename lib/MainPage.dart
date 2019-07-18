@@ -324,7 +324,7 @@ class MainPage extends StatelessWidget {
                       ],
                     )),
                 onTap: () {
-                  Navigator.popAndPushNamed(context, '/UserLogin');
+                  Navigator.popAndPushNamed(context, '/SplashPageLoginTow');
                 }),
             //Help
             new ListTile(

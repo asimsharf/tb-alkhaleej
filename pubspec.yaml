@@ -11,15 +11,18 @@ dependencies:
   intl_translation:
 
   video_player: ^0.10.1+2
+  shared_preferences: ^0.5.2+1
+  json_annotation: ^2.0.0
   google_fonts_arabic: ^1.1.7
   google_maps_flutter: ^0.5.5
   location: ^2.3.5
   font_awesome_flutter: ^8.0.0
-  cupertino_icons: ^0.1.2
+
   dio: ^2.1.13
   scoped_model: ^1.0.1
   smooth_star_rating: 1.0.2
   rflutter_alert: ^1.0.2
+  cupertino_icons: ^0.1.2
   transparent_image: ^1.0.0
   url_launcher: ^5.0.2
   http: ^0.12.0+1

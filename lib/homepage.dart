@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                     textColor: Colors.white,
                     splashColor: Color(0xFF009AFF),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/UserLogin');
+                      Navigator.pushNamed(context, '/SplashPageLoginTow');
                     },
                   ),
                 ),
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                     textColor: Colors.white,
                     splashColor: Color(0xFF009AFF),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/CreateUser');
+                      Navigator.pushNamed(context, '/RegisterPage');
                     },
                   ),
                 ),
