@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Screen/Clinic/ClinicDetails.dart';
 import 'package:tb_alkhalij/model/ModelClinic.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class Clinic extends StatefulWidget {
@@ -19,6 +20,8 @@ class Clinic extends StatefulWidget {
 
 class _ClinicState extends State<Clinic> {
   //---------------------------------------------------------------
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  new GlobalKey<RefreshIndicatorState>();
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio();
   String _searchText = "";
@@ -55,6 +58,7 @@ class _ClinicState extends State<Clinic> {
         fontWeight: FontWeight.bold,
         fontFamily: ArabicFonts.Cairo,
         color: Colors.white,
+        fontSize: EventSizedConstants.TextappBarSize,
         package: 'google_fonts_arabic',
         shadows: <Shadow>[
           Shadow(
@@ -88,6 +92,7 @@ class _ClinicState extends State<Clinic> {
 //---------------------------------------------------------------
 
   List<ModelClinic> _modelCenters = <ModelClinic>[];
+
   Future<List<ModelClinic>> getCenters() async {
     String link = "http://23.111.185.155:3000/api/clinic";
     var res = await http
@@ -105,9 +110,18 @@ class _ClinicState extends State<Clinic> {
     return _modelCenters;
   }
 
+  Future<Null> _refresh() {
+    return getCenters().then((modelCen) {
+      setState(() => _modelCenters = modelCen);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _refreshIndicatorKey.currentState.show(),
+    );
     this.getCenters();
     this._getClinicNames();
     setState(() {
@@ -119,14 +133,18 @@ class _ClinicState extends State<Clinic> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildBar(context),
-      body: new Container(
-        child: new Column(
-          children: <Widget>[
-            new Expanded(
-                child: _loading
-                    ? new Center(child: new CircularProgressIndicator())
-                    : _buildProductList()),
-          ],
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _refresh,
+        child: new Container(
+          child: new Column(
+            children: <Widget>[
+              new Expanded(
+                  child: _loading
+                      ? new Center(child: new CircularProgressIndicator())
+                      : _buildProductList()),
+            ],
+          ),
         ),
       ),
     );
@@ -198,7 +216,8 @@ class _ClinicState extends State<Clinic> {
                                         '${ClinicObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize:
+                                          EventSizedConstants.TextnameSize,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -221,14 +240,15 @@ class _ClinicState extends State<Clinic> {
                                         "${ClinicObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 8.0,
+                                          fontSize: EventSizedConstants
+                                              .TextdescriptionSize,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
                                       ),
                                     ),
                                     TextIcon(
-                                      size: 10.0,
+                                      size: EventSizedConstants.TextIconSized,
                                       text:
                                       "من ${ClinicObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
@@ -253,7 +273,7 @@ class _ClinicState extends State<Clinic> {
                                       ),
                                     ),
                                     TextIcon(
-                                      size: 10.0,
+                                      size: EventSizedConstants.TextIconSized,
                                       text:
                                       "الى ${ClinicObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
@@ -293,6 +313,7 @@ class _ClinicState extends State<Clinic> {
                     logo: ClinicObj.logo.filename,
                     lang: ClinicObj.lang,
                     lat: ClinicObj.lat,
+                    committee: ClinicObj.committee,
                   ),
                 ),
               );
@@ -366,6 +387,7 @@ class _ClinicState extends State<Clinic> {
               fontFamily: ArabicFonts.Cairo,
               color: Colors.white,
               package: 'google_fonts_arabic',
+              fontSize: EventSizedConstants.TextappBarSize,
               shadows: <Shadow>[
                 Shadow(
                   offset: Offset(3.0, 3.0),

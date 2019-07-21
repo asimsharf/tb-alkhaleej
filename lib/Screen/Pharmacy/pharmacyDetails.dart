@@ -6,8 +6,10 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Static/Rating.dart';
 import 'package:tb_alkhalij/model/ModelRating.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class PharmacyDetails extends StatefulWidget {
@@ -28,6 +30,7 @@ class PharmacyDetails extends StatefulWidget {
   final String street1;
   final String suburb;
   final String logo;
+  List<dynamic> committee;
 
   PharmacyDetails({this.id,
     this.name,
@@ -45,7 +48,8 @@ class PharmacyDetails extends StatefulWidget {
     this.street1,
     this.suburb,
     this.center_type,
-    this.logo});
+    this.logo,
+    this.committee});
 
   @override
   _PharmacyDetailsState createState() => _PharmacyDetailsState();
@@ -89,12 +93,15 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
 
   Future<List<ModelRating>> getCenters() async {
     String link = "http://23.111.185.155:3000/api/rating/${widget.id}/center";
+
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
+
         var rest = data['Rating'] as List;
+
         _model_Rating = rest
             .map<ModelRating>((rest) => ModelRating.fromJson(rest))
             .toList();
@@ -133,12 +140,12 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
     return new Scaffold(
       body: new CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
+          new SliverAppBar(
             title: Text(
               widget.name,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: EventSizedConstants.TextappBarSize,
                 fontWeight: FontWeight.bold,
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -221,37 +228,16 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
             delegate: SliverChildListDelegate(
               [
                 new Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Row(
                     children: <Widget>[
-                      Expanded(
+                      new Expanded(
                         child: Text(
                           widget.name,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: 16.0,
                             fontWeight: FontWeight.bold,
-                            fontFamily: ArabicFonts.Cairo,
-                            package: 'google_fonts_arabic',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                new Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.location_on,
-                        size: 20.0,
-                      ),
-                      Expanded(
-                        child: Text(
-                          '${widget.country}, ${widget.postcode}, ${widget
-                              .state}, ${widget.street1}, ${widget.suburb}',
-                          style: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             package: 'google_fonts_arabic',
                           ),
@@ -277,27 +263,101 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                               fontFamily: ArabicFonts.Cairo,
                               package: 'google_fonts_arabic',
                               color: Color(0xFFE91E63),
-                              fontSize: 20),
+                              fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //address
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          Translations
+                              .of(context)
+                              .address,
+                          style: TextStyle(
+                            color: Colors.lightBlueAccent,
+                            fontFamily: ArabicFonts.Cairo,
+                            package: 'google_fonts_arabic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: EventSizedConstants.TextTitleFontSized,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
                 new Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.location_on,
+                        size: 12.0,
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${widget.country}, ${widget.postcode}, ${widget
+                              .state}, ${widget.street1}, ${widget.suburb}',
+                          style: TextStyle(
+                            fontFamily: ArabicFonts.Cairo,
+                            fontSize: 10.0,
+                            package: 'google_fonts_arabic',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                //descriptions
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          Translations
+                              .of(context)
+                              .description,
+                          style: TextStyle(
+                            color: Colors.lightBlueAccent,
+                            fontFamily: ArabicFonts.Cairo,
+                            package: 'google_fonts_arabic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: EventSizedConstants.TextTitleFontSized,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
                         child: Text(
                           widget.description,
                           style: TextStyle(
-                            fontFamily: ArabicFonts.Cairo,
-                            package: 'google_fonts_arabic',
-                          ),
+                              fontFamily: ArabicFonts.Cairo,
+                              package: 'google_fonts_arabic',
+                              fontSize: 10.0),
                         ),
                       ),
                       TextIcon(
-                        text: widget.open.substring(0, 9),
+                        text: widget.close.substring(11, 16),
+                        icon: Icons.timer_off,
+                        isColumn: true,
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      TextIcon(
+                        text: widget.open.substring(11, 16),
                         icon: Icons.access_time,
                         isColumn: true,
                       ),
@@ -305,7 +365,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                   ),
                 ),
                 new Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -318,10 +378,66 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                           ),
                         ),
                       ),
-                      TextIcon(
-                        text: "${1.5} km",
-                        icon: Icons.location_on,
-                        isColumn: false,
+                    ],
+                  ),
+                ),
+                //committee
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          Translations
+                              .of(context)
+                              .insurances,
+                          style: TextStyle(
+                            color: Colors.lightBlueAccent,
+                            fontFamily: ArabicFonts.Cairo,
+                            package: 'google_fonts_arabic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: EventSizedConstants.TextTitleFontSized,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                new Align(
+                    alignment: Alignment.topCenter,
+                    child: Wrap(
+                      spacing: 3.0,
+                      runSpacing: 5.0,
+                      direction: Axis.horizontal,
+                      alignment: WrapAlignment.start,
+                      children: getCommitteeList(widget.committee)
+                          .map((name) =>
+                          MyButton(
+                            name,
+                          ))
+                          .toList(),
+                    )),
+                new SizedBox(
+                  width: 5.0,
+                ),
+                //map
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          Translations
+                              .of(context)
+                              .locations,
+                          style: TextStyle(
+                            color: Colors.lightBlueAccent,
+                            fontFamily: ArabicFonts.Cairo,
+                            package: 'google_fonts_arabic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: EventSizedConstants.TextTitleFontSized,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -384,7 +500,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
-                          fontSize: 20.0,
+                          fontSize: EventSizedConstants.TextButtonFontSized,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           shadows: <Shadow>[
@@ -408,6 +524,14 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
     );
   }
 
+  List getCommitteeList(List str) {
+    List<String> ListOfItems = [];
+    for (var i = 0; i < str.length; i++) {
+      ListOfItems.add(str[i]['name'].toString());
+    }
+    return ListOfItems;
+  }
+
   //Show Modal Sheet that Display all the #Rating about specific Fields
   void _showModalSheet() {
     showModalBottomSheet(
@@ -418,12 +542,15 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
             appBar: AppBar(
               centerTitle: true,
               title: Text(
-                "تقييمات المرضى",
+                Translations
+                    .of(context)
+                    .rating_review,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: ArabicFonts.Cairo,
                     color: Colors.white,
                     package: 'google_fonts_arabic',
+                    fontSize: EventSizedConstants.TextappBarSize,
                     shadows: <Shadow>[
                       Shadow(
                         offset: Offset(3.0, 3.0),
@@ -438,7 +565,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                     ]),
               ),
             ),
-            body: Container(
+            body: new Container(
               padding: EdgeInsets.only(top: 5.0, bottom: 3.0),
               color: Colors.white,
               child: Column(
@@ -594,7 +721,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
         },
       );
     } else {
-      RatingList = Center(
+      RatingList = new Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -615,5 +742,33 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
       );
     }
     return RatingList;
+  }
+}
+
+class MyButton extends StatelessWidget {
+  final text;
+
+  MyButton(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(left: 3.0, right: 3.0),
+        child: OutlineButton(
+          borderSide: BorderSide(
+              color: Color(0xFF00C2E7), width: 2.0, style: BorderStyle.solid),
+          disabledBorderColor: Colors.grey,
+          highlightedBorderColor: Color(0xFF009AFF),
+          onPressed: () {},
+          child: Text(
+            text,
+            style: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                fontSize: 12.0,
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
+        ));
   }
 }

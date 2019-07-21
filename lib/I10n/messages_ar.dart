@@ -76,5 +76,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("الإعدادت"),
     "booking": MessageLookupByLibrary.simpleMessage("الحجوزات"),
     "insurance": MessageLookupByLibrary.simpleMessage("التأمين"),
+    "address": MessageLookupByLibrary.simpleMessage("العنوان"),
+    "description": MessageLookupByLibrary.simpleMessage("الوصف"),
+    "insurances": MessageLookupByLibrary.simpleMessage("شركات التأمين"),
+    "locations": MessageLookupByLibrary.simpleMessage("الموقع"),
+    "rate": MessageLookupByLibrary.simpleMessage("تقييم"),
+    "ratings": MessageLookupByLibrary.simpleMessage("التقيمات"),
+    "rating_review": MessageLookupByLibrary.simpleMessage("تقيمات المرضى"),
+    "add_review": MessageLookupByLibrary.simpleMessage("إضافة ملاحظة"),
+    "add_rating": MessageLookupByLibrary.simpleMessage("إضافة تقييم"),
+    "total_rating": MessageLookupByLibrary.simpleMessage("التقييم الكلي"),
       };
 }

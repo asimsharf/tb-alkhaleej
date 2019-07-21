@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Screen/Consulting/ConsultingDetails.dart';
 import 'package:tb_alkhalij/model/ModelConsulting.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class Consulting extends StatefulWidget {
@@ -18,6 +19,8 @@ class Consulting extends StatefulWidget {
 
 class _ConsultingState extends State<Consulting> {
   //---------------------------------------------------------------
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio();
   String _searchText = "";
@@ -31,12 +34,12 @@ class _ConsultingState extends State<Consulting> {
   void _getConsultingsNames() async {
     final response = await dio.get('http://23.111.185.155:3000/api/consulting');
     List<ModelConsulting> tempList = <ModelConsulting>[];
-    for (int i = 0; i < response.data['consultings'].length; i++) {
-      var rest = response.data['consultings'] as List;
+    for (int i = 0; i < response.data['consulting'].length; i++) {
+      var rest = response.data['consulting'] as List;
       _modelConsulting = rest
           .map<ModelConsulting>((rest) => ModelConsulting.fromJson(rest))
           .toList();
-      tempList.add(ModelConsulting.fromJson(response.data['consultings'][i]));
+      tempList.add(ModelConsulting.fromJson(response.data['consulting'][i]));
     }
     setState(() {
       if (response.statusCode == 200) {
@@ -55,6 +58,7 @@ class _ConsultingState extends State<Consulting> {
         fontWeight: FontWeight.bold,
         fontFamily: ArabicFonts.Cairo,
         color: Colors.white,
+        fontSize: EventSizedConstants.TextappBarSize,
         package: 'google_fonts_arabic',
         shadows: <Shadow>[
           Shadow(
@@ -88,6 +92,7 @@ class _ConsultingState extends State<Consulting> {
 //---------------------------------------------------------------
 
   List<ModelConsulting> _modelConsulting = <ModelConsulting>[];
+
   Future<List<ModelConsulting>> getConsulting() async {
     String link = "http://23.111.185.155:3000/api/consulting";
     var res = await http
@@ -96,7 +101,7 @@ class _ConsultingState extends State<Consulting> {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
 
-        var rest = data['consultings'] as List;
+        var rest = data['consulting'] as List;
         _modelConsulting = rest
             .map<ModelConsulting>((rest) => ModelConsulting.fromJson(rest))
             .toList();
@@ -106,9 +111,18 @@ class _ConsultingState extends State<Consulting> {
     return _modelConsulting;
   }
 
+  Future<Null> _refresh() {
+    return getConsulting().then((modelCen) {
+      setState(() => _modelConsulting = modelCen);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _refreshIndicatorKey.currentState.show(),
+    );
     this.getConsulting();
     this._getConsultingsNames();
     setState(() {
@@ -120,14 +134,18 @@ class _ConsultingState extends State<Consulting> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildBar(context),
-      body: new Container(
-        child: new Column(
-          children: <Widget>[
-            new Expanded(
-                child: _loading
-                    ? new Center(child: new CircularProgressIndicator())
-                    : _buildProductList()),
-          ],
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _refresh,
+        child: new Container(
+          child: new Column(
+            children: <Widget>[
+              new Expanded(
+                  child: _loading
+                      ? new Center(child: new CircularProgressIndicator())
+                      : _buildProductList()),
+            ],
+          ),
         ),
       ),
     );
@@ -179,15 +197,14 @@ class _ConsultingState extends State<Consulting> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${ConsultingObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/files/${ConsultingObj.logo.filename}',
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             padding:
-                            const EdgeInsets.only(left: 5.0, right: 5.0),
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,7 +216,8 @@ class _ConsultingState extends State<Consulting> {
                                         '${ConsultingObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize:
+                                              EventSizedConstants.TextnameSize,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -222,17 +240,17 @@ class _ConsultingState extends State<Consulting> {
                                         "${ConsultingObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 8.0,
+                                          fontSize: EventSizedConstants
+                                              .TextdescriptionSize,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
                                       ),
                                     ),
                                     TextIcon(
-                                      size: 10.0,
+                                      size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "من ${ConsultingObj.open.substring(
-                                          0, 9)}",
+                                          "من ${ConsultingObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -255,10 +273,9 @@ class _ConsultingState extends State<Consulting> {
                                       ),
                                     ),
                                     TextIcon(
-                                      size: 10.0,
+                                      size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "الى ${ConsultingObj.close.substring(
-                                          0, 9)}",
+                                          "الى ${ConsultingObj.close.substring(0, 9)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -279,24 +296,24 @@ class _ConsultingState extends State<Consulting> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ConsultingDetails(
-                    id: ConsultingObj.id,
-                    name: ConsultingObj.name,
-                    email: ConsultingObj.email,
-                    description: ConsultingObj.description,
-                    close: ConsultingObj.close,
-                    open: ConsultingObj.open,
-                    isActive: ConsultingObj.isActive,
-                    inviled: ConsultingObj.inviled,
-                    country: ConsultingObj.address.country,
-                    postcode: ConsultingObj.address.postcode,
-                    state: ConsultingObj.address.state,
-                    street1: ConsultingObj.address.street1,
-                    suburb: ConsultingObj.address.suburb,
-                    center_type: ConsultingObj.center_type,
-                    logo: ConsultingObj.logo.filename,
-                    lang: ConsultingObj.lang,
-                    lat: ConsultingObj.lat,
-                  ),
+                      id: ConsultingObj.id,
+                      name: ConsultingObj.name,
+                      email: ConsultingObj.email,
+                      description: ConsultingObj.description,
+                      close: ConsultingObj.close,
+                      open: ConsultingObj.open,
+                      isActive: ConsultingObj.isActive,
+                      inviled: ConsultingObj.inviled,
+                      country: ConsultingObj.address.country,
+                      postcode: ConsultingObj.address.postcode,
+                      state: ConsultingObj.address.state,
+                      street1: ConsultingObj.address.street1,
+                      suburb: ConsultingObj.address.suburb,
+                      center_type: ConsultingObj.center_type,
+                      logo: ConsultingObj.logo.filename,
+                      lang: ConsultingObj.lang,
+                      lat: ConsultingObj.lat,
+                      committee: ConsultingObj.committee),
                 ),
               );
             },
@@ -367,6 +384,7 @@ class _ConsultingState extends State<Consulting> {
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,
+              fontSize: EventSizedConstants.TextappBarSize,
               color: Colors.white,
               package: 'google_fonts_arabic',
               shadows: <Shadow>[

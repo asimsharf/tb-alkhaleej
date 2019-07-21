@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/model/ModelBookingHistory.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class BookingHistory extends StatefulWidget {
   @override
@@ -12,6 +13,8 @@ class BookingHistory extends StatefulWidget {
 }
 
 class _BookingHistoryState extends State<BookingHistory> {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  new GlobalKey<RefreshIndicatorState>();
   bool loading = false;
   List<ModelBookingHistory> _model_BookingHistory = <ModelBookingHistory>[];
 
@@ -35,9 +38,18 @@ class _BookingHistoryState extends State<BookingHistory> {
     return _model_BookingHistory;
   }
 
+  Future<Null> _refresh() {
+    return getCenters().then((modelCen) {
+      setState(() => _model_BookingHistory = modelCen);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _refreshIndicatorKey.currentState.show(),
+    );
     this.getCenters();
     setState(() {
       loading = true;
@@ -55,6 +67,7 @@ class _BookingHistoryState extends State<BookingHistory> {
               package: 'google_fonts_arabic',
               fontWeight: FontWeight.bold,
               color: Colors.white,
+              fontSize: EventSizedConstants.TextappBarSize,
               shadows: <Shadow>[
                 Shadow(
                   offset: Offset(3.0, 3.0),
@@ -68,15 +81,20 @@ class _BookingHistoryState extends State<BookingHistory> {
                 ),
               ]),
         ),
+        centerTitle: true,
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-                child: loading
-                    ? Center(child: CircularProgressIndicator())
-                    : _buildProductList()),
-          ],
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _refresh,
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                  child: loading
+                      ? Center(child: CircularProgressIndicator())
+                      : _buildProductList()),
+            ],
+          ),
         ),
       ),
     );
@@ -140,7 +158,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                             BookingHistoryObj.patient.last}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -151,7 +169,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                       child: Text(
                                         '  الحجز:  ${BookingHistoryObj.department}',
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize: 10.0,
                                           color: Colors.green,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -174,7 +192,8 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        'تاريخ الحجز:  ${BookingHistoryObj.date}',
+                                        'تاريخ الحجز:  ${BookingHistoryObj.date
+                                            .substring(1, 9)}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -192,7 +211,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                         'شركة التأمين:  ${BookingHistoryObj
                                             .committee}',
                                         style: TextStyle(
-                                          fontSize: 10.0,
+                                          fontSize: 8.0,
                                           color: Colors.pinkAccent,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -200,7 +219,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                       ),
                                     ),
                                     new MaterialButton(
-                                      height: 15.0,
+                                      height: 9.0,
                                       onPressed: () {},
                                       color: Color(0xFFE91E63),
                                       splashColor: Color(0xFFFF1B5E),
@@ -212,7 +231,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                             style: TextStyle(
                                                 fontFamily: ArabicFonts.Cairo,
                                                 package: 'google_fonts_arabic',
-                                                fontSize: 12.0,
+                                                fontSize: 9.0,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white)),
                                       ),

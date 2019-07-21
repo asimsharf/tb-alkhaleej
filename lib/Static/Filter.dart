@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class Filter extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _FilterState extends State<Filter> {
         title: new Text(
           "فلترة على حسب",
           style: TextStyle(
-            fontSize: 25.0,
+            fontSize: EventSizedConstants.TextappBarSize,
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
             package: 'google_fonts_arabic',

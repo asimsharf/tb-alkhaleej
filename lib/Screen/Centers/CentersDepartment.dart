@@ -5,22 +5,52 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
-import 'package:tb_alkhalij/model/ModelCenters.dart';
+import 'package:tb_alkhalij/Screen/Booking/Book.dart';
+import 'package:tb_alkhalij/model/ModelCentersDepartment.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
-import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
-class Centers extends StatefulWidget {
-  final Widget child;
-  Centers({Key key, this.child}) : super(key: key);
-  _CentersState createState() => _CentersState();
+class CentersDepartment extends StatefulWidget {
+  final String id;
+  final String name;
+  final String email;
+  final String description;
+  final String close;
+  final String open;
+  final String lat;
+  final String lang;
+  final bool isActive;
+  final bool inviled;
+  final String center_type;
+  final String country;
+  final String postcode;
+  final String state;
+  final String street1;
+  final String suburb;
+  final String logo;
+
+  CentersDepartment({this.id,
+    this.name,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.lang,
+    this.lat,
+    this.isActive,
+    this.inviled,
+    this.country,
+    this.postcode,
+    this.state,
+    this.street1,
+    this.suburb,
+    this.center_type,
+    this.logo});
+  @override
+  _CentersDepartmentState createState() => _CentersDepartmentState();
 }
 
-class _CentersState extends State<Centers> {
+class _CentersDepartmentState extends State<CentersDepartment> {
   //---------------------------------------------------------------
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio();
   String _searchText = "";
@@ -29,43 +59,27 @@ class _CentersState extends State<Centers> {
     Icons.search,
     color: Colors.white,
   );
-  bool _loading = false;
 
-  List<ModelCenters> _modelCenters = <ModelCenters>[];
-
-  Future<List<ModelCenters>> getCenters() async {
-    String link = "http://23.111.185.155:3000/api/hospital";
-    var res = await http
-        .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
-    setState(() {
-      if (res.statusCode == 200) {
-        var data = json.decode(res.body);
-
-        var rest = data['hospitals'] as List;
-        _modelCenters = rest
-            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
-            .toList();
-        _loading = false;
-      }
-    });
-    return _modelCenters;
-  }
+  bool loading = false;
 
   void _getCenterNames() async {
-    final response = await dio.get('http://23.111.185.155:3000/api/hospital');
-    List<ModelCenters> tempList = <ModelCenters>[];
-    for (int i = 0; i < response.data['hospitals'].length; i++) {
-      var rest = response.data['hospitals'] as List;
-      _modelCenters = rest
-          .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+    final response = await dio
+        .get('http://23.111.185.155:3000/api/center/${widget.id}/department');
+    List<ModelCentersDepartment> tempList = <ModelCentersDepartment>[];
+    for (int i = 0; i < response.data['departments'].length; i++) {
+      var rest = response.data['departments'] as List;
+      _modelCentersDepartment = rest
+          .map<ModelCentersDepartment>(
+              (rest) => ModelCentersDepartment.fromJson(rest))
           .toList();
-      tempList.add(ModelCenters.fromJson(response.data['hospitals'][i]));
+      tempList.add(
+          ModelCentersDepartment.fromJson(response.data['departments'][i]));
     }
     setState(() {
       if (response.statusCode == 200) {
         names = tempList;
         names.shuffle();
-        _modelCenters = names;
+        _modelCentersDepartment = names;
       }
     });
   }
@@ -73,13 +87,13 @@ class _CentersState extends State<Centers> {
   //---------------------------------------------------------------
   Widget _appBarTitle = new Text(
 //    Translations.of(context).insurance,
-    'المستشفيات',
+    'الأقسام',
     style: TextStyle(
         fontWeight: FontWeight.bold,
         fontFamily: ArabicFonts.Cairo,
         color: Colors.white,
+        fontSize: 16.0,
         package: 'google_fonts_arabic',
-        fontSize: EventSizedConstants.TextappBarSize,
         shadows: <Shadow>[
           Shadow(
             offset: Offset(3.0, 3.0),
@@ -94,12 +108,12 @@ class _CentersState extends State<Centers> {
         ]),
   );
 
-  _CentersState() {
+  _CentersDepartmentState() {
     _filter.addListener(() {
       if (_filter.text.isEmpty) {
         setState(() {
           _searchText = "";
-          _modelCenters = names;
+          _modelCentersDepartment = names;
         });
       } else {
         setState(() {
@@ -109,81 +123,90 @@ class _CentersState extends State<Centers> {
     });
   }
 
-  //---------------------------------------------------------------
+//---------------------------------------------------------------
 
-  Future<Null> _refresh() {
-    return getCenters().then((modelCen) {
-      setState(() => _modelCenters = modelCen);
+  List<ModelCentersDepartment> _modelCentersDepartment =
+  <ModelCentersDepartment>[];
+
+  Future<List<ModelCentersDepartment>> getCenters() async {
+    String link =
+        "http://23.111.185.155:3000/api/center/${widget.id}/department";
+    var res = await http
+        .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
+    setState(() {
+      if (res.statusCode == 200) {
+        var data = json.decode(res.body);
+        var rest = data['departments'] as List;
+        _modelCentersDepartment = rest
+            .map<ModelCentersDepartment>(
+                (rest) => ModelCentersDepartment.fromJson(rest))
+            .toList();
+        loading = false;
+      }
     });
+    return _modelCentersDepartment;
   }
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-          (_) => _refreshIndicatorKey.currentState.show(),
-    );
     this.getCenters();
     this._getCenterNames();
     setState(() {
-      _loading = true;
+      loading = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: _buildBar(context),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: new Container(
-          child: new Column(
-            children: <Widget>[
-              new Expanded(
-                  child: _loading
-                      ? new Center(child: new CircularProgressIndicator())
-                      : _buildProductList()),
-            ],
-          ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+                child: loading
+                    ? Center(child: CircularProgressIndicator())
+                    : _buildProductList()),
+          ],
         ),
       ),
     );
   }
 
   Widget _buildProductList() {
-    Widget CentersList;
-    if (_modelCenters.length > 0) {
+    Widget CentersDepartmentList;
+    if (_modelCentersDepartment.length > 0) {
       if (!(_searchText.isEmpty)) {
-        List<ModelCenters> tempList = <ModelCenters>[];
-        for (int i = 0; i < _modelCenters.length; i++) {
-          if (_modelCenters[i]
+        List<ModelCentersDepartment> tempList = <ModelCentersDepartment>[];
+        for (int i = 0; i < _modelCentersDepartment.length; i++) {
+          if (_modelCentersDepartment[i]
               .name
               .toLowerCase()
               .contains(_searchText.toLowerCase())) {
-            tempList.add(_modelCenters[i]);
+            tempList.add(_modelCentersDepartment[i]);
           }
         }
-        _modelCenters = tempList;
+        _modelCentersDepartment = tempList;
       }
-      CentersList = new ListView.builder(
+      CentersDepartmentList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _modelCenters.length,
+        itemCount: _modelCentersDepartment.length,
         itemBuilder: (BuildContext context, index) {
-          final CentersObj = _modelCenters[index];
+          final CentersDepartmentObj = _modelCentersDepartment[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0),
                 //This is the list view search result
                 child: Container(
-                  height: 140.0,
+                  height: 150.0,
                   child: Padding(
                     padding: const EdgeInsets.all(1.0),
                     child: Row(
@@ -197,15 +220,17 @@ class _CentersState extends State<Centers> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${CentersObj
-                                  .logo.filename}',
+                              'http://23.111.185.155:3000/uploads/department/${CentersDepartmentObj
+                                  .image.filename}',
                             ),
                           ),
                         ),
+                        SizedBox(
+                          width: 5.0,
+                        ),
                         Expanded(
                           child: Container(
-                            padding:
-                            const EdgeInsets.only(left: 5.0, right: 5.0),
+                            padding: const EdgeInsets.all(0.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,7 +239,7 @@ class _CentersState extends State<Centers> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.name}',
+                                        '${CentersDepartmentObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
@@ -225,60 +250,80 @@ class _CentersState extends State<Centers> {
                                         ),
                                       ),
                                     ),
-                                    SmoothStarRating(
-                                      rating: 3.2,
-                                      size: 10,
-                                      color: Colors.yellow,
-                                      borderColor: Colors.grey,
-                                      starCount: 5,
-                                    )
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${CentersObj.description}",
-                                        overflow: TextOverflow.ellipsis,
+                                        '${widget.name}',
                                         style: TextStyle(
-                                          fontSize: EventSizedConstants
-                                              .TextdescriptionSize,
+                                          fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
                                       ),
                                     ),
-                                    TextIcon(
-                                      size: EventSizedConstants.TextIconSized,
-                                      text:
-                                      "من ${CentersObj.open.substring(0, 9)}",
-                                      icon: Icons.access_time,
-                                      isColumn: false,
-                                    ),
                                   ],
-                                ),
-                                SizedBox(
-                                  height: 5.0,
                                 ),
                                 Row(
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.center_type}',
+                                        '${CentersDepartmentObj.description}',
                                         style: TextStyle(
-                                          fontSize: 8.0,
+                                          fontSize: EventSizedConstants
+                                              .TextdescriptionSize,
                                           color: Colors.pinkAccent,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
                                       ),
                                     ),
-                                    TextIcon(
-                                      size: EventSizedConstants.TextIconSized,
-                                      text:
-                                      "الى ${CentersObj.close.substring(0, 9)}",
-                                      icon: Icons.timer_off,
-                                      isColumn: false,
+                                    new MaterialButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Book(
+                                                  id: widget.id,
+                                                  name:
+                                                  CentersDepartmentObj.name,
+                                                  description:
+                                                  CentersDepartmentObj
+                                                      .description,
+                                                  logo: CentersDepartmentObj
+                                                      .image.filename,
+                                                  close: widget.close,
+                                                  open: widget.open,
+                                                  country: widget.country,
+                                                  postcode: widget.postcode,
+                                                  state: widget.state,
+                                                  street1: widget.street1,
+                                                  suburb: widget.suburb,
+                                                  center_type:
+                                                  widget.center_type,
+                                                  lang: widget.lang,
+                                                  lat: widget.lat,
+                                                ),
+                                          ),
+                                        );
+                                      },
+                                      color: Color(0xFFE91E63),
+                                      splashColor: Color(0xFFFF1B5E),
+                                      textColor: Colors.white,
+                                      elevation: 0.2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: new Text("أحجز الأن",
+                                            style: TextStyle(
+                                                fontFamily: ArabicFonts.Cairo,
+                                                package: 'google_fonts_arabic',
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white)),
+                                      ),
                                     ),
                                   ],
                                 )
@@ -292,37 +337,11 @@ class _CentersState extends State<Centers> {
                 ),
               ),
             ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CentersDetails(
-                      id: CentersObj.id,
-                      name: CentersObj.name,
-                      email: CentersObj.email,
-                      description: CentersObj.description,
-                      close: CentersObj.close,
-                      open: CentersObj.open,
-                      isActive: CentersObj.isActive,
-                      inviled: CentersObj.inviled,
-                      country: CentersObj.address.country,
-                      postcode: CentersObj.address.postcode,
-                      state: CentersObj.address.state,
-                      street1: CentersObj.address.street1,
-                      suburb: CentersObj.address.suburb,
-                      center_type: CentersObj.center_type,
-                      logo: CentersObj.logo.filename,
-                      lang: CentersObj.lang,
-                      lat: CentersObj.lat,
-                      committee: CentersObj.committee),
-                ),
-              );
-            },
           );
         },
       );
     } else {
-      CentersList = Center(
+      CentersDepartmentList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -330,7 +349,7 @@ class _CentersState extends State<Centers> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد مستشفيات !',
+              'عفواً لا توجد أقسام !',
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -342,7 +361,7 @@ class _CentersState extends State<Centers> {
         ),
       );
     }
-    return CentersList;
+    return CentersDepartmentList;
   }
 
   Widget _buildBar(BuildContext context) {
@@ -368,7 +387,7 @@ class _CentersState extends State<Centers> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: 'بحث بإسم المستشفى...',
+            hintText: 'بحث بإسم القسم...',
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -381,12 +400,12 @@ class _CentersState extends State<Centers> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          'المستشفيات',
+          'الأقسام',
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,
-              color: Colors.white,
               fontSize: EventSizedConstants.TextappBarSize,
+              color: Colors.white,
               package: 'google_fonts_arabic',
               shadows: <Shadow>[
                 Shadow(
@@ -401,7 +420,7 @@ class _CentersState extends State<Centers> {
                 ),
               ]),
         );
-        _modelCenters = names;
+        _modelCentersDepartment = names;
         _filter.clear();
       }
     });

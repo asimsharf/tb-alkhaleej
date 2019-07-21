@@ -7,14 +7,47 @@ import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
 import 'package:tb_alkhalij/model/ModelCenters.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class InsuranceDetails extends StatefulWidget {
   final String id;
   final String name;
+  final String email;
+  final String description;
+  final String close;
+  final String open;
+  final String lat;
+  final String lang;
+  final bool isActive;
+  final bool inviled;
+  final String center_type;
+  final String country;
+  final String postcode;
+  final String state;
+  final String street1;
+  final String suburb;
   final String logo;
+  final List committee;
 
-  InsuranceDetails({this.id, this.name, this.logo});
+  InsuranceDetails({this.id,
+    this.name,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.lang,
+    this.lat,
+    this.isActive,
+    this.inviled,
+    this.country,
+    this.postcode,
+    this.state,
+    this.street1,
+    this.suburb,
+    this.center_type,
+    this.logo,
+    this.committee});
 
   @override
   _InsuranceDetailsState createState() => _InsuranceDetailsState();
@@ -58,12 +91,12 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
     return new Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
+          new SliverAppBar(
             title: Text(
               widget.name,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: EventSizedConstants.TextappBarSize,
                 fontWeight: FontWeight.bold,
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -111,7 +144,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
             ),
           ),
           new SliverList(
-            delegate: SliverChildListDelegate(
+            delegate: new SliverChildListDelegate(
               [
                 new Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -193,7 +226,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${CentersObj
+                              'http://23.111.185.155:3000/uploads/files/${CentersObj
                                   .logo.filename}',
                             ),
                           ),

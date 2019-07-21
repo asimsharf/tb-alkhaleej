@@ -22,6 +22,9 @@ Future<EventObject> loginUser(String emailId, String password) async {
     final response = await http.post(APIConstants.API_BASE_URL,
         body: json.encode(apiRequest.toJson()),
         encoding: Encoding.getByName(encoding));
+
+    print(response.body.toString());
+
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
@@ -59,6 +62,15 @@ Future<EventObject> registerUser(
     final response = await http.post(APIConstants.API_BASE_URL,
         body: json.encode(apiRequest.toJson()),
         encoding: Encoding.getByName(encoding));
+    print("***********1****************");
+    print(response.body.toString());
+    print("***********2****************");
+    print(encoding.toString());
+    print("***********3****************");
+    print(APIConstants.API_BASE_URL.toString());
+    print("***********4****************");
+    print(json.encode(apiRequest.toJson()).toString());
+    print("***********5****************");
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {

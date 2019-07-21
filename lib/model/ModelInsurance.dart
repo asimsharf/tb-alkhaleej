@@ -1,30 +1,85 @@
 class ModelInsurance {
   String id;
   String name;
+  String email;
+  String description;
+  String close;
+  String open;
+  String lat;
+  String lang;
+  bool isActive;
+  bool inviled;
+  String center_type;
+
+  //Address address;
   Logo logo;
+
+  //List<dynamic> committee;
 
   ModelInsurance({
     this.id,
     this.name,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.isActive,
+    this.inviled,
+    this.lat,
+    this.lang,
+    this.center_type,
+    //this.address,
     this.logo,
+    //this.committee,
   });
 
   factory ModelInsurance.fromJson(Map<String, dynamic> json) {
     return ModelInsurance(
       id: json['_id'] as String,
       name: json['name'] as String,
+      email: json['email'] as String,
+      description: json['description'] as String,
+      close: json['close'] as String,
+      open: json['open'] as String,
+      lat: json['lat'] as String,
+      lang: json['lang'] as String,
+      isActive: json['isActive'] as bool,
+      inviled: json['inviled'] as bool,
+      center_type: json['center_type'] as String,
+      //address: Address.fromJson(json['address']),
       logo: Logo.fromJson(json['logo']),
+      //committee: Committee(json['committee']),
     );
   }
+
+//  static List<dynamic> Committee(committee) {
+//    List<dynamic> Committee = new List<dynamic>.from(committee);
+//    return Committee;
+//  }
 }
 
+//class Committee {
+//  String id;
+//  String name;
+//  Logo logo;
+//  Committee({this.id, this.name, this.logo});
+//
+//  factory Committee.fromJson(Map<String, dynamic> json) {
+//    return Committee(
+//      id: json['_id'] as String,
+//      name: json['name'] as String,
+//      logo: Logo.fromJson(json['logo']),
+//    );
+//  }
+//}
+
 class Logo {
-  final String filename;
-  final int size;
-  final String mimetype;
-  final String path;
-  final String originalname;
-  final String url;
+  String filename;
+  int size;
+  String mimetype;
+  String path;
+  String originalname;
+  String url;
 
   Logo({this.filename,
     this.size,
@@ -44,3 +99,23 @@ class Logo {
     );
   }
 }
+//
+//class Address {
+//  String country;
+//  String postcode;
+//  String state;
+//  String street1;
+//  String suburb;
+//
+//  Address({this.country, this.postcode, this.state, this.street1, this.suburb});
+//
+//  factory Address.fromJson(Map<String, dynamic> json) {
+//    return Address(
+//      country: json['country'] as String,
+//      postcode: json['postcode'] as String,
+//      state: json['state'] as String,
+//      street1: json['street1'] as String,
+//      suburb: json['suburb'] as String,
+//    );
+//  }
+//}

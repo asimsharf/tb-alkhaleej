@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class Rating extends StatefulWidget {
   final String id;
@@ -33,7 +34,7 @@ class _RatingState extends State<Rating> {
               widget.name,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: EventSizedConstants.TextappBarSize,
                 fontWeight: FontWeight.bold,
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',

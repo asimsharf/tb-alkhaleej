@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Screen/Pharmacy/pharmacyDetails.dart';
 import 'package:tb_alkhalij/model/ModelPharmacy.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class Pharmacy extends StatefulWidget {
@@ -18,6 +19,8 @@ class Pharmacy extends StatefulWidget {
 
 class _PharmacyState extends State<Pharmacy> {
   //---------------------------------------------------------------
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  new GlobalKey<RefreshIndicatorState>();
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio();
   String _searchText = "";
@@ -55,6 +58,7 @@ class _PharmacyState extends State<Pharmacy> {
         fontWeight: FontWeight.bold,
         fontFamily: ArabicFonts.Cairo,
         color: Colors.white,
+        fontSize: EventSizedConstants.TextappBarSize,
         package: 'google_fonts_arabic',
         shadows: <Shadow>[
           Shadow(
@@ -106,9 +110,18 @@ class _PharmacyState extends State<Pharmacy> {
     return _modelPharmacy;
   }
 
+  Future<Null> _refresh() {
+    return getPharmacy().then((modelCen) {
+      setState(() => _modelPharmacy = modelCen);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _refreshIndicatorKey.currentState.show(),
+    );
     this.getPharmacy();
     this._getPharmacyNames();
     setState(() {
@@ -120,14 +133,18 @@ class _PharmacyState extends State<Pharmacy> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildBar(context),
-      body: new Container(
-        child: new Column(
-          children: <Widget>[
-            new Expanded(
-                child: _loading
-                    ? new Center(child: new CircularProgressIndicator())
-                    : _buildProductList()),
-          ],
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _refresh,
+        child: new Container(
+          child: new Column(
+            children: <Widget>[
+              new Expanded(
+                  child: _loading
+                      ? new Center(child: new CircularProgressIndicator())
+                      : _buildProductList()),
+            ],
+          ),
         ),
       ),
     );
@@ -155,6 +172,9 @@ class _PharmacyState extends State<Pharmacy> {
         itemCount: _modelPharmacy.length,
         itemBuilder: (BuildContext context, index) {
           final PharmacyObj = _modelPharmacy[index];
+          print("***********PharmacyObj.id**************");
+          print(PharmacyObj.id);
+          print("***********PharmacyObj.id**************");
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -199,7 +219,8 @@ class _PharmacyState extends State<Pharmacy> {
                                         '${PharmacyObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize:
+                                          EventSizedConstants.TextnameSize,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -222,14 +243,15 @@ class _PharmacyState extends State<Pharmacy> {
                                         "${PharmacyObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 8.0,
+                                          fontSize: EventSizedConstants
+                                              .TextdescriptionSize,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
                                       ),
                                     ),
                                     TextIcon(
-                                      size: 10.0,
+                                      size: EventSizedConstants.TextIconSized,
                                       text:
                                       "من ${PharmacyObj.open.substring(0, 9)}",
                                       icon: Icons.access_time,
@@ -254,7 +276,7 @@ class _PharmacyState extends State<Pharmacy> {
                                       ),
                                     ),
                                     TextIcon(
-                                      size: 10.0,
+                                      size: EventSizedConstants.TextIconSized,
                                       text:
                                       "الى ${PharmacyObj.close.substring(
                                           0, 9)}",
@@ -296,6 +318,7 @@ class _PharmacyState extends State<Pharmacy> {
                         logo: PharmacyObj.logo.filename,
                         lang: PharmacyObj.lang,
                         lat: PharmacyObj.lat,
+                        committee: PharmacyObj.committee,
                       ),
                 ),
               );
@@ -367,6 +390,7 @@ class _PharmacyState extends State<Pharmacy> {
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,
+              fontSize: EventSizedConstants.TextappBarSize,
               color: Colors.white,
               package: 'google_fonts_arabic',
               shadows: <Shadow>[

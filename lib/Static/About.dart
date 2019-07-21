@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class About extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _AboutState extends State<About> {
         title: Text(
           Translations.of(context).about_app,
           style: TextStyle(
-            fontSize: 25.0,
+            fontSize: EventSizedConstants.TextappBarSize,
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
             package: 'google_fonts_arabic',

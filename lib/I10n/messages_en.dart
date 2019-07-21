@@ -76,5 +76,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "booking": MessageLookupByLibrary.simpleMessage("Booking"),
     "insurance": MessageLookupByLibrary.simpleMessage("Insurance"),
+    "address": MessageLookupByLibrary.simpleMessage("Address"),
+    "description": MessageLookupByLibrary.simpleMessage("Description"),
+    "insurances": MessageLookupByLibrary.simpleMessage("Insurances"),
+    "locations": MessageLookupByLibrary.simpleMessage("Locations"),
+    "rate": MessageLookupByLibrary.simpleMessage("Rate"),
+    "ratings": MessageLookupByLibrary.simpleMessage("Ratings"),
+    "rating_review": MessageLookupByLibrary.simpleMessage("Rating_review"),
+    "add_review": MessageLookupByLibrary.simpleMessage("Add review"),
+    "add_rating": MessageLookupByLibrary.simpleMessage("Add rating"),
+    "total_rating": MessageLookupByLibrary.simpleMessage("total rating"),
       };
 }

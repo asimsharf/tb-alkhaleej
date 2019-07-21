@@ -5,17 +5,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:tb_alkhalij/model/ModelDepartment.dart';
+import 'package:tb_alkhalij/model/ModelClinicDepartment.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
-class Department extends StatefulWidget {
+class ClinicDepartment extends StatefulWidget {
   final String id;
   final String name;
-  Department({this.id, this.name});
+
+  ClinicDepartment({this.id, this.name});
+
   @override
-  _DepartmentState createState() => _DepartmentState();
+  _ClinicDepartmentState createState() => _ClinicDepartmentState();
 }
 
-class _DepartmentState extends State<Department> {
+class _ClinicDepartmentState extends State<ClinicDepartment> {
   //---------------------------------------------------------------
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio();
@@ -31,19 +34,21 @@ class _DepartmentState extends State<Department> {
   void _getCenterNames() async {
     final response = await dio
         .get('http://23.111.185.155:3000/api/center/${widget.id}/department');
-    List<ModelDepartment> tempList = <ModelDepartment>[];
+    List<ModelClinicDepartment> tempList = <ModelClinicDepartment>[];
     for (int i = 0; i < response.data['departments'].length; i++) {
       var rest = response.data['departments'] as List;
-      _modelDepartment = rest
-          .map<ModelDepartment>((rest) => ModelDepartment.fromJson(rest))
+      _modelClinicDepartment = rest
+          .map<ModelClinicDepartment>(
+              (rest) => ModelClinicDepartment.fromJson(rest))
           .toList();
-      tempList.add(ModelDepartment.fromJson(response.data['departments'][i]));
+      tempList
+          .add(ModelClinicDepartment.fromJson(response.data['departments'][i]));
     }
     setState(() {
       if (response.statusCode == 200) {
         names = tempList;
         names.shuffle();
-        _modelDepartment = names;
+        _modelClinicDepartment = names;
       }
     });
   }
@@ -55,6 +60,7 @@ class _DepartmentState extends State<Department> {
     style: TextStyle(
         fontWeight: FontWeight.bold,
         fontFamily: ArabicFonts.Cairo,
+        fontSize: EventSizedConstants.TextappBarSize,
         color: Colors.white,
         package: 'google_fonts_arabic',
         shadows: <Shadow>[
@@ -71,12 +77,12 @@ class _DepartmentState extends State<Department> {
         ]),
   );
 
-  _DepartmentState() {
+  _ClinicDepartmentState() {
     _filter.addListener(() {
       if (_filter.text.isEmpty) {
         setState(() {
           _searchText = "";
-          _modelDepartment = names;
+          _modelClinicDepartment = names;
         });
       } else {
         setState(() {
@@ -88,9 +94,10 @@ class _DepartmentState extends State<Department> {
 
 //---------------------------------------------------------------
 
-  List<ModelDepartment> _modelDepartment = <ModelDepartment>[];
+  List<ModelClinicDepartment> _modelClinicDepartment =
+      <ModelClinicDepartment>[];
 
-  Future<List<ModelDepartment>> getCenters() async {
+  Future<List<ModelClinicDepartment>> getCenters() async {
     String link =
         "http://23.111.185.155:3000/api/center/${widget.id}/department";
     var res = await http
@@ -99,13 +106,14 @@ class _DepartmentState extends State<Department> {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
         var rest = data['departments'] as List;
-        _modelDepartment = rest
-            .map<ModelDepartment>((rest) => ModelDepartment.fromJson(rest))
+        _modelClinicDepartment = rest
+            .map<ModelClinicDepartment>(
+                (rest) => ModelClinicDepartment.fromJson(rest))
             .toList();
         loading = false;
       }
     });
-    return _modelDepartment;
+    return _modelClinicDepartment;
   }
 
   @override
@@ -136,27 +144,27 @@ class _DepartmentState extends State<Department> {
   }
 
   Widget _buildProductList() {
-    Widget DepartmentList;
-    if (_modelDepartment.length > 0) {
+    Widget ClinicDepartmentList;
+    if (_modelClinicDepartment.length > 0) {
       if (!(_searchText.isEmpty)) {
-        List<ModelDepartment> tempList = <ModelDepartment>[];
-        for (int i = 0; i < _modelDepartment.length; i++) {
-          if (_modelDepartment[i]
+        List<ModelClinicDepartment> tempList = <ModelClinicDepartment>[];
+        for (int i = 0; i < _modelClinicDepartment.length; i++) {
+          if (_modelClinicDepartment[i]
               .name
               .toLowerCase()
               .contains(_searchText.toLowerCase())) {
-            tempList.add(_modelDepartment[i]);
+            tempList.add(_modelClinicDepartment[i]);
           }
         }
-        _modelDepartment = tempList;
+        _modelClinicDepartment = tempList;
       }
-      DepartmentList = new ListView.builder(
+      ClinicDepartmentList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _modelDepartment.length,
+        itemCount: _modelClinicDepartment.length,
         itemBuilder: (BuildContext context, index) {
-          final DepartmentObj = _modelDepartment[index];
+          final ClinicDepartmentObj = _modelClinicDepartment[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -181,8 +189,7 @@ class _DepartmentState extends State<Department> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/department/${DepartmentObj
-                                  .image.filename}',
+                                  'http://23.111.185.155:3000/uploads/department/${ClinicDepartmentObj.image.filename}',
                             ),
                           ),
                         ),
@@ -200,10 +207,11 @@ class _DepartmentState extends State<Department> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${DepartmentObj.name}',
+                                        '${ClinicDepartmentObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize:
+                                              EventSizedConstants.TextnameSize,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -230,9 +238,10 @@ class _DepartmentState extends State<Department> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${DepartmentObj.description}',
+                                        '${ClinicDepartmentObj.description}',
                                         style: TextStyle(
-                                          fontSize: 10.0,
+                                          fontSize: EventSizedConstants
+                                              .TextdescriptionSize,
                                           color: Colors.pinkAccent,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -273,7 +282,7 @@ class _DepartmentState extends State<Department> {
         },
       );
     } else {
-      DepartmentList = Center(
+      ClinicDepartmentList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -293,7 +302,7 @@ class _DepartmentState extends State<Department> {
         ),
       );
     }
-    return DepartmentList;
+    return ClinicDepartmentList;
   }
 
   Widget _buildBar(BuildContext context) {
@@ -351,7 +360,7 @@ class _DepartmentState extends State<Department> {
                 ),
               ]),
         );
-        _modelDepartment = names;
+        _modelClinicDepartment = names;
         _filter.clear();
       }
     });

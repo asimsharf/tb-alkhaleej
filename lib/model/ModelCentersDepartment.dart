@@ -1,13 +1,13 @@
-class ModelDepartment {
+class ModelCentersDepartment {
   String id;
   String name;
   String description;
   Image image;
 
-  ModelDepartment({this.id, this.name, this.description, this.image});
+  ModelCentersDepartment({this.id, this.name, this.description, this.image});
 
-  factory ModelDepartment.fromJson(Map<String, dynamic> json) {
-    return ModelDepartment(
+  factory ModelCentersDepartment.fromJson(Map<String, dynamic> json) {
+    return ModelCentersDepartment(
       id: json['_id'] as String,
       name: json['name'] as String,
       description: json['description'] as String,

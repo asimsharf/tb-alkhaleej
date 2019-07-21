@@ -336,4 +336,74 @@ class Translations {
       name: 'insurance',
     );
   }
+
+  String get address {
+    return Intl.message(
+      'Address',
+      name: 'address',
+    );
+  }
+
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+    );
+  }
+
+  String get insurances {
+    return Intl.message(
+      'Insurances',
+      name: 'insurances',
+    );
+  }
+
+  String get locations {
+    return Intl.message(
+      'Locations',
+      name: 'locations',
+    );
+  }
+
+  String get rate {
+    return Intl.message(
+      'Rate',
+      name: 'rate',
+    );
+  }
+
+  String get ratings {
+    return Intl.message(
+      'Ratings',
+      name: 'ratings',
+    );
+  }
+
+  String get rating_review {
+    return Intl.message(
+      'Rating review',
+      name: 'rating_review',
+    );
+  }
+
+  String get add_review {
+    return Intl.message(
+      'Add review',
+      name: 'add_review',
+    );
+  }
+
+  String get add_rating {
+    return Intl.message(
+      'Add rating',
+      name: 'add_rating',
+    );
+  }
+
+  String get total_rating {
+    return Intl.message(
+      'Total rating',
+      name: 'total_rating',
+    );
+  }
 }

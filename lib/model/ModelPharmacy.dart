@@ -12,23 +12,24 @@ class ModelPharmacy {
   String center_type;
   Address address;
   Logo logo;
-  List<String> city;
+  List<dynamic> committee;
 
-  ModelPharmacy(
-      {this.id,
-      this.name,
-      this.email,
-      this.description,
-      this.close,
-      this.open,
-      this.isActive,
-      this.inviled,
-      this.lat,
-      this.lang,
-      this.center_type,
-      this.address,
-      this.logo,
-      this.city});
+  ModelPharmacy({
+    this.id,
+    this.name,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.isActive,
+    this.inviled,
+    this.lat,
+    this.lang,
+    this.center_type,
+    this.address,
+    this.logo,
+    this.committee,
+  });
 
   factory ModelPharmacy.fromJson(Map<String, dynamic> json) {
     return ModelPharmacy(
@@ -45,13 +46,13 @@ class ModelPharmacy {
       center_type: json['center_type'] as String,
       address: Address.fromJson(json['address']),
       logo: Logo.fromJson(json['logo']),
-      city: City(json['city']),
+      committee: Committee(json['committee']),
     );
   }
 
-  static List<String> City(city) {
-    List<String> City = new List<String>.from(city);
-    return City;
+  static List<dynamic> Committee(committee) {
+    List<dynamic> Committee = new List<dynamic>.from(committee);
+    return Committee;
   }
 }
 

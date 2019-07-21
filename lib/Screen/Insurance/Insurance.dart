@@ -7,6 +7,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/Screen/Insurance/InsuranceDetails.dart';
 import 'package:tb_alkhalij/model/ModelInsurance.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class Insurance extends StatefulWidget {
   final Widget child;
@@ -18,6 +19,8 @@ class Insurance extends StatefulWidget {
 
 class _InsuranceState extends State<Insurance> {
   //---------------------------------------------------------------
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  new GlobalKey<RefreshIndicatorState>();
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio();
   String _searchText = "";
@@ -74,6 +77,7 @@ class _InsuranceState extends State<Insurance> {
     style: TextStyle(
         fontWeight: FontWeight.bold,
         fontFamily: ArabicFonts.Cairo,
+        fontSize: EventSizedConstants.TextappBarSize,
         color: Colors.white,
         package: 'google_fonts_arabic',
         shadows: <Shadow>[
@@ -105,10 +109,19 @@ class _InsuranceState extends State<Insurance> {
     });
   }
 
+  Future<Null> _refresh() {
+    return getInsurance().then((modelCen) {
+      setState(() => _modelInsurance = modelCen);
+    });
+  }
+
 //---------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _refreshIndicatorKey.currentState.show(),
+    );
     this.getInsurance();
     this._getInsuranceNames();
     setState(() {
@@ -120,14 +133,18 @@ class _InsuranceState extends State<Insurance> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: _buildBar(context),
-      body: new Container(
-        child: new Column(
-          children: <Widget>[
-            new Expanded(
-                child: _loading
-                    ? new Center(child: new CircularProgressIndicator())
-                    : _buildProductList()),
-          ],
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _refresh,
+        child: new Container(
+          child: new Column(
+            children: <Widget>[
+              new Expanded(
+                  child: _loading
+                      ? new Center(child: new CircularProgressIndicator())
+                      : _buildProductList()),
+            ],
+          ),
         ),
       ),
     );
@@ -180,14 +197,14 @@ class _InsuranceState extends State<Insurance> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                                  'http://23.111.185.155:3000/uploads/insurance/${InsuranceObj.logo.filename}',
+                              'http://23.111.185.155:3000/uploads/insurance/${InsuranceObj.logo.filename}',
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             padding:
-                                const EdgeInsets.only(left: 20.0, right: 5.0),
+                            const EdgeInsets.only(left: 20.0, right: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,7 +216,8 @@ class _InsuranceState extends State<Insurance> {
                                         '${InsuranceObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 20.0,
+                                          fontSize:
+                                          EventSizedConstants.TextnameSize,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -223,10 +241,25 @@ class _InsuranceState extends State<Insurance> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => InsuranceDetails(
-                        id: InsuranceObj.id,
-                        name: InsuranceObj.name,
-                        logo: InsuranceObj.logo.filename,
-                      ),
+                    id: InsuranceObj.id,
+                    name: InsuranceObj.name,
+                    email: InsuranceObj.email,
+                    description: InsuranceObj.description,
+                    close: InsuranceObj.close,
+                    open: InsuranceObj.open,
+                    isActive: InsuranceObj.isActive,
+                    inviled: InsuranceObj.inviled,
+//                      country: InsuranceObj.address.country,
+//                      postcode: InsuranceObj.address.postcode,
+//                      state: InsuranceObj.address.state,
+//                      street1: InsuranceObj.address.street1,
+//                      suburb: InsuranceObj.address.suburb,
+                    center_type: InsuranceObj.center_type,
+                    logo: InsuranceObj.logo.filename,
+                    lang: InsuranceObj.lang,
+                    lat: InsuranceObj.lat,
+                    //committee: InsuranceObj.committee,
+                  ),
                 ),
               );
             },
@@ -297,6 +330,7 @@ class _InsuranceState extends State<Insurance> {
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,
+              fontSize: EventSizedConstants.TextappBarSize,
               color: Colors.white,
               package: 'google_fonts_arabic',
               shadows: <Shadow>[

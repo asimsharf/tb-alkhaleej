@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 class APIConstants {
-  static const String OCTET_STREAM_ENCODING = "application/octet-stream";
+  static const String OCTET_STREAM_ENCODING = "application/json";
   static const String API_BASE_URL = "https://hafinse.000webhostapp.com";
 }
 

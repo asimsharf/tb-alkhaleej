@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
+import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Help extends StatefulWidget {
@@ -41,7 +42,7 @@ class _HelpState extends State<Help>
               .of(context)
               .contact_infos,
           style: TextStyle(
-            fontSize: 25.0,
+            fontSize: EventSizedConstants.TextappBarSize,
             fontWeight: FontWeight.bold,
             fontFamily: ArabicFonts.Cairo,
             package: 'google_fonts_arabic',

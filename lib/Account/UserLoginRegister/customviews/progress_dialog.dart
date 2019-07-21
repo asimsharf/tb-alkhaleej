@@ -39,7 +39,7 @@ class ProgressDialog extends StatefulWidget {
     return new ProgressDialog(
       backgroundColor: Colors.black12,
       color: Colors.white,
-      containerColor: Colors.deepOrangeAccent,
+      containerColor: Color(0xFF00C2E7),
       borderRadius: 5.0,
       text: title,
     );

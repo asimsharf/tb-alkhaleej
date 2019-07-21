@@ -15,8 +15,8 @@ class TextIcon extends StatelessWidget {
       @required this.icon,
       @required this.text,
       this.isColumn = true,
-      this.size = 12})
-      : assert(size <= 24.0),
+        this.size = 5})
+      : assert(size <= 10.0),
         super(key: key);
 
   @override
@@ -34,7 +34,7 @@ class TextIcon extends StatelessWidget {
       );
     } else {
       return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: Row(
           children: <Widget>[
             Text(

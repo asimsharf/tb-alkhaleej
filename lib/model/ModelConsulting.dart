@@ -12,7 +12,7 @@ class ModelConsulting {
   String center_type;
   Address address;
   Logo logo;
-  List<String> city;
+  List<dynamic> committee;
 
   ModelConsulting(
       {this.id,
@@ -28,7 +28,7 @@ class ModelConsulting {
       this.center_type,
       this.address,
       this.logo,
-      this.city});
+        this.committee});
 
   factory ModelConsulting.fromJson(Map<String, dynamic> json) {
     return ModelConsulting(
@@ -45,13 +45,29 @@ class ModelConsulting {
       center_type: json['center_type'] as String,
       address: Address.fromJson(json['address']),
       logo: Logo.fromJson(json['logo']),
-      city: City(json['city']),
+      committee: Committee(json['committee']),
     );
   }
 
-  static List<String> City(city) {
-    List<String> City = new List<String>.from(city);
-    return City;
+  static List<dynamic> Committee(committee) {
+    List<dynamic> Committee = new List<dynamic>.from(committee);
+    return Committee;
+  }
+}
+
+class Committee {
+  String id;
+  String name;
+  Logo logo;
+
+  Committee({this.id, this.name, this.logo});
+
+  factory Committee.fromJson(Map<String, dynamic> json) {
+    return Committee(
+      id: json['_id'] as String,
+      name: json['name'] as String,
+      logo: Logo.fromJson(json['logo']),
+    );
   }
 }
 
