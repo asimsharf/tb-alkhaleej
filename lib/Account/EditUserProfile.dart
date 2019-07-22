@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
-import 'package:tb_alkhalij/Account/EditUserProfile.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
-class UserProfile extends StatefulWidget {
+class EditUserProfile extends StatefulWidget {
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _EditUserProfileState createState() => _EditUserProfileState();
 }
 
-class _UserProfileState extends State<UserProfile>
+class _EditUserProfileState extends State<EditUserProfile>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
@@ -22,7 +21,7 @@ class _UserProfileState extends State<UserProfile>
         slivers: <Widget>[
           new SliverAppBar(
             title: Text(
-              "الملف الشخصي",
+              "تعديل الملف الشخصي",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: ArabicFonts.Cairo,
@@ -80,7 +79,7 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("الإسم",
+                      Text("إسم العميل",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -108,7 +107,7 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("الدوله",
+                      Text("البريد الإلكتروني",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -136,7 +135,35 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("المدينة",
+                      Text("كلمة المرور",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontFamily: ArabicFonts.Cairo,
+                              package: 'google_fonts_arabic',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF37505D),
+                              fontSize: 14.0)),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Text(
+                        "شارع الستين ابوالروم",
+                        style: TextStyle(
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: new Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("رقم الهاتف",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -164,7 +191,35 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("العنوان",
+                      Text("الجنس / النوع",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontFamily: ArabicFonts.Cairo,
+                              package: 'google_fonts_arabic',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF37505D),
+                              fontSize: 14.0)),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Text(
+                        "شارع الستين ابوالروم",
+                        style: TextStyle(
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: new Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("تاريخ الميلاد",
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -196,19 +251,14 @@ class _UserProfileState extends State<UserProfile>
           children: <Widget>[
             Expanded(
               child: new FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EditUserProfile()));
-                },
+                onPressed: () {},
                 color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.black,
                 //elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("تعديل البيانات",
+                  child: new Text("حفظ البيانات",
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',

@@ -280,7 +280,7 @@ class _HelpState extends State<Help>
             new Expanded(
               child: new MaterialButton(
                 onPressed: () => _ChackMakeCall(context),
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -293,7 +293,7 @@ class _HelpState extends State<Help>
             new Expanded(
               child: new MaterialButton(
                 onPressed: () => _ChackWhatsAppChat(context),
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -306,7 +306,7 @@ class _HelpState extends State<Help>
             new Expanded(
               child: new MaterialButton(
                 onPressed: () => _ChackSendEmail(context),
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -319,7 +319,7 @@ class _HelpState extends State<Help>
             new Expanded(
               child: new MaterialButton(
                 onPressed: () => _ChackLanchWebSite(context),
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -349,7 +349,7 @@ class _HelpState extends State<Help>
         buttons: [
           DialogButton(
             onPressed: () => launch("tel://109238047901"),
-            color: Color(0xFF00C2E7),
+            color: Color(0xFF13A1C5),
             child: Text(
               "موافق",
               style: TextStyle(
@@ -378,7 +378,7 @@ class _HelpState extends State<Help>
           DialogButton(
             onPressed: () => launch(
                 "mailto://info@almohamigroup.com?subject=طلب المساعدة من التطبيق&body=السلام عليكم ورحمة الله "),
-            color: Color(0xFF00C2E7),
+            color: Color(0xFF13A1C5),
             child: Text(
               "موافق",
               style: TextStyle(
@@ -406,7 +406,7 @@ class _HelpState extends State<Help>
         buttons: [
           DialogButton(
             onPressed: () => launch("whatsapp://send?phone=+249913000262"),
-            color: Color(0xFF00C2E7),
+            color: Color(0xFF13A1C5),
             child: Text(
               "موافق",
               style: TextStyle(
@@ -434,7 +434,7 @@ class _HelpState extends State<Help>
         buttons: [
           DialogButton(
             onPressed: () => launch("http://takaful.com/"),
-            color: Color(0xFF00C2E7),
+            color: Color(0xFF13A1C5),
             child: Text(
               "موافق",
               style: TextStyle(

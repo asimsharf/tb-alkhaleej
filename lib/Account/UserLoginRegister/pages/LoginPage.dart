@@ -144,7 +144,7 @@ class LoginPageState extends State<LoginPage> {
         child: new MaterialButton(
           height: 40.0,
           minWidth: 100.0,
-          color: Color(0xFF00C2E7),
+          color: Color(0xFF13A1C5),
           splashColor: Color(0xFF009AFF),
           textColor: Colors.white,
           padding: EdgeInsets.all(15.0),

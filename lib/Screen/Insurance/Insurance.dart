@@ -197,7 +197,8 @@ class _InsuranceState extends State<Insurance> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/insurance/${InsuranceObj.logo.filename}',
+                              'http://23.111.185.155:3000/uploads/insurance/${InsuranceObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),
@@ -243,22 +244,7 @@ class _InsuranceState extends State<Insurance> {
                   builder: (context) => InsuranceDetails(
                     id: InsuranceObj.id,
                     name: InsuranceObj.name,
-                    email: InsuranceObj.email,
-                    description: InsuranceObj.description,
-                    close: InsuranceObj.close,
-                    open: InsuranceObj.open,
-                    isActive: InsuranceObj.isActive,
-                    inviled: InsuranceObj.inviled,
-//                      country: InsuranceObj.address.country,
-//                      postcode: InsuranceObj.address.postcode,
-//                      state: InsuranceObj.address.state,
-//                      street1: InsuranceObj.address.street1,
-//                      suburb: InsuranceObj.address.suburb,
-                    center_type: InsuranceObj.center_type,
                     logo: InsuranceObj.logo.filename,
-                    lang: InsuranceObj.lang,
-                    lat: InsuranceObj.lat,
-                    //committee: InsuranceObj.committee,
                   ),
                 ),
               );

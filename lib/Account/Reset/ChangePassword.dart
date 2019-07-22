@@ -80,7 +80,7 @@ class _ChangePassword extends State<ChangePassword>
                     MaterialButton(
                       height: 30.0,
                       minWidth: 200.0,
-                      color: Color(0xFF00C2E7),
+                      color: Color(0xFF13A1C5),
                       splashColor: Color(0xFF009AFF),
                       textColor: Colors.white,
                       child: new Text(

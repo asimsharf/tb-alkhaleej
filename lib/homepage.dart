@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(20.0),
                     ),
-                    color: Color(0xFF00C2E7),
+                    color: Color(0xFF13A1C5),
                     textColor: Colors.white,
                     splashColor: Color(0xFF009AFF),
                     onPressed: () {
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(20.0),
                     ),
-                    color: Color(0xFF00C2E7),
+                    color: Color(0xFF13A1C5),
                     textColor: Colors.white,
                     splashColor: Color(0xFF009AFF),
                     onPressed: () {
@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(14.0),
                       ),
-                      color: Color(0xFF00C2E7),
+                  color: Color(0xFF13A1C5),
                       textColor: Colors.white,
                       splashColor: Color(0xFF009AFF),
                       onPressed: () {

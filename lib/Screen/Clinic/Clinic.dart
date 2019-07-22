@@ -250,7 +250,7 @@ class _ClinicState extends State<Clinic> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "من ${ClinicObj.open.substring(0, 9)}",
+                                      "${ClinicObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -275,7 +275,7 @@ class _ClinicState extends State<Clinic> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "الى ${ClinicObj.close.substring(0, 9)}",
+                                      "${ClinicObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),

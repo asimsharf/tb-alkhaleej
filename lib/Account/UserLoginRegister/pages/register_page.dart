@@ -175,7 +175,7 @@ class RegisterPageState extends State<RegisterPage> {
         child: new MaterialButton(
           height: 40.0,
           minWidth: 200.0,
-          color: Color(0xFF00C2E7),
+          color: Color(0xFF13A1C5),
           splashColor: Color(0xFF009AFF),
           textColor: Colors.white,
           child: new Icon(FontAwesomeIcons.signInAlt),

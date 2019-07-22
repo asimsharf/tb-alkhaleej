@@ -9,6 +9,6 @@ ThemeData _buildHRTheme() {
     splashColor: Color(0xFF009AFF),
     fontFamily: ArabicFonts.Cairo,
     textSelectionColor: Colors.lightBlueAccent,
-    primaryColor: Color(0xFF00C2E7),
+    primaryColor: Color(0xFF13A1C5),
   );
 }

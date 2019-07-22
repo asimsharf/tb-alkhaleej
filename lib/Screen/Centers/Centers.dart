@@ -251,7 +251,7 @@ class _CentersState extends State<Centers> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "من ${CentersObj.open.substring(0, 9)}",
+                                      "${CentersObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -276,7 +276,7 @@ class _CentersState extends State<Centers> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "الى ${CentersObj.close.substring(0, 9)}",
+                                      "${CentersObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),

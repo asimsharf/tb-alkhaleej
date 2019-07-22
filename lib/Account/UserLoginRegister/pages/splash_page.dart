@@ -32,7 +32,7 @@ class SplashPageLoginTowState extends State<SplashPageLoginTow> {
         child: Container(
             height: double.infinity,
             width: double.infinity,
-            decoration: new BoxDecoration(color: Color(0xFF00C2E7)),
+            decoration: new BoxDecoration(color: Color(0xFF13A1C5)),
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

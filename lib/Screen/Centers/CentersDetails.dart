@@ -495,7 +495,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     ),
                   );
                 },
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -531,7 +531,7 @@ class _CentersDetailsState extends State<CentersDetails> {
             new Expanded(
               child: new MaterialButton(
                 onPressed: _showModalSheet,
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -802,7 +802,7 @@ class MyButton extends StatelessWidget {
         child: OutlineButton(
           padding: EdgeInsets.all(0.0),
           borderSide:
-          BorderSide(color: Color(0xFF00C2E7), style: BorderStyle.solid),
+          BorderSide(color: Color(0xFF13A1C5), style: BorderStyle.solid),
           disabledBorderColor: Colors.grey,
           highlightedBorderColor: Color(0xFF009AFF),
           onPressed: () {},

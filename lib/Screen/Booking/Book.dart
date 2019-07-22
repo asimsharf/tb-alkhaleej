@@ -67,10 +67,10 @@ class _BookState extends State<Book> {
 //  String dateWithT = date.substring(0, 8) + 'T' + date.substring(8);
 //  DateTime dateTime = DateTime.parse(dateWithT);
 
-  void convertDateFromString(String strDate) {
-    DateTime todayDate = DateTime.parse(strDate).toLocal();
-    print(todayDate);
-  }
+//  void convertDateFromString(String strDate) {
+//    DateTime todayDate = DateTime.parse(strDate).toLocal();
+//    print(todayDate);
+//  }
 
   List<DateTime> availableDaes = [
     DateTime(2019, 7, 1),
@@ -472,7 +472,7 @@ class _BookState extends State<Book> {
             new Expanded(
               child: new MaterialButton(
                 onPressed: () {},
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,

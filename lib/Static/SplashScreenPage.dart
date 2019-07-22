@@ -13,13 +13,13 @@ class SplashScreenPage extends StatelessWidget {
       loaderColor: Colors.white,
       image: Image.asset("assets/logo.png"),
       gradientBackground: new LinearGradient(
-          colors: [Color(0xFF00C2E7), Color(0xFF00C2E7)],
+          colors: [Color(0xFF13A1C5), Color(0xFF13A1C5)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight),
       title: Text("تطبيق طب الخليج",
           style: TextStyle(
               color: Colors.white,
-              fontSize: 40.0,
+              fontSize: 25.0,
               fontFamily: ArabicFonts.Cairo,
               package: 'google_fonts_arabic',
               fontWeight: FontWeight.bold,

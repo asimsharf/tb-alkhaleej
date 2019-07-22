@@ -154,7 +154,7 @@ class _RatingState extends State<Rating> {
                       child: Padding(
                         padding: const EdgeInsets.all(30.0),
                         child: Divider(
-                          color: Color(0xFF00C2E7),
+                          color: Color(0xFF13A1C5),
                           height: 1.0,
                         ),
                       ),
@@ -185,8 +185,15 @@ class _RatingState extends State<Rating> {
           children: <Widget>[
             new Expanded(
               child: new MaterialButton(
-                onPressed: () {},
-                color: Color(0xFF00C2E7),
+                onPressed: () {
+//                  Navigator.push(
+//                    context,
+//                    MaterialPageRoute(
+//                      builder: (context) => MyStelppers(),
+//                    ),
+//                  );
+                },
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -196,7 +203,7 @@ class _RatingState extends State<Rating> {
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
-                          fontSize: 20.0,
+                          fontSize: EventSizedConstants.TextButtonFontSized,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           shadows: <Shadow>[

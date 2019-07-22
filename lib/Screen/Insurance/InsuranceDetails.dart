@@ -5,49 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
-import 'package:tb_alkhalij/model/ModelCenters.dart';
+import 'package:tb_alkhalij/Screen/Insurance/InsuranceCenterDetails.dart';
+import 'package:tb_alkhalij/model/ModelInsurancesCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class InsuranceDetails extends StatefulWidget {
-  final String id;
-  final String name;
-  final String email;
-  final String description;
-  final String close;
-  final String open;
-  final String lat;
-  final String lang;
-  final bool isActive;
-  final bool inviled;
-  final String center_type;
-  final String country;
-  final String postcode;
-  final String state;
-  final String street1;
-  final String suburb;
-  final String logo;
-  final List committee;
+  String id;
+  String name;
+  String logo;
 
-  InsuranceDetails({this.id,
-    this.name,
-    this.email,
-    this.description,
-    this.close,
-    this.open,
-    this.lang,
-    this.lat,
-    this.isActive,
-    this.inviled,
-    this.country,
-    this.postcode,
-    this.state,
-    this.street1,
-    this.suburb,
-    this.center_type,
-    this.logo,
-    this.committee});
+  InsuranceDetails({this.id, this.name, this.logo});
 
   @override
   _InsuranceDetailsState createState() => _InsuranceDetailsState();
@@ -56,9 +24,10 @@ class InsuranceDetails extends StatefulWidget {
 class _InsuranceDetailsState extends State<InsuranceDetails> {
   bool _loading = false;
 
-  List<ModelCenters> _modelCenters = <ModelCenters>[];
+  List<ModelInsurancesCenters> _modelInsurancesCenters =
+  <ModelInsurancesCenters>[];
 
-  Future<List<ModelCenters>> getCenters() async {
+  Future<List<ModelInsurancesCenters>> getInsurancesCenters() async {
     String link =
         "http://23.111.185.155:3000/api/insurances/${widget.id}/centers";
     var res = await http
@@ -68,19 +37,20 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
         var data = json.decode(res.body);
 
         var rest = data['Centers'] as List;
-        _modelCenters = rest
-            .map<ModelCenters>((rest) => ModelCenters.fromJson(rest))
+        _modelInsurancesCenters = rest
+            .map<ModelInsurancesCenters>(
+                (rest) => ModelInsurancesCenters.fromJson(rest))
             .toList();
         _loading = false;
       }
     });
-    return _modelCenters;
+    return _modelInsurancesCenters;
   }
 
   @override
   void initState() {
     super.initState();
-    this.getCenters();
+    this.getInsurancesCenters();
     setState(() {
       _loading = true;
     });
@@ -194,14 +164,15 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
 
   Widget _buildProductList() {
     Widget CentersList;
-    if (_modelCenters.length > 0) {
+    if (_modelInsurancesCenters.length > 0) {
       CentersList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _modelCenters.length,
+        itemCount: _modelInsurancesCenters.length,
         itemBuilder: (BuildContext context, index) {
-          final CentersObj = _modelCenters[index];
+          final CentersObj = _modelInsurancesCenters[index];
+          print(CentersObj.toString());
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -246,7 +217,8 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                         '${CentersObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 15.0,
+                                          fontSize:
+                                          EventSizedConstants.TextnameSize,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -269,7 +241,8 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                         "${CentersObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          fontSize: 8.0,
+                                          fontSize: EventSizedConstants
+                                              .TextdescriptionSize,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
                                         ),
@@ -278,7 +251,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                          "من ${CentersObj.open.substring(0, 9)}",
+                                      "${CentersObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -303,7 +276,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                          "الى ${CentersObj.close.substring(0, 9)}",
+                                      "${CentersObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -323,25 +296,27 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CentersDetails(
-                        id: CentersObj.id,
-                        name: CentersObj.name,
-                        email: CentersObj.email,
-                        description: CentersObj.description,
-                        close: CentersObj.close,
-                        open: CentersObj.open,
-                        isActive: CentersObj.isActive,
-                        inviled: CentersObj.inviled,
-                        country: CentersObj.address.country,
-                        postcode: CentersObj.address.postcode,
-                        state: CentersObj.address.state,
-                        street1: CentersObj.address.street1,
-                        suburb: CentersObj.address.suburb,
-                        center_type: CentersObj.center_type,
-                        logo: CentersObj.logo.filename,
-                        lang: CentersObj.lang,
-                        lat: CentersObj.lat,
-                      ),
+                  builder: (context) =>
+                      InsuranceCenterDetails(
+                          id: widget.id,
+                          name: CentersObj.name,
+                          email: CentersObj.email,
+                          description: CentersObj.description,
+                          close: CentersObj.close,
+                          open: CentersObj.open,
+                          isActive: CentersObj.isActive,
+                          inviled: CentersObj.inviled,
+                          country: CentersObj.address.country,
+                          postcode: CentersObj.address.postcode,
+                          state: CentersObj.address.state,
+                          street1: CentersObj.address.street1,
+                          suburb: CentersObj.address.suburb,
+                          center_type: CentersObj.center_type,
+                          logo: CentersObj.logo.filename,
+                          lang: CentersObj.lang,
+                          lat: CentersObj.lat,
+                          center_id: CentersObj.id,
+                          committee: CentersObj.committee),
                 ),
               );
             },

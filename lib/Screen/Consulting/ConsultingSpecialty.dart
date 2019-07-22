@@ -56,7 +56,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
   //---------------------------------------------------------------
   Widget _appBarTitle = new Text(
 //    Translations.of(context).insurance,
-    'الأقسام',
+    'التخصصات',
     style: TextStyle(
         fontWeight: FontWeight.bold,
         fontFamily: ArabicFonts.Cairo,
@@ -288,7 +288,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد أقسام !',
+              'عفواً لا توجد تخصصات !',
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -326,7 +326,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: 'بحث بإسم القسم...',
+            hintText: 'بحث بإسم التخصص...',
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -339,7 +339,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          'الأقسام',
+          'التخصصات',
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,

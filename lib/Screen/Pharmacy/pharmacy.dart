@@ -253,7 +253,7 @@ class _PharmacyState extends State<Pharmacy> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "من ${PharmacyObj.open.substring(0, 9)}",
+                                      "${PharmacyObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -278,8 +278,7 @@ class _PharmacyState extends State<Pharmacy> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "الى ${PharmacyObj.close.substring(
-                                          0, 9)}",
+                                      "${PharmacyObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),

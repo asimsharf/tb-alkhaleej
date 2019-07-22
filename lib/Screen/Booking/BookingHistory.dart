@@ -167,7 +167,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        '  الحجز:  ${BookingHistoryObj.department}',
+                                        '${BookingHistoryObj.department}',
                                         style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.green,
@@ -182,7 +182,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        'حجز عند: ${BookingHistoryObj.hospital}',
+                                        '${BookingHistoryObj.hospital}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
@@ -192,8 +192,9 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        'تاريخ الحجز:  ${BookingHistoryObj.date
-                                            .substring(1, 9)}',
+                                        '${BookingHistoryObj.date.substring(
+                                            11, 16)}  :   ${BookingHistoryObj
+                                            .date.substring(0, 10)}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -208,8 +209,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        'شركة التأمين:  ${BookingHistoryObj
-                                            .committee}',
+                                        '${BookingHistoryObj.committee}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,

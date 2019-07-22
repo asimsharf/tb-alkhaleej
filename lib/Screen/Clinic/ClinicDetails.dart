@@ -496,7 +496,7 @@ class _CentersDetailsState extends State<ClinicDetails> {
                     ),
                   );
                 },
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -530,7 +530,7 @@ class _CentersDetailsState extends State<ClinicDetails> {
             new Expanded(
               child: new MaterialButton(
                 onPressed: _showModalSheet,
-                color: Color(0xFF00C2E7),
+                color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
@@ -796,7 +796,7 @@ class MyButton extends StatelessWidget {
         margin: EdgeInsets.only(left: 3.0, right: 3.0),
         child: OutlineButton(
           borderSide: BorderSide(
-              color: Color(0xFF00C2E7), width: 2.0, style: BorderStyle.solid),
+              color: Color(0xFF13A1C5), width: 2.0, style: BorderStyle.solid),
           disabledBorderColor: Colors.grey,
           highlightedBorderColor: Color(0xFF009AFF),
           onPressed: () {},

@@ -250,7 +250,7 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                          "من ${ConsultingObj.open.substring(0, 9)}",
+                                      "${ConsultingObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -275,7 +275,8 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                          "الى ${ConsultingObj.close.substring(0, 9)}",
+                                      "${ConsultingObj.close.substring(
+                                          11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
