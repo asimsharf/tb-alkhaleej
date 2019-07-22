@@ -11,6 +11,7 @@ import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class CentersDepartment extends StatefulWidget {
   final String id;
+  final String center_id;
   final String name;
   final String email;
   final String description;
@@ -29,6 +30,7 @@ class CentersDepartment extends StatefulWidget {
   final String logo;
 
   CentersDepartment({this.id,
+    this.center_id,
     this.name,
     this.email,
     this.description,
@@ -63,8 +65,8 @@ class _CentersDepartmentState extends State<CentersDepartment> {
   bool loading = false;
 
   void _getCenterNames() async {
-    final response = await dio
-        .get('http://23.111.185.155:3000/api/center/${widget.id}/department');
+    final response = await dio.get(
+        'http://23.111.185.155:3000/api/center/${widget.center_id}/department');
     List<ModelCentersDepartment> tempList = <ModelCentersDepartment>[];
     for (int i = 0; i < response.data['departments'].length; i++) {
       var rest = response.data['departments'] as List;
@@ -130,7 +132,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
 
   Future<List<ModelCentersDepartment>> getCenters() async {
     String link =
-        "http://23.111.185.155:3000/api/center/${widget.id}/department";
+        "http://23.111.185.155:3000/api/center/${widget.center_id}/department";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {

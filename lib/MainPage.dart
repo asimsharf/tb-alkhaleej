@@ -129,7 +129,9 @@ class MainPage extends StatelessWidget {
                   accountName: Padding(
                     padding: const EdgeInsets.all(0.0),
                     child: Text(
-                      Translations.of(context).title,
+                      Translations
+                          .of(context)
+                          .title,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: ArabicFonts.Cairo,
@@ -233,7 +235,9 @@ class MainPage extends StatelessWidget {
                       size: 20.0,
                     ),
                   ),
-                  title: Text(Translations.of(context).profile,
+                  title: Text(Translations
+                      .of(context)
+                      .profile,
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: ArabicFonts.Cairo,
@@ -268,7 +272,9 @@ class MainPage extends StatelessWidget {
                       size: 20.0,
                     ),
                   ),
-                  title: Text(Translations.of(context).lang,
+                  title: Text(Translations
+                      .of(context)
+                      .lang,
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: ArabicFonts.Cairo,
@@ -305,7 +311,9 @@ class MainPage extends StatelessWidget {
                         size: 20.0,
                       ),
                     ),
-                    title: Text(Translations.of(context).login,
+                    title: Text(Translations
+                        .of(context)
+                        .login,
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: ArabicFonts.Cairo,
@@ -338,7 +346,9 @@ class MainPage extends StatelessWidget {
                         size: 20.0,
                       ),
                     ),
-                    title: Text(Translations.of(context).support,
+                    title: Text(Translations
+                        .of(context)
+                        .support,
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: ArabicFonts.Cairo,
@@ -371,7 +381,9 @@ class MainPage extends StatelessWidget {
                         size: 20.0,
                       ),
                     ),
-                    title: Text(Translations.of(context).about,
+                    title: Text(Translations
+                        .of(context)
+                        .about,
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: ArabicFonts.Cairo,

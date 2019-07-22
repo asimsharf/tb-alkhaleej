@@ -172,7 +172,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
         itemCount: _modelInsurancesCenters.length,
         itemBuilder: (BuildContext context, index) {
           final CentersObj = _modelInsurancesCenters[index];
-          print(CentersObj.toString());
+
           return new GestureDetector(
             child: Card(
               elevation: 0.0,

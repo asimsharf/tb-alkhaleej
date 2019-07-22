@@ -298,6 +298,7 @@ class _CentersState extends State<Centers> {
                 MaterialPageRoute(
                   builder: (context) => CentersDetails(
                       id: CentersObj.id,
+                      center_id: CentersObj.id,
                       name: CentersObj.name,
                       email: CentersObj.email,
                       description: CentersObj.description,

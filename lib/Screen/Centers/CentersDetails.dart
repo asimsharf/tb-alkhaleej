@@ -15,6 +15,7 @@ import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class CentersDetails extends StatefulWidget {
   final String id;
+  final String center_id;
   final String name;
   final String email;
   final String description;
@@ -35,6 +36,7 @@ class CentersDetails extends StatefulWidget {
 
   CentersDetails(
       {this.id,
+        this.center_id,
       this.name,
       this.email,
       this.description,
@@ -489,9 +491,9 @@ class _CentersDetailsState extends State<CentersDetails> {
                     MaterialPageRoute(
                       builder: (context) =>
                           CentersDepartment(
-                            id: widget.id,
-                            name: widget.name,
-                          ),
+                              id: widget.id,
+                              name: widget.name,
+                              center_id: widget.center_id),
                     ),
                   );
                 },

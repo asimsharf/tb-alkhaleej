@@ -97,11 +97,6 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
             .map<ModelInsurancesCenters>(
                 (rest) => ModelInsurancesCenters.fromJson(rest))
             .toList();
-        print(_modelInsurancesCenters[0].name);
-        print(_modelInsurancesCenters[0].lang);
-        print(_modelInsurancesCenters[0].lat);
-        print(_modelInsurancesCenters[0].id);
-        print('###############id#################');
       }
     });
     return _modelInsurancesCenters;
@@ -116,11 +111,11 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
   }
 
   Future<void> _goToMaps() async {
-    double lat = double.parse(_modelInsurancesCenters[0].lat) as double;
-    double long = double.parse(_modelInsurancesCenters[0].lang) as double;
+    double lat = double.parse(widget.lat) as double;
+    double long = double.parse(widget.lang) as double;
     print("**************lat***************");
     print(lat.toString());
-    //print(getCenterList(_modelInsurancesCenters[0].lat));
+
     print(long.toString());
     print("**************long***************");
     GoogleMapController controller = await _controller.future;
@@ -130,11 +125,10 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
       _markers.clear();
       _markers.add(
         Marker(
-          markerId: MarkerId('${_modelInsurancesCenters[0].id}'),
+          markerId: MarkerId('${widget.center_id}'),
           position: LatLng(lat, long),
           infoWindow: InfoWindow(
-              title: '${_modelInsurancesCenters[0].name}',
-              snippet: '${_modelInsurancesCenters[0].description}'),
+              title: '${widget.name}', snippet: '${widget.description}'),
           icon: BitmapDescriptor.defaultMarker,
         ),
       );
@@ -147,7 +141,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
 
   Future<List<ModelRating>> getRatings() async {
     String link =
-        "http://23.111.185.155:3000/api/rating/${_modelInsurancesCenters[0].id.toString()}/center";
+        "http://23.111.185.155:3000/api/rating/${widget.id.toString()}/center";
     print(link.toString());
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
@@ -229,7 +223,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     fit: BoxFit.cover,
                     placeholder: 'assets/logo.png',
                     image:
-                        'http://23.111.185.155:3000/uploads/files/${_modelInsurancesCenters[0].logo.filename}',
+                    'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -285,7 +279,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     children: <Widget>[
                       new Expanded(
                         child: Text(
-                          _modelInsurancesCenters[0].name,
+                          '${widget.name}',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 16.0,
@@ -301,11 +295,9 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => Rating(
-                                    id: _modelInsurancesCenters[0].id,
-                                    name: _modelInsurancesCenters[0].name,
-                                    logo: _modelInsurancesCenters[0]
-                                        .logo
-                                        .filename,
+                                id: widget.center_id,
+                                name: widget.name,
+                                logo: widget.logo,
                                   ),
                             ),
                           );
@@ -352,7 +344,8 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                       ),
                       Expanded(
                         child: Text(
-                          '${_modelInsurancesCenters[0].address.country}, ${_modelInsurancesCenters[0].address.postcode}, ${_modelInsurancesCenters[0].address.state}, ${_modelInsurancesCenters[0].address.street1}, ${_modelInsurancesCenters[0].address.suburb}',
+                          '${widget.country}, ${widget.postcode}, ${widget
+                              .state}, ${widget.street1}, ${widget.suburb}',
                           style: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             fontSize: 10.0,
@@ -389,7 +382,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          _modelInsurancesCenters[0].description,
+                          widget.description,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
                               package: 'google_fonts_arabic',
@@ -397,8 +390,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                         ),
                       ),
                       TextIcon(
-                        text:
-                            _modelInsurancesCenters[0].close.substring(11, 16),
+                        text: widget.close.substring(11, 16),
                         icon: Icons.timer_off,
                         isColumn: true,
                       ),
@@ -406,7 +398,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                         width: 10.0,
                       ),
                       TextIcon(
-                        text: _modelInsurancesCenters[0].open.substring(11, 16),
+                        text: widget.open.substring(11, 16),
                         icon: Icons.access_time,
                         isColumn: true,
                       ),
@@ -419,7 +411,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          '${_modelInsurancesCenters[0].center_type}',
+                          '${widget.center_type}',
                           style: TextStyle(
                             color: Colors.pinkAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -457,12 +449,12 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                       runSpacing: 5.0,
                       direction: Axis.horizontal,
                       alignment: WrapAlignment.start,
-                      children:
-                          getCommitteeList(_modelInsurancesCenters[0].committee)
-                              .map((name) => MyButton(
-                                    name,
-                                  ))
-                              .toList(),
+                      children: getCommitteeList(widget.committee)
+                          .map((name) =>
+                          MyButton(
+                            name,
+                          ))
+                          .toList(),
                     )),
                 new SizedBox(
                   width: 5.0,
@@ -538,8 +530,24 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => CentersDepartment(
-                            id: _modelInsurancesCenters[0].id,
-                            name: _modelInsurancesCenters[0].name,
+                        id: widget.id,
+                        center_id: widget.center_id,
+                        name: widget.name,
+                        email: widget.email,
+                        description: widget.description,
+                        close: widget.close,
+                        open: widget.open,
+                        isActive: widget.isActive,
+                        inviled: widget.inviled,
+                        country: widget.country,
+                        postcode: widget.postcode,
+                        state: widget.state,
+                        street1: widget.street1,
+                        suburb: widget.suburb,
+                        center_type: widget.center_type,
+                        logo: widget.logo,
+                        lang: widget.lang,
+                        lat: widget.lat,
                           ),
                     ),
                   );
