@@ -9,7 +9,7 @@ class ModelCenters {
   String lang;
   bool isActive;
   bool inviled;
-  String center_type;
+  String centerType;
   Address address;
   Logo logo;
   List<dynamic> committee;
@@ -25,7 +25,7 @@ class ModelCenters {
       this.inviled,
       this.lat,
       this.lang,
-      this.center_type,
+        this.centerType,
       this.address,
       this.logo,
       this.committee});
@@ -42,32 +42,16 @@ class ModelCenters {
       lang: json['lang'] as String,
       isActive: json['isActive'] as bool,
       inviled: json['inviled'] as bool,
-      center_type: json['center_type'] as String,
+      centerType: json['center_type'] as String,
       address: Address.fromJson(json['address']),
       logo: Logo.fromJson(json['logo']),
-      committee: Committee(json['committee']),
+      committee: _committee(json['committee']),
     );
   }
 
-  static List<dynamic> Committee(committee) {
-    List<dynamic> Committee = new List<dynamic>.from(committee);
-    return Committee;
-  }
-}
-
-class Committee {
-  String id;
-  String name;
-  Logo logo;
-
-  Committee({this.id, this.name, this.logo});
-
-  factory Committee.fromJson(Map<String, dynamic> json) {
-    return Committee(
-      id: json['_id'] as String,
-      name: json['name'] as String,
-      logo: Logo.fromJson(json['logo']),
-    );
+  static List<dynamic> _committee(committee) {
+    List<dynamic> _committee = new List<dynamic>.from(committee);
+    return _committee;
   }
 }
 

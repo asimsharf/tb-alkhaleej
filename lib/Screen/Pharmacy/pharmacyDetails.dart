@@ -23,14 +23,14 @@ class PharmacyDetails extends StatefulWidget {
   final String lang;
   final bool isActive;
   final bool inviled;
-  final String center_type;
+  final String centerType;
   final String country;
   final String postcode;
   final String state;
   final String street1;
   final String suburb;
   final String logo;
-  List<dynamic> committee;
+  final List<dynamic> committee;
 
   PharmacyDetails({this.id,
     this.name,
@@ -47,7 +47,7 @@ class PharmacyDetails extends StatefulWidget {
     this.state,
     this.street1,
     this.suburb,
-    this.center_type,
+    this.centerType,
     this.logo,
     this.committee});
 
@@ -68,8 +68,8 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
 
   //Future Go to maps
   Future<void> _goToMaps() async {
-    double lat = double.parse(widget.lat) as double;
-    double long = double.parse(widget.lang) as double;
+    double lat = double.parse(widget.lat);
+    double long = double.parse(widget.lang);
     GoogleMapController controller = await _controller.future;
     controller
         .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, long), _zoom));
@@ -89,7 +89,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
 
   //Future Rating for catch all the rating apis to display
   bool loading = false;
-  List<ModelRating> _model_Rating = <ModelRating>[];
+  List<ModelRating> _modelRating = <ModelRating>[];
 
   Future<List<ModelRating>> getCenters() async {
     String link = "http://23.111.185.155:3000/api/rating/${widget.id}/center";
@@ -102,13 +102,13 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
 
         var rest = data['Rating'] as List;
 
-        _model_Rating = rest
+        _modelRating = rest
             .map<ModelRating>((rest) => ModelRating.fromJson(rest))
             .toList();
         loading = false;
       }
     });
-    return _model_Rating;
+    return _modelRating;
   }
 
   @override
@@ -370,7 +370,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          '${widget.center_type}',
+                          '${widget.centerType}',
                           style: TextStyle(
                             color: Colors.pinkAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -525,11 +525,11 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
   }
 
   List getCommitteeList(List str) {
-    List<String> ListOfItems = [];
+    List<String> _listOfItems = [];
     for (var i = 0; i < str.length; i++) {
-      ListOfItems.add(str[i]['name'].toString());
+      _listOfItems.add(str[i]['name'].toString());
     }
-    return ListOfItems;
+    return _listOfItems;
   }
 
   //Show Modal Sheet that Display all the #Rating about specific Fields
@@ -612,15 +612,15 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
 
   //Show builder for #Rating list
   Widget _buildRatingList() {
-    Widget RatingList;
-    if (_model_Rating.length > 0) {
-      RatingList = new ListView.builder(
+    Widget _ratingList;
+    if (_modelRating.length > 0) {
+      _ratingList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 80.0,
         shrinkWrap: true,
-        itemCount: _model_Rating.length,
+        itemCount: _modelRating.length,
         itemBuilder: (BuildContext context, index) {
-          final RatingObj = _model_Rating[index];
+          final _ratingObj = _modelRating[index];
           return Padding(
             padding: const EdgeInsets.all(0.0),
             child: new Card(
@@ -645,7 +645,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${RatingObj
+                              'http://23.111.185.155:3000/uploads/avtar/${_ratingObj
                                   .logo.filename}',
                             ),
                           ),
@@ -667,8 +667,8 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${RatingObj.client.first + ' ' +
-                                              RatingObj.client.last}',
+                                          '${_ratingObj.client.first + ' ' +
+                                              _ratingObj.client.last}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 12.0,
@@ -679,7 +679,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${RatingObj.rate}',
+                                        'عدد التقييمات ${_ratingObj.rate}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -693,7 +693,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${RatingObj.comment}',
+                                          '${_ratingObj.comment}',
                                           style: TextStyle(
                                             fontSize: 10.0,
                                             color: Colors.pinkAccent,
@@ -721,7 +721,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
         },
       );
     } else {
-      RatingList = new Center(
+      _ratingList = new Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -741,7 +741,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
         ),
       );
     }
-    return RatingList;
+    return _ratingList;
   }
 }
 

@@ -37,7 +37,7 @@ class _ClinicState extends State<Clinic> {
     List<ModelClinic> tempList = <ModelClinic>[];
     for (int i = 0; i < response.data['clinic'].length; i++) {
       var rest = response.data['clinic'] as List;
-      _modelCenters =
+      _modelClinic =
           rest.map<ModelClinic>((rest) => ModelClinic.fromJson(rest)).toList();
       tempList.add(ModelClinic.fromJson(response.data['clinic'][i]));
     }
@@ -45,7 +45,7 @@ class _ClinicState extends State<Clinic> {
       if (response.statusCode == 200) {
         names = tempList;
         names.shuffle();
-        _modelCenters = names;
+        _modelClinic = names;
       }
     });
   }
@@ -79,7 +79,7 @@ class _ClinicState extends State<Clinic> {
       if (_filter.text.isEmpty) {
         setState(() {
           _searchText = "";
-          _modelCenters = names;
+          _modelClinic = names;
         });
       } else {
         setState(() {
@@ -91,7 +91,7 @@ class _ClinicState extends State<Clinic> {
 
 //---------------------------------------------------------------
 
-  List<ModelClinic> _modelCenters = <ModelClinic>[];
+  List<ModelClinic> _modelClinic = <ModelClinic>[];
 
   Future<List<ModelClinic>> getCenters() async {
     String link = "http://23.111.185.155:3000/api/clinic";
@@ -101,18 +101,18 @@ class _ClinicState extends State<Clinic> {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
         var rest = data['clinic'] as List;
-        _modelCenters = rest
+        _modelClinic = rest
             .map<ModelClinic>((rest) => ModelClinic.fromJson(rest))
             .toList();
         _loading = false;
       }
     });
-    return _modelCenters;
+    return _modelClinic;
   }
 
   Future<Null> _refresh() {
     return getCenters().then((modelCen) {
-      setState(() => _modelCenters = modelCen);
+      setState(() => _modelClinic = modelCen);
     });
   }
 
@@ -151,27 +151,27 @@ class _ClinicState extends State<Clinic> {
   }
 
   Widget _buildProductList() {
-    Widget CentersList;
-    if (_modelCenters.length > 0) {
-      if (!(_searchText.isEmpty)) {
+    Widget _centersList;
+    if (_modelClinic.length > 0) {
+      if ((_searchText.isNotEmpty)) {
         List<ModelClinic> tempList = <ModelClinic>[];
-        for (int i = 0; i < _modelCenters.length; i++) {
-          if (_modelCenters[i]
+        for (int i = 0; i < _modelClinic.length; i++) {
+          if (_modelClinic[i]
               .name
               .toLowerCase()
               .contains(_searchText.toLowerCase())) {
-            tempList.add(_modelCenters[i]);
+            tempList.add(_modelClinic[i]);
           }
         }
-        _modelCenters = tempList;
+        _modelClinic = tempList;
       }
-      CentersList = new ListView.builder(
+      _centersList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _modelCenters.length,
+        itemCount: _modelClinic.length,
         itemBuilder: (BuildContext context, index) {
-          final ClinicObj = _modelCenters[index];
+          final _clinicObj = _modelClinic[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -196,7 +196,7 @@ class _ClinicState extends State<Clinic> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${ClinicObj
+                              'http://23.111.185.155:3000/uploads/files/${_clinicObj
                                   .logo.filename}',
                             ),
                           ),
@@ -213,7 +213,7 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ClinicObj.name}',
+                                        '${_clinicObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
@@ -237,7 +237,7 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${ClinicObj.description}",
+                                        "${_clinicObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: EventSizedConstants
@@ -250,7 +250,7 @@ class _ClinicState extends State<Clinic> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${ClinicObj.open.substring(11, 16)}",
+                                      "${_clinicObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -263,7 +263,7 @@ class _ClinicState extends State<Clinic> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ClinicObj.center_type}',
+                                        '${_clinicObj.centerType}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -275,7 +275,7 @@ class _ClinicState extends State<Clinic> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${ClinicObj.close.substring(11, 16)}",
+                                      "${_clinicObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -296,24 +296,25 @@ class _ClinicState extends State<Clinic> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ClinicDetails(
-                    id: ClinicObj.id,
-                    name: ClinicObj.name,
-                    email: ClinicObj.email,
-                    description: ClinicObj.description,
-                    close: ClinicObj.close,
-                    open: ClinicObj.open,
-                    isActive: ClinicObj.isActive,
-                    inviled: ClinicObj.inviled,
-                    country: ClinicObj.address.country,
-                    postcode: ClinicObj.address.postcode,
-                    state: ClinicObj.address.state,
-                    street1: ClinicObj.address.street1,
-                    suburb: ClinicObj.address.suburb,
-                    center_type: ClinicObj.center_type,
-                    logo: ClinicObj.logo.filename,
-                    lang: ClinicObj.lang,
-                    lat: ClinicObj.lat,
-                    committee: ClinicObj.committee,
+                    id: _clinicObj.id,
+                    centerId: _clinicObj.id,
+                    name: _clinicObj.name,
+                    email: _clinicObj.email,
+                    description: _clinicObj.description,
+                    close: _clinicObj.close,
+                    open: _clinicObj.open,
+                    isActive: _clinicObj.isActive,
+                    inviled: _clinicObj.inviled,
+                    country: _clinicObj.address.country,
+                    postcode: _clinicObj.address.postcode,
+                    state: _clinicObj.address.state,
+                    street1: _clinicObj.address.street1,
+                    suburb: _clinicObj.address.suburb,
+                    centerType: _clinicObj.centerType,
+                    logo: _clinicObj.logo.filename,
+                    lang: _clinicObj.lang,
+                    lat: _clinicObj.lat,
+                    committee: _clinicObj.committee,
                   ),
                 ),
               );
@@ -322,7 +323,7 @@ class _ClinicState extends State<Clinic> {
         },
       );
     } else {
-      CentersList = Center(
+      _centersList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -342,7 +343,7 @@ class _ClinicState extends State<Clinic> {
         ),
       );
     }
-    return CentersList;
+    return _centersList;
   }
 
   Widget _buildBar(BuildContext context) {
@@ -401,7 +402,7 @@ class _ClinicState extends State<Clinic> {
                 ),
               ]),
         );
-        _modelCenters = names;
+        _modelClinic = names;
         _filter.clear();
       }
     });

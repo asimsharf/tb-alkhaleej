@@ -15,7 +15,7 @@ import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class CentersDetails extends StatefulWidget {
   final String id;
-  final String center_id;
+  final String centerId;
   final String name;
   final String email;
   final String description;
@@ -25,7 +25,7 @@ class CentersDetails extends StatefulWidget {
   final String lang;
   final bool isActive;
   final bool inviled;
-  final String center_type;
+  final String centerType;
   final String country;
   final String postcode;
   final String state;
@@ -36,7 +36,7 @@ class CentersDetails extends StatefulWidget {
 
   CentersDetails(
       {this.id,
-        this.center_id,
+        this.centerId,
       this.name,
       this.email,
       this.description,
@@ -51,7 +51,7 @@ class CentersDetails extends StatefulWidget {
       this.state,
       this.street1,
       this.suburb,
-      this.center_type,
+        this.centerType,
         this.logo,
         this.committee});
   @override
@@ -70,8 +70,8 @@ class _CentersDetailsState extends State<CentersDetails> {
   }
 
   Future<void> _goToMaps() async {
-    double lat = double.parse(widget.lat) as double;
-    double long = double.parse(widget.lang) as double;
+    double lat = double.parse(widget.lat);
+    double long = double.parse(widget.lang);
     GoogleMapController controller = await _controller.future;
     controller
         .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, long), _zoom));
@@ -91,8 +91,7 @@ class _CentersDetailsState extends State<CentersDetails> {
 
   //Future Rating for catch all the rating apis to display
   bool loading = false;
-  List<ModelRating> _model_Rating = <ModelRating>[];
-
+  List<ModelRating> _modelRating = <ModelRating>[];
   Future<List<ModelRating>> getCenters() async {
     String link = "http://23.111.185.155:3000/api/rating/${widget.id}/center";
     var res = await http
@@ -101,13 +100,13 @@ class _CentersDetailsState extends State<CentersDetails> {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
         var rest = data['Rating'] as List;
-        _model_Rating = rest
+        _modelRating = rest
             .map<ModelRating>((rest) => ModelRating.fromJson(rest))
             .toList();
         loading = false;
       }
     });
-    return _model_Rating;
+    return _modelRating;
   }
 
   @override
@@ -367,7 +366,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          '${widget.center_type}',
+                          '${widget.centerType}',
                           style: TextStyle(
                             color: Colors.pinkAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -491,9 +490,13 @@ class _CentersDetailsState extends State<CentersDetails> {
                     MaterialPageRoute(
                       builder: (context) =>
                           CentersDepartment(
-                              id: widget.id,
-                              name: widget.name,
-                              center_id: widget.center_id),
+                            id: widget.id,
+                            centerId: widget.centerId,
+                            name: widget.name,
+                            committee: widget.committee,
+                            open: widget.open,
+                            close: widget.close,
+                          ),
                     ),
                   );
                 },
@@ -570,11 +573,11 @@ class _CentersDetailsState extends State<CentersDetails> {
   }
 
   List getCommitteeList(List str) {
-    List<String> ListOfItems = [];
+    List<String> _listOfItems = [];
     for (var i = 0; i < str.length; i++) {
-      ListOfItems.add(str[i]['name'].toString());
+      _listOfItems.add(str[i]['name'].toString());
     }
-    return ListOfItems;
+    return _listOfItems;
   }
 
   //Show Modal Sheet that Display all the #Rating about specific Fields
@@ -659,15 +662,15 @@ class _CentersDetailsState extends State<CentersDetails> {
 
   //Show builder for #Rating list
   Widget _buildRatingList() {
-    Widget RatingList;
-    if (_model_Rating.length > 0) {
-      RatingList = new ListView.builder(
+    Widget _ratingList;
+    if (_modelRating.length > 0) {
+      _ratingList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 80.0,
         shrinkWrap: true,
-        itemCount: _model_Rating.length,
+        itemCount: _modelRating.length,
         itemBuilder: (BuildContext context, index) {
-          final RatingObj = _model_Rating[index];
+          final _ratingObj = _modelRating[index];
           return Padding(
             padding: const EdgeInsets.all(0.0),
             child: new Card(
@@ -692,7 +695,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${RatingObj
+                              'http://23.111.185.155:3000/uploads/avtar/${_ratingObj
                                   .logo.filename}',
                             ),
                           ),
@@ -714,8 +717,8 @@ class _CentersDetailsState extends State<CentersDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${RatingObj.client.first + ' ' +
-                                              RatingObj.client.last}',
+                                          '${_ratingObj.client.first + ' ' +
+                                              _ratingObj.client.last}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 12.0,
@@ -726,7 +729,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${RatingObj.rate}',
+                                        'عدد التقييمات ${_ratingObj.rate}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -740,7 +743,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${RatingObj.comment}',
+                                          '${_ratingObj.comment}',
                                           style: TextStyle(
                                             fontSize: 10.0,
                                             color: Colors.pinkAccent,
@@ -768,7 +771,7 @@ class _CentersDetailsState extends State<CentersDetails> {
         },
       );
     } else {
-      RatingList = Center(
+      _ratingList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -788,7 +791,7 @@ class _CentersDetailsState extends State<CentersDetails> {
         ),
       );
     }
-    return RatingList;
+    return _ratingList;
   }
 }
 

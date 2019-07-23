@@ -11,9 +11,9 @@ import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class InsuranceDetails extends StatefulWidget {
-  String id;
-  String name;
-  String logo;
+  final String id;
+  final String name;
+  final String logo;
 
   InsuranceDetails({this.id, this.name, this.logo});
 
@@ -163,15 +163,15 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
   }
 
   Widget _buildProductList() {
-    Widget CentersList;
+    Widget _centersList;
     if (_modelInsurancesCenters.length > 0) {
-      CentersList = new ListView.builder(
+      _centersList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
         itemCount: _modelInsurancesCenters.length,
         itemBuilder: (BuildContext context, index) {
-          final CentersObj = _modelInsurancesCenters[index];
+          final _centersObj = _modelInsurancesCenters[index];
 
           return new GestureDetector(
             child: Card(
@@ -197,7 +197,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${CentersObj
+                              'http://23.111.185.155:3000/uploads/files/${_centersObj
                                   .logo.filename}',
                             ),
                           ),
@@ -214,7 +214,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.name}',
+                                        '${_centersObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
@@ -238,7 +238,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${CentersObj.description}",
+                                        "${_centersObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: EventSizedConstants
@@ -251,7 +251,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "${CentersObj.open.substring(11, 16)}",
+                                      "${_centersObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -264,7 +264,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersObj.center_type}',
+                                        '${_centersObj.centerType}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -276,7 +276,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "${CentersObj.close.substring(11, 16)}",
+                                      "${_centersObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -299,24 +299,24 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                   builder: (context) =>
                       InsuranceCenterDetails(
                           id: widget.id,
-                          name: CentersObj.name,
-                          email: CentersObj.email,
-                          description: CentersObj.description,
-                          close: CentersObj.close,
-                          open: CentersObj.open,
-                          isActive: CentersObj.isActive,
-                          inviled: CentersObj.inviled,
-                          country: CentersObj.address.country,
-                          postcode: CentersObj.address.postcode,
-                          state: CentersObj.address.state,
-                          street1: CentersObj.address.street1,
-                          suburb: CentersObj.address.suburb,
-                          center_type: CentersObj.center_type,
-                          logo: CentersObj.logo.filename,
-                          lang: CentersObj.lang,
-                          lat: CentersObj.lat,
-                          center_id: CentersObj.id,
-                          committee: CentersObj.committee),
+                          name: _centersObj.name,
+                          email: _centersObj.email,
+                          description: _centersObj.description,
+                          close: _centersObj.close,
+                          open: _centersObj.open,
+                          isActive: _centersObj.isActive,
+                          inviled: _centersObj.inviled,
+                          country: _centersObj.address.country,
+                          postcode: _centersObj.address.postcode,
+                          state: _centersObj.address.state,
+                          street1: _centersObj.address.street1,
+                          suburb: _centersObj.address.suburb,
+                          centerType: _centersObj.centerType,
+                          logo: _centersObj.logo.filename,
+                          lang: _centersObj.lang,
+                          lat: _centersObj.lat,
+                          centerId: _centersObj.id,
+                          committee: _centersObj.committee),
                 ),
               );
             },
@@ -324,7 +324,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
         },
       );
     } else {
-      CentersList = Center(
+      _centersList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -344,6 +344,6 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
         ),
       );
     }
-    return CentersList;
+    return _centersList;
   }
 }

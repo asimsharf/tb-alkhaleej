@@ -151,9 +151,9 @@ class _PharmacyState extends State<Pharmacy> {
   }
 
   Widget _buildProductList() {
-    Widget PharmacyList;
+    Widget _pharmacyList;
     if (_modelPharmacy.length > 0) {
-      if (!(_searchText.isEmpty)) {
+      if (_searchText.isNotEmpty) {
         List<ModelPharmacy> tempList = <ModelPharmacy>[];
         for (int i = 0; i < _modelPharmacy.length; i++) {
           if (_modelPharmacy[i]
@@ -165,16 +165,14 @@ class _PharmacyState extends State<Pharmacy> {
         }
         _modelPharmacy = tempList;
       }
-      PharmacyList = new ListView.builder(
+      _pharmacyList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
         itemCount: _modelPharmacy.length,
         itemBuilder: (BuildContext context, index) {
-          final PharmacyObj = _modelPharmacy[index];
-          print("***********PharmacyObj.id**************");
-          print(PharmacyObj.id);
-          print("***********PharmacyObj.id**************");
+          final _pharmacyObj = _modelPharmacy[index];
+
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -199,7 +197,7 @@ class _PharmacyState extends State<Pharmacy> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${PharmacyObj
+                              'http://23.111.185.155:3000/uploads/files/${_pharmacyObj
                                   .logo.filename}',
                             ),
                           ),
@@ -216,7 +214,7 @@ class _PharmacyState extends State<Pharmacy> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${PharmacyObj.name}',
+                                        '${_pharmacyObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
@@ -240,7 +238,7 @@ class _PharmacyState extends State<Pharmacy> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${PharmacyObj.description}",
+                                        "${_pharmacyObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: EventSizedConstants
@@ -253,7 +251,7 @@ class _PharmacyState extends State<Pharmacy> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${PharmacyObj.open.substring(11, 16)}",
+                                      "${_pharmacyObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -266,7 +264,7 @@ class _PharmacyState extends State<Pharmacy> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${PharmacyObj.center_type}',
+                                        '${_pharmacyObj.centerType}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -278,7 +276,7 @@ class _PharmacyState extends State<Pharmacy> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${PharmacyObj.close.substring(11, 16)}",
+                                      "${_pharmacyObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -300,24 +298,24 @@ class _PharmacyState extends State<Pharmacy> {
                 MaterialPageRoute(
                   builder: (context) =>
                       PharmacyDetails(
-                        id: PharmacyObj.id,
-                        name: PharmacyObj.name,
-                        email: PharmacyObj.email,
-                        description: PharmacyObj.description,
-                        close: PharmacyObj.close,
-                        open: PharmacyObj.open,
-                        isActive: PharmacyObj.isActive,
-                        inviled: PharmacyObj.inviled,
-                        country: PharmacyObj.address.country,
-                        postcode: PharmacyObj.address.postcode,
-                        state: PharmacyObj.address.state,
-                        street1: PharmacyObj.address.street1,
-                        suburb: PharmacyObj.address.suburb,
-                        center_type: PharmacyObj.center_type,
-                        logo: PharmacyObj.logo.filename,
-                        lang: PharmacyObj.lang,
-                        lat: PharmacyObj.lat,
-                        committee: PharmacyObj.committee,
+                        id: _pharmacyObj.id,
+                        name: _pharmacyObj.name,
+                        email: _pharmacyObj.email,
+                        description: _pharmacyObj.description,
+                        close: _pharmacyObj.close,
+                        open: _pharmacyObj.open,
+                        isActive: _pharmacyObj.isActive,
+                        inviled: _pharmacyObj.inviled,
+                        country: _pharmacyObj.address.country,
+                        postcode: _pharmacyObj.address.postcode,
+                        state: _pharmacyObj.address.state,
+                        street1: _pharmacyObj.address.street1,
+                        suburb: _pharmacyObj.address.suburb,
+                        centerType: _pharmacyObj.centerType,
+                        logo: _pharmacyObj.logo.filename,
+                        lang: _pharmacyObj.lang,
+                        lat: _pharmacyObj.lat,
+                        committee: _pharmacyObj.committee,
                       ),
                 ),
               );
@@ -326,7 +324,7 @@ class _PharmacyState extends State<Pharmacy> {
         },
       );
     } else {
-      PharmacyList = Center(
+      _pharmacyList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -346,7 +344,7 @@ class _PharmacyState extends State<Pharmacy> {
         ),
       );
     }
-    return PharmacyList;
+    return _pharmacyList;
   }
 
   Widget _buildBar(BuildContext context) {

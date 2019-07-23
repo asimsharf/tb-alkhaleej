@@ -16,7 +16,7 @@ class _BookingHistoryState extends State<BookingHistory> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
   new GlobalKey<RefreshIndicatorState>();
   bool loading = false;
-  List<ModelBookingHistory> _model_BookingHistory = <ModelBookingHistory>[];
+  List<ModelBookingHistory> _modelBookingHistory = <ModelBookingHistory>[];
 
   Future<List<ModelBookingHistory>> getCenters() async {
     String link =
@@ -26,21 +26,20 @@ class _BookingHistoryState extends State<BookingHistory> {
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        print(res.body);
         var rest = data['departments'] as List;
-        _model_BookingHistory = rest
+        _modelBookingHistory = rest
             .map<ModelBookingHistory>(
                 (rest) => ModelBookingHistory.fromJson(rest))
             .toList();
         loading = false;
       }
     });
-    return _model_BookingHistory;
+    return _modelBookingHistory;
   }
 
   Future<Null> _refresh() {
     return getCenters().then((modelCen) {
-      setState(() => _model_BookingHistory = modelCen);
+      setState(() => _modelBookingHistory = modelCen);
     });
   }
 
@@ -101,15 +100,15 @@ class _BookingHistoryState extends State<BookingHistory> {
   }
 
   Widget _buildProductList() {
-    Widget DepartmentList;
-    if (_model_BookingHistory.length > 0) {
-      DepartmentList = new ListView.builder(
+    Widget _departmentList;
+    if (_modelBookingHistory.length > 0) {
+      _departmentList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
-        itemCount: _model_BookingHistory.length,
+        itemCount: _modelBookingHistory.length,
         itemBuilder: (BuildContext context, index) {
-          final BookingHistoryObj = _model_BookingHistory[index];
+          final _bookingHistoryObj = _modelBookingHistory[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -134,7 +133,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${BookingHistoryObj
+                              'http://23.111.185.155:3000/uploads/avtar/${_bookingHistoryObj
                                   .logo.filename}',
                             ),
                           ),
@@ -153,9 +152,9 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${BookingHistoryObj.patient.first +
+                                        '${_bookingHistoryObj.patient.first +
                                             ' ' +
-                                            BookingHistoryObj.patient.last}',
+                                            _bookingHistoryObj.patient.last}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 12.0,
@@ -167,7 +166,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        '${BookingHistoryObj.department}',
+                                        '${_bookingHistoryObj.department}',
                                         style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.green,
@@ -182,7 +181,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${BookingHistoryObj.hospital}',
+                                        '${_bookingHistoryObj.hospital}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           fontFamily: ArabicFonts.Cairo,
@@ -192,8 +191,8 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        '${BookingHistoryObj.date.substring(
-                                            11, 16)}  :   ${BookingHistoryObj
+                                        '${_bookingHistoryObj.date.substring(
+                                            11, 16)}  :   ${_bookingHistoryObj
                                             .date.substring(0, 10)}',
                                         style: TextStyle(
                                           fontSize: 8.0,
@@ -209,7 +208,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${BookingHistoryObj.committee}',
+                                        '${_bookingHistoryObj.committee}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -253,7 +252,7 @@ class _BookingHistoryState extends State<BookingHistory> {
         },
       );
     } else {
-      DepartmentList = Center(
+      _departmentList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -273,6 +272,6 @@ class _BookingHistoryState extends State<BookingHistory> {
         ),
       );
     }
-    return DepartmentList;
+    return _departmentList;
   }
 }

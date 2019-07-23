@@ -152,9 +152,9 @@ class _ConsultingState extends State<Consulting> {
   }
 
   Widget _buildProductList() {
-    Widget ConsultingList;
+    Widget _consultingList;
     if (_modelConsulting.length > 0) {
-      if (!(_searchText.isEmpty)) {
+      if ((_searchText.isNotEmpty)) {
         List<ModelConsulting> tempList = <ModelConsulting>[];
         for (int i = 0; i < _modelConsulting.length; i++) {
           if (_modelConsulting[i]
@@ -166,13 +166,13 @@ class _ConsultingState extends State<Consulting> {
         }
         _modelConsulting = tempList;
       }
-      ConsultingList = new ListView.builder(
+      _consultingList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
         itemCount: _modelConsulting.length,
         itemBuilder: (BuildContext context, index) {
-          final ConsultingObj = _modelConsulting[index];
+          final _consultingObj = _modelConsulting[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -197,7 +197,8 @@ class _ConsultingState extends State<Consulting> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                                  'http://23.111.185.155:3000/uploads/files/${ConsultingObj.logo.filename}',
+                              'http://23.111.185.155:3000/uploads/files/${_consultingObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),
@@ -213,7 +214,7 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ConsultingObj.name}',
+                                        '${_consultingObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
@@ -237,7 +238,7 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "${ConsultingObj.description}",
+                                        "${_consultingObj.description}",
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: EventSizedConstants
@@ -250,7 +251,8 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${ConsultingObj.open.substring(11, 16)}",
+                                      "${_consultingObj.open.substring(
+                                          11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -263,7 +265,7 @@ class _ConsultingState extends State<Consulting> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ConsultingObj.center_type}',
+                                        '${_consultingObj.centerType}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -275,7 +277,7 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${ConsultingObj.close.substring(
+                                      "${_consultingObj.close.substring(
                                           11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
@@ -297,24 +299,24 @@ class _ConsultingState extends State<Consulting> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ConsultingDetails(
-                      id: ConsultingObj.id,
-                      name: ConsultingObj.name,
-                      email: ConsultingObj.email,
-                      description: ConsultingObj.description,
-                      close: ConsultingObj.close,
-                      open: ConsultingObj.open,
-                      isActive: ConsultingObj.isActive,
-                      inviled: ConsultingObj.inviled,
-                      country: ConsultingObj.address.country,
-                      postcode: ConsultingObj.address.postcode,
-                      state: ConsultingObj.address.state,
-                      street1: ConsultingObj.address.street1,
-                      suburb: ConsultingObj.address.suburb,
-                      center_type: ConsultingObj.center_type,
-                      logo: ConsultingObj.logo.filename,
-                      lang: ConsultingObj.lang,
-                      lat: ConsultingObj.lat,
-                      committee: ConsultingObj.committee),
+                      id: _consultingObj.id,
+                      name: _consultingObj.name,
+                      email: _consultingObj.email,
+                      description: _consultingObj.description,
+                      close: _consultingObj.close,
+                      open: _consultingObj.open,
+                      isActive: _consultingObj.isActive,
+                      inviled: _consultingObj.inviled,
+                      country: _consultingObj.address.country,
+                      postcode: _consultingObj.address.postcode,
+                      state: _consultingObj.address.state,
+                      street1: _consultingObj.address.street1,
+                      suburb: _consultingObj.address.suburb,
+                      centerType: _consultingObj.centerType,
+                      logo: _consultingObj.logo.filename,
+                      lang: _consultingObj.lang,
+                      lat: _consultingObj.lat,
+                      committee: _consultingObj.committee),
                 ),
               );
             },
@@ -322,7 +324,7 @@ class _ConsultingState extends State<Consulting> {
         },
       );
     } else {
-      ConsultingList = Center(
+      _consultingList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -342,7 +344,7 @@ class _ConsultingState extends State<Consulting> {
         ),
       );
     }
-    return ConsultingList;
+    return _consultingList;
   }
 
   Widget _buildBar(BuildContext context) {

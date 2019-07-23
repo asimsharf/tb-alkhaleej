@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-/**
- * the Style of the resurant list view page
- */
-
 class TextIcon extends StatelessWidget {
   final IconData icon;
   final String text;

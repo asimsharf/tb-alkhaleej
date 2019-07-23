@@ -1,18 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event_list.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
-import 'package:tb_alkhalij/model/ModelInsurance.dart';
+import 'package:tb_alkhalij/model/ModelRating.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class Book extends StatefulWidget {
   final String id;
+  final String centerId;
   final String name;
   final String email;
   final String description;
@@ -22,7 +20,7 @@ class Book extends StatefulWidget {
   final String lang;
   final bool isActive;
   final bool inviled;
-  final String center_type;
+  final String centerType;
   final String country;
   final String postcode;
   final String state;
@@ -33,6 +31,7 @@ class Book extends StatefulWidget {
 
   Book(
       {this.id,
+        this.centerId,
       this.name,
       this.email,
       this.description,
@@ -47,7 +46,7 @@ class Book extends StatefulWidget {
       this.state,
       this.street1,
       this.suburb,
-      this.center_type,
+        this.centerType,
       this.logo,
       this.committee});
 
@@ -56,115 +55,80 @@ class Book extends StatefulWidget {
 }
 
 class _BookState extends State<Book> {
-//  List getCommitteeList(List str) {
-//    List<String> ListOfItems = [];
-//    for (var i = 0; i < str.length; i++) {
-//      ListOfItems.add(str[i]['name'].toString());
-//    }
-//    return ListOfItems;
-//  }
-//  String date = '20180626170555';
-//  String dateWithT = date.substring(0, 8) + 'T' + date.substring(8);
-//  DateTime dateTime = DateTime.parse(dateWithT);
+  static const int monday = 1;
+  static const int tuesday = 2;
+  static const int wednesday = 3;
+  static const int thursday = 4;
+  static const int friday = 5;
+  static const int saturday = 6;
+  static const int sunday = 7;
+  static const int daysPerWeek = 7;
 
-//  void convertDateFromString(String strDate) {
-//    DateTime todayDate = DateTime.parse(strDate).toLocal();
-//    print(todayDate);
-//  }
+  var weekdays;
 
-  List<DateTime> availableDaes = [
-    DateTime(2019, 7, 1),
-    DateTime(2019, 7, 3),
-    DateTime(2019, 7, 4),
-    DateTime(2019, 7, 5),
-    DateTime(2019, 7, 6),
-    DateTime(2019, 7, 9),
-    DateTime(2019, 7, 10),
-    DateTime(2019, 7, 11),
-    DateTime(2019, 7, 15),
-    DateTime(2019, 7, 11),
-    DateTime(2019, 7, 15),
-  ];
-  List<DateTime> notAvailableDaes = [
-    DateTime(2019, 7, 2),
-    DateTime(2019, 7, 7),
-    DateTime(2019, 7, 8),
-    DateTime(2019, 7, 12),
-    DateTime(2019, 7, 13),
-    DateTime(2019, 7, 14),
-    DateTime(2019, 7, 16),
-    DateTime(2019, 7, 17),
-    DateTime(2019, 7, 18),
-    DateTime(2019, 7, 17),
-    DateTime(2019, 7, 18),
-  ];
+  _weekdays(dateTime) {
+    switch (DateTime
+        .now()
+        .weekday) {
+      case 1:
+        {
+          weekdays = 'الاثنين';
+        }
+        break;
 
-  //########################################################################
-  DateTime _currentDate2 = DateTime.now();
+      case 2:
+        {
+          weekdays = 'الثلاثاء';
+        }
+        break;
 
-  static Widget _availableIcon(String day) => Container(
-        decoration: BoxDecoration(
-          color: Colors.green,
-          borderRadius: BorderRadius.all(
-            Radius.circular(1000),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            day,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ),
-      );
+      case 3:
+        {
+          weekdays = 'الاربعاء';
+        }
+        break;
 
-  static Widget _notAvailableIcon(String day) => Container(
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.all(
-            Radius.circular(1000),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            day,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ),
-      );
-
-  EventList<Event> _markedDateMap = new EventList<Event>(
-    events: {},
-  );
-
-  CalendarCarousel _calendarCarouselNoHeader;
-
-  var len = 9;
-  double cHeight;
+      case 4:
+        {
+          weekdays = 'الخميس';
+        }
+        break;
+      case 5:
+        {
+          weekdays = 'الجمعه';
+        }
+        break;
+      case 6:
+        {
+          weekdays = 'السبت';
+        }
+        break;
+    }
+    return weekdays;
+  }
 
   //########################################################################
   String _myInsuranceSelection;
-  List<ModelInsurance> _modelConsulting = <ModelInsurance>[];
 
-  Future<List<ModelInsurance>> getConsulting() async {
+  bool loading = false;
+  List<ModelRating> _modelRating = <ModelRating>[];
+
+  Future<List<ModelRating>> getRatings() async {
     String link =
-        "http://23.111.185.155:3000/api/insurances/5d29a6f424b9f52e481e24d9/center";
+        "http://23.111.185.155:3000/api/rating/${widget.centerId}/center";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
-
-        var rest = data['Insurances'] as List;
-        _modelConsulting = rest
-            .map<ModelInsurance>((rest) => ModelInsurance.fromJson(rest))
+        var rest = data['Rating'] as List;
+        _modelRating = rest
+            .map<ModelRating>((rest) => ModelRating.fromJson(rest))
             .toList();
+        loading = false;
       }
     });
-    return _modelConsulting;
+    return _modelRating;
   }
 
   var rating = 1.2;
@@ -172,53 +136,130 @@ class _BookState extends State<Book> {
   @override
   void initState() {
     super.initState();
-    this.getConsulting();
+    this.getRatings();
   }
 
   @override
   Widget build(BuildContext context) {
-    cHeight = MediaQuery.of(context).size.height;
-    for (int i = 0; i < len; i++) {
-      _markedDateMap.add(
-        availableDaes[i],
-        new Event(
-          date: availableDaes[i],
-          title: 'Event 5',
-          icon: _availableIcon(
-            availableDaes[i].day.toString(),
-          ),
-        ),
-      );
-
-      for (int i = 0; i < len; i++) {
-        _markedDateMap.add(
-          notAvailableDaes[i],
-          new Event(
-            date: notAvailableDaes[i],
-            title: 'Event 5',
-            icon: _notAvailableIcon(
-              notAvailableDaes[i].day.toString(),
+    Widget _buildBookingDateTimeList() {
+      Widget _bookingDateTimeList;
+      _bookingDateTimeList = new ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.all(1.0),
+        shrinkWrap: true,
+        itemCount: 7,
+        itemBuilder: (BuildContext context, int index) {
+          return new Container(
+            height: 160.0,
+            width: 100.0,
+            color: Colors.blueAccent,
+            margin: EdgeInsets.all(2.0),
+            child: Column(
+              children: <Widget>[
+                new Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: new Text(
+                        "${_weekdays(DateTime
+                            .now()
+                            .weekday)} - ${DateTime
+                            .now()
+                            .day} - ${DateTime
+                            .now()
+                            .month}",
+                        style: TextStyle(
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 8.0,
+                              color: Color.fromARGB(125, 0, 0, 255),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                new Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Text(
+                      'من ${widget.open.substring(11, 16)}ص \n الى ${widget
+                          .close.substring(11, 16)}م',
+                      style: TextStyle(
+                        fontFamily: ArabicFonts.Cairo,
+                        package: 'google_fonts_arabic',
+                        fontSize: 15.0,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 3.0,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Expanded(
+                      child: new MaterialButton(
+                        height: 10.0,
+                        onPressed: () {},
+                        color: Color(0xFF13A1C5),
+                        splashColor: Color(0xFF009AFF),
+                        textColor: Colors.white,
+                        elevation: 2.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(11.0),
+                          child: new Text("حجز",
+                              style: TextStyle(
+                                  fontFamily: ArabicFonts.Cairo,
+                                  package: 'google_fonts_arabic',
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  shadows: <Shadow>[
+                                    Shadow(
+                                      offset: Offset(3.0, 3.0),
+                                      blurRadius: 3.0,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    ),
+                                    Shadow(
+                                      offset: Offset(3.0, 3.0),
+                                      blurRadius: 8.0,
+                                      color: Color.fromARGB(125, 0, 0, 255),
+                                    ),
+                                  ])),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
-          ),
-        );
-      }
+          );
+        },
+      );
+      return _bookingDateTimeList;
     }
-
-    _calendarCarouselNoHeader = CalendarCarousel<Event>(
-      height: cHeight * 0.48,
-      weekendTextStyle: TextStyle(
-        color: Colors.grey,
-      ),
-      todayButtonColor: Colors.blue[200],
-      markedDatesMap: _markedDateMap,
-      markedDateShowIcon: true,
-      markedDateIconMaxShown: 1,
-      markedDateMoreShowTotal: null,
-      // null for not showing hidden events indicator
-      markedDateIconBuilder: (event) {
-        return event.icon;
-      },
-    );
 
     return new Scaffold(
       body: new CustomScrollView(
@@ -386,15 +427,16 @@ class _BookState extends State<Book> {
                                 const EdgeInsets.symmetric(vertical: 5.0),
                             errorText: state.hasError ? state.errorText : null,
                           ),
-                          isEmpty: _modelConsulting == '',
+                          // ignore: unrelated_type_equality_checks
+                          isEmpty: widget.committee == '',
                           child: new DropdownButtonHideUnderline(
                             child: new DropdownButton(
                               isDense: true,
                               isExpanded: true,
-                              items: _modelConsulting.map((item) {
+                              items: widget.committee.map((dynamic item) {
                                 return new DropdownMenuItem(
                                   child: new Text(
-                                    item.name,
+                                    item['name'],
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: ArabicFonts.Cairo,
@@ -403,7 +445,7 @@ class _BookState extends State<Book> {
                                       fontSize: 12.0,
                                     ),
                                   ),
-                                  value: item.id.toString(),
+                                  value: item['_id'].toString(),
                                 );
                               }).toList(),
                               onChanged: (newVal) {
@@ -431,9 +473,9 @@ class _BookState extends State<Book> {
               [
                 new Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: Row(
+                  child: new Row(
                     children: <Widget>[
-                      Expanded(
+                      new Expanded(
                         child: Text(
                           'تاريخ الحجز',
                           style: TextStyle(
@@ -451,13 +493,10 @@ class _BookState extends State<Book> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      _calendarCarouselNoHeader,
-                      markerRepresent(Colors.grey, "غير متوفر الان"),
-                      markerRepresent(Colors.green, "متوفر الان"),
-                    ],
+                  child: Container(
+                    height: 160.0,
+                    width: 100.0,
+                    child: _buildBookingDateTimeList(),
                   ),
                 ),
               ],
@@ -471,14 +510,14 @@ class _BookState extends State<Book> {
           children: <Widget>[
             new Expanded(
               child: new MaterialButton(
-                onPressed: () {},
+                onPressed: _showModalSheet,
                 color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),
                 textColor: Colors.white,
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("حجز",
+                  child: new Text("تقييمات المرضى",
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -506,20 +545,217 @@ class _BookState extends State<Book> {
     );
   }
 
-  Widget markerRepresent(Color color, String data) {
-    return new ListTile(
-      leading: new CircleAvatar(
-        backgroundColor: color,
-        radius: cHeight * 0.022,
-      ),
-      title: new Text(
-        data,
-        style: TextStyle(
-          fontFamily: ArabicFonts.Cairo,
-          package: 'google_fonts_arabic',
-          fontSize: EventSizedConstants.TextButtonFontSized,
+  //Show Modal Sheet that Display all the #Rating about specific Fields
+  void _showModalSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Scaffold(
+            extendBody: true,
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                Translations
+                    .of(context)
+                    .rating_review,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: ArabicFonts.Cairo,
+                    color: Colors.white,
+                    package: 'google_fonts_arabic',
+                    fontSize: EventSizedConstants.TextappBarSize,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 3.0,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 8.0,
+                        color: Color.fromARGB(125, 0, 0, 255),
+                      ),
+                    ]),
+              ),
+            ),
+            body: new Container(
+              padding: EdgeInsets.only(top: 5.0, bottom: 3.0),
+              color: Colors.white,
+              child: Column(
+                children: <Widget>[
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SmoothStarRating(
+                        rating: 3.2,
+                        size: 30,
+                        color: Colors.yellow,
+                        borderColor: Colors.grey,
+                        starCount: 5,
+                      )
+                    ],
+                  ),
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        Translations
+                            .of(context)
+                            .total_rating,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                      child: loading
+                          ? Center(child: CircularProgressIndicator())
+                          : _buildRatingList()),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  //Show builder for #Rating list
+  Widget _buildRatingList() {
+    Widget _ratingList;
+    if (_modelRating.length > 0) {
+      _ratingList = new ListView.builder(
+        padding: EdgeInsets.all(1.0),
+        itemExtent: 80.0,
+        shrinkWrap: true,
+        itemCount: _modelRating.length,
+        itemBuilder: (BuildContext context, index) {
+          final _ratingObj = _modelRating[index];
+          return Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: new Card(
+              elevation: 0.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                child: Container(
+                  height: 50.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Row(
+                      children: <Widget>[
+                        new Container(
+                          height: 50.0,
+                          width: 50.0,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.fill,
+                              placeholder: 'assets/avatar_person.png',
+                              image:
+                              'http://23.111.185.155:3000/uploads/avtar/${_ratingObj
+                                  .logo.filename}',
+                            ),
+                          ),
+                        ),
+                        new SizedBox(
+                          width: 5.0,
+                        ),
+                        new Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          '${_ratingObj.client.first + ' ' +
+                                              _ratingObj.client.last}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: ArabicFonts.Cairo,
+                                            package: 'google_fonts_arabic',
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        'عدد التقييمات ${_ratingObj.rate}',
+                                        style: TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.green,
+                                          fontFamily: ArabicFonts.Cairo,
+                                          package: 'google_fonts_arabic',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  new Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Text(
+                                          '${_ratingObj.comment}',
+                                          style: TextStyle(
+                                            fontSize: 10.0,
+                                            color: Colors.pinkAccent,
+                                            fontFamily: ArabicFonts.Cairo,
+                                            package: 'google_fonts_arabic',
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      _ratingList = Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: Icon(Icons.hourglass_empty),
+            ),
+            Text(
+              'عفواً لا توجد تقييمات !',
+              style: TextStyle(
+                  fontFamily: ArabicFonts.Cairo,
+                  package: 'google_fonts_arabic',
+                  fontSize: 20.0,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
-      ),
-    );
+      );
+    }
+    return _ratingList;
   }
 }

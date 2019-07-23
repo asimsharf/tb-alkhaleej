@@ -1,18 +1,18 @@
 class ModelConsulting {
-  String id;
-  String name;
-  String email;
-  String description;
-  String close;
-  String open;
-  String lat;
-  String lang;
-  bool isActive;
-  bool inviled;
-  String center_type;
-  Address address;
-  Logo logo;
-  List<dynamic> committee;
+  final String id;
+  final String name;
+  final String email;
+  final String description;
+  final String close;
+  final String open;
+  final String lat;
+  final String lang;
+  final bool isActive;
+  final bool inviled;
+  final String centerType;
+  final Address address;
+  final Logo logo;
+  final List<dynamic> committee;
 
   ModelConsulting(
       {this.id,
@@ -25,7 +25,7 @@ class ModelConsulting {
       this.inviled,
       this.lat,
       this.lang,
-      this.center_type,
+        this.centerType,
       this.address,
       this.logo,
         this.committee});
@@ -42,32 +42,16 @@ class ModelConsulting {
       lang: json['lang'] as String,
       isActive: json['isActive'] as bool,
       inviled: json['inviled'] as bool,
-      center_type: json['center_type'] as String,
+      centerType: json['center_type'] as String,
       address: Address.fromJson(json['address']),
       logo: Logo.fromJson(json['logo']),
-      committee: Committee(json['committee']),
+      committee: _committee(json['committee']),
     );
   }
 
-  static List<dynamic> Committee(committee) {
-    List<dynamic> Committee = new List<dynamic>.from(committee);
-    return Committee;
-  }
-}
-
-class Committee {
-  String id;
-  String name;
-  Logo logo;
-
-  Committee({this.id, this.name, this.logo});
-
-  factory Committee.fromJson(Map<String, dynamic> json) {
-    return Committee(
-      id: json['_id'] as String,
-      name: json['name'] as String,
-      logo: Logo.fromJson(json['logo']),
-    );
+  static List<dynamic> _committee(committee) {
+    List<dynamic> _committee = new List<dynamic>.from(committee);
+    return _committee;
   }
 }
 

@@ -16,7 +16,7 @@ import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class InsuranceCenterDetails extends StatefulWidget {
   final String id;
-  final String center_id;
+  final String centerId;
   final String name;
   final String email;
   final String description;
@@ -26,7 +26,7 @@ class InsuranceCenterDetails extends StatefulWidget {
   final String lang;
   final bool isActive;
   final bool inviled;
-  final String center_type;
+  final String centerType;
   final String country;
   final String postcode;
   final String state;
@@ -37,7 +37,7 @@ class InsuranceCenterDetails extends StatefulWidget {
 
   InsuranceCenterDetails(
       {this.id,
-      this.center_id,
+        this.centerId,
       this.name,
       this.email,
       this.description,
@@ -52,7 +52,7 @@ class InsuranceCenterDetails extends StatefulWidget {
       this.state,
       this.street1,
       this.suburb,
-      this.center_type,
+        this.centerType,
       this.logo,
       this.committee});
 
@@ -76,23 +76,18 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
 
   Future<List<ModelInsurancesCenters>> getInsuranceCenter() async {
     String link =
-        "http://23.111.185.155:3000/api/insurances/${widget.id}/centers/${widget.center_id}";
-    print('###############LINKE#################');
-    print(link.toString());
-    print('################LINKE################');
+        "http://23.111.185.155:3000/api/insurances/${widget.id}/centers/${widget
+        .centerId}";
+
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
-    print('##############res##################');
-    print(res.body.toString());
-    print('###############res#################');
+
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
 
         var rest = data['Centers'] as List;
-        print('###############id#################');
-        print(data['Centers'][0]['_id'].toString());
-        print('###############id#################');
+
         _modelInsurancesCenters = rest
             .map<ModelInsurancesCenters>(
                 (rest) => ModelInsurancesCenters.fromJson(rest))
@@ -103,21 +98,17 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
   }
 
   List getCenterList(List str) {
-    List<String> ListOfItems = [];
+    List<String> _listOfItems = [];
     for (var i = 0; i < str.length; i++) {
-      ListOfItems.add(str[i]['_d'].toString());
+      _listOfItems.add(str[i]['_d'].toString());
     }
-    return ListOfItems;
+    return _listOfItems;
   }
 
   Future<void> _goToMaps() async {
-    double lat = double.parse(widget.lat) as double;
-    double long = double.parse(widget.lang) as double;
-    print("**************lat***************");
-    print(lat.toString());
+    double lat = double.parse(widget.lat);
+    double long = double.parse(widget.lang);
 
-    print(long.toString());
-    print("**************long***************");
     GoogleMapController controller = await _controller.future;
     controller
         .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, long), _zoom));
@@ -125,7 +116,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
       _markers.clear();
       _markers.add(
         Marker(
-          markerId: MarkerId('${widget.center_id}'),
+          markerId: MarkerId('${widget.centerId}'),
           position: LatLng(lat, long),
           infoWindow: InfoWindow(
               title: '${widget.name}', snippet: '${widget.description}'),
@@ -137,26 +128,26 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
 
   //Future Rating for catch all the rating apis to display
   bool loading = false;
-  List<ModelRating> _model_Rating = <ModelRating>[];
+  List<ModelRating> _modelRating = <ModelRating>[];
 
   Future<List<ModelRating>> getRatings() async {
     String link =
         "http://23.111.185.155:3000/api/rating/${widget.id.toString()}/center";
-    print(link.toString());
+
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
-    print(res.body.toString());
+
     setState(() {
       if (res.statusCode == 200) {
         var data = json.decode(res.body);
         var rest = data['Rating'] as List;
-        _model_Rating = rest
+        _modelRating = rest
             .map<ModelRating>((rest) => ModelRating.fromJson(rest))
             .toList();
         loading = false;
       }
     });
-    return _model_Rating;
+    return _modelRating;
   }
 
   @override
@@ -295,7 +286,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => Rating(
-                                id: widget.center_id,
+                                id: widget.centerId,
                                 name: widget.name,
                                 logo: widget.logo,
                                   ),
@@ -411,7 +402,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          '${widget.center_type}',
+                          '${widget.centerType}',
                           style: TextStyle(
                             color: Colors.pinkAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -531,7 +522,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     MaterialPageRoute(
                       builder: (context) => CentersDepartment(
                         id: widget.id,
-                        center_id: widget.center_id,
+                        centerId: widget.centerId,
                         name: widget.name,
                         email: widget.email,
                         description: widget.description,
@@ -544,10 +535,11 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                         state: widget.state,
                         street1: widget.street1,
                         suburb: widget.suburb,
-                        center_type: widget.center_type,
+                        centerType: widget.centerType,
                         logo: widget.logo,
                         lang: widget.lang,
                         lat: widget.lat,
+                        committee: widget.committee,
                           ),
                     ),
                   );
@@ -621,11 +613,11 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
   }
 
   List getCommitteeList(List str) {
-    List<dynamic> ListOfItems = [];
+    List<dynamic> _listOfItems = [];
     for (var i = 0; i < str.length; i++) {
-      ListOfItems.add(str[i]['name'].toString());
+      _listOfItems.add(str[i]['name'].toString());
     }
-    return ListOfItems;
+    return _listOfItems;
   }
 
   //Show Modal Sheet that Display all the #Rating about specific Fields
@@ -706,15 +698,15 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
 
   //Show builder for #Rating list
   Widget _buildRatingList() {
-    Widget RatingList;
-    if (_model_Rating.length > 0) {
-      RatingList = new ListView.builder(
+    Widget _ratingList;
+    if (_modelRating.length > 0) {
+      _ratingList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 80.0,
         shrinkWrap: true,
-        itemCount: _model_Rating.length,
+        itemCount: _modelRating.length,
         itemBuilder: (BuildContext context, index) {
-          final RatingObj = _model_Rating[index];
+          final _ratingObj = _modelRating[index];
           return Padding(
             padding: const EdgeInsets.all(0.0),
             child: new Card(
@@ -739,7 +731,8 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                                  'http://23.111.185.155:3000/uploads/avtar/${RatingObj.logo.filename}',
+                              'http://23.111.185.155:3000/uploads/avtar/${_ratingObj
+                                  .logo.filename}',
                             ),
                           ),
                         ),
@@ -760,7 +753,8 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${RatingObj.client.first + ' ' + RatingObj.client.last}',
+                                          '${_ratingObj.client.first + ' ' +
+                                              _ratingObj.client.last}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 12.0,
@@ -771,7 +765,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${RatingObj.rate}',
+                                        'عدد التقييمات ${_ratingObj.rate}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -785,7 +779,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${RatingObj.comment}',
+                                          '${_ratingObj.comment}',
                                           style: TextStyle(
                                             fontSize: 10.0,
                                             color: Colors.pinkAccent,
@@ -813,7 +807,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
         },
       );
     } else {
-      RatingList = Center(
+      _ratingList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -833,7 +827,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
         ),
       );
     }
-    return RatingList;
+    return _ratingList;
   }
 }
 

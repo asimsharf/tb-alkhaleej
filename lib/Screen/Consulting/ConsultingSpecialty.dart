@@ -144,9 +144,9 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
   }
 
   Widget _buildProductList() {
-    Widget ConsultingSpecialtyList;
+    Widget _consultingSpecialtyList;
     if (_modelConsultingSpecialty.length > 0) {
-      if (!(_searchText.isEmpty)) {
+      if (_searchText.isNotEmpty) {
         List<ModelConsultingSpecialty> tempList = <ModelConsultingSpecialty>[];
         for (int i = 0; i < _modelConsultingSpecialty.length; i++) {
           if (_modelConsultingSpecialty[i]
@@ -158,13 +158,13 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
         }
         _modelConsultingSpecialty = tempList;
       }
-      ConsultingSpecialtyList = new ListView.builder(
+      _consultingSpecialtyList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
         itemCount: _modelConsultingSpecialty.length,
         itemBuilder: (BuildContext context, index) {
-          final ConsultingSpecialtyObj = _modelConsultingSpecialty[index];
+          final _consultingSpecialtyObj = _modelConsultingSpecialty[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -189,7 +189,8 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                                  'http://23.111.185.155:3000/uploads/department/${ConsultingSpecialtyObj.image.filename}',
+                              'http://23.111.185.155:3000/uploads/department/${_consultingSpecialtyObj
+                                  .image.filename}',
                             ),
                           ),
                         ),
@@ -207,7 +208,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ConsultingSpecialtyObj.name}',
+                                        '${_consultingSpecialtyObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -237,7 +238,8 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ConsultingSpecialtyObj.description}',
+                                        '${_consultingSpecialtyObj
+                                            .description}',
                                         style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.pinkAccent,
@@ -280,7 +282,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
         },
       );
     } else {
-      ConsultingSpecialtyList = Center(
+      _consultingSpecialtyList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -300,7 +302,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
         ),
       );
     }
-    return ConsultingSpecialtyList;
+    return _consultingSpecialtyList;
   }
 
   Widget _buildBar(BuildContext context) {

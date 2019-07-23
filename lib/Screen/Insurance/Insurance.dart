@@ -151,9 +151,9 @@ class _InsuranceState extends State<Insurance> {
   }
 
   Widget _buildProductList() {
-    Widget CentersList;
+    Widget _centersList;
     if (_modelInsurance.length > 0) {
-      if (!(_searchText.isEmpty)) {
+      if (_searchText.isNotEmpty) {
         List<ModelInsurance> tempList = <ModelInsurance>[];
         for (int i = 0; i < _modelInsurance.length; i++) {
           if (_modelInsurance[i]
@@ -166,13 +166,13 @@ class _InsuranceState extends State<Insurance> {
         _modelInsurance = tempList;
       }
 
-      CentersList = new ListView.builder(
+      _centersList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 70.0,
         shrinkWrap: true,
         itemCount: names == null ? 0 : _modelInsurance.length,
         itemBuilder: (BuildContext context, int index) {
-          final InsuranceObj = _modelInsurance[index];
+          final _insuranceObj = _modelInsurance[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -197,7 +197,7 @@ class _InsuranceState extends State<Insurance> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/insurance/${InsuranceObj
+                              'http://23.111.185.155:3000/uploads/insurance/${_insuranceObj
                                   .logo.filename}',
                             ),
                           ),
@@ -214,7 +214,7 @@ class _InsuranceState extends State<Insurance> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${InsuranceObj.name}',
+                                        '${_insuranceObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
@@ -242,9 +242,9 @@ class _InsuranceState extends State<Insurance> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => InsuranceDetails(
-                    id: InsuranceObj.id,
-                    name: InsuranceObj.name,
-                    logo: InsuranceObj.logo.filename,
+                    id: _insuranceObj.id,
+                    name: _insuranceObj.name,
+                    logo: _insuranceObj.logo.filename,
                   ),
                 ),
               );
@@ -253,7 +253,7 @@ class _InsuranceState extends State<Insurance> {
         },
       );
     } else {
-      CentersList = new Center(
+      _centersList = new Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -273,7 +273,7 @@ class _InsuranceState extends State<Insurance> {
         ),
       );
     }
-    return CentersList;
+    return _centersList;
   }
 
   Widget _buildBar(BuildContext context) {

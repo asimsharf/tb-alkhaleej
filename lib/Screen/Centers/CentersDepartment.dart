@@ -11,7 +11,7 @@ import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class CentersDepartment extends StatefulWidget {
   final String id;
-  final String center_id;
+  final String centerId;
   final String name;
   final String email;
   final String description;
@@ -21,16 +21,17 @@ class CentersDepartment extends StatefulWidget {
   final String lang;
   final bool isActive;
   final bool inviled;
-  final String center_type;
+  final String centerType;
   final String country;
   final String postcode;
   final String state;
   final String street1;
   final String suburb;
   final String logo;
+  final List committee;
 
   CentersDepartment({this.id,
-    this.center_id,
+    this.centerId,
     this.name,
     this.email,
     this.description,
@@ -45,8 +46,9 @@ class CentersDepartment extends StatefulWidget {
     this.state,
     this.street1,
     this.suburb,
-    this.center_type,
-    this.logo});
+    this.centerType,
+    this.logo,
+    this.committee});
   @override
   _CentersDepartmentState createState() => _CentersDepartmentState();
 }
@@ -66,7 +68,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
 
   void _getCenterNames() async {
     final response = await dio.get(
-        'http://23.111.185.155:3000/api/center/${widget.center_id}/department');
+        'http://23.111.185.155:3000/api/center/${widget.centerId}/department');
     List<ModelCentersDepartment> tempList = <ModelCentersDepartment>[];
     for (int i = 0; i < response.data['departments'].length; i++) {
       var rest = response.data['departments'] as List;
@@ -132,7 +134,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
 
   Future<List<ModelCentersDepartment>> getCenters() async {
     String link =
-        "http://23.111.185.155:3000/api/center/${widget.center_id}/department";
+        "http://23.111.185.155:3000/api/center/${widget.centerId}/department";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
@@ -177,9 +179,9 @@ class _CentersDepartmentState extends State<CentersDepartment> {
   }
 
   Widget _buildProductList() {
-    Widget CentersDepartmentList;
+    Widget _centersDepartmentList;
     if (_modelCentersDepartment.length > 0) {
-      if (!(_searchText.isEmpty)) {
+      if ((_searchText.isNotEmpty)) {
         List<ModelCentersDepartment> tempList = <ModelCentersDepartment>[];
         for (int i = 0; i < _modelCentersDepartment.length; i++) {
           if (_modelCentersDepartment[i]
@@ -191,13 +193,13 @@ class _CentersDepartmentState extends State<CentersDepartment> {
         }
         _modelCentersDepartment = tempList;
       }
-      CentersDepartmentList = new ListView.builder(
+      _centersDepartmentList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
         itemCount: _modelCentersDepartment.length,
         itemBuilder: (BuildContext context, index) {
-          final CentersDepartmentObj = _modelCentersDepartment[index];
+          final _centersDepartmentObj = _modelCentersDepartment[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -222,7 +224,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/department/${CentersDepartmentObj
+                              'http://23.111.185.155:3000/uploads/department/${_centersDepartmentObj
                                   .image.filename}',
                             ),
                           ),
@@ -241,7 +243,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersDepartmentObj.name}',
+                                        '${_centersDepartmentObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
@@ -272,7 +274,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${CentersDepartmentObj.description}',
+                                        '${_centersDepartmentObj.description}',
                                         style: TextStyle(
                                           fontSize: EventSizedConstants
                                               .TextdescriptionSize,
@@ -290,12 +292,13 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                             builder: (context) =>
                                                 Book(
                                                   id: widget.id,
-                                                  name:
-                                                  CentersDepartmentObj.name,
+                                                  centerId: widget.centerId,
+                                                  name: _centersDepartmentObj
+                                                      .name,
                                                   description:
-                                                  CentersDepartmentObj
+                                                  _centersDepartmentObj
                                                       .description,
-                                                  logo: CentersDepartmentObj
+                                                  logo: _centersDepartmentObj
                                                       .image.filename,
                                                   close: widget.close,
                                                   open: widget.open,
@@ -304,10 +307,10 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                                   state: widget.state,
                                                   street1: widget.street1,
                                                   suburb: widget.suburb,
-                                                  center_type:
-                                                  widget.center_type,
+                                                  centerType: widget.centerType,
                                                   lang: widget.lang,
                                                   lat: widget.lat,
+                                                  committee: widget.committee,
                                                 ),
                                           ),
                                         );
@@ -343,7 +346,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
         },
       );
     } else {
-      CentersDepartmentList = Center(
+      _centersDepartmentList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -363,7 +366,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
         ),
       );
     }
-    return CentersDepartmentList;
+    return _centersDepartmentList;
   }
 
   Widget _buildBar(BuildContext context) {

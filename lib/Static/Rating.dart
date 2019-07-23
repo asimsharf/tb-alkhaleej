@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
@@ -7,22 +10,63 @@ class Rating extends StatefulWidget {
   final String id;
   final String name;
   final String logo;
+  final Future<Post> post;
 
-  Rating({this.id, this.name, this.logo});
+  Rating({this.id, this.name, this.logo, this.post});
 
   @override
   _RatingState createState() => _RatingState();
 }
 
+class Post {
+  final String userId;
+  final int id;
+  final String title;
+  final String body;
+
+  Post({this.userId, this.id, this.title, this.body});
+
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      userId: json['userId'],
+      id: json['id'],
+      title: json['title'],
+      body: json['body'],
+    );
+  }
+
+  Map toMap() {
+    var map = new Map<String, dynamic>();
+    map["userId"] = userId;
+    map["title"] = title;
+    map["body"] = body;
+
+    return map;
+  }
+}
+
 class _RatingState extends State<Rating> {
+  static final CREATE_POST_URL = 'https://jsonplaceholder.typicode.com/posts';
+  TextEditingController addReviewController = TextEditingController();
+
+  Future<Post> createPost(String url, {Map body}) async {
+    return http.post(url, body: body).then((http.Response response) {
+      final int statusCode = response.statusCode;
+
+      if (statusCode < 200 || statusCode > 400 || json == null) {
+        throw new Exception("Error while fetching data");
+      }
+      return Post.fromJson(json.decode(response.body));
+    });
+  }
+
+  var rating = 1.0;
+
   @override
   initState() {
     super.initState();
     setState(() {});
   }
-
-  //Initial rating value
-  var rating = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +109,7 @@ class _RatingState extends State<Rating> {
                     fit: BoxFit.cover,
                     placeholder: 'assets/avatar_person.png',
                     image:
-                        'http://23.111.185.155:3000/uploads/files/${widget.logo}',
+                    'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -162,6 +206,7 @@ class _RatingState extends State<Rating> {
                     new Padding(
                       padding: new EdgeInsets.all(30.0),
                       child: new TextField(
+                        controller: addReviewController,
                         decoration: new InputDecoration(
                             hintText: "إضافة ملاحظة ...",
                             hintStyle: TextStyle(
@@ -185,13 +230,15 @@ class _RatingState extends State<Rating> {
           children: <Widget>[
             new Expanded(
               child: new MaterialButton(
-                onPressed: () {
-//                  Navigator.push(
-//                    context,
-//                    MaterialPageRoute(
-//                      builder: (context) => MyStelppers(),
-//                    ),
-//                  );
+                onPressed: () async {
+                  Post newPost = new Post(
+                      userId: "123",
+                      id: 0,
+                      title: addReviewController.text,
+                      body: addReviewController.text);
+                  Post p =
+                  await createPost(CREATE_POST_URL, body: newPost.toMap());
+                  print(p.title);
                 },
                 color: Color(0xFF13A1C5),
                 splashColor: Color(0xFF009AFF),

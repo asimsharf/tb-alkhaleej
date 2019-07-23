@@ -5,14 +5,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:tb_alkhalij/Screen/Booking/Book.dart';
 import 'package:tb_alkhalij/model/ModelClinicDepartment.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class ClinicDepartment extends StatefulWidget {
   final String id;
+  final String centerId;
   final String name;
+  final List committee;
 
-  ClinicDepartment({this.id, this.name});
+  ClinicDepartment({this.id, this.name, this.committee, this.centerId});
 
   @override
   _ClinicDepartmentState createState() => _ClinicDepartmentState();
@@ -144,9 +147,9 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
   }
 
   Widget _buildProductList() {
-    Widget ClinicDepartmentList;
+    Widget _clinicDepartmentList;
     if (_modelClinicDepartment.length > 0) {
-      if (!(_searchText.isEmpty)) {
+      if ((_searchText.isNotEmpty)) {
         List<ModelClinicDepartment> tempList = <ModelClinicDepartment>[];
         for (int i = 0; i < _modelClinicDepartment.length; i++) {
           if (_modelClinicDepartment[i]
@@ -158,13 +161,13 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
         }
         _modelClinicDepartment = tempList;
       }
-      ClinicDepartmentList = new ListView.builder(
+      _clinicDepartmentList = new ListView.builder(
         padding: EdgeInsets.all(1.0),
         itemExtent: 114.0,
         shrinkWrap: true,
         itemCount: _modelClinicDepartment.length,
         itemBuilder: (BuildContext context, index) {
-          final ClinicDepartmentObj = _modelClinicDepartment[index];
+          final _clinicDepartmentObj = _modelClinicDepartment[index];
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -189,7 +192,8 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                                  'http://23.111.185.155:3000/uploads/department/${ClinicDepartmentObj.image.filename}',
+                              'http://23.111.185.155:3000/uploads/department/${_clinicDepartmentObj
+                                  .image.filename}',
                             ),
                           ),
                         ),
@@ -207,7 +211,7 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ClinicDepartmentObj.name}',
+                                        '${_clinicDepartmentObj.name}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
@@ -238,7 +242,7 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${ClinicDepartmentObj.description}',
+                                        '${_clinicDepartmentObj.description}',
                                         style: TextStyle(
                                           fontSize: EventSizedConstants
                                               .TextdescriptionSize,
@@ -249,7 +253,26 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
                                       ),
                                     ),
                                     new MaterialButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Book(
+                                                  id: widget.id,
+                                                  centerId: widget.centerId,
+                                                  name:
+                                                  _clinicDepartmentObj.name,
+                                                  description:
+                                                  _clinicDepartmentObj
+                                                      .description,
+                                                  logo: _clinicDepartmentObj
+                                                      .image.filename,
+                                                  committee: widget.committee,
+                                                ),
+                                          ),
+                                        );
+                                      },
                                       color: Color(0xFFE91E63),
                                       splashColor: Color(0xFFFF1B5E),
                                       textColor: Colors.white,
@@ -277,12 +300,11 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
                 ),
               ),
             ),
-            onTap: () {},
           );
         },
       );
     } else {
-      ClinicDepartmentList = Center(
+      _clinicDepartmentList = Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -302,7 +324,7 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
         ),
       );
     }
-    return ClinicDepartmentList;
+    return _clinicDepartmentList;
   }
 
   Widget _buildBar(BuildContext context) {

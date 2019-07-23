@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:tb_alkhalij/model/ModelCenters.dart';
+import 'package:tb_alkhalij/model/ModelRating.dart';
 
 class ApiCentersServices {
-  static const _serviceUrl = 'http://23.111.185.155:3000/api/hospital';
+  static const _serviceUrl = 'http://23.111.185.155:3000/api/rating';
   static final _headers = {'Content-Type': 'application/json'};
 
-  Future<ModelCenters> createCenters(ModelCenters modelCenters) async {
+  Future<ModelRating> createCenters(ModelRating modelRateings) async {
     try {
-      String json = _toJson(modelCenters);
+      String json = _toJson(modelRateings);
       final response =
           await http.post(_serviceUrl, headers: _headers, body: json).then(
         (response) {
@@ -27,26 +27,23 @@ class ApiCentersServices {
     }
   }
 
-  ModelCenters _fromJson(String json) {
+  ModelRating _fromJson(String json) {
     Map<String, dynamic> map = jsonDecode(json);
-    var modelCenters = new ModelCenters();
-    modelCenters.id = map['id'];
-    modelCenters.name = map['name'];
-    modelCenters.email = map['email'];
-    modelCenters.description = map['description'];
-    modelCenters.address = map['address'];
-    modelCenters.open = map['open_at'];
-    modelCenters.close = map['close_at'];
-    return modelCenters;
+    var modelRateings = new ModelRating();
+    modelRateings.id = map['_id'];
+    modelRateings.client = map['client'];
+    modelRateings.comment = map['comment'];
+    modelRateings.rate = map['rate'];
+
+    return modelRateings;
   }
 
-  String _toJson(ModelCenters modelCenters) {
+  String _toJson(ModelRating modelRateings) {
     var mapData = new Map();
-    mapData["_id"] = modelCenters.id;
-    mapData["name"] = modelCenters.name;
-    mapData["email"] = modelCenters.email;
-    mapData["description"] = modelCenters.description;
-    mapData["address"] = modelCenters.address;
+    mapData["_id"] = modelRateings.id;
+    mapData["client"] = modelRateings.client;
+    mapData["comment"] = modelRateings.comment;
+    mapData["rate"] = modelRateings.rate;
 
     String json = jsonEncode(mapData);
     return json;
