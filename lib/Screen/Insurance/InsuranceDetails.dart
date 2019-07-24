@@ -25,7 +25,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
   bool _loading = false;
 
   List<ModelInsurancesCenters> _modelInsurancesCenters =
-  <ModelInsurancesCenters>[];
+      <ModelInsurancesCenters>[];
 
   Future<List<ModelInsurancesCenters>> getInsurancesCenters() async {
     String link =
@@ -197,8 +197,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${_centersObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/files/${_centersObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -218,7 +217,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
-                                          EventSizedConstants.TextnameSize,
+                                              EventSizedConstants.TextnameSize,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -251,7 +250,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "${_centersObj.open.substring(11, 16)}",
+                                          "${_centersObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -276,7 +275,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                                     TextIcon(
                                       size: 10.0,
                                       text:
-                                      "${_centersObj.close.substring(11, 16)}",
+                                          "${_centersObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -296,27 +295,26 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      InsuranceCenterDetails(
-                          id: widget.id,
-                          name: _centersObj.name,
-                          email: _centersObj.email,
-                          description: _centersObj.description,
-                          close: _centersObj.close,
-                          open: _centersObj.open,
-                          isActive: _centersObj.isActive,
-                          inviled: _centersObj.inviled,
-                          country: _centersObj.address.country,
-                          postcode: _centersObj.address.postcode,
-                          state: _centersObj.address.state,
-                          street1: _centersObj.address.street1,
-                          suburb: _centersObj.address.suburb,
-                          centerType: _centersObj.centerType,
-                          logo: _centersObj.logo.filename,
-                          lang: _centersObj.lang,
-                          lat: _centersObj.lat,
-                          centerId: _centersObj.id,
-                          committee: _centersObj.committee),
+                  builder: (context) => InsuranceCenterDetails(
+                      id: widget.id,
+                      name: _centersObj.name,
+                      email: _centersObj.email,
+                      description: _centersObj.description,
+                      close: _centersObj.close,
+                      open: _centersObj.open,
+                      isActive: _centersObj.isActive,
+                      inviled: _centersObj.inviled,
+                      country: _centersObj.address.country,
+                      postcode: _centersObj.address.postcode,
+                      state: _centersObj.address.state,
+                      street1: _centersObj.address.street1,
+                      suburb: _centersObj.address.suburb,
+                      centerType: _centersObj.centerType,
+                      logo: _centersObj.logo.filename,
+                      lang: _centersObj.lang,
+                      lat: _centersObj.lat,
+                      centerId: _centersObj.id,
+                      committee: _centersObj.committee),
                 ),
               );
             },

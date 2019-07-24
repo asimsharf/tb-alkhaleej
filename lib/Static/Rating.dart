@@ -1,65 +1,28 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/api/Rating_api_response.dart';
+import 'package:tb_alkhalij/model/Post.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class Rating extends StatefulWidget {
   final String id;
+  final String centerId;
   final String name;
   final String logo;
   final Future<Post> post;
 
-  Rating({this.id, this.name, this.logo, this.post});
+  Rating({this.id, this.centerId, this.name, this.logo, this.post});
 
   @override
   _RatingState createState() => _RatingState();
 }
 
-class Post {
-  final String userId;
-  final int id;
-  final String title;
-  final String body;
-
-  Post({this.userId, this.id, this.title, this.body});
-
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      body: json['body'],
-    );
-  }
-
-  Map toMap() {
-    var map = new Map<String, dynamic>();
-    map["userId"] = userId;
-    map["title"] = title;
-    map["body"] = body;
-
-    return map;
-  }
-}
-
 class _RatingState extends State<Rating> {
-  static final CREATE_POST_URL = 'https://jsonplaceholder.typicode.com/posts';
   TextEditingController addReviewController = TextEditingController();
-
-  Future<Post> createPost(String url, {Map body}) async {
-    return http.post(url, body: body).then((http.Response response) {
-      final int statusCode = response.statusCode;
-
-      if (statusCode < 200 || statusCode > 400 || json == null) {
-        throw new Exception("Error while fetching data");
-      }
-      return Post.fromJson(json.decode(response.body));
-    });
-  }
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var rating = 1.0;
 
   @override
@@ -71,6 +34,7 @@ class _RatingState extends State<Rating> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _scaffoldKey,
       body: new CustomScrollView(
         slivers: <Widget>[
           new SliverAppBar(
@@ -204,17 +168,64 @@ class _RatingState extends State<Rating> {
                       ),
                     ),
                     new Padding(
-                      padding: new EdgeInsets.all(30.0),
+                      padding: new EdgeInsets.all(20.0),
                       child: new TextField(
                         controller: addReviewController,
                         decoration: new InputDecoration(
-                            hintText: "إضافة ملاحظة ...",
-                            hintStyle: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
-                              fontSize: 15.0,
-                            )),
-                        maxLines: 4,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          ),
+                          hintText: "إضافة ملاحظة ...",
+                          hintStyle: TextStyle(
+                            fontFamily: ArabicFonts.Cairo,
+                            package: 'google_fonts_arabic',
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        maxLines: 10,
+                      ),
+                    ),
+                    new Container(
+                      width: 350.0,
+                      color: Colors.white,
+                      child: new Row(
+                        children: <Widget>[
+                          new Expanded(
+                            child: new MaterialButton(
+                              onPressed: () => _submitForm(),
+                              color: Color(0xFF13A1C5),
+                              splashColor: Color(0xFF009AFF),
+                              textColor: Colors.white,
+                              elevation: 0.2,
+                              child: new Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: new Text("إضافة تقييم",
+                                    style: TextStyle(
+                                        fontFamily: ArabicFonts.Cairo,
+                                        package: 'google_fonts_arabic',
+                                        fontSize: EventSizedConstants
+                                            .TextButtonFontSized,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        shadows: <Shadow>[
+                                          new Shadow(
+                                            offset: Offset(3.0, 3.0),
+                                            blurRadius: 3.0,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                          new Shadow(
+                                            offset: Offset(3.0, 3.0),
+                                            blurRadius: 8.0,
+                                            color:
+                                            Color.fromARGB(125, 0, 0, 255),
+                                          ),
+                                        ])),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -224,51 +235,59 @@ class _RatingState extends State<Rating> {
           ),
         ],
       ),
-      bottomNavigationBar: new Container(
-        color: Colors.white,
-        child: new Row(
-          children: <Widget>[
-            new Expanded(
-              child: new MaterialButton(
-                onPressed: () async {
-                  Post newPost = new Post(
-                      userId: "123",
-                      id: 0,
-                      title: addReviewController.text,
-                      body: addReviewController.text);
-                  Post p =
-                  await createPost(CREATE_POST_URL, body: newPost.toMap());
-                  print(p.title);
-                },
-                color: Color(0xFF13A1C5),
-                splashColor: Color(0xFF009AFF),
-                textColor: Colors.white,
-                elevation: 0.2,
-                child: new Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: new Text("إضافة تقييم",
-                      style: TextStyle(
-                          fontFamily: ArabicFonts.Cairo,
-                          package: 'google_fonts_arabic',
-                          fontSize: EventSizedConstants.TextButtonFontSized,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          shadows: <Shadow>[
-                            new Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 3.0,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                            new Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 8.0,
-                              color: Color.fromARGB(125, 0, 0, 255),
-                            ),
-                          ])),
-                ),
-              ),
+    );
+  }
+
+  void _submitForm() {
+    if (addReviewController.text.isNotEmpty) {
+      Post newPost = new Post(
+        centerId: "${widget.centerId}",
+        patientId: "5d2f14fd980ce83c67de7d57",
+        comment: addReviewController.text,
+        rate: rating.toString(),
+      );
+      var createRate = new Rating_api_response();
+      createRate.createPost(newPost).then(
+            (value) =>
+            showMessage(
+              'شكراً لتقييمك...',
+              Colors.blue,
             ),
-          ],
+      );
+    } else {
+      showMessage("من فضلك اكتب تقييم عن الخدمات", Colors.red);
+      FocusScope.of(context).requestFocus(
+        new FocusNode(),
+      );
+      return;
+    }
+  }
+
+  void showMessage(String message, [MaterialColor color = Colors.red]) {
+    _scaffoldKey.currentState.showSnackBar(
+      new SnackBar(
+        backgroundColor: color,
+        content: new Text(
+          message,
+          style: TextStyle(
+            fontSize: EventSizedConstants.TextappBarSize,
+            fontWeight: FontWeight.bold,
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            color: Colors.white,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 3.0,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 8.0,
+                color: Color.fromARGB(125, 0, 0, 255),
+              ),
+            ],
+          ),
         ),
       ),
     );

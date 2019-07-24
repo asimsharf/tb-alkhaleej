@@ -245,6 +245,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                               builder: (context) =>
                                   Rating(
                                     id: widget.id,
+                                    centerId: widget.id,
                                     name: widget.name,
                                     logo: widget.logo,
                                   ),
@@ -660,6 +661,10 @@ class _CentersDetailsState extends State<CentersDetails> {
         });
   }
 
+  String tryParse(double rating) {
+    return rating.toString();
+  }
+
   //Show builder for #Rating list
   Widget _buildRatingList() {
     Widget _ratingList;
@@ -729,7 +734,8 @@ class _CentersDetailsState extends State<CentersDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${_ratingObj.rate}',
+                                        'عدد التقييمات ${tryParse(
+                                            _ratingObj.rate).substring(0, 3)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,

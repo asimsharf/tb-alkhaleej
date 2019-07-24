@@ -251,6 +251,7 @@ class _CentersDetailsState extends State<ClinicDetails> {
                                     id: widget.id,
                                     name: widget.name,
                                     logo: widget.logo,
+                                    centerId: widget.id,
                                   ),
                             ),
                           );

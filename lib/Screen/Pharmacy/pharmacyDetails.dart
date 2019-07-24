@@ -253,6 +253,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                                     id: widget.id,
                                     name: widget.name,
                                     logo: widget.logo,
+                                    centerId: widget.id,
                                   ),
                             ),
                           );

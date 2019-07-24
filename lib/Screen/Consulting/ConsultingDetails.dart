@@ -249,6 +249,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                                     id: widget.id,
                                     name: widget.name,
                                     logo: widget.logo,
+                                    centerId: widget.id,
                                   ),
                             ),
                           );
