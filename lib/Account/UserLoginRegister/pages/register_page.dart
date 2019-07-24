@@ -250,12 +250,37 @@ class RegisterPageState extends State<RegisterPage> {
     FocusScope.of(context).requestFocus(new FocusNode());
     progressDialog.showProgress();
     _registerUser(
-        nameController.text, emailController.text, passwordController.text);
+        nameController.text,
+        emailController.text,
+        passwordController.text,
+        '',
+        '',
+        '',
+        '',
+        '',
+        '');
   }
 
 //------------------------------------------------------------------------------
-  void _registerUser(String name, String emailId, String password) async {
-    EventObject eventObject = await registerUser(name, emailId, password);
+  void _registerUser(String city_id,
+      String address_text,
+      String identity_number,
+      String name,
+      String gender,
+      String phone,
+      String email,
+      String password,
+      String birth_date) async {
+    EventObject eventObject = await registerUser(
+        city_id,
+        address_text,
+        identity_number,
+        name,
+        gender,
+        phone,
+        email,
+        password,
+        birth_date);
     switch (eventObject.id) {
       case EventConstants.USER_REGISTRATION_SUCCESSFUL:
         {

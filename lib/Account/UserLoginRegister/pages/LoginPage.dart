@@ -6,7 +6,6 @@ import 'package:tb_alkhalij/MainPage.dart';
 
 import '../customviews/progress_dialog.dart';
 import '../futures/app_futures.dart';
-import '../models/base/EventObject.dart';
 import '../pages/register_page.dart';
 import '../utils/app_shared_preferences.dart';
 import '../utils/constants.dart';
@@ -193,13 +192,23 @@ class LoginPageState extends State<LoginPage> {
 
 //------------------------------------------------------------------------------
   void _loginUser(String id, String password) async {
-    EventObject eventObject = await loginUser(id, password);
+    var eventObject = await loginUser(id, password);
+    Map<String, dynamic> user = eventObject.object;
+    print('############################### Print out the response here ');
+    print(eventObject.object.toString());
     switch (eventObject.id) {
       case EventConstants.LOGIN_USER_SUCCESSFUL:
         {
           setState(() {
             AppSharedPreferences.setUserLoggedIn(true);
-            AppSharedPreferences.setUserProfile(eventObject.object);
+            AppSharedPreferences.setInSession(
+                'userName', user['profile']['name']['first']);
+            AppSharedPreferences.setInSession(
+                'userEmail', user['profile']['email']);
+            AppSharedPreferences.setInSession(
+                'userAvatar', user['profile']['avatar']['url']);
+            AppSharedPreferences.setInSession('userId', user['profile']['_id']);
+
             globalKey.currentState.showSnackBar(new SnackBar(
               content: new Text(SnackBarText.LOGIN_SUCCESSFUL),
             ));

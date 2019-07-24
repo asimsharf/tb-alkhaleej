@@ -42,4 +42,20 @@ class AppSharedPreferences {
     String userProfileJson = json.encode(user);
     return prefs.setString(SharedPreferenceKeys.USER, userProfileJson);
   }
+
+  static Future<bool> setInSession(String key, String value) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(key, value);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  static Future<Object> getFromSession(String str) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(str);
+  }
 }

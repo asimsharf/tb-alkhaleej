@@ -10,30 +10,22 @@ import '../models/base/EventObject.dart';
 import '../utils/constants.dart';
 
 ///////////////////////////////////////////////////////////////////////////////
-Future<EventObject> loginUser(String emailId, String password) async {
-  ApiRequest apiRequest = new ApiRequest();
-  User user = new User(email: emailId, password: password);
 
-  apiRequest.operation = APIOperations.LOGIN;
-  apiRequest.user = user;
+Future<EventObject> loginUser(String emailId, String password) async {
+  String baseurl = 'http://23.111.185.155:3000/api/authenticate/login/';
 
   try {
-    final encoding = APIConstants.OCTET_STREAM_ENCODING;
-    final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.toJson()),
-        encoding: Encoding.getByName(encoding));
-
-    print(response.body.toString());
+    final response = await http.get(baseurl + emailId + '/' + password,
+        headers: {"Accept": "application/json"});
 
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-        final responseJson = json.decode(response.body);
-        ApiResponse apiResponse = ApiResponse.fromJson(responseJson);
-        if (apiResponse.result == APIOperations.SUCCESS) {
+        Map<String, dynamic> responseJson = json.decode(response.body);
+
+        if (responseJson['code'] == 1) {
           return new EventObject(
-              id: EventConstants.LOGIN_USER_SUCCESSFUL,
-              object: apiResponse.user);
+              id: EventConstants.LOGIN_USER_SUCCESSFUL, object: responseJson);
         } else {
           return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
         }
@@ -44,24 +36,48 @@ Future<EventObject> loginUser(String emailId, String password) async {
       return new EventObject();
     }
   } catch (Exception) {
-    return EventObject();
+    return EventObject(id: 0);
   }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-Future<EventObject> registerUser(
-    String name, String emailId, String password) async {
+Future<EventObject> registerUser(String city_id,
+    String address_text,
+    String identity_number,
+    String name,
+    String gender,
+    String phone,
+    String email,
+    String password,
+    String birth_date) async {
+  //router.get('/client/register/:city_id/:address_text/:identity_number/:name/:gender/:phone/:email/:password/:birth_date', client_controller.create_client);
+//  http://23.111.185.155:4000/takaful/api/client/register/1/'khartoum'/'1122335'/'adam'/1/'0925505684'/'a@a.com'/'123'/'2019-07-24'
   ApiRequest apiRequest = new ApiRequest();
-  User user = new User(name: name, email: emailId, password: password);
-
-  apiRequest.operation = APIOperations.REGISTER;
-  apiRequest.user = user;
 
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
-    final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.toJson()),
-        encoding: Encoding.getByName(encoding));
+
+    final response = await http.get(
+        'http://23.111.185.155:4000/takaful/api/client/register/' +
+            city_id +
+            '/' +
+            address_text +
+            '/' +
+            identity_number +
+            '/' +
+            name +
+            '/' +
+            gender +
+            '/' +
+            phone +
+            '/' +
+            email +
+            '/' +
+            password +
+            '/' +
+            birth_date,
+        headers: {"Accept": "application/json"});
+
     print("***********1****************");
     print(response.body.toString());
     print("***********2****************");
