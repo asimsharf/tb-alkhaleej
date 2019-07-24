@@ -22,17 +22,45 @@ class Translations {
     return Localizations.of<Translations>(context, Translations);
   }
 
-  String get name {
+  String get firstName {
     return Intl.message(
-      'Name',
-      name: 'name',
+      'First name',
+      name: 'firstName',
     );
   }
 
-  String get em_name {
+  String get lastName {
     return Intl.message(
-      'Name is empty',
-      name: 'em_name',
+      'Last Name',
+      name: 'lastName',
+    );
+  }
+
+  String get fem_name {
+    return Intl.message(
+      'First Name is empty',
+      name: 'fem_name',
+    );
+  }
+
+  String get phone {
+    return Intl.message(
+      'Phone',
+      name: 'phone',
+    );
+  }
+
+  String get em_phone {
+    return Intl.message(
+      'Phone number\'s empty',
+      name: 'em_phone',
+    );
+  }
+
+  String get lem_name {
+    return Intl.message(
+      'Last Name is empty',
+      name: 'lem_name',
     );
   }
 

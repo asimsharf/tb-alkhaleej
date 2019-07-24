@@ -38,8 +38,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "did_you_forget_password": MessageLookupByLibrary.simpleMessage(
             "Did you forget your password? Reset now"),
-        "name": MessageLookupByLibrary.simpleMessage("Name"),
-        "em_name": MessageLookupByLibrary.simpleMessage("Name is empty"),
+    "firstName": MessageLookupByLibrary.simpleMessage("First name"),
+    "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
+    "fem_name": MessageLookupByLibrary.simpleMessage("First Name is empty"),
+    "lem_name": MessageLookupByLibrary.simpleMessage("Last Name is empty"),
+    "em_phone": MessageLookupByLibrary.simpleMessage("Phone's empty"),
+    "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "have_account": MessageLookupByLibrary.simpleMessage(
             "alredy have an account! Login"),
         "re_password": MessageLookupByLibrary.simpleMessage("Re-password"),

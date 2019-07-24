@@ -32,14 +32,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "support": MessageLookupByLibrary.simpleMessage("الدعم"),
         "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
+    "em_phone":
+    MessageLookupByLibrary.simpleMessage("عفواً رقم الهاتف فارغ"),
+    "phone": MessageLookupByLibrary.simpleMessage("الهاتف"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
         "title": MessageLookupByLibrary.simpleMessage("طب الخليج الدائم"),
         "new_user": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "skip": MessageLookupByLibrary.simpleMessage("تخطئ"),
         "did_you_forget_password": MessageLookupByLibrary.simpleMessage(
             "هل نسبت كلمة المرور؟ إعادة تعيين الأن"),
-        "name": MessageLookupByLibrary.simpleMessage("الإسم كامل"),
-        "em_name": MessageLookupByLibrary.simpleMessage("عفواً إدخل الإسم"),
+    "firstName": MessageLookupByLibrary.simpleMessage("الإسم الاول"),
+    "lastName": MessageLookupByLibrary.simpleMessage("الإسم الثاني"),
+    "fem_name":
+    MessageLookupByLibrary.simpleMessage("عفواً إدخل الإسم الاول"),
+    "lem_name":
+    MessageLookupByLibrary.simpleMessage("عفواً إدخل الإسم الثاني"),
         "have_account": MessageLookupByLibrary.simpleMessage(
             "هل لديك حساب بالفعل ! سجل دخول"),
         "re_password":

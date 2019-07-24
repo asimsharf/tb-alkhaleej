@@ -20,6 +20,7 @@ dependencies:
   font_awesome_flutter: ^8.0.0
   flutter_calendar: ^0.0.8
   flutter_calendar_carousel: ^1.3.10
+  flutter_datetime_picker:
 
   dio: ^2.1.13
   scoped_model: ^1.0.1
