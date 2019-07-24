@@ -289,6 +289,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                                 id: widget.centerId,
                                 name: widget.name,
                                 logo: widget.logo,
+                                centerId: widget.centerId,
                                   ),
                             ),
                           );

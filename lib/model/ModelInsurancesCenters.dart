@@ -25,7 +25,7 @@ class ModelInsurancesCenters {
       this.inviled,
       this.lat,
       this.lang,
-        this.centerType,
+      this.centerType,
       this.address,
       this.logo,
       this.committee});
