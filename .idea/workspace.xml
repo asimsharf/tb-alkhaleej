@@ -4,21 +4,11 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="390301e8-d526-4dae-8f51-57a1c48cf9b1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Flutter-Arabic-RTL-Internationalization-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Flutter-Arabic-RTL-Internationalization-master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="390301e8-d526-4dae-8f51-57a1c48cf9b1" name="Default" comment="Added login and reg functionalty">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/LoginPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/LoginPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Account/UserLoginRegister/utils/app_shared_preferences.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Account/UserLoginRegister/utils/app_shared_preferences.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/MainPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MainPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,8 +42,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/MainPage.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="185" column="26" selection-start-line="185" selection-start-column="26" selection-end-line="185" selection-end-column="26" />
+            <state relative-caret-position="1160">
+              <caret line="204" column="8" selection-start-line="204" selection-start-column="8" selection-end-line="204" selection-end-column="8" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="e#1421#2153#0" />
@@ -84,8 +74,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
-              <caret line="78" column="23" lean-forward="true" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
+            <state relative-caret-position="145">
+              <caret line="62" column="21" lean-forward="true" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -105,8 +95,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-343">
-              <caret line="265" column="32" selection-start-line="265" selection-start-column="32" selection-end-line="265" selection-end-column="32" />
+            <state relative-caret-position="-564">
+              <caret line="267" column="52" selection-start-line="267" selection-start-column="52" selection-end-line="267" selection-end-column="52" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -252,9 +242,9 @@
         <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/utils/constants.dart" />
         <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/utils/app_shared_preferences.dart" />
         <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart" />
-        <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart" />
         <option value="$PROJECT_DIR$/lib/MainPage.dart" />
         <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/LoginPage.dart" />
+        <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart" />
       </list>
     </option>
   </component>
@@ -497,7 +487,14 @@
       <option name="project" value="LOCAL" />
       <updated>1563791925142</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added login and reg functionalty">
+      <created>1563974690982</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1563974690982</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -531,7 +528,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Dart Analysis" order="8" weight="0.39770868" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3289689" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.797054" />
       <window_info anchor="bottom" id="Logcat" order="10" weight="0.3289689" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.6123147" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.3289689" />
@@ -590,7 +587,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="2019-13-7&#10;This is the last update for tb alkhaleej application" />
-    <option name="LAST_COMMIT_MESSAGE" value="2019-13-7&#10;This is the last update for tb alkhaleej application" />
+    <MESSAGE value="Added login and reg functionalty" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added login and reg functionalty" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -938,8 +936,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-343">
-          <caret line="265" column="32" selection-start-line="265" selection-start-column="32" selection-end-line="265" selection-end-column="32" />
+        <state relative-caret-position="-564">
+          <caret line="267" column="52" selection-start-line="267" selection-start-column="52" selection-end-line="267" selection-end-column="52" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -996,8 +994,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/MainPage.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="185" column="26" selection-start-line="185" selection-start-column="26" selection-end-line="185" selection-end-column="26" />
+        <state relative-caret-position="1160">
+          <caret line="204" column="8" selection-start-line="204" selection-start-column="8" selection-end-line="204" selection-end-column="8" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#1421#2153#0" />
@@ -1015,8 +1013,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="78" column="23" lean-forward="true" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
+        <state relative-caret-position="145">
+          <caret line="62" column="21" lean-forward="true" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
