@@ -66,6 +66,7 @@ class RegisterPageState extends State<RegisterPage> {
   TextEditingController phoneController = new TextEditingController(text: "");
   TextEditingController passwordController =
       new TextEditingController(text: "");
+  TextEditingController genderController = new TextEditingController(text: "");
 
 //------------------------------------------------------------------------------
 
@@ -430,40 +431,31 @@ class RegisterPageState extends State<RegisterPage> {
       ));
       return;
     }
+
     FocusScope.of(context).requestFocus(new FocusNode());
     progressDialog.showProgress();
     _registerUser(
-        firstNameController.text,
-        emailController.text,
-        passwordController.text,
-        '',
-        '',
-        '',
-        '',
-        '',
-        '');
+      firstNameController.text,
+      lastNameController.text,
+      emailController.text,
+      genderController.text,
+      passwordController.text,
+      phoneController.text,
+      dateTimeController.text,
+    );
   }
 
 //------------------------------------------------------------------------------
-  void _registerUser(String city_id,
-      String address_text,
-      String identity_number,
-      String name,
-      String gender,
-      String phone,
-      String email,
-      String password,
-      String birth_date) async {
+  void _registerUser(String firstName, String lastName, String gender,
+      String phone, String email, String password, String birthDate) async {
     EventObject eventObject = await registerUser(
-        city_id,
-        address_text,
-        identity_number,
-        name,
+        firstName,
+        lastName,
         gender,
         phone,
         email,
         password,
-        birth_date);
+        birthDate);
     switch (eventObject.id) {
       case EventConstants.USER_REGISTRATION_SUCCESSFUL:
         {

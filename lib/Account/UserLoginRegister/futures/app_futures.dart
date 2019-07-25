@@ -41,15 +41,13 @@ Future<EventObject> loginUser(String emailId, String password) async {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-Future<EventObject> registerUser(String city_id,
-    String address_text,
-    String identity_number,
-    String name,
+Future<EventObject> registerUser(String firstName,
+    String lastName,
     String gender,
     String phone,
     String email,
     String password,
-    String birth_date) async {
+    String birthDate) async {
   //router.get('/client/register/:city_id/:address_text/:identity_number/:name/:gender/:phone/:email/:password/:birth_date', client_controller.create_client);
 //  http://23.111.185.155:4000/takaful/api/client/register/1/'khartoum'/'1122335'/'adam'/1/'0925505684'/'a@a.com'/'123'/'2019-07-24'
   ApiRequest apiRequest = new ApiRequest();
@@ -58,14 +56,10 @@ Future<EventObject> registerUser(String city_id,
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
 
     final response = await http.get(
-        'http://23.111.185.155:4000/takaful/api/client/register/' +
-            city_id +
+        'http://23.111.185.155:3000/api/authenticate/register/' +
+            firstName +
             '/' +
-            address_text +
-            '/' +
-            identity_number +
-            '/' +
-            name +
+            lastName +
             '/' +
             gender +
             '/' +
@@ -73,9 +67,13 @@ Future<EventObject> registerUser(String city_id,
             '/' +
             email +
             '/' +
+            phone +
+            '/' +
+            email +
+            '/' +
             password +
             '/' +
-            birth_date,
+            birthDate,
         headers: {"Accept": "application/json"});
 
     print("***********1****************");

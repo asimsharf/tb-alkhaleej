@@ -5,12 +5,14 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
+import 'package:tb_alkhalij/Screen/Booking/ConfirmBooking.dart';
 import 'package:tb_alkhalij/model/ModelRating.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class Book extends StatefulWidget {
   final String id;
   final String centerId;
+  final String departmentId;
   final String name;
   final String email;
   final String description;
@@ -28,27 +30,31 @@ class Book extends StatefulWidget {
   final String suburb;
   final String logo;
   final List committee;
+  final List days;
 
-  Book(
-      {this.id,
-        this.centerId,
-      this.name,
-      this.email,
-      this.description,
-      this.close,
-      this.open,
-      this.lang,
-      this.lat,
-      this.isActive,
-      this.inviled,
-      this.country,
-      this.postcode,
-      this.state,
-      this.street1,
-      this.suburb,
-        this.centerType,
-      this.logo,
-      this.committee});
+  Book({
+    this.id,
+    this.centerId,
+    this.departmentId,
+    this.name,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.lang,
+    this.lat,
+    this.isActive,
+    this.inviled,
+    this.country,
+    this.postcode,
+    this.state,
+    this.street1,
+    this.suburb,
+    this.centerType,
+    this.logo,
+    this.committee,
+    this.days,
+  });
 
   @override
   _BookState createState() => _BookState();
@@ -147,8 +153,9 @@ class _BookState extends State<Book> {
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.all(1.0),
         shrinkWrap: true,
-        itemCount: 7,
-        itemBuilder: (BuildContext context, int index) {
+        itemCount: widget.days.length,
+        itemBuilder: (BuildContext context, int i) {
+          final _listOfDays = widget.days[i];
           return new Container(
             height: 160.0,
             width: 100.0,
@@ -164,13 +171,8 @@ class _BookState extends State<Book> {
                     new Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: new Text(
-                        "${_weekdays(DateTime
-                            .now()
-                            .weekday)} - ${DateTime
-                            .now()
-                            .day} - ${DateTime
-                            .now()
-                            .month}",
+//                        "${_weekdays(DateTime.now().weekday)} - ${DateTime.now().day} - ${DateTime.now().month}",
+                        "${_listOfDays['name']}",
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -222,7 +224,20 @@ class _BookState extends State<Book> {
                     new Expanded(
                       child: new MaterialButton(
                         height: 10.0,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ConfirmBooking(
+                                    centerId: widget.centerId,
+                                    departmentId: widget.departmentId,
+                                    committee: _myInsuranceSelection,
+                                    bookingDay: _listOfDays['name'],
+                                  ),
+                            ),
+                          );
+                        },
                         color: Color(0xFF13A1C5),
                         splashColor: Color(0xFF009AFF),
                         textColor: Colors.white,

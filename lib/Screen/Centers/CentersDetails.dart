@@ -33,27 +33,30 @@ class CentersDetails extends StatefulWidget {
   final String suburb;
   final String logo;
   final List committee;
+  final List days;
 
-  CentersDetails(
-      {this.id,
-        this.centerId,
-      this.name,
-      this.email,
-      this.description,
-      this.close,
-      this.open,
-      this.lang,
-      this.lat,
-      this.isActive,
-      this.inviled,
-      this.country,
-      this.postcode,
-      this.state,
-      this.street1,
-      this.suburb,
-        this.centerType,
-        this.logo,
-        this.committee});
+  CentersDetails({
+    this.id,
+    this.centerId,
+    this.name,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.lang,
+    this.lat,
+    this.isActive,
+    this.inviled,
+    this.country,
+    this.postcode,
+    this.state,
+    this.street1,
+    this.suburb,
+    this.centerType,
+    this.logo,
+    this.committee,
+    this.days,
+  });
   @override
   _CentersDetailsState createState() => _CentersDetailsState();
 }
@@ -495,6 +498,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                             centerId: widget.centerId,
                             name: widget.name,
                             committee: widget.committee,
+                            days: widget.days,
                             open: widget.open,
                             close: widget.close,
                           ),
