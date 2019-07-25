@@ -32,7 +32,7 @@ class _BookingHistoryState extends State<BookingHistory> {
   }
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
+      new GlobalKey<RefreshIndicatorState>();
   bool loading = false;
   List<ModelBookingHistory> _modelBookingHistory = <ModelBookingHistory>[];
 
@@ -65,7 +65,7 @@ class _BookingHistoryState extends State<BookingHistory> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
-          (_) => _refreshIndicatorKey.currentState.show(),
+      (_) => _refreshIndicatorKey.currentState.show(),
     );
     this.getCenters();
     setState(() {
@@ -151,8 +151,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${_bookingHistoryObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/avtar/${_bookingHistoryObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -170,9 +169,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${_bookingHistoryObj.patient.first +
-                                            ' ' +
-                                            _bookingHistoryObj.patient.last}',
+                                        '${_bookingHistoryObj.patient.first + ' ' + _bookingHistoryObj.patient.last}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: 12.0,
@@ -209,9 +206,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        '${_bookingHistoryObj.date.substring(
-                                            11, 16)}  :   ${_bookingHistoryObj
-                                            .date.substring(0, 10)}',
+                                        '${_bookingHistoryObj.date.substring(11, 16)}  :   ${_bookingHistoryObj.date.substring(0, 10)}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
