@@ -80,54 +80,42 @@ class _MainPageState extends State<MainPage> {
           children: <Widget>[
             new GestureDetector(
               child: makeDashboardItem(
-                  Translations
-                      .of(context)
-                      .center, Icons.local_hospital),
+                  Translations.of(context).center, Icons.local_hospital),
               onTap: () {
                 Navigator.pushNamed(context, '/Center');
               },
             ),
             new GestureDetector(
               child: makeDashboardItem(
-                  Translations
-                      .of(context)
-                      .pharmacy, Icons.local_pharmacy),
+                  Translations.of(context).pharmacy, Icons.local_pharmacy),
               onTap: () {
                 Navigator.pushNamed(context, '/Pharmacy');
               },
             ),
             new GestureDetector(
               child: makeDashboardItem(
-                  Translations
-                      .of(context)
-                      .clinic, Icons.local_activity),
+                  Translations.of(context).clinic, Icons.local_activity),
               onTap: () {
                 Navigator.pushNamed(context, '/Clinic');
               },
             ),
             new GestureDetector(
               child: makeDashboardItem(
-                  Translations
-                      .of(context)
-                      .insurance, Icons.style),
+                  Translations.of(context).insurance, Icons.style),
               onTap: () {
                 Navigator.pushNamed(context, '/Insurance');
               },
             ),
             new GestureDetector(
               child: makeDashboardItem(
-                  Translations
-                      .of(context)
-                      .consulting, Icons.call_received),
+                  Translations.of(context).consulting, Icons.call_received),
               onTap: () {
                 Navigator.pushNamed(context, '/Consulting');
               },
             ),
             new GestureDetector(
               child: makeDashboardItem(
-                  Translations
-                      .of(context)
-                      .booking, Icons.book),
+                  Translations.of(context).booking, Icons.book),
               onTap: () {
                 Navigator.pushNamed(context, '/BookingHistory');
               },
@@ -198,7 +186,7 @@ class _MainPageState extends State<MainPage> {
                     fit: BoxFit.fill,
                     placeholder: 'assets/logo.png',
                     image:
-                    'http://23.111.185.155:3000/uploads/user-default-avatar.png',
+                        'http://23.111.185.155:3000/uploads/user-default-avatar.png',
                   ),
                 ),
               ),
@@ -213,9 +201,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 title: Text(
-                  Translations
-                      .of(context)
-                      .home,
+                  Translations.of(context).home,
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: ArabicFonts.Cairo,
@@ -250,9 +236,7 @@ class _MainPageState extends State<MainPage> {
                     size: 20.0,
                   ),
                 ),
-                title: Text(Translations
-                    .of(context)
-                    .profile,
+                title: Text(Translations.of(context).profile,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: ArabicFonts.Cairo,
@@ -325,9 +309,7 @@ class _MainPageState extends State<MainPage> {
                       size: 20.0,
                     ),
                   ),
-                  title: Text(Translations
-                      .of(context)
-                      .login,
+                  title: Text(Translations.of(context).login,
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: ArabicFonts.Cairo,
@@ -394,9 +376,7 @@ class _MainPageState extends State<MainPage> {
                       size: 20.0,
                     ),
                   ),
-                  title: Text(Translations
-                      .of(context)
-                      .support,
+                  title: Text(Translations.of(context).support,
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: ArabicFonts.Cairo,
@@ -429,9 +409,7 @@ class _MainPageState extends State<MainPage> {
                       size: 20.0,
                     ),
                   ),
-                  title: Text(Translations
-                      .of(context)
-                      .about,
+                  title: Text(Translations.of(context).about,
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: ArabicFonts.Cairo,
@@ -480,7 +458,7 @@ class _MainPageState extends State<MainPage> {
               Center(
                   child: Icon(
                 icon,
-                    size: 105.0,
+                size: 105.0,
                 color: Colors.white,
               )),
               SizedBox(height: 15.0),

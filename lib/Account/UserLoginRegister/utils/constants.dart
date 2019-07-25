@@ -69,6 +69,7 @@ class SnackBarText {
   static const String ENTER_EMAIL = "Please Enter your Email Id";
   static const String ENTER_VALID_MAIL = "Please Enter Valid Email Id";
   static const String ENTER_NAME = "Please Enter your Name";
+  static const String ENTER_LNAME = "Please Enter L Name";
   static const String INVALID_OLD_PASSWORD = "Invalid Old Password";
 }
 

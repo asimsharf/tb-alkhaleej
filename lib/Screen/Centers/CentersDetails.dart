@@ -6,6 +6,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Centers/CentersDepartment.dart';
 import 'package:tb_alkhalij/Static/Rating.dart';
@@ -36,7 +37,7 @@ class CentersDetails extends StatefulWidget {
 
   CentersDetails(
       {this.id,
-        this.centerId,
+      this.centerId,
       this.name,
       this.email,
       this.description,
@@ -51,14 +52,16 @@ class CentersDetails extends StatefulWidget {
       this.state,
       this.street1,
       this.suburb,
-        this.centerType,
-        this.logo,
-        this.committee});
+      this.centerType,
+      this.logo,
+      this.committee});
   @override
   _CentersDetailsState createState() => _CentersDetailsState();
 }
 
 class _CentersDetailsState extends State<CentersDetails> {
+  final globalKey = new GlobalKey<ScaffoldState>();
+
   final Set<Marker> _markers = Set();
   final double _zoom = 10;
   CameraPosition _initialPosition = CameraPosition(target: LatLng(0, -0));
@@ -129,6 +132,14 @@ class _CentersDetailsState extends State<CentersDetails> {
     });
   }
 
+  bool userloggedin = false;
+  void initUserLogin() async {
+    bool loggedin = await AppSharedPreferences.isUserLoggedIn();
+    setState(() {
+      userloggedin = loggedin;
+    });
+  }
+
   var rating = 1.2;
   @override
   Widget build(BuildContext context) {
@@ -171,7 +182,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     fit: BoxFit.cover,
                     placeholder: 'assets/logo.png',
                     image:
-                    'http://23.111.185.155:3000/uploads/files/${widget.logo}',
+                        'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -238,24 +249,38 @@ class _CentersDetailsState extends State<CentersDetails> {
                         ),
                       ),
                       new FlatButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  Rating(
-                                    id: widget.id,
-                                    centerId: widget.id,
-                                    name: widget.name,
-                                    logo: widget.logo,
+                        onPressed: () async {
+                          bool isLoggedIn =
+                              await AppSharedPreferences.isUserLoggedIn();
+                          if (this.mounted) {
+                            setState(() {
+                              if (isLoggedIn != null && isLoggedIn) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Rating(
+                                          id: widget.id,
+                                          centerId: widget.id,
+                                          name: widget.name,
+                                          logo: widget.logo,
+                                        ),
                                   ),
-                            ),
-                          );
+                                );
+//                                Navigator.popAndPushNamed(context, '/SearchScreen');
+                              } else {
+                                Navigator.popAndPushNamed(
+                                    context, '/SplashPageLoginTow');
+//                                globalKey.currentState
+//                                    .showSnackBar(new SnackBar(
+//                                  content: new Text('عفوا سجل الدخول اولا'),
+//                                ));
+
+                              }
+                            });
+                          }
                         },
                         child: new Text(
-                          Translations
-                              .of(context)
-                              .rate,
+                          Translations.of(context).rate,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
                               package: 'google_fonts_arabic',
@@ -273,9 +298,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          Translations
-                              .of(context)
-                              .address,
+                          Translations.of(context).address,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -298,8 +321,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                       ),
                       Expanded(
                         child: Text(
-                          '${widget.country}, ${widget.postcode}, ${widget
-                              .state}, ${widget.street1}, ${widget.suburb}',
+                          '${widget.country}, ${widget.postcode}, ${widget.state}, ${widget.street1}, ${widget.suburb}',
                           style: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             fontSize: 10.0,
@@ -317,9 +339,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          Translations
-                              .of(context)
-                              .description,
+                          Translations.of(context).description,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -385,9 +405,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          Translations
-                              .of(context)
-                              .insurances,
+                          Translations.of(context).insurances,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -408,10 +426,9 @@ class _CentersDetailsState extends State<CentersDetails> {
                       direction: Axis.horizontal,
                       alignment: WrapAlignment.start,
                       children: getCommitteeList(widget.committee)
-                          .map((name) =>
-                          MyButton(
-                            name,
-                          ))
+                          .map((name) => MyButton(
+                                name,
+                              ))
                           .toList(),
                     )),
                 new SizedBox(
@@ -424,9 +441,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          Translations
-                              .of(context)
-                              .locations,
+                          Translations.of(context).locations,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -489,8 +504,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          CentersDepartment(
+                      builder: (context) => CentersDepartment(
                             id: widget.id,
                             centerId: widget.centerId,
                             name: widget.name,
@@ -507,9 +521,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text(Translations
-                      .of(context)
-                      .department,
+                  child: new Text(Translations.of(context).department,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -543,9 +555,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text(Translations
-                      .of(context)
-                      .ratings,
+                  child: new Text(Translations.of(context).ratings,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -587,13 +597,12 @@ class _CentersDetailsState extends State<CentersDetails> {
         context: context,
         builder: (builder) {
           return Scaffold(
+            key: globalKey,
             extendBody: true,
             appBar: AppBar(
               centerTitle: true,
               title: Text(
-                Translations
-                    .of(context)
-                    .rating_review,
+                Translations.of(context).rating_review,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: ArabicFonts.Cairo,
@@ -637,9 +646,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        Translations
-                            .of(context)
-                            .total_rating,
+                        Translations.of(context).total_rating,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 15.0,
@@ -700,8 +707,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${_ratingObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/avtar/${_ratingObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -715,15 +721,14 @@ class _CentersDetailsState extends State<CentersDetails> {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   new Row(
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${_ratingObj.client.first + ' ' +
-                                              _ratingObj.client.last}',
+                                          '${_ratingObj.client.first + ' ' + _ratingObj.client.last}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 12.0,
@@ -734,8 +739,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${tryParse(
-                                            _ratingObj.rate).substring(0, 3)}',
+                                        'عدد التقييمات ${tryParse(_ratingObj.rate).substring(0, 3)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -813,7 +817,7 @@ class MyButton extends StatelessWidget {
         child: OutlineButton(
           padding: EdgeInsets.all(0.0),
           borderSide:
-          BorderSide(color: Color(0xFF13A1C5), style: BorderStyle.solid),
+              BorderSide(color: Color(0xFF13A1C5), style: BorderStyle.solid),
           disabledBorderColor: Colors.grey,
           highlightedBorderColor: Color(0xFF009AFF),
           onPressed: () {},

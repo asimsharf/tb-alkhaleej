@@ -171,7 +171,7 @@ class LoginPageState extends State<LoginPage> {
   }
 
 //------------------------------------------------------------------------------
-  void _loginButtonAction() {
+  Future _loginButtonAction() async {
     if (emailController.text == "") {
       globalKey.currentState.showSnackBar(new SnackBar(
         content: new Text(SnackBarText.ENTER_EMAIL),

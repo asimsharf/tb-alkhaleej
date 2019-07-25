@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts_arabic/fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 
 import '../customviews/progress_dialog.dart';
@@ -18,52 +17,13 @@ class RegisterPage extends StatefulWidget {
 class RegisterPageState extends State<RegisterPage> {
   final globalKey = new GlobalKey<ScaffoldState>();
 
-  //show date time pick up
-  Future _chooseDate(BuildContext context, String initialDateString) async {
-    var now = new DateTime.now();
-    var initialDate = convertToDate(initialDateString) ?? now;
-    initialDate = (initialDate.year >= 1900 && initialDate.isBefore(now)
-        ? initialDate
-        : now);
-    var result = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: new DateTime(1900),
-      lastDate: new DateTime.now(),
-    );
-    if (result == null) return;
-    setState(() {
-      dateTimeController.text = new DateFormat.yMd().format(result);
-    });
-  }
-
-  List<String> _genders = <String>[
-    '',
-    'ذكر',
-    'انثى',
-  ];
-  String _gender = '';
-
-  DateTime convertToDate(String input) {
-    try {
-      var d = new DateFormat.yMd().parseStrict(input);
-      return d;
-    } catch (e) {
-      return null;
-    }
-  }
-
   ProgressDialog progressDialog =
       ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_REGISTER);
 
-  TextEditingController firstNameController =
-  new TextEditingController(text: "");
-  TextEditingController dateTimeController =
-  new TextEditingController(text: "");
-  TextEditingController lastNameController =
-  new TextEditingController(text: "");
+  TextEditingController nameController = new TextEditingController(text: "");
+
   TextEditingController emailController = new TextEditingController(text: "");
-  TextEditingController phoneController = new TextEditingController(text: "");
+
   TextEditingController passwordController =
       new TextEditingController(text: "");
 
@@ -112,18 +72,13 @@ class RegisterPageState extends State<RegisterPage> {
 //------------------------------------------------------------------------------
   Widget _appIcon() {
     return new Container(
-      padding: const EdgeInsets.only(top: 30.0),
-      child: new Text(
-        "إنشاء حساب",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontFamily: ArabicFonts.Cairo,
-            fontSize: 25.0,
-            package: 'google_fonts_arabic',
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF23AFB1)),
+      padding: const EdgeInsets.only(top: 80.0),
+      child: new Image(
+        image: new AssetImage("assets/logo.png"),
+        height: 170.0,
+        width: 170.0,
       ),
-      margin: EdgeInsets.only(top: 15.0),
+      margin: EdgeInsets.only(top: 20.0),
     );
   }
 
@@ -138,15 +93,7 @@ class RegisterPageState extends State<RegisterPage> {
                 child: new Column(
                   children: <Widget>[
 //------------------------------------------------------------------------------
-                    _firstNameContainer(),
-//------------------------------------------------------------------------------
-                    _lastNameContainer(),
-
-                    _dateOfBarth(),
-
-                    _selectedGender(),
-
-                    _phoneContainer(),
+                    _nameContainer(),
 //------------------------------------------------------------------------------
                     _emailContainer(),
 //------------------------------------------------------------------------------
@@ -164,40 +111,14 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
 //------------------------------------------------------------------------------
-  Widget _firstNameContainer() {
-    return new Container(
-      child: new TextFormField(
-          controller: firstNameController,
-          decoration: InputDecoration(
-              prefixIcon: Icon(Icons.person),
-              labelText: Translations
-                  .of(context)
-                  .firstName,
-              hintText: Translations
-                  .of(context)
-                  .fem_name,
-              labelStyle: TextStyle(
-                fontFamily: ArabicFonts.Cairo,
-                package: 'google_fonts_arabic',
-                fontWeight: FontWeight.bold,
-              )),
-          keyboardType: TextInputType.text),
-      margin: EdgeInsets.only(bottom: 5.0),
-    );
-  }
-
-  Widget _lastNameContainer() {
+  Widget _nameContainer() {
     return new Container(
         child: new TextFormField(
-            controller: lastNameController,
+            controller: nameController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
-                labelText: Translations
-                    .of(context)
-                    .lastName,
-                hintText: Translations
-                    .of(context)
-                    .lem_name,
+                labelText: Translations.of(context).name,
+                hintText: Translations.of(context).em_name,
                 labelStyle: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -205,81 +126,6 @@ class RegisterPageState extends State<RegisterPage> {
                 )),
             keyboardType: TextInputType.text),
         margin: EdgeInsets.only(bottom: 5.0));
-  }
-
-  Widget _selectedGender() {
-    return new FormField<String>(
-      builder: (FormFieldState<String> state) {
-        return InputDecorator(
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
-            prefixIcon: const Icon(Icons.person_pin),
-            labelText: 'الجنس *',
-            labelStyle: TextStyle(
-              color: Color(0xFF37505D),
-              fontWeight: FontWeight.bold,
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-            ),
-            errorText: state.hasError ? state.errorText : null,
-          ),
-          isEmpty: _gender == '',
-          child: new DropdownButtonHideUnderline(
-            child: new DropdownButton<String>(
-              hint: Text("إختيار الجنس"),
-              value: _gender,
-              isDense: true,
-              onChanged: (String newValue) {
-                setState(() {
-                  _gender = newValue;
-                  state.didChange(newValue);
-                });
-              },
-              items: _genders.map((String value) {
-                return new DropdownMenuItem<String>(
-                  value: value,
-                  child: new Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _dateOfBarth() {
-    return Container(
-      child: new TextFormField(
-        decoration: new InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
-          prefixIcon: const Icon(Icons.calendar_today),
-          suffixIcon: new IconButton(
-            icon: new Icon(Icons.date_range),
-            tooltip: 'اختر تاريخ الميلاد',
-            onPressed: (() {
-              _chooseDate(context, dateTimeController.text);
-            }),
-          ),
-          hintText: 'يرجى إدخال تاريخ الميلاد',
-          labelText: 'تاريخ الميلاد *',
-          labelStyle: TextStyle(
-            color: Color(0xFF37505D),
-            fontWeight: FontWeight.bold,
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-          ),
-          hintStyle: TextStyle(
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-          ),
-        ),
-        controller: dateTimeController,
-        keyboardType: TextInputType.datetime,
-        validator: (val) => isValidDateBarth(val) ? null : 'ليس تاريخ صالح',
-      ),
-      margin: EdgeInsets.only(bottom: 5.0),
-    );
   }
 
 //------------------------------------------------------------------------------
@@ -321,28 +167,6 @@ class RegisterPageState extends State<RegisterPage> {
         margin: EdgeInsets.only(bottom: 35.0));
   }
 
-  Widget _phoneContainer() {
-    return new Container(
-      child: new TextFormField(
-          controller: phoneController,
-          decoration: InputDecoration(
-              prefixIcon: Icon(Icons.person),
-              labelText: Translations
-                  .of(context)
-                  .phone,
-              hintText: Translations
-                  .of(context)
-                  .em_phone,
-              labelStyle: TextStyle(
-                fontFamily: ArabicFonts.Cairo,
-                package: 'google_fonts_arabic',
-                fontWeight: FontWeight.bold,
-              )),
-          keyboardType: TextInputType.phone),
-      margin: EdgeInsets.only(bottom: 5.0),
-    );
-  }
-
 //------------------------------------------------------------------------------
   Widget _registerButtonContainer() {
     return new Container(
@@ -378,16 +202,9 @@ class RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  //check if the dateBarth is right or not
-  bool isValidDateBarth(String birthDate) {
-    if (birthDate.isEmpty) return true;
-    var d = convertToDate(birthDate);
-    return d != null && d.isBefore(new DateTime.now());
-  }
-
 //------------------------------------------------------------------------------
   void _registerButtonAction() {
-    if (firstNameController.text == "" && lastNameController.text == "") {
+    if (nameController.text == "") {
       globalKey.currentState.showSnackBar(new SnackBar(
         content: new Text(
           SnackBarText.ENTER_NAME,
@@ -432,38 +249,15 @@ class RegisterPageState extends State<RegisterPage> {
     }
     FocusScope.of(context).requestFocus(new FocusNode());
     progressDialog.showProgress();
-    _registerUser(
-        firstNameController.text,
-        emailController.text,
-        passwordController.text,
-        '',
-        '',
-        '',
-        '',
-        '',
-        '');
+    _registerUser(nameController.text, emailController.text,
+        passwordController.text, '', '', '', '');
   }
 
 //------------------------------------------------------------------------------
-  void _registerUser(String city_id,
-      String address_text,
-      String identity_number,
-      String name,
-      String gender,
-      String phone,
-      String email,
-      String password,
-      String birth_date) async {
+  void _registerUser(String fname, String lname, String gender, String phone,
+      String email, String password, String birth_date) async {
     EventObject eventObject = await registerUser(
-        city_id,
-        address_text,
-        identity_number,
-        name,
-        gender,
-        phone,
-        email,
-        password,
-        birth_date);
+        fname, lname, gender, phone, email, password, birth_date);
     switch (eventObject.id) {
       case EventConstants.USER_REGISTRATION_SUCCESSFUL:
         {
