@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 
 class ConfirmBooking extends StatefulWidget {
   final String centerId;
@@ -22,7 +23,29 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('تأكيد الحجز'),
+        centerTitle: true,
+        title: Text(
+          'تأكيد الحجز',
+          style: TextStyle(
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 3.0,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 8.0,
+                color: Color.fromARGB(125, 0, 0, 255),
+              ),
+            ],
+          ),
+        ),
       ),
       body: new Container(
         child: Column(

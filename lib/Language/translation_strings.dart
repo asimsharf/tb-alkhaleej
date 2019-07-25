@@ -73,8 +73,36 @@ class Translations {
 
   String get username {
     return Intl.message(
-      'Username',
+      'Email address',
       name: 'username',
+    );
+  }
+
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+    );
+  }
+
+  String get edite_profile_user {
+    return Intl.message(
+      'Edite informations',
+      name: 'edite_profile_user',
+    );
+  }
+
+  String get save_infos {
+    return Intl.message(
+      'Save informations',
+      name: 'save_infos',
+    );
+  }
+
+  String get edit_profile {
+    return Intl.message(
+      'Edite User profile',
+      name: 'edit_profile',
     );
   }
 
@@ -432,6 +460,69 @@ class Translations {
     return Intl.message(
       'Total rating',
       name: 'total_rating',
+    );
+  }
+
+  String get tb_alkalij {
+    return Intl.message(
+      'Tb alkhalij',
+      name: 'tb_alkalij',
+    );
+  }
+
+  String get loading {
+    return Intl.message(
+      'Loading...',
+      name: 'loading',
+    );
+  }
+
+  String get create_account {
+    return Intl.message(
+      'Create account',
+      name: 'create_account',
+    );
+  }
+
+  String get gender {
+    return Intl.message(
+      'Gender',
+      name: 'gender',
+    );
+  }
+
+  String get dateOfBarth {
+    return Intl.message(
+      'Date of barth',
+      name: 'dateOfBarth',
+    );
+  }
+
+  String get enter_date_of_barth {
+    return Intl.message(
+      'Enter date of barth',
+      name: 'enter_date_of_barth',
+    );
+  }
+
+  String get not_valid_date {
+    return Intl.message(
+      'Not valid date of barth',
+      name: 'not_valid_date',
+    );
+  }
+
+  String get male {
+    return Intl.message(
+      'Male',
+      name: 'male',
+    );
+  }
+
+  String get female {
+    return Intl.message(
+      'Female',
+      name: 'female',
     );
   }
 }

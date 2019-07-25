@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:tb_alkhalij/Account/EditUserProfile.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class UserProfile extends StatefulWidget {
@@ -22,7 +23,9 @@ class _UserProfileState extends State<UserProfile>
         slivers: <Widget>[
           new SliverAppBar(
             title: Text(
-              "الملف الشخصي",
+              Translations
+                  .of(context)
+                  .profile,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: ArabicFonts.Cairo,
@@ -80,7 +83,9 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("الإسم",
+                      Text(Translations
+                          .of(context)
+                          .name,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -108,7 +113,9 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("الدوله",
+                      Text(Translations
+                          .of(context)
+                          .phone,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -120,7 +127,7 @@ class _UserProfileState extends State<UserProfile>
                         width: 20.0,
                       ),
                       Text(
-                        "المملكة العربيةالسعودية",
+                        "0987654321",
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -136,7 +143,9 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("المدينة",
+                      Text(Translations
+                          .of(context)
+                          .dateOfBarth,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -148,7 +157,7 @@ class _UserProfileState extends State<UserProfile>
                         width: 20.0,
                       ),
                       Text(
-                        "الرياض",
+                        "1993/1/1",
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -164,7 +173,9 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("العنوان",
+                      Text(Translations
+                          .of(context)
+                          .email,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -176,7 +187,37 @@ class _UserProfileState extends State<UserProfile>
                         width: 20.0,
                       ),
                       Text(
-                        "شارع الستين ابوالروم",
+                        "someone@gmail.com",
+                        style: TextStyle(
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: new Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(Translations
+                          .of(context)
+                          .gender,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                              fontFamily: ArabicFonts.Cairo,
+                              package: 'google_fonts_arabic',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF37505D),
+                              fontSize: 14.0)),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Text(
+                        "male",
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -208,25 +249,30 @@ class _UserProfileState extends State<UserProfile>
                 //elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("تعديل البيانات",
-                      style: TextStyle(
-                          fontFamily: ArabicFonts.Cairo,
-                          package: 'google_fonts_arabic',
-                          fontSize: EventSizedConstants.TextButtonFontSized,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          shadows: <Shadow>[
-                            new Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 3.0,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                            new Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 8.0,
-                              color: Color.fromARGB(125, 0, 0, 255),
-                            ),
-                          ])),
+                  child: new Text(
+                    Translations
+                        .of(context)
+                        .edite_profile_user,
+                    style: TextStyle(
+                      fontFamily: ArabicFonts.Cairo,
+                      package: 'google_fonts_arabic',
+                      fontSize: EventSizedConstants.TextButtonFontSized,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      shadows: <Shadow>[
+                        new Shadow(
+                          offset: Offset(3.0, 3.0),
+                          blurRadius: 3.0,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        new Shadow(
+                          offset: Offset(3.0, 3.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(125, 0, 0, 255),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
