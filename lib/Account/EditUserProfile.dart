@@ -104,18 +104,18 @@ class EditUserProfileState extends State<EditUserProfile> {
   }
 
   ProgressDialog progressDialog =
-  ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_REGISTER);
+      ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_REGISTER);
 
   TextEditingController firstNameController =
-  new TextEditingController(text: "");
+      new TextEditingController(text: "");
   TextEditingController dateTimeController =
-  new TextEditingController(text: "");
+      new TextEditingController(text: "");
   TextEditingController lastNameController =
-  new TextEditingController(text: "");
+      new TextEditingController(text: "");
   TextEditingController emailController = new TextEditingController(text: "");
   TextEditingController phoneController = new TextEditingController(text: "");
   TextEditingController passwordController =
-  new TextEditingController(text: "");
+      new TextEditingController(text: "");
   TextEditingController genderController = new TextEditingController(text: "");
 
 //------------------------------------------------------------------------------
@@ -144,20 +144,20 @@ class EditUserProfileState extends State<EditUserProfile> {
   Widget _loginContainer() {
     return new Container(
         child: new ListView(
-          children: <Widget>[
-            new Center(
-              child: new Column(
-                children: <Widget>[
+      children: <Widget>[
+        new Center(
+          child: new Column(
+            children: <Widget>[
 //------------------------------------------------------------------------------
-                  _appIcon(),
+              _appIcon(),
 //------------------------------------------------------------------------------
-                  _formContainer(),
+              _formContainer(),
 //------------------------------------------------------------------------------
-                ],
-              ),
-            ),
-          ],
-        ));
+            ],
+          ),
+        ),
+      ],
+    ));
   }
 
 //------------------------------------------------------------------------------
@@ -165,9 +165,7 @@ class EditUserProfileState extends State<EditUserProfile> {
     return new Container(
       padding: const EdgeInsets.only(top: 30.0),
       child: new Text(
-        Translations
-            .of(context)
-            .edite_profile_user,
+        Translations.of(context).edite_profile_user,
         textAlign: TextAlign.center,
         style: TextStyle(
             fontFamily: ArabicFonts.Cairo,
@@ -322,12 +320,9 @@ class EditUserProfileState extends State<EditUserProfile> {
         ),
         controller: dateTimeController,
         keyboardType: TextInputType.datetime,
-        validator: (val) =>
-        isValidDateBarth(val)
+        validator: (val) => isValidDateBarth(val)
             ? null
-            : '${Translations
-            .of(context)
-            .not_valid_date}',
+            : '${Translations.of(context).not_valid_date}',
       ),
       margin: EdgeInsets.only(bottom: 5.0),
     );
@@ -383,9 +378,7 @@ class EditUserProfileState extends State<EditUserProfile> {
           splashColor: Color(0xFF009AFF),
           textColor: Colors.white,
           child: new Text(
-            Translations
-                .of(context)
-                .save_infos,
+            Translations.of(context).save_infos,
             style: TextStyle(
               fontFamily: ArabicFonts.Cairo,
               package: 'google_fonts_arabic',
@@ -482,13 +475,7 @@ class EditUserProfileState extends State<EditUserProfile> {
   void _registerUser(String firstName, String lastName, String gender,
       String phone, String email, String password, String birthDate) async {
     EventObject eventObject = await registerUser(
-        firstName,
-        lastName,
-        gender,
-        phone,
-        email,
-        password,
-        birthDate);
+        firstName, lastName, gender, phone, email, password, birthDate);
     switch (eventObject.id) {
       case EventConstants.USER_REGISTRATION_SUCCESSFUL:
         {
