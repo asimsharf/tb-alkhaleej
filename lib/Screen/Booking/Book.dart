@@ -244,25 +244,28 @@ class _BookState extends State<Book> {
                         elevation: 2.0,
                         child: Padding(
                           padding: const EdgeInsets.all(11.0),
-                          child: new Text("حجز",
-                              style: TextStyle(
-                                  fontFamily: ArabicFonts.Cairo,
-                                  package: 'google_fonts_arabic',
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      offset: Offset(3.0, 3.0),
-                                      blurRadius: 3.0,
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                    Shadow(
-                                      offset: Offset(3.0, 3.0),
-                                      blurRadius: 8.0,
-                                      color: Color.fromARGB(125, 0, 0, 255),
-                                    ),
-                                  ])),
+                          child: new Text(
+                            "حجز",
+                            style: TextStyle(
+                              fontFamily: ArabicFonts.Cairo,
+                              package: 'google_fonts_arabic',
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              shadows: <Shadow>[
+                                Shadow(
+                                  offset: Offset(3.0, 3.0),
+                                  blurRadius: 3.0,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                ),
+                                Shadow(
+                                  offset: Offset(3.0, 3.0),
+                                  blurRadius: 8.0,
+                                  color: Color.fromARGB(125, 0, 0, 255),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),

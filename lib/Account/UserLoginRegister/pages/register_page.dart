@@ -37,11 +37,13 @@ class RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  List<String> _genders = <String>[
-    '',
-    'ذكر',
-    'انثى',
-  ];
+  List<String> _genders = <String>['', 'ذكر', 'انثى'];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   String _gender = '';
 
   DateTime convertToDate(String input) {
@@ -113,9 +115,11 @@ class RegisterPageState extends State<RegisterPage> {
 //------------------------------------------------------------------------------
   Widget _appIcon() {
     return new Container(
-      padding: const EdgeInsets.only(top: 30.0),
+      padding: const EdgeInsets.only(top: 50.0),
       child: new Text(
-        "إنشاء حساب",
+        Translations
+            .of(context)
+            .create_account,
         textAlign: TextAlign.center,
         style: TextStyle(
             fontFamily: ArabicFonts.Cairo,
@@ -167,21 +171,20 @@ class RegisterPageState extends State<RegisterPage> {
 //------------------------------------------------------------------------------
   Widget _firstNameContainer() {
     return new Container(
+      height: 40.0,
       child: new TextFormField(
           controller: firstNameController,
           decoration: InputDecoration(
-              prefixIcon: Icon(Icons.person),
-              labelText: Translations
-                  .of(context)
-                  .firstName,
-              hintText: Translations
-                  .of(context)
-                  .fem_name,
-              labelStyle: TextStyle(
-                fontFamily: ArabicFonts.Cairo,
-                package: 'google_fonts_arabic',
-                fontWeight: FontWeight.bold,
-              )),
+            prefixIcon: Icon(Icons.person),
+            labelText: Translations
+                .of(context)
+                .firstName,
+            labelStyle: TextStyle(
+              fontFamily: ArabicFonts.Cairo,
+              package: 'google_fonts_arabic',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           keyboardType: TextInputType.text),
       margin: EdgeInsets.only(bottom: 5.0),
     );
@@ -189,6 +192,7 @@ class RegisterPageState extends State<RegisterPage> {
 
   Widget _lastNameContainer() {
     return new Container(
+        height: 40.0,
         child: new TextFormField(
             controller: lastNameController,
             decoration: InputDecoration(
@@ -196,9 +200,6 @@ class RegisterPageState extends State<RegisterPage> {
                 labelText: Translations
                     .of(context)
                     .lastName,
-                hintText: Translations
-                    .of(context)
-                    .lem_name,
                 labelStyle: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -209,43 +210,47 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _selectedGender() {
-    return new FormField<String>(
-      builder: (FormFieldState<String> state) {
-        return InputDecorator(
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
-            prefixIcon: const Icon(Icons.person_pin),
-            labelText: 'الجنس *',
-            labelStyle: TextStyle(
-              color: Color(0xFF37505D),
-              fontWeight: FontWeight.bold,
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
+    return Container(
+      height: 40.0,
+      child: new FormField<String>(
+        builder: (FormFieldState<String> state) {
+          return InputDecorator(
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
+              prefixIcon: const Icon(Icons.person_pin),
+              labelText: Translations
+                  .of(context)
+                  .gender,
+              labelStyle: TextStyle(
+                color: Color(0xFF37505D),
+                fontWeight: FontWeight.bold,
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+              ),
+              errorText: state.hasError ? state.errorText : null,
             ),
-            errorText: state.hasError ? state.errorText : null,
-          ),
-          isEmpty: _gender == '',
-          child: new DropdownButtonHideUnderline(
-            child: new DropdownButton<String>(
-              hint: Text("إختيار الجنس"),
-              value: _gender,
-              isDense: true,
-              onChanged: (String newValue) {
-                setState(() {
-                  _gender = newValue;
-                  state.didChange(newValue);
-                });
-              },
-              items: _genders.map((String value) {
-                return new DropdownMenuItem<String>(
-                  value: value,
-                  child: new Text(value),
-                );
-              }).toList(),
+            isEmpty: _gender == '',
+            child: new DropdownButtonHideUnderline(
+              child: new DropdownButton<String>(
+                value: _gender,
+                isDense: true,
+                onChanged: (String newValue) {
+                  setState(() {
+                    _gender = newValue;
+                    state.didChange(newValue);
+                  });
+                },
+                items: _genders.map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -257,13 +262,16 @@ class RegisterPageState extends State<RegisterPage> {
           prefixIcon: const Icon(Icons.calendar_today),
           suffixIcon: new IconButton(
             icon: new Icon(Icons.date_range),
-            tooltip: 'اختر تاريخ الميلاد',
             onPressed: (() {
               _chooseDate(context, dateTimeController.text);
             }),
           ),
-          hintText: 'يرجى إدخال تاريخ الميلاد',
-          labelText: 'تاريخ الميلاد *',
+          hintText: Translations
+              .of(context)
+              .enter_date_of_barth,
+          labelText: Translations
+              .of(context)
+              .dateOfBarth,
           labelStyle: TextStyle(
             color: Color(0xFF37505D),
             fontWeight: FontWeight.bold,
@@ -277,7 +285,12 @@ class RegisterPageState extends State<RegisterPage> {
         ),
         controller: dateTimeController,
         keyboardType: TextInputType.datetime,
-        validator: (val) => isValidDateBarth(val) ? null : 'ليس تاريخ صالح',
+        validator: (val) =>
+        isValidDateBarth(val)
+            ? null
+            : '${Translations
+            .of(context)
+            .not_valid_date}',
       ),
       margin: EdgeInsets.only(bottom: 5.0),
     );
@@ -286,25 +299,29 @@ class RegisterPageState extends State<RegisterPage> {
 //------------------------------------------------------------------------------
   Widget _emailContainer() {
     return new Container(
-        child: new TextFormField(
-            controller: emailController,
-            decoration: InputDecoration(
-                prefixIcon: Icon(Icons.mail_outline),
-                labelText: Translations.of(context).username,
-                hintText: "example@domain.com",
-                fillColor: Color(0xFF37505D),
-                labelStyle: TextStyle(
-                  fontFamily: ArabicFonts.Cairo,
-                  package: 'google_fonts_arabic',
-                  fontWeight: FontWeight.bold,
-                )),
-            keyboardType: TextInputType.emailAddress),
-        margin: EdgeInsets.only(bottom: 20.0));
+      height: 40.0,
+      child: new TextFormField(
+          controller: emailController,
+          decoration: InputDecoration(
+              prefixIcon: Icon(Icons.mail_outline),
+              labelText: Translations
+                  .of(context)
+                  .username,
+              fillColor: Color(0xFF37505D),
+              labelStyle: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                fontWeight: FontWeight.bold,
+              )),
+          keyboardType: TextInputType.emailAddress),
+      margin: EdgeInsets.only(bottom: 10.0),
+    );
   }
 
 //------------------------------------------------------------------------------
   Widget _passwordContainer() {
     return new Container(
+        height: 40.0,
         child: new TextFormField(
           controller: passwordController,
           decoration: InputDecoration(
@@ -324,6 +341,7 @@ class RegisterPageState extends State<RegisterPage> {
 
   Widget _phoneContainer() {
     return new Container(
+      height: 40.0,
       child: new TextFormField(
           controller: phoneController,
           decoration: InputDecoration(
@@ -331,9 +349,6 @@ class RegisterPageState extends State<RegisterPage> {
               labelText: Translations
                   .of(context)
                   .phone,
-              hintText: Translations
-                  .of(context)
-                  .em_phone,
               labelStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -470,32 +485,42 @@ class RegisterPageState extends State<RegisterPage> {
         break;
       case EventConstants.USER_ALREADY_REGISTERED:
         {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.USER_ALREADY_REGISTERED),
-            ));
-            progressDialog.hideProgress();
-          });
+          setState(
+                () {
+              globalKey.currentState.showSnackBar(
+                new SnackBar(
+                  content: new Text(SnackBarText.USER_ALREADY_REGISTERED),
+                ),
+              );
+              progressDialog.hideProgress();
+            },
+          );
         }
         break;
       case EventConstants.USER_REGISTRATION_UN_SUCCESSFUL:
         {
           setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.REGISTER_UN_SUCCESSFUL),
-            ));
+            globalKey.currentState.showSnackBar(
+              new SnackBar(
+                content: new Text(SnackBarText.REGISTER_UN_SUCCESSFUL),
+              ),
+            );
             progressDialog.hideProgress();
           });
         }
         break;
       case EventConstants.NO_INTERNET_CONNECTION:
         {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
-            ));
-            progressDialog.hideProgress();
-          });
+          setState(
+                () {
+              globalKey.currentState.showSnackBar(
+                new SnackBar(
+                  content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
+                ),
+              );
+              progressDialog.hideProgress();
+            },
+          );
         }
         break;
     }

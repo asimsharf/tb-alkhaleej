@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/homepage.dart';
 
 class SplashScreenPage extends StatelessWidget {
@@ -16,7 +17,9 @@ class SplashScreenPage extends StatelessWidget {
           colors: [Color(0xFF13A1C5), Color(0xFF13A1C5)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight),
-      title: Text("تطبيق طب الخليج",
+      title: Text(Translations
+          .of(context)
+          .tb_alkalij,
           style: TextStyle(
               color: Colors.white,
               fontSize: 25.0,
@@ -35,7 +38,9 @@ class SplashScreenPage extends StatelessWidget {
                   color: Color.fromARGB(125, 0, 0, 255),
                 ),
               ])),
-      loadingText: Text("يتم التحميل الأن...",
+      loadingText: Text(Translations
+          .of(context)
+          .loading,
           style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,
