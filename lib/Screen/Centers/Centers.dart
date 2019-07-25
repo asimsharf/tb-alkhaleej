@@ -33,8 +33,11 @@ class _CentersState extends State<Centers> {
   bool _loading = false;
 
   List<ModelCenters> _modelCenters = <ModelCenters>[];
+  double total = 0;
+  List rates = [];
 
   Future<List<ModelCenters>> getCenters() async {
+    //
     String link = "http://23.111.185.155:3000/api/hospital";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
@@ -53,6 +56,7 @@ class _CentersState extends State<Centers> {
   }
 
   void _getCenterNames() async {
+    //http://23.111.185.155:3000/api/rating/5d29dbc48f8b1a41f04745bd/center
     final response = await dio.get('http://23.111.185.155:3000/api/hospital');
     List<ModelCenters> tempList = <ModelCenters>[];
     for (int i = 0; i < response.data['hospitals'].length; i++) {
@@ -227,7 +231,7 @@ class _CentersState extends State<Centers> {
                                       ),
                                     ),
                                     SmoothStarRating(
-                                      rating: 3.2,
+                                      rating: 4.5,
                                       size: 10,
                                       color: Colors.yellow,
                                       borderColor: Colors.grey,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/futures/app_futures.dart';
 import 'package:tb_alkhalij/Screen/Insurance/InsuranceCenterDetails.dart';
 import 'package:tb_alkhalij/model/ModelInsurancesCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -26,6 +27,19 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
 
   List<ModelInsurancesCenters> _modelInsurancesCenters =
       <ModelInsurancesCenters>[];
+
+  double total = 0;
+
+  void getCenterTotalRate() async {
+    double valuee = await getTotalRate(widget.id.toString());
+    setState(() {
+      if (valuee != null) {
+        total = valuee;
+      } else {
+        total = 5.0;
+      }
+    });
+  }
 
   Future<List<ModelInsurancesCenters>> getInsurancesCenters() async {
     String link =
@@ -52,6 +66,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
     super.initState();
     this.getInsurancesCenters();
     setState(() {
+      getCenterTotalRate();
       _loading = true;
     });
   }

@@ -6,6 +6,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/futures/app_futures.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Static/Rating.dart';
 import 'package:tb_alkhalij/model/ModelRating.dart';
@@ -66,6 +67,19 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
     _controller.complete(controller);
   }
 
+  double total = 0;
+
+  void getCenterTotalRate() async {
+    double valuee = await getTotalRate(widget.id.toString());
+    setState(() {
+      if (valuee != null) {
+        total = valuee;
+      } else {
+        total = 5.0;
+      }
+    });
+  }
+
   //Future Go to maps
   Future<void> _goToMaps() async {
     double lat = double.parse(widget.lat);
@@ -118,6 +132,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
       _goToMaps();
       this.getCenters();
       setState(() {
+        getCenterTotalRate();
         loading = true;
       });
     });

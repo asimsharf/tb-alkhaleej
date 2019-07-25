@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/model/ModelBookingHistory.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
@@ -13,6 +14,23 @@ class BookingHistory extends StatefulWidget {
 }
 
 class _BookingHistoryState extends State<BookingHistory> {
+  var userId;
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (userId == null) {
+      await initUserProfile();
+    }
+  }
+
+  Future<void> initUserProfile() async {
+    String userI = await AppSharedPreferences.getFromSession('userId');
+    setState(() {
+      userId = userI;
+    });
+  }
+
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
   new GlobalKey<RefreshIndicatorState>();
   bool loading = false;
@@ -20,7 +38,7 @@ class _BookingHistoryState extends State<BookingHistory> {
 
   Future<List<ModelBookingHistory>> getCenters() async {
     String link =
-        "http://23.111.185.155:3000/api/booking/5d29db668f8b1a41f04745bb/client";
+        "http://23.111.185.155:3000/api/booking/" + userId + "/client";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {

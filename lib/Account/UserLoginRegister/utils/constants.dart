@@ -64,6 +64,7 @@ class SnackBarText {
   static const String REGISTER_UN_SUCCESSFUL = "Register Un Successful";
   static const String USER_ALREADY_REGISTERED = "User Already Registered";
   static const String ENTER_PASS = "Please Enter your Password";
+  static const String ENTER_CPASS = "Please Enter Confirme Password";
   static const String ENTER_NEW_PASS = "Please Enter your New Password";
   static const String ENTER_OLD_PASS = "Please Enter your Old Password";
   static const String ENTER_EMAIL = "Please Enter your Email Id";

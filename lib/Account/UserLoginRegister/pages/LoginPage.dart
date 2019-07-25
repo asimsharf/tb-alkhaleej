@@ -202,12 +202,21 @@ class LoginPageState extends State<LoginPage> {
           setState(() {
             AppSharedPreferences.setUserLoggedIn(true);
             AppSharedPreferences.setInSession(
-                'userName', user['profile']['name']['first']);
+                'firstName', user['profile']['name']['first'].toString());
             AppSharedPreferences.setInSession(
-                'userEmail', user['profile']['email']);
+                'lastName', user['profile']['name']['last'].toString());
             AppSharedPreferences.setInSession(
-                'userAvatar', user['profile']['avatar']['url']);
-            AppSharedPreferences.setInSession('userId', user['profile']['_id']);
+                'userGender', user['profile']['gender'].toString());
+            AppSharedPreferences.setInSession(
+                'userPhone', user['profile']['phone'].toString());
+            AppSharedPreferences.setInSession(
+                'userBirth', user['profile']['birth_day'].toString());
+            AppSharedPreferences.setInSession(
+                'userEmail', user['profile']['email'].toString());
+            AppSharedPreferences.setInSession(
+                'userAvatar', user['profile']['avatar']['url'].toString());
+            AppSharedPreferences.setInSession(
+                'userId', user['profile']['_id'].toString());
 
             globalKey.currentState.showSnackBar(new SnackBar(
               content: new Text(SnackBarText.LOGIN_SUCCESSFUL),

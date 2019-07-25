@@ -14,11 +14,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final globalKey = new GlobalKey<ScaffoldState>();
+
   var userName;
   var userEamil;
   var avatar;
-
-  final globalKey = new GlobalKey<ScaffoldState>();
 
   @override
   Future<void> didChangeDependencies() async {
@@ -186,7 +186,7 @@ class _MainPageState extends State<MainPage> {
                     fit: BoxFit.fill,
                     placeholder: 'assets/logo.png',
                     image:
-                        'http://23.111.185.155:3000/uploads/user-default-avatar.png',
+                    'http://23.111.185.155:3000/uploads/user-default-avatar.png',
                   ),
                 ),
               ),
@@ -457,10 +457,10 @@ class _MainPageState extends State<MainPage> {
               SizedBox(height: 15.0),
               Center(
                   child: Icon(
-                icon,
-                size: 105.0,
-                color: Colors.white,
-              )),
+                    icon,
+                    size: 105.0,
+                    color: Colors.white,
+                  )),
               SizedBox(height: 15.0),
               new Center(
                 child: new Text(

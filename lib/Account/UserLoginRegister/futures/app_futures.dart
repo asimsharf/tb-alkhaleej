@@ -10,6 +10,18 @@ import '../models/base/EventObject.dart';
 import '../utils/constants.dart';
 
 ///////////////////////////////////////////////////////////////////////////////
+Future<double> getTotalRate(String centerId) async {
+  String link = "http://23.111.185.155:3000/api/rating/${centerId}/center";
+  double totalRating = 0;
+  var res = await http
+      .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
+  if (res.statusCode == 200) {
+    var data = json.decode(res.body);
+
+    totalRating += data['total'] as double;
+  }
+  return totalRating;
+}
 
 Future<EventObject> loginUser(String emailId, String password) async {
   String baseurl = 'http://23.111.185.155:3000/api/authenticate/login/';
@@ -48,32 +60,44 @@ Future<EventObject> registerUser(String firstName,
     String email,
     String password,
     String birthDate) async {
-  //router.get('/client/register/:city_id/:address_text/:identity_number/:name/:gender/:phone/:email/:password/:birth_date', client_controller.create_client);
+//  router.get('/client/register/:city_id/:address_text/:identity_number/:name/:gender/:phone/:email/:password/:birth_date', client_controller.create_client);
 //  http://23.111.185.155:4000/takaful/api/client/register/1/'khartoum'/'1122335'/'adam'/1/'0925505684'/'a@a.com'/'123'/'2019-07-24'
   ApiRequest apiRequest = new ApiRequest();
 
   try {
+    var genderTemp = '';
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
+    if (gender == 'ذكر') {
+      genderTemp += "1";
+    } else {
+      genderTemp += "2";
+    }
 
     final response = await http.get(
-        'http://23.111.185.155:3000/api/authenticate/register/' +
+        'http://23.111.185.155:3000/api/client/register/' +
+            '\"' +
             firstName +
+            '\"' +
             '/' +
-            lastName +
-            '/' +
-            gender +
-            '/' +
-            phone +
-            '/' +
-            email +
-            '/' +
-            phone +
-            '/' +
-            email +
-            '/' +
+            '\"' +
             password +
+            '\"' +
             '/' +
-            birthDate,
+            '\"' +
+            genderTemp +
+            '\"' +
+            '/' +
+            '\"' +
+            phone +
+            '\"' +
+            '/' +
+            '\"' +
+            email +
+            '\"' +
+            '/' +
+            '\"' +
+            birthDate +
+            '\"',
         headers: {"Accept": "application/json"});
 
     print("***********1****************");
@@ -81,7 +105,20 @@ Future<EventObject> registerUser(String firstName,
     print("***********2****************");
     print(encoding.toString());
     print("***********3****************");
-    print(APIConstants.API_BASE_URL.toString());
+    print('http://23.111.185.155:3000/api/client/register/' +
+        firstName +
+        ' ' +
+        password +
+        '/' +
+        genderTemp +
+        '/' +
+        phone +
+        '/' +
+        email +
+        '/' +
+        '\"' +
+        birthDate +
+        '\"');
     print("***********4****************");
     print(json.encode(apiRequest.toJson()).toString());
     print("***********5****************");

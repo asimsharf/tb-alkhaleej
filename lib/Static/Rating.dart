@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/api/Rating_api_response.dart';
 import 'package:tb_alkhalij/model/Post.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -24,6 +25,23 @@ class _RatingState extends State<Rating> {
   TextEditingController addReviewController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var rating = 1.0;
+
+  var userId;
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (userId == null) {
+      await initUserProfile();
+    }
+  }
+
+  Future<void> initUserProfile() async {
+    String userI = await AppSharedPreferences.getFromSession('userId');
+    setState(() {
+      userId = userI;
+    });
+  }
 
   @override
   initState() {
@@ -242,7 +260,7 @@ class _RatingState extends State<Rating> {
     if (addReviewController.text.isNotEmpty) {
       Post newPost = new Post(
         centerId: "${widget.centerId}",
-        patientId: "5d2f14fd980ce83c67de7d57",
+        patientId: userId,
         comment: addReviewController.text,
         rate: rating.toString(),
       );

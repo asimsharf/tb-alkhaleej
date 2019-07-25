@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/customviews/progress_dialog.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/futures/app_futures.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/constants.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -19,6 +20,51 @@ class EditUserProfile extends StatefulWidget {
 
 class EditUserProfileState extends State<EditUserProfile> {
   final globalKey = new GlobalKey<ScaffoldState>();
+
+  var firstName;
+  var lastName;
+  var userGender;
+  var userPhone;
+  var userBirth;
+  var userEmail;
+  var userAvatar;
+  var userId;
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (firstName == null ||
+        lastName == null ||
+        userGender == null ||
+        userPhone == null ||
+        userBirth == null ||
+        userEmail == null ||
+        userAvatar == null ||
+        userId == null) {
+      await initUserProfile();
+    }
+  }
+
+  Future<void> initUserProfile() async {
+    String firstNam = await AppSharedPreferences.getFromSession('firstName');
+    String lastNam = await AppSharedPreferences.getFromSession('lastName');
+    String userGende = await AppSharedPreferences.getFromSession('userGender');
+    String userPhon = await AppSharedPreferences.getFromSession('userPhone');
+    String userBirt = await AppSharedPreferences.getFromSession('userBirth');
+    String userEmai = await AppSharedPreferences.getFromSession('userEmail');
+    String userAvata = await AppSharedPreferences.getFromSession('userAvatar');
+    String userI = await AppSharedPreferences.getFromSession('userId');
+    setState(() {
+      firstName = firstNam;
+      lastName = lastNam;
+      userGender = userGende;
+      userPhone = userPhon;
+      userBirth = userBirt;
+      userEmail = userEmai;
+      userAvatar = userAvata;
+      userId = userI;
+    });
+  }
 
   //show date time pick up
   Future _chooseDate(BuildContext context, String initialDateString) async {
@@ -149,15 +195,16 @@ class EditUserProfileState extends State<EditUserProfile> {
 //------------------------------------------------------------------------------
                     _lastNameContainer(),
 
+//-----------------------------------------------------------------------------
                     _dateOfBarth(),
 
+//-----------------------------------------------------------------------------
                     _selectedGender(),
 
+//-----------------------------------------------------------------------------
                     _phoneContainer(),
 //------------------------------------------------------------------------------
                     _emailContainer(),
-//------------------------------------------------------------------------------
-                    _passwordContainer(),
 //------------------------------------------------------------------------------
                     _registerButtonContainer(),
                   ],
@@ -175,9 +222,7 @@ class EditUserProfileState extends State<EditUserProfile> {
           controller: firstNameController,
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.person),
-            labelText: Translations
-                .of(context)
-                .firstName,
+            labelText: firstName,
             labelStyle: TextStyle(
               fontFamily: ArabicFonts.Cairo,
               package: 'google_fonts_arabic',
@@ -196,9 +241,7 @@ class EditUserProfileState extends State<EditUserProfile> {
             controller: lastNameController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
-                labelText: Translations
-                    .of(context)
-                    .lastName,
+                labelText: lastName,
                 labelStyle: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -217,9 +260,7 @@ class EditUserProfileState extends State<EditUserProfile> {
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
               prefixIcon: const Icon(Icons.person_pin),
-              labelText: Translations
-                  .of(context)
-                  .gender,
+              labelText: userGender,
               labelStyle: TextStyle(
                 color: Color(0xFF37505D),
                 fontWeight: FontWeight.bold,
@@ -257,6 +298,7 @@ class EditUserProfileState extends State<EditUserProfile> {
     return Container(
       height: 40.0,
       child: new TextFormField(
+        enabled: false,
         decoration: new InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
           prefixIcon: const Icon(Icons.calendar_today),
@@ -266,9 +308,7 @@ class EditUserProfileState extends State<EditUserProfile> {
               _chooseDate(context, dateTimeController.text);
             }),
           ),
-          labelText: Translations
-              .of(context)
-              .dateOfBarth,
+          labelText: userBirth,
           labelStyle: TextStyle(
             color: Color(0xFF37505D),
             fontWeight: FontWeight.bold,
@@ -301,9 +341,7 @@ class EditUserProfileState extends State<EditUserProfile> {
             controller: emailController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.mail_outline),
-                labelText: Translations
-                    .of(context)
-                    .username,
+                labelText: userEmail,
                 fillColor: Color(0xFF37505D),
                 labelStyle: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
@@ -314,29 +352,6 @@ class EditUserProfileState extends State<EditUserProfile> {
         margin: EdgeInsets.only(bottom: 10.0));
   }
 
-//------------------------------------------------------------------------------
-  Widget _passwordContainer() {
-    return new Container(
-        height: 40.0,
-        child: new TextFormField(
-          controller: passwordController,
-          decoration: InputDecoration(
-              prefixIcon: Icon(Icons.lock),
-              labelText: Translations
-                  .of(context)
-                  .password,
-              fillColor: Color(0xFF37505D),
-              labelStyle: TextStyle(
-                fontFamily: ArabicFonts.Cairo,
-                package: 'google_fonts_arabic',
-                fontWeight: FontWeight.bold,
-              )),
-          keyboardType: TextInputType.text,
-          obscureText: true,
-        ),
-        margin: EdgeInsets.only(bottom: 20.0));
-  }
-
   Widget _phoneContainer() {
     return new Container(
       height: 40.0,
@@ -344,9 +359,7 @@ class EditUserProfileState extends State<EditUserProfile> {
           controller: phoneController,
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.person),
-              labelText: Translations
-                  .of(context)
-                  .phone,
+              labelText: userPhone,
               labelStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -397,26 +410,6 @@ class EditUserProfileState extends State<EditUserProfile> {
           onPressed: _registerButtonAction,
         ),
         margin: EdgeInsets.only(bottom: 30.0));
-  }
-
-//------------------------------------------------------------------------------
-  Widget _loginNowLabel() {
-    return new GestureDetector(
-      onTap: _goToLoginScreen,
-      child: new Container(
-          height: 40.0,
-          child: new Text(
-            Translations
-                .of(context)
-                .have_account,
-            style: TextStyle(
-              color: Color(0xFF37505D),
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-            ),
-          ),
-          margin: EdgeInsets.only(bottom: 30.0)),
-    );
   }
 
   //check if the dateBarth is right or not

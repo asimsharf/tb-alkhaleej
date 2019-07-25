@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:tb_alkhalij/Account/EditUserProfile.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
@@ -11,6 +12,51 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile>
     with SingleTickerProviderStateMixin {
+  var firstName;
+  var lastName;
+  var userGender;
+  var userPhone;
+  var userBirth;
+  var userEmail;
+  var userAvatar;
+  var userId;
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (firstName == null ||
+        lastName == null ||
+        userGender == null ||
+        userPhone == null ||
+        userBirth == null ||
+        userEmail == null ||
+        userAvatar == null ||
+        userId == null) {
+      await initUserProfile();
+    }
+  }
+
+  Future<void> initUserProfile() async {
+    String firstNam = await AppSharedPreferences.getFromSession('firstName');
+    String lastNam = await AppSharedPreferences.getFromSession('lastName');
+    String userGende = await AppSharedPreferences.getFromSession('userGender');
+    String userPhon = await AppSharedPreferences.getFromSession('userPhone');
+    String userBirt = await AppSharedPreferences.getFromSession('userBirth');
+    String userEmai = await AppSharedPreferences.getFromSession('userEmail');
+    String userAvata = await AppSharedPreferences.getFromSession('userAvatar');
+    String userI = await AppSharedPreferences.getFromSession('userId');
+    setState(() {
+      firstName = firstNam;
+      lastName = lastNam;
+      userGender = userGende;
+      userPhone = userPhon;
+      userBirth = userBirt;
+      userEmail = userEmai;
+      userAvatar = userAvata;
+      userId = userI;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +103,7 @@ class _UserProfileState extends State<UserProfile>
                     fit: BoxFit.cover,
                     placeholder: 'assets/person.png',
                     image:
-                        'https://healthitsecurity.com/images/site/article_headers/_normal/2017-11-08large-data-breach.jpg',
+                    'https://healthitsecurity.com/images/site/article_headers/_normal/2017-11-08large-data-breach.jpg',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -97,7 +143,7 @@ class _UserProfileState extends State<UserProfile>
                         width: 20.0,
                       ),
                       Text(
-                        "مركز جرش الطبي",
+                        firstName + ' ' + lastName,
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -157,7 +203,7 @@ class _UserProfileState extends State<UserProfile>
                         width: 20.0,
                       ),
                       Text(
-                        "1993/1/1",
+                        userBirth,
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -187,7 +233,7 @@ class _UserProfileState extends State<UserProfile>
                         width: 20.0,
                       ),
                       Text(
-                        "someone@gmail.com",
+                        userEmail,
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -217,7 +263,7 @@ class _UserProfileState extends State<UserProfile>
                         width: 20.0,
                       ),
                       Text(
-                        "male",
+                        userGender,
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',

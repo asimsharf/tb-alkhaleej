@@ -6,6 +6,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/futures/app_futures.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Clinic/ClinicDepartment.dart';
 import 'package:tb_alkhalij/Static/Rating.dart';
@@ -71,6 +72,19 @@ class _CentersDetailsState extends State<ClinicDetails> {
     _controller.complete(controller);
   }
 
+  double total = 0;
+
+  void getCenterTotalRate() async {
+    double valuee = await getTotalRate(widget.id.toString());
+    setState(() {
+      if (valuee != null) {
+        total = valuee;
+      } else {
+        total = 5.0;
+      }
+    });
+  }
+
   Future<void> _goToMaps() async {
     double lat = double.parse(widget.lat);
     double long = double.parse(widget.lang);
@@ -116,6 +130,7 @@ class _CentersDetailsState extends State<ClinicDetails> {
   initState() {
     super.initState();
     setState(() {
+      getCenterTotalRate();
       _goToMaps();
       this.getCenters();
       setState(() {
@@ -206,7 +221,7 @@ class _CentersDetailsState extends State<ClinicDetails> {
                             vertical: 8, horizontal: 16),
                         //color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: SmoothStarRating(
-                          rating: 3.2,
+                          rating: total,
                           size: 25,
                           color: Colors.yellow,
                           borderColor: Colors.grey,

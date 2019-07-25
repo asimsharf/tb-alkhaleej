@@ -6,6 +6,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/futures/app_futures.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Consulting/ConsultingSpecialty.dart';
 import 'package:tb_alkhalij/Static/Rating.dart';
@@ -67,6 +68,19 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+  }
+
+  double total = 0;
+
+  void getCenterTotalRate(String centerId) async {
+    double valuee = await getTotalRate(centerId);
+    setState(() {
+      if (valuee != null) {
+        total = valuee;
+      } else {
+        total = 5.0;
+      }
+    });
   }
 
   Future<void> _goToMaps() async {
@@ -204,7 +218,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                             vertical: 8, horizontal: 16),
                         //color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: SmoothStarRating(
-                          rating: 3.2,
+                          rating: total,
                           size: 25,
                           color: Colors.yellow,
                           borderColor: Colors.grey,
