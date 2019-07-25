@@ -15,7 +15,7 @@ class BookingHistory extends StatefulWidget {
 
 class _BookingHistoryState extends State<BookingHistory> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
+      new GlobalKey<RefreshIndicatorState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool loading = false;
   List<ModelBookingHistory> _modelBookingHistory = <ModelBookingHistory>[];
@@ -49,7 +49,7 @@ class _BookingHistoryState extends State<BookingHistory> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
-          (_) => _refreshIndicatorKey.currentState.show(),
+      (_) => _refreshIndicatorKey.currentState.show(),
     );
     this.getCenters();
     setState(() {
@@ -135,8 +135,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                             fit: BoxFit.fill,
                             placeholder: 'assets/avatar_person.png',
                             image:
-                            'http://23.111.185.155:3000/uploads/avtar/${_bookingHistoryObj
-                                .logo.filename}',
+                                'http://23.111.185.155:3000/uploads/avtar/${_bookingHistoryObj.logo.filename}',
                           ),
                         ),
                       ),
@@ -154,9 +153,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                 children: <Widget>[
                                   Expanded(
                                     child: Text(
-                                      '${_bookingHistoryObj.patient.first +
-                                          ' ' +
-                                          _bookingHistoryObj.patient.last}',
+                                      '${_bookingHistoryObj.patient.first + ' ' + _bookingHistoryObj.patient.last}',
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: 12.0,
@@ -193,9 +190,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      '${_bookingHistoryObj.date.substring(
-                                          11, 16)}  :   ${_bookingHistoryObj
-                                          .date.substring(0, 10)}',
+                                      '${_bookingHistoryObj.date.substring(11, 16)}  :   ${_bookingHistoryObj.date.substring(0, 10)}',
                                       style: TextStyle(
                                         fontSize: 8.0,
                                         color: Colors.pinkAccent,
@@ -223,17 +218,16 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     height: 9.0,
                                     onPressed: () {
                                       var createRate =
-                                      new Cancel_Rating_api_response();
+                                          new Cancel_Rating_api_response();
                                       createRate
                                           .cancelBooking(
-                                          '${_bookingHistoryObj.id}')
+                                              '${_bookingHistoryObj.id}')
                                           .then(
-                                            (value) =>
-                                            showMessage(
-                                              'تم إلغاء الحجز',
-                                              Colors.blue,
-                                            ),
-                                      );
+                                            (value) => showMessage(
+                                                  'تم إلغاء الحجز',
+                                                  Colors.blue,
+                                                ),
+                                          );
                                       Timer(Duration(seconds: 2), () {
                                         Navigator.pop(context);
                                       });

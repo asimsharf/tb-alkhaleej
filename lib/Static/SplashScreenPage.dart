@@ -17,9 +17,7 @@ class SplashScreenPage extends StatelessWidget {
           colors: [Color(0xFF13A1C5), Color(0xFF13A1C5)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight),
-      title: Text(Translations
-          .of(context)
-          .tb_alkalij,
+      title: Text(Translations.of(context).tb_alkalij,
           style: TextStyle(
               color: Colors.white,
               fontSize: 25.0,
@@ -38,9 +36,7 @@ class SplashScreenPage extends StatelessWidget {
                   color: Color.fromARGB(125, 0, 0, 255),
                 ),
               ])),
-      loadingText: Text(Translations
-          .of(context)
-          .loading,
+      loadingText: Text(Translations.of(context).loading,
           style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,
