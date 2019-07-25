@@ -41,22 +41,25 @@ Future<EventObject> loginUser(String emailId, String password) async {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-Future<EventObject> registerUser(String fname, String lname, String password,
-    String gender, String phone, String email, String birth_date) async {
+Future<EventObject> registerUser(String firstName,
+    String lastName,
+    String gender,
+    String phone,
+    String email,
+    String password,
+    String birthDate) async {
   //router.get('/client/register/:city_id/:address_text/:identity_number/:name/:gender/:phone/:email/:password/:birth_date', client_controller.create_client);
 //  http://23.111.185.155:4000/takaful/api/client/register/1/'khartoum'/'1122335'/'adam'/1/'0925505684'/'a@a.com'/'123'/'2019-07-24'
   ApiRequest apiRequest = new ApiRequest();
 
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
-//  '/api/client/register/:name/:password/:gender/:phone/:email/:birth_date'
+
     final response = await http.get(
-        'http://23.111.185.155:3000/api/client/register/' +
-            fname +
+        'http://23.111.185.155:3000/api/authenticate/register/' +
+            firstName +
             '/' +
-            lname +
-            '/' +
-            password +
+            lastName +
             '/' +
             gender +
             '/' +
@@ -64,9 +67,24 @@ Future<EventObject> registerUser(String fname, String lname, String password,
             '/' +
             email +
             '/' +
-            birth_date,
+            phone +
+            '/' +
+            email +
+            '/' +
+            password +
+            '/' +
+            birthDate,
         headers: {"Accept": "application/json"});
 
+    print("***********1****************");
+    print(response.body.toString());
+    print("***********2****************");
+    print(encoding.toString());
+    print("***********3****************");
+    print(APIConstants.API_BASE_URL.toString());
+    print("***********4****************");
+    print(json.encode(apiRequest.toJson()).toString());
+    print("***********5****************");
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {

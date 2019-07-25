@@ -29,8 +29,10 @@ class CentersDepartment extends StatefulWidget {
   final String suburb;
   final String logo;
   final List committee;
+  final List days;
 
-  CentersDepartment({this.id,
+  CentersDepartment({
+    this.id,
     this.centerId,
     this.name,
     this.email,
@@ -48,7 +50,9 @@ class CentersDepartment extends StatefulWidget {
     this.suburb,
     this.centerType,
     this.logo,
-    this.committee});
+    this.committee,
+    this.days,
+  });
   @override
   _CentersDepartmentState createState() => _CentersDepartmentState();
 }
@@ -293,6 +297,8 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                                 Book(
                                                   id: widget.id,
                                                   centerId: widget.centerId,
+                                                  departmentId:
+                                                  _centersDepartmentObj.id,
                                                   name: _centersDepartmentObj
                                                       .name,
                                                   description:
@@ -311,6 +317,7 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                                   lang: widget.lang,
                                                   lat: widget.lat,
                                                   committee: widget.committee,
+                                                  days: widget.days,
                                                 ),
                                           ),
                                         );
