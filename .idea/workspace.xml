@@ -4,11 +4,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="390301e8-d526-4dae-8f51-57a1c48cf9b1" name="Default" comment="finshed rating for center&#10;stored profile data in sharedprefrenses">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" />
+    <list default="true" id="390301e8-d526-4dae-8f51-57a1c48cf9b1" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart" afterPath="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart" />
       <change beforePath="$PROJECT_DIR$/lib/I10n/messages_en.dart" afterPath="$PROJECT_DIR$/lib/I10n/messages_en.dart" />
@@ -17,9 +13,7 @@
       <change beforePath="$PROJECT_DIR$/lib/Screen/Consulting/Consulting.dart" afterPath="$PROJECT_DIR$/lib/Screen/Consulting/Consulting.dart" />
       <change beforePath="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingDetails.dart" afterPath="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingDetails.dart" />
       <change beforePath="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart" afterPath="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/Static/Rating.dart" afterPath="$PROJECT_DIR$/lib/Static/Rating.dart" />
       <change beforePath="$PROJECT_DIR$/lib/model/ModelBookingHistory.dart" afterPath="$PROJECT_DIR$/lib/model/ModelBookingHistory.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/model/ModelConsulting.dart" afterPath="$PROJECT_DIR$/lib/model/ModelConsulting.dart" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -81,10 +75,7 @@
                 <element signature="e#0#20#0" expanded="true" />
                 <element signature="e#2924#2932#0" expanded="true" />
                 <element signature="e#6436#6444#0" expanded="true" />
-                <element signature="e#7574#7582#0" expanded="true" />
-                <element signature="e#7665#7673#0" expanded="true" />
-                <element signature="e#8530#8538#0" expanded="true" />
-                <element signature="e#9233#9241#0" expanded="true" />
+                <marker date="1564065275957" expanded="true" signature="10859:13095" ph="(...)" />
               </folding>
             </state>
           </provider>
@@ -93,32 +84,15 @@
       <file leaf-file-name="ConsultingDetails.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/ConsultingDetails.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="497" column="42" lean-forward="true" selection-start-line="497" selection-start-column="42" selection-end-line="497" selection-end-column="42" />
+            <state relative-caret-position="99">
+              <caret line="506" column="4" lean-forward="true" selection-start-line="506" selection-start-column="4" selection-end-line="506" selection-end-column="4" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
                 <element signature="e#4142#4150#0" expanded="true" />
                 <element signature="e#4571#4579#0" expanded="true" />
                 <element signature="e#5269#5277#0" expanded="true" />
-                <element signature="e#5712#5719#0" expanded="true" />
-                <element signature="e#7657#7665#0" expanded="true" />
-                <element signature="e#9438#9446#0" expanded="true" />
-                <element signature="e#10242#10250#0" expanded="true" />
-                <element signature="e#11120#11128#0" expanded="true" />
-                <element signature="e#11928#11936#0" expanded="true" />
-                <element signature="e#13053#13061#0" expanded="true" />
-                <element signature="e#13735#13743#0" expanded="true" />
-                <element signature="e#15150#15158#0" expanded="true" />
-                <element signature="e#15922#15930#0" expanded="true" />
-                <element signature="e#16744#16752#0" expanded="true" />
-                <element signature="e#17498#17506#0" expanded="true" />
-                <element signature="e#18869#18877#0" expanded="true" />
-                <element signature="e#20280#20288#0" expanded="true" />
-                <element signature="e#22661#22669#0" expanded="true" />
-                <element signature="e#23173#23181#0" expanded="true" />
-                <element signature="e#24916#24924#0" expanded="true" />
-                <element signature="e#26201#26209#0" expanded="true" />
-                <element signature="e#26300#26308#0" expanded="true" />
+                <marker date="1564065274988" expanded="true" signature="4068:5461" ph="{...}" />
+                <marker date="1564065274988" expanded="true" signature="4093:5461" ph="(...)" />
               </folding>
             </state>
           </provider>
@@ -128,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/Consulting.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="250">
-              <caret line="317" column="4" lean-forward="true" selection-start-line="317" selection-start-column="4" selection-end-line="317" selection-end-column="4" />
+              <caret line="317" column="8" lean-forward="true" selection-start-line="317" selection-start-column="8" selection-end-line="317" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -139,16 +113,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="227">
               <caret line="506" column="27" lean-forward="true" selection-start-line="506" selection-start-column="27" selection-end-line="506" selection-end-column="27" />
-              <folding>
-                <element signature="e#2925#2933#0" expanded="true" />
-                <element signature="e#3168#3176#0" expanded="true" />
-                <element signature="e#3249#3257#0" expanded="true" />
-                <element signature="e#4614#4622#0" expanded="true" />
-                <element signature="e#7083#7091#0" expanded="true" />
-                <element signature="e#7125#7133#0" expanded="true" />
-                <element signature="e#7848#7856#0" expanded="true" />
-                <element signature="e#8226#8234#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -770,7 +735,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564031899660</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="finshed rating for center&#10;stored profile data in sharedprefrenses">
+      <created>1564065274455</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1564065274455</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -795,7 +767,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Dart Analysis" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39794755" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15393387" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.52793616" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6123147" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Flutter Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -1179,7 +1151,7 @@
     <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/Consulting.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
-          <caret line="317" column="4" lean-forward="true" selection-start-line="317" selection-start-column="4" selection-end-line="317" selection-end-column="4" />
+          <caret line="317" column="8" lean-forward="true" selection-start-line="317" selection-start-column="8" selection-end-line="317" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1192,42 +1164,22 @@
             <element signature="e#0#20#0" expanded="true" />
             <element signature="e#2924#2932#0" expanded="true" />
             <element signature="e#6436#6444#0" expanded="true" />
-            <element signature="e#7574#7582#0" expanded="true" />
-            <element signature="e#7665#7673#0" expanded="true" />
-            <element signature="e#8530#8538#0" expanded="true" />
-            <element signature="e#9233#9241#0" expanded="true" />
+            <marker date="1564065275957" expanded="true" signature="10859:13095" ph="(...)" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/ConsultingDetails.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="497" column="42" lean-forward="true" selection-start-line="497" selection-start-column="42" selection-end-line="497" selection-end-column="42" />
+        <state relative-caret-position="99">
+          <caret line="506" column="4" lean-forward="true" selection-start-line="506" selection-start-column="4" selection-end-line="506" selection-end-column="4" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
             <element signature="e#4142#4150#0" expanded="true" />
             <element signature="e#4571#4579#0" expanded="true" />
             <element signature="e#5269#5277#0" expanded="true" />
-            <element signature="e#5712#5719#0" expanded="true" />
-            <element signature="e#7657#7665#0" expanded="true" />
-            <element signature="e#9438#9446#0" expanded="true" />
-            <element signature="e#10242#10250#0" expanded="true" />
-            <element signature="e#11120#11128#0" expanded="true" />
-            <element signature="e#11928#11936#0" expanded="true" />
-            <element signature="e#13053#13061#0" expanded="true" />
-            <element signature="e#13735#13743#0" expanded="true" />
-            <element signature="e#15150#15158#0" expanded="true" />
-            <element signature="e#15922#15930#0" expanded="true" />
-            <element signature="e#16744#16752#0" expanded="true" />
-            <element signature="e#17498#17506#0" expanded="true" />
-            <element signature="e#18869#18877#0" expanded="true" />
-            <element signature="e#20280#20288#0" expanded="true" />
-            <element signature="e#22661#22669#0" expanded="true" />
-            <element signature="e#23173#23181#0" expanded="true" />
-            <element signature="e#24916#24924#0" expanded="true" />
-            <element signature="e#26201#26209#0" expanded="true" />
-            <element signature="e#26300#26308#0" expanded="true" />
+            <marker date="1564065274988" expanded="true" signature="4068:5461" ph="{...}" />
+            <marker date="1564065274988" expanded="true" signature="4093:5461" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -1236,16 +1188,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
           <caret line="506" column="27" lean-forward="true" selection-start-line="506" selection-start-column="27" selection-end-line="506" selection-end-column="27" />
-          <folding>
-            <element signature="e#2925#2933#0" expanded="true" />
-            <element signature="e#3168#3176#0" expanded="true" />
-            <element signature="e#3249#3257#0" expanded="true" />
-            <element signature="e#4614#4622#0" expanded="true" />
-            <element signature="e#7083#7091#0" expanded="true" />
-            <element signature="e#7125#7133#0" expanded="true" />
-            <element signature="e#7848#7856#0" expanded="true" />
-            <element signature="e#8226#8234#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>

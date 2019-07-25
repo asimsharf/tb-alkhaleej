@@ -197,8 +197,7 @@ class _ConsultingState extends State<Consulting> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${_consultingObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/files/${_consultingObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -251,8 +250,7 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${_consultingObj.open.substring(
-                                          11, 16)}",
+                                          "${_consultingObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -277,8 +275,7 @@ class _ConsultingState extends State<Consulting> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${_consultingObj.close.substring(
-                                          11, 16)}",
+                                          "${_consultingObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -299,26 +296,26 @@ class _ConsultingState extends State<Consulting> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ConsultingDetails(
-                    id: _consultingObj.id,
-                    name: _consultingObj.name,
-                    email: _consultingObj.email,
-                    description: _consultingObj.description,
-                    close: _consultingObj.close,
-                    open: _consultingObj.open,
-                    isActive: _consultingObj.isActive,
-                    inviled: _consultingObj.inviled,
-                    country: _consultingObj.address.country,
-                    postcode: _consultingObj.address.postcode,
-                    state: _consultingObj.address.state,
-                    street1: _consultingObj.address.street1,
-                    suburb: _consultingObj.address.suburb,
-                    centerType: _consultingObj.centerType,
-                    logo: _consultingObj.logo.filename,
-                    lang: _consultingObj.lang,
-                    lat: _consultingObj.lat,
-                    committee: _consultingObj.committee,
-                    days: _consultingObj.days,
-                  ),
+                        id: _consultingObj.id,
+                        name: _consultingObj.name,
+                        email: _consultingObj.email,
+                        description: _consultingObj.description,
+                        close: _consultingObj.close,
+                        open: _consultingObj.open,
+                        isActive: _consultingObj.isActive,
+                        inviled: _consultingObj.inviled,
+                        country: _consultingObj.address.country,
+                        postcode: _consultingObj.address.postcode,
+                        state: _consultingObj.address.state,
+                        street1: _consultingObj.address.street1,
+                        suburb: _consultingObj.address.suburb,
+                        centerType: _consultingObj.centerType,
+                        logo: _consultingObj.logo.filename,
+                        lang: _consultingObj.lang,
+                        lat: _consultingObj.lat,
+                        committee: _consultingObj.committee,
+                        days: _consultingObj.days,
+                      ),
                 ),
               );
             },

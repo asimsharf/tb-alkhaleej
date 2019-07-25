@@ -189,7 +189,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                     fit: BoxFit.cover,
                     placeholder: 'assets/logo.png',
                     image:
-                    'http://23.111.185.155:3000/uploads/files/${widget.logo}',
+                        'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -260,8 +260,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  Rating(
+                              builder: (context) => Rating(
                                     id: widget.id,
                                     name: widget.name,
                                     logo: widget.logo,
@@ -289,9 +288,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          Translations
-                              .of(context)
-                              .address,
+                          Translations.of(context).address,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -314,8 +311,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                       ),
                       Expanded(
                         child: Text(
-                          '${widget.country}, ${widget.postcode}, ${widget
-                              .state}, ${widget.street1}, ${widget.suburb}',
+                          '${widget.country}, ${widget.postcode}, ${widget.state}, ${widget.street1}, ${widget.suburb}',
                           style: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             fontSize: 10.0,
@@ -333,9 +329,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          Translations
-                              .of(context)
-                              .description,
+                          Translations.of(context).description,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -401,9 +395,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          Translations
-                              .of(context)
-                              .insurances,
+                          Translations.of(context).insurances,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -424,10 +416,9 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                       direction: Axis.horizontal,
                       alignment: WrapAlignment.start,
                       children: getCommitteeList(widget.committee)
-                          .map((name) =>
-                          MyButton(
-                            name,
-                          ))
+                          .map((name) => MyButton(
+                                name,
+                              ))
                           .toList(),
                     )),
                 new SizedBox(
@@ -440,9 +431,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          Translations
-                              .of(context)
-                              .locations,
+                          Translations.of(context).locations,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -505,8 +494,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          ConsultingSpecialty(
+                      builder: (context) => ConsultingSpecialty(
                             id: widget.id,
                             centerId: widget.id,
                             name: widget.name,
@@ -604,9 +592,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
             appBar: AppBar(
               centerTitle: true,
               title: Text(
-                Translations
-                    .of(context)
-                    .rating_review,
+                Translations.of(context).rating_review,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: ArabicFonts.Cairo,
@@ -707,8 +693,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${_ratingObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/avtar/${_ratingObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -722,15 +707,14 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   new Row(
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${_ratingObj.client.first + ' ' +
-                                              _ratingObj.client.last}',
+                                          '${_ratingObj.client.first + ' ' + _ratingObj.client.last}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 12.0,

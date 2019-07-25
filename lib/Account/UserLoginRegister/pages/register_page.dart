@@ -59,11 +59,11 @@ class RegisterPageState extends State<RegisterPage> {
       ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_REGISTER);
 
   TextEditingController firstNameController =
-  new TextEditingController(text: "");
+      new TextEditingController(text: "");
   TextEditingController dateTimeController =
-  new TextEditingController(text: "");
+      new TextEditingController(text: "");
   TextEditingController lastNameController =
-  new TextEditingController(text: "");
+      new TextEditingController(text: "");
   TextEditingController emailController = new TextEditingController(text: "");
   TextEditingController phoneController = new TextEditingController(text: "");
   TextEditingController passwordController =
@@ -117,9 +117,7 @@ class RegisterPageState extends State<RegisterPage> {
     return new Container(
       padding: const EdgeInsets.only(top: 50.0),
       child: new Text(
-        Translations
-            .of(context)
-            .create_account,
+        Translations.of(context).create_account,
         textAlign: TextAlign.center,
         style: TextStyle(
             fontFamily: ArabicFonts.Cairo,
@@ -176,9 +174,7 @@ class RegisterPageState extends State<RegisterPage> {
           controller: firstNameController,
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.person),
-            labelText: Translations
-                .of(context)
-                .firstName,
+            labelText: Translations.of(context).firstName,
             labelStyle: TextStyle(
               fontFamily: ArabicFonts.Cairo,
               package: 'google_fonts_arabic',
@@ -197,9 +193,7 @@ class RegisterPageState extends State<RegisterPage> {
             controller: lastNameController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
-                labelText: Translations
-                    .of(context)
-                    .lastName,
+                labelText: Translations.of(context).lastName,
                 labelStyle: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -218,9 +212,7 @@ class RegisterPageState extends State<RegisterPage> {
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
               prefixIcon: const Icon(Icons.person_pin),
-              labelText: Translations
-                  .of(context)
-                  .gender,
+              labelText: Translations.of(context).gender,
               labelStyle: TextStyle(
                 color: Color(0xFF37505D),
                 fontWeight: FontWeight.bold,
@@ -267,12 +259,8 @@ class RegisterPageState extends State<RegisterPage> {
               _chooseDate(context, dateTimeController.text);
             }),
           ),
-          hintText: Translations
-              .of(context)
-              .enter_date_of_barth,
-          labelText: Translations
-              .of(context)
-              .dateOfBarth,
+          hintText: Translations.of(context).enter_date_of_barth,
+          labelText: Translations.of(context).dateOfBarth,
           labelStyle: TextStyle(
             color: Color(0xFF37505D),
             fontWeight: FontWeight.bold,
@@ -286,12 +274,9 @@ class RegisterPageState extends State<RegisterPage> {
         ),
         controller: dateTimeController,
         keyboardType: TextInputType.datetime,
-        validator: (val) =>
-        isValidDateBarth(val)
+        validator: (val) => isValidDateBarth(val)
             ? null
-            : '${Translations
-            .of(context)
-            .not_valid_date}',
+            : '${Translations.of(context).not_valid_date}',
       ),
       margin: EdgeInsets.only(bottom: 5.0),
     );
@@ -305,9 +290,7 @@ class RegisterPageState extends State<RegisterPage> {
           controller: emailController,
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.mail_outline),
-              labelText: Translations
-                  .of(context)
-                  .username,
+              labelText: Translations.of(context).username,
               fillColor: Color(0xFF37505D),
               labelStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
@@ -347,9 +330,7 @@ class RegisterPageState extends State<RegisterPage> {
           controller: phoneController,
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.person),
-              labelText: Translations
-                  .of(context)
-                  .phone,
+              labelText: Translations.of(context).phone,
               labelStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -465,13 +446,7 @@ class RegisterPageState extends State<RegisterPage> {
   void _registerUser(String firstName, String lastName, String gender,
       String phone, String email, String password, String birthDate) async {
     EventObject eventObject = await registerUser(
-        firstName,
-        lastName,
-        gender,
-        phone,
-        email,
-        password,
-        birthDate);
+        firstName, lastName, gender, phone, email, password, birthDate);
     switch (eventObject.id) {
       case EventConstants.USER_REGISTRATION_SUCCESSFUL:
         {
@@ -487,7 +462,7 @@ class RegisterPageState extends State<RegisterPage> {
       case EventConstants.USER_ALREADY_REGISTERED:
         {
           setState(
-                () {
+            () {
               globalKey.currentState.showSnackBar(
                 new SnackBar(
                   content: new Text(SnackBarText.USER_ALREADY_REGISTERED),
@@ -513,7 +488,7 @@ class RegisterPageState extends State<RegisterPage> {
       case EventConstants.NO_INTERNET_CONNECTION:
         {
           setState(
-                () {
+            () {
               globalKey.currentState.showSnackBar(
                 new SnackBar(
                   content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
