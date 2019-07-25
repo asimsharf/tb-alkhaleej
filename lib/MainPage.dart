@@ -456,10 +456,10 @@ class _MainPageState extends State<MainPage> {
               SizedBox(height: 15.0),
               Center(
                   child: Icon(
-                    icon,
-                    size: 105.0,
-                    color: Colors.white,
-                  )),
+                icon,
+                size: 105.0,
+                color: Colors.white,
+              )),
               SizedBox(height: 15.0),
               new Center(
                 child: new Text(

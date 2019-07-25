@@ -33,6 +33,7 @@ class ConsultingDetails extends StatefulWidget {
   final String suburb;
   final String logo;
   final List<dynamic> committee;
+  final List<dynamic> days;
 
   ConsultingDetails({
     this.id,
@@ -53,6 +54,7 @@ class ConsultingDetails extends StatefulWidget {
     this.centerType,
     this.logo,
     this.committee,
+    this.days,
   });
 
   @override
@@ -506,7 +508,12 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                       builder: (context) =>
                           ConsultingSpecialty(
                             id: widget.id,
+                            centerId: widget.id,
                             name: widget.name,
+                            committee: widget.committee,
+                            days: widget.days,
+                            open: widget.open,
+                            close: widget.close,
                           ),
                     ),
                   );

@@ -5,14 +5,54 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:tb_alkhalij/Screen/Booking/Book.dart';
 import 'package:tb_alkhalij/model/ModelConsultingSpecialty.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class ConsultingSpecialty extends StatefulWidget {
   final String id;
+  final String centerId;
   final String name;
+  final String email;
+  final String description;
+  final String close;
+  final String open;
+  final String lat;
+  final String lang;
+  final bool isActive;
+  final bool inviled;
+  final String centerType;
+  final String country;
+  final String postcode;
+  final String state;
+  final String street1;
+  final String suburb;
+  final String logo;
+  final List committee;
+  final List days;
 
-  ConsultingSpecialty({this.id, this.name});
+  ConsultingSpecialty({
+    this.id,
+    this.centerId,
+    this.name,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.lang,
+    this.lat,
+    this.isActive,
+    this.inviled,
+    this.country,
+    this.postcode,
+    this.state,
+    this.street1,
+    this.suburb,
+    this.centerType,
+    this.logo,
+    this.committee,
+    this.days,
+  });
 
   @override
   _ConsultingSpecialtyState createState() => _ConsultingSpecialtyState();
@@ -249,7 +289,40 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                       ),
                                     ),
                                     new MaterialButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Book(
+                                                  id: widget.id,
+                                                  centerId: widget.centerId,
+                                                  departmentId:
+                                                  _consultingSpecialtyObj
+                                                      .id,
+                                                  name: _consultingSpecialtyObj
+                                                      .name,
+                                                  description:
+                                                  _consultingSpecialtyObj
+                                                      .description,
+                                                  logo: _consultingSpecialtyObj
+                                                      .image.filename,
+                                                  close: widget.close,
+                                                  open: widget.open,
+                                                  country: widget.country,
+                                                  postcode: widget.postcode,
+                                                  state: widget.state,
+                                                  street1: widget.street1,
+                                                  suburb: widget.suburb,
+                                                  centerType: widget.centerType,
+                                                  lang: widget.lang,
+                                                  lat: widget.lat,
+                                                  committee: widget.committee,
+                                                  days: widget.days,
+                                                ),
+                                          ),
+                                        );
+                                      },
                                       color: Color(0xFFE91E63),
                                       splashColor: Color(0xFFFF1B5E),
                                       textColor: Colors.white,

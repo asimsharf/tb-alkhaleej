@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
+import 'package:tb_alkhalij/api/Cancel_booking_api_response.dart';
 import 'package:tb_alkhalij/model/ModelBookingHistory.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
@@ -33,6 +34,7 @@ class _BookingHistoryState extends State<BookingHistory> {
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool loading = false;
   List<ModelBookingHistory> _modelBookingHistory = <ModelBookingHistory>[];
 
@@ -76,6 +78,7 @@ class _BookingHistoryState extends State<BookingHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: new AppBar(
         title: Text(
           'حجوزاتي',
@@ -232,7 +235,24 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     new MaterialButton(
                                       height: 9.0,
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        var createRate =
+                                        new Cancel_Rating_api_response();
+                                        createRate
+                                            .cancelBooking(
+                                            '${_bookingHistoryObj.id}')
+                                            .then(
+                                              (value) =>
+                                              showMessage(
+                                                'شكراً لتقييمك...',
+                                                Colors.blue,
+                                              ),
+                                        );
+
+                                        Timer(Duration(seconds: 2), () {
+                                          Navigator.pop(context);
+                                        });
+                                      },
                                       color: Color(0xFFE91E63),
                                       splashColor: Color(0xFFFF1B5E),
                                       textColor: Colors.white,
@@ -286,5 +306,35 @@ class _BookingHistoryState extends State<BookingHistory> {
       );
     }
     return _departmentList;
+  }
+
+  void showMessage(String message, [MaterialColor color = Colors.red]) {
+    _scaffoldKey.currentState.showSnackBar(
+      new SnackBar(
+        backgroundColor: color,
+        content: new Text(
+          message,
+          style: TextStyle(
+            fontSize: EventSizedConstants.TextappBarSize,
+            fontWeight: FontWeight.bold,
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            color: Colors.white,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 3.0,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 8.0,
+                color: Color.fromARGB(125, 0, 0, 255),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

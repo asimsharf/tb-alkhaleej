@@ -271,6 +271,10 @@ class _RatingState extends State<Rating> {
                   Colors.blue,
                 ),
           );
+
+      Timer(Duration(seconds: 2), () {
+        Navigator.pop(context);
+      });
     } else {
       showMessage("من فضلك اكتب تقييم عن الخدمات", Colors.red);
       FocusScope.of(context).requestFocus(

@@ -171,7 +171,7 @@ class RegisterPageState extends State<RegisterPage> {
 //------------------------------------------------------------------------------
   Widget _firstNameContainer() {
     return new Container(
-      height: 40.0,
+      height: 70.0,
       child: new TextFormField(
           controller: firstNameController,
           decoration: InputDecoration(
@@ -192,7 +192,7 @@ class RegisterPageState extends State<RegisterPage> {
 
   Widget _lastNameContainer() {
     return new Container(
-        height: 40.0,
+        height: 70.0,
         child: new TextFormField(
             controller: lastNameController,
             decoration: InputDecoration(
@@ -211,7 +211,7 @@ class RegisterPageState extends State<RegisterPage> {
 
   Widget _selectedGender() {
     return Container(
-      height: 40.0,
+      height: 70.0,
       child: new FormField<String>(
         builder: (FormFieldState<String> state) {
           return InputDecorator(
@@ -256,6 +256,7 @@ class RegisterPageState extends State<RegisterPage> {
 
   Widget _dateOfBarth() {
     return Container(
+      height: 70.0,
       child: new TextFormField(
         decoration: new InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
@@ -299,7 +300,7 @@ class RegisterPageState extends State<RegisterPage> {
 //------------------------------------------------------------------------------
   Widget _emailContainer() {
     return new Container(
-      height: 40.0,
+      height: 70.0,
       child: new TextFormField(
           controller: emailController,
           decoration: InputDecoration(
@@ -314,14 +315,14 @@ class RegisterPageState extends State<RegisterPage> {
                 fontWeight: FontWeight.bold,
               )),
           keyboardType: TextInputType.emailAddress),
-      margin: EdgeInsets.only(bottom: 10.0),
+      margin: EdgeInsets.only(bottom: 5.0),
     );
   }
 
 //------------------------------------------------------------------------------
   Widget _passwordContainer() {
     return new Container(
-        height: 40.0,
+        height: 70.0,
         child: new TextFormField(
           controller: passwordController,
           decoration: InputDecoration(
@@ -336,12 +337,12 @@ class RegisterPageState extends State<RegisterPage> {
           keyboardType: TextInputType.text,
           obscureText: true,
         ),
-        margin: EdgeInsets.only(bottom: 35.0));
+        margin: EdgeInsets.only(bottom: 5.0));
   }
 
   Widget _phoneContainer() {
     return new Container(
-      height: 40.0,
+      height: 70.0,
       child: new TextFormField(
           controller: phoneController,
           decoration: InputDecoration(
@@ -374,7 +375,7 @@ class RegisterPageState extends State<RegisterPage> {
           padding: EdgeInsets.all(15.0),
           onPressed: _registerButtonAction,
         ),
-        margin: EdgeInsets.only(bottom: 30.0));
+        margin: EdgeInsets.only(bottom: 10.0));
   }
 
 //------------------------------------------------------------------------------

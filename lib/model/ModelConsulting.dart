@@ -13,22 +13,25 @@ class ModelConsulting {
   final Address address;
   final Logo logo;
   final List<dynamic> committee;
+  final List<dynamic> days;
 
-  ModelConsulting(
-      {this.id,
-      this.name,
-      this.email,
-      this.description,
-      this.close,
-      this.open,
-      this.isActive,
-      this.inviled,
-      this.lat,
-      this.lang,
-        this.centerType,
-      this.address,
-      this.logo,
-        this.committee});
+  ModelConsulting({
+    this.id,
+    this.name,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.isActive,
+    this.inviled,
+    this.lat,
+    this.lang,
+    this.centerType,
+    this.address,
+    this.logo,
+    this.committee,
+    this.days,
+  });
 
   factory ModelConsulting.fromJson(Map<String, dynamic> json) {
     return ModelConsulting(
@@ -46,12 +49,18 @@ class ModelConsulting {
       address: Address.fromJson(json['address']),
       logo: Logo.fromJson(json['logo']),
       committee: _committee(json['committee']),
+      days: _days(json['days']),
     );
   }
 
   static List<dynamic> _committee(committee) {
     List<dynamic> _committee = new List<dynamic>.from(committee);
     return _committee;
+  }
+
+  static List<dynamic> _days(days) {
+    List<dynamic> _days = new List<dynamic>.from(days);
+    return _days;
   }
 }
 
