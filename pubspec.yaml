@@ -21,8 +21,7 @@ dependencies:
   flutter_calendar: ^0.0.8
   flutter_calendar_carousel: ^1.3.10
   flutter_datetime_picker:
-  image_picker: ^0.5.3+1
-  firebase_storage: ^2.1.0+1
+
 
   dio: ^2.1.13
   scoped_model: ^1.0.1

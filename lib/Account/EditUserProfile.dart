@@ -212,6 +212,7 @@ class EditUserProfileState extends State<EditUserProfile> {
     return Container(
       height: 40.0,
       child: new FormField<String>(
+        enabled: false,
         builder: (FormFieldState<String> state) {
           return InputDecorator(
             decoration: InputDecoration(
@@ -257,6 +258,7 @@ class EditUserProfileState extends State<EditUserProfile> {
     return Container(
       height: 40.0,
       child: new TextFormField(
+        enabled: false,
         decoration: new InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
           prefixIcon: const Icon(Icons.calendar_today),

@@ -73,7 +73,7 @@ class _RatingState extends State<Rating> {
                     fit: BoxFit.cover,
                     placeholder: 'assets/avatar_person.png',
                     image:
-                    'http://23.111.185.155:3000/uploads/files/${widget.logo}',
+                        'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -219,7 +219,7 @@ class _RatingState extends State<Rating> {
                                             offset: Offset(3.0, 3.0),
                                             blurRadius: 8.0,
                                             color:
-                                            Color.fromARGB(125, 0, 0, 255),
+                                                Color.fromARGB(125, 0, 0, 255),
                                           ),
                                         ])),
                               ),
@@ -248,12 +248,14 @@ class _RatingState extends State<Rating> {
       );
       var createRate = new Rating_api_response();
       createRate.createPost(newPost).then(
-            (value) =>
-            showMessage(
-              'شكراً لتقييمك...',
-              Colors.blue,
-            ),
-      );
+            (value) => showMessage(
+                  'شكراً لتقييمك...',
+                  Colors.blue,
+                ),
+          );
+      Timer(Duration(seconds: 2), () {
+        Navigator.pop(context);
+      });
     } else {
       showMessage("من فضلك اكتب تقييم عن الخدمات", Colors.red);
       FocusScope.of(context).requestFocus(

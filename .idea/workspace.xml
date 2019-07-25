@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="390301e8-d526-4dae-8f51-57a1c48cf9b1" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/lib/model/ModelClients.dart" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/lib/api/Cancel_booking_api_response.dart" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -14,11 +14,13 @@
       <change beforePath="$PROJECT_DIR$/lib/Account/UserProfile.dart" afterPath="$PROJECT_DIR$/lib/Account/UserProfile.dart" />
       <change beforePath="$PROJECT_DIR$/lib/I10n/messages_ar.dart" afterPath="$PROJECT_DIR$/lib/I10n/messages_ar.dart" />
       <change beforePath="$PROJECT_DIR$/lib/I10n/messages_en.dart" afterPath="$PROJECT_DIR$/lib/I10n/messages_en.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/Language/translation_strings.dart" afterPath="$PROJECT_DIR$/lib/Language/translation_strings.dart" />
       <change beforePath="$PROJECT_DIR$/lib/MainPage.dart" afterPath="$PROJECT_DIR$/lib/MainPage.dart" />
       <change beforePath="$PROJECT_DIR$/lib/Screen/Booking/Book.dart" afterPath="$PROJECT_DIR$/lib/Screen/Booking/Book.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/Screen/Booking/ConfirmBooking.dart" afterPath="$PROJECT_DIR$/lib/Screen/Booking/ConfirmBooking.dart" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/Booking/BookingHistory.dart" afterPath="$PROJECT_DIR$/lib/Screen/Booking/BookingHistory.dart" />
+      <change beforePath="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart" afterPath="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart" />
+      <change beforePath="$PROJECT_DIR$/lib/Static/Rating.dart" afterPath="$PROJECT_DIR$/lib/Static/Rating.dart" />
       <change beforePath="$PROJECT_DIR$/lib/Static/SplashScreenPage.dart" afterPath="$PROJECT_DIR$/lib/Static/SplashScreenPage.dart" />
+      <change beforePath="$PROJECT_DIR$/lib/model/ModelBookingHistory.dart" afterPath="$PROJECT_DIR$/lib/model/ModelBookingHistory.dart" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" afterPath="$PROJECT_DIR$/pubspec.lock" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" afterPath="$PROJECT_DIR$/pubspec.yaml" />
     </list>
@@ -31,111 +33,87 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="messages_ar.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/I10n/messages_ar.dart">
+      <file leaf-file-name="Centers.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Screen/Centers/Centers.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="35" column="75" lean-forward="false" selection-start-line="35" selection-start-column="75" selection-end-line="35" selection-end-column="75" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="messages_en.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/I10n/messages_en.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="35" column="71" lean-forward="false" selection-start-line="35" selection-start-column="71" selection-end-line="35" selection-end-column="71" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="translation_strings.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Language/translation_strings.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="75" column="20" lean-forward="false" selection-start-line="75" selection-start-column="20" selection-end-line="75" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserProfile.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Account/UserProfile.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1925">
-              <caret line="240" column="49" lean-forward="false" selection-start-line="240" selection-start-column="49" selection-end-line="240" selection-end-column="49" />
+            <state relative-caret-position="-50">
+              <caret line="36" column="49" lean-forward="false" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
               <folding>
-                <element signature="e#2773#3987#0" expanded="false" />
-                <element signature="e#4016#5227#0" expanded="false" />
-                <element signature="e#5256#6471#0" expanded="false" />
-                <element signature="e#6500#7718#0" expanded="false" />
-                <element signature="e#7747#8953#0" expanded="false" />
-                <element signature="e#10120#10128#0" expanded="true" />
+                <element signature="e#1060#1108#0" expanded="false" />
+                <element signature="e#3488#3591#0" expanded="false" />
+                <element signature="e#3624#3868#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditUserProfile.dart" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/Account/EditUserProfile.dart">
+      <file leaf-file-name="Consulting.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/Consulting.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+            <state relative-caret-position="-2700">
+              <caret line="95" column="55" lean-forward="false" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConsultingDetails.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/ConsultingDetails.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="96" column="78" lean-forward="true" selection-start-line="96" selection-start-column="78" selection-end-line="96" selection-end-column="78" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConsultingSpecialty.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="77" column="4" lean-forward="true" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="4" />
               <folding>
-                <element signature="e#19#58#0" expanded="true" />
-                <element signature="e#3134#3142#0" expanded="true" />
-                <element signature="e#3377#3385#0" expanded="true" />
-                <element signature="e#3458#3466#0" expanded="true" />
-                <element signature="e#5823#6384#0" expanded="false" />
-                <element signature="e#6416#6997#0" expanded="false" />
-                <element signature="e#7026#8452#0" expanded="false" />
-                <element signature="e#7096#7104#0" expanded="true" />
-                <element signature="e#7138#7146#0" expanded="true" />
-                <element signature="e#7861#7869#0" expanded="true" />
-                <element signature="e#8239#8247#0" expanded="true" />
-                <element signature="e#8478#9615#0" expanded="false" />
-                <element signature="e#9725#10364#0" expanded="false" />
-                <element signature="e#10477#11120#0" expanded="false" />
-                <element signature="e#11149#11705#0" expanded="false" />
-                <element signature="e#11824#13101#0" expanded="false" />
-                <element signature="e#12535#12543#0" expanded="true" />
-                <element signature="e#13210#13654#0" expanded="false" />
-                <element signature="e#13741#13880#0" expanded="false" />
-                <element signature="e#13994#15480#0" expanded="false" />
-                <element signature="e#15703#17175#0" expanded="false" />
-                <element signature="e#17285#17411#0" expanded="false" />
+                <element signature="e#6780#6788#0" expanded="true" />
+                <element signature="e#6871#6879#0" expanded="true" />
+                <element signature="e#7736#7744#0" expanded="true" />
+                <element signature="e#8439#8447#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register_page.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart">
+      <file leaf-file-name="BookingHistory.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/Screen/Booking/BookingHistory.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="156" column="57" lean-forward="true" selection-start-line="156" selection-start-column="57" selection-end-line="156" selection-end-column="57" />
+            <state relative-caret-position="150">
+              <caret line="230" column="38" lean-forward="false" selection-start-line="230" selection-start-column="38" selection-end-line="232" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rating.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/Static/Rating.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <element signature="e#5810#6371#0" expanded="false" />
-                <element signature="e#6403#6984#0" expanded="false" />
-                <element signature="e#7013#8439#0" expanded="false" />
-                <element signature="e#7083#7091#0" expanded="true" />
-                <element signature="e#7125#7133#0" expanded="true" />
-                <element signature="e#7848#7856#0" expanded="true" />
-                <element signature="e#8226#8234#0" expanded="true" />
-                <element signature="e#8465#9648#0" expanded="false" />
+                <element signature="e#2650#2657#0" expanded="true" />
+                <element signature="e#4713#4721#0" expanded="true" />
+                <element signature="e#5066#5074#0" expanded="true" />
+                <element signature="e#5145#5153#0" expanded="true" />
+                <element signature="e#7345#7353#0" expanded="true" />
+                <element signature="e#8424#8432#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModelClients.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/model/ModelClients.dart">
+      <file leaf-file-name="Cancel_booking_api_response.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/api/Cancel_booking_api_response.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="8" lean-forward="true" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="18" />
+            <state relative-caret-position="275">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -152,8 +130,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>modelCenters</find>
-      <find>rating</find>
       <find>http://23.111.185.155:3000/uploads/avtar/</find>
       <find>http://23.111.185.155:3000/uploads/</find>
       <find>تقييم</find>
@@ -182,9 +158,10 @@
       <find>UserP</find>
       <find>Clients</find>
       <find>RegisterPage</find>
+      <find>createPost</find>
+      <find>Post</find>
     </findStrings>
     <replaceStrings>
-      <replace>MyStelppersTow</replace>
       <replace>currStep</replace>
       <replace>MyStelppers</replace>
       <replace>0xFF13A1C5</replace>
@@ -214,6 +191,7 @@
       <replace>genderController</replace>
       <replace>ModelClients</replace>
       <replace>EditUserProfile</replace>
+      <replace>ModelBookingHistory</replace>
     </replaceStrings>
     <dirStrings>
       <dir>E:\ASIM-2019-5-8\MOBILE_APP\DEV\tb_alkhalij\Arabic-RTL-Internationalization</dir>
@@ -236,8 +214,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/customviews/progress_dialog.dart" />
-        <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/utils/constants.dart" />
         <option value="$PROJECT_DIR$/lib/ui_widgets/SizedText.dart" />
         <option value="$PROJECT_DIR$/lib/Static/About.dart" />
         <option value="$PROJECT_DIR$/lib/Static/Filter.dart" />
@@ -249,14 +225,12 @@
         <option value="$PROJECT_DIR$/lib/model/ModelClinic.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Consulting/Consulting.dart" />
         <option value="$PROJECT_DIR$/lib/model/ModelConsulting.dart" />
-        <option value="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart" />
         <option value="$PROJECT_DIR$/lib/model/ModelPharmacy.dart" />
         <option value="$PROJECT_DIR$/lib/ui_widgets/TextIcon.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Clinic/Clinic.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Clinic/ClinicDepartment.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Insurance/Insurance.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Pharmacy/pharmacy.dart" />
-        <option value="$PROJECT_DIR$/lib/Screen/Booking/BookingHistory.dart" />
         <option value="$PROJECT_DIR$/lib/model/ModelInsurancesCenters.dart" />
         <option value="$PROJECT_DIR$/lib/api/APIsServices.dart" />
         <option value="$PROJECT_DIR$/lib/model/Post.dart" />
@@ -264,8 +238,6 @@
         <option value="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingDetails.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Pharmacy/pharmacyDetails.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Insurance/InsuranceDetails.dart" />
-        <option value="$PROJECT_DIR$/lib/Static/Rating.dart" />
-        <option value="$PROJECT_DIR$/lib/api/Rating_api_response.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Insurance/InsuranceCenterDetails.dart" />
         <option value="C:/flutter/packages/flutter/lib/src/material/date_picker.dart" />
         <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart" />
@@ -276,9 +248,7 @@
         <option value="$PROJECT_DIR$/lib/Screen/Booking/Book.dart" />
         <option value="$PROJECT_DIR$/lib/Screen/Booking/ConfirmBooking.dart" />
         <option value="$PROJECT_DIR$/lib/Static/SplashScreenPage.dart" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/lib/Account/ProfilePage.dart" />
-        <option value="$PROJECT_DIR$/lib/MainPage.dart" />
         <option value="$PROJECT_DIR$/lib/Static/routes.dart" />
         <option value="$PROJECT_DIR$/lib/model/ModelClients.dart" />
         <option value="$PROJECT_DIR$/lib/Account/UserProfile.dart" />
@@ -287,6 +257,14 @@
         <option value="$PROJECT_DIR$/lib/Language/translation_strings.dart" />
         <option value="$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart" />
         <option value="$PROJECT_DIR$/lib/Account/EditUserProfile.dart" />
+        <option value="$PROJECT_DIR$/lib/MainPage.dart" />
+        <option value="$PROJECT_DIR$/lib/api/Rating_api_response.dart" />
+        <option value="$PROJECT_DIR$/lib/model/ModelBookingHistory.dart" />
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart" />
+        <option value="$PROJECT_DIR$/lib/api/Cancel_booking_api_response.dart" />
+        <option value="$PROJECT_DIR$/lib/Screen/Booking/BookingHistory.dart" />
+        <option value="$PROJECT_DIR$/lib/Static/Rating.dart" />
       </list>
     </option>
   </component>
@@ -348,19 +326,13 @@
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="Account" type="462c0819:PsiDirectoryNode" />
               <item name="UserLoginRegister" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="futures" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="tb_alkhalij" type="b2602c69:ProjectViewProjectNode" />
               <item name="tb_alkhalij" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="I10n" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tb_alkhalij" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tb_alkhalij" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="Language" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="tb_alkhalij" type="b2602c69:ProjectViewProjectNode" />
@@ -393,40 +365,13 @@
               <item name="tb_alkhalij" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="Screen" type="462c0819:PsiDirectoryNode" />
-              <item name="Clinic" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tb_alkhalij" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tb_alkhalij" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="Screen" type="462c0819:PsiDirectoryNode" />
               <item name="Consulting" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="tb_alkhalij" type="b2602c69:ProjectViewProjectNode" />
               <item name="tb_alkhalij" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="Screen" type="462c0819:PsiDirectoryNode" />
-              <item name="Insurance" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tb_alkhalij" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tb_alkhalij" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="Screen" type="462c0819:PsiDirectoryNode" />
-              <item name="Pharmacy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tb_alkhalij" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tb_alkhalij" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="Static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tb_alkhalij" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tb_alkhalij" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="ui_widgets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -681,7 +626,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564031899660</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="2019-25-7&#10;last update for register design page and edit profile page form">
+      <created>1564045412254</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1564045412254</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -699,28 +651,28 @@
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24857469" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24857469" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Dart Analysis" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39794755" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1972634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.53021663" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6123147" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Flutter Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Flutter Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17883995" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3990878" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Flutter Inspector" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Flutter Inspector" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -736,36 +688,19 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="2019-13-7&#10;This is the last update for tb alkhaleej application" />
-    <option name="LAST_COMMIT_MESSAGE" value="2019-13-7&#10;This is the last update for tb alkhaleej application" />
+    <MESSAGE value="2019-25-7&#10;last update for register design page and edit profile page form" />
+    <option name="LAST_COMMIT_MESSAGE" value="2019-25-7&#10;last update for register design page and edit profile page form" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="21" />
+      <option name="time" value="22" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/model/ModelPharmacy.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1246">
-          <caret line="52" column="46" lean-forward="true" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
-          <folding>
-            <element signature="e#1365#1374#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui_widgets/SizedText.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="46" lean-forward="true" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -792,14 +727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/Consulting.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/Screen/Clinic/ClinicDepartment.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-34">
@@ -812,14 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="291" column="14" lean-forward="false" selection-start-line="291" selection-start-column="14" selection-end-line="291" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Screen/Booking/BookingHistory.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -848,34 +767,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/model/Post.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="52" lean-forward="false" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/Screen/Pharmacy/pharmacy.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="174" column="0" lean-forward="false" selection-start-line="174" selection-start-column="0" selection-end-line="174" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="181" column="41" lean-forward="true" selection-start-line="181" selection-start-column="41" selection-end-line="181" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/ConsultingDetails.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="249" column="29" lean-forward="false" selection-start-line="249" selection-start-column="29" selection-end-line="249" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -904,16 +799,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/api/Rating_api_response.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="17" column="22" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#20#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/model/ModelRating.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-997">
@@ -935,20 +820,6 @@
         <state relative-caret-position="-4678">
           <caret line="80" column="28" lean-forward="true" selection-start-line="80" selection-start-column="28" selection-end-line="80" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Static/Rating.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="11" column="15" lean-forward="false" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#20#0" expanded="false" />
-            <element signature="e#794#809#0" expanded="false" />
-            <element signature="e#1063#1071#0" expanded="false" />
-            <element signature="e#1496#1504#0" expanded="false" />
-            <element signature="e#2194#2202#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -975,14 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
           <caret line="220" column="11" lean-forward="false" selection-start-line="220" selection-start-column="11" selection-end-line="220" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="53" column="43" lean-forward="true" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1068,33 +931,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Static/SplashScreenPage.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="24" column="45" lean-forward="true" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/LoginPage.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1133">
           <caret line="198" column="29" lean-forward="true" selection-start-line="198" selection-start-column="29" selection-end-line="198" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/Screen/Centers/Centers.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
-          <folding>
-            <element signature="e#1060#1108#0" expanded="false" />
-            <element signature="e#3488#3591#0" expanded="false" />
-            <element signature="e#3624#3868#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1124,14 +965,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/MainPage.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="256" column="24" lean-forward="true" selection-start-line="256" selection-start-column="24" selection-end-line="256" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/Static/routes.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
@@ -1139,14 +972,6 @@
           <folding>
             <element signature="e#0#39#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1161,7 +986,7 @@
     <entry file="file://$PROJECT_DIR$/lib/model/ModelClients.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="8" lean-forward="true" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="18" />
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1169,7 +994,7 @@
     <entry file="file://$PROJECT_DIR$/lib/I10n/messages_ar.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="367">
-          <caret line="35" column="75" lean-forward="false" selection-start-line="35" selection-start-column="75" selection-end-line="35" selection-end-column="75" />
+          <caret line="35" column="59" lean-forward="false" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
           <folding />
         </state>
       </provider>
@@ -1177,7 +1002,7 @@
     <entry file="file://$PROJECT_DIR$/lib/I10n/messages_en.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
-          <caret line="35" column="71" lean-forward="false" selection-start-line="35" selection-start-column="71" selection-end-line="35" selection-end-column="71" />
+          <caret line="35" column="67" lean-forward="false" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
           <folding />
         </state>
       </provider>
@@ -1192,18 +1017,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/pages/register_page.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="156" column="57" lean-forward="true" selection-start-line="156" selection-start-column="57" selection-end-line="156" selection-end-column="57" />
+        <state relative-caret-position="294">
+          <caret line="156" column="71" lean-forward="true" selection-start-line="156" selection-start-column="71" selection-end-line="156" selection-end-column="71" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <element signature="e#5810#6371#0" expanded="false" />
-            <element signature="e#6403#6984#0" expanded="false" />
-            <element signature="e#7013#8439#0" expanded="false" />
-            <element signature="e#7083#7091#0" expanded="true" />
-            <element signature="e#7125#7133#0" expanded="true" />
-            <element signature="e#7848#7856#0" expanded="true" />
-            <element signature="e#8226#8234#0" expanded="true" />
-            <element signature="e#8465#9648#0" expanded="false" />
+            <element signature="e#0#39#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1213,43 +1030,161 @@
         <state relative-caret-position="1925">
           <caret line="240" column="49" lean-forward="false" selection-start-line="240" selection-start-column="49" selection-end-line="240" selection-end-column="49" />
           <folding>
-            <element signature="e#2773#3987#0" expanded="false" />
-            <element signature="e#4016#5227#0" expanded="false" />
-            <element signature="e#5256#6471#0" expanded="false" />
-            <element signature="e#6500#7718#0" expanded="false" />
-            <element signature="e#7747#8953#0" expanded="false" />
-            <element signature="e#10120#10128#0" expanded="true" />
+            <element signature="e#10120#10128#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/MainPage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="189" column="18" lean-forward="true" selection-start-line="189" selection-start-column="18" selection-end-line="189" selection-end-column="18" />
+          <folding>
+            <element signature="e#2181#4155#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/Account/EditUserProfile.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+        <state relative-caret-position="62">
+          <caret line="74" column="80" lean-forward="true" selection-start-line="74" selection-start-column="80" selection-end-line="74" selection-end-column="80" />
           <folding>
-            <element signature="e#19#58#0" expanded="true" />
-            <element signature="e#3134#3142#0" expanded="true" />
-            <element signature="e#3377#3385#0" expanded="true" />
-            <element signature="e#3458#3466#0" expanded="true" />
-            <element signature="e#5823#6384#0" expanded="false" />
-            <element signature="e#6416#6997#0" expanded="false" />
-            <element signature="e#7026#8452#0" expanded="false" />
-            <element signature="e#7096#7104#0" expanded="true" />
-            <element signature="e#7138#7146#0" expanded="true" />
-            <element signature="e#7861#7869#0" expanded="true" />
-            <element signature="e#8239#8247#0" expanded="true" />
-            <element signature="e#8478#9615#0" expanded="false" />
-            <element signature="e#9725#10364#0" expanded="false" />
-            <element signature="e#10477#11120#0" expanded="false" />
-            <element signature="e#11149#11705#0" expanded="false" />
-            <element signature="e#11824#13101#0" expanded="false" />
-            <element signature="e#12535#12543#0" expanded="true" />
-            <element signature="e#13210#13654#0" expanded="false" />
-            <element signature="e#13741#13880#0" expanded="false" />
-            <element signature="e#13994#15480#0" expanded="false" />
-            <element signature="e#15703#17175#0" expanded="false" />
-            <element signature="e#17285#17411#0" expanded="false" />
+            <element signature="e#19#58#0" expanded="false" />
+            <element signature="e#3134#3142#0" expanded="false" />
+            <element signature="e#3377#3385#0" expanded="false" />
+            <element signature="e#3458#3466#0" expanded="false" />
+            <element signature="e#4827#4835#0" expanded="false" />
+            <element signature="e#7096#7104#0" expanded="false" />
+            <element signature="e#7162#7170#0" expanded="false" />
+            <element signature="e#7885#7893#0" expanded="false" />
+            <element signature="e#8263#8271#0" expanded="false" />
+            <element signature="e#8502#9663#0" expanded="false" />
+            <element signature="e#12583#12591#0" expanded="false" />
+            <element signature="e#15751#17223#0" expanded="false" />
+            <element signature="e#17333#17459#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/model/Post.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/api/Rating_api_response.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#20#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/model/ModelBookingHistory.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="10" column="2" lean-forward="false" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Static/SplashScreenPage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="22" column="29" lean-forward="false" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Screen/Centers/Centers.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-50">
+          <caret line="36" column="49" lean-forward="false" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
+          <folding>
+            <element signature="e#1060#1108#0" expanded="false" />
+            <element signature="e#3488#3591#0" expanded="false" />
+            <element signature="e#3624#3868#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/Consulting.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2700">
+          <caret line="95" column="55" lean-forward="false" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Account/UserLoginRegister/futures/app_futures.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="61" column="22" lean-forward="true" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/ConsultingSpecialty.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="77" column="4" lean-forward="true" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="4" />
+          <folding>
+            <element signature="e#6780#6788#0" expanded="true" />
+            <element signature="e#6871#6879#0" expanded="true" />
+            <element signature="e#7736#7744#0" expanded="true" />
+            <element signature="e#8439#8447#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Screen/Consulting/ConsultingDetails.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="96" column="78" lean-forward="true" selection-start-line="96" selection-start-column="78" selection-end-line="96" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/api/Cancel_booking_api_response.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Screen/Booking/BookingHistory.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="230" column="38" lean-forward="false" selection-start-line="230" selection-start-column="38" selection-end-line="232" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Static/Rating.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
+          <folding>
+            <element signature="e#2650#2657#0" expanded="true" />
+            <element signature="e#4713#4721#0" expanded="true" />
+            <element signature="e#5066#5074#0" expanded="true" />
+            <element signature="e#5145#5153#0" expanded="true" />
+            <element signature="e#7345#7353#0" expanded="true" />
+            <element signature="e#8424#8432#0" expanded="true" />
           </folding>
         </state>
       </provider>
