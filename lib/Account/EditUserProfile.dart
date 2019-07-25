@@ -253,6 +253,7 @@ class EditUserProfileState extends State<EditUserProfile> {
     return Container(
       height: 40.0,
       child: new FormField<String>(
+        enabled: false,
         builder: (FormFieldState<String> state) {
           return InputDecorator(
             decoration: InputDecoration(

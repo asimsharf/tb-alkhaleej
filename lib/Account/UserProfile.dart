@@ -69,9 +69,7 @@ class _UserProfileState extends State<UserProfile>
         slivers: <Widget>[
           new SliverAppBar(
             title: Text(
-              Translations
-                  .of(context)
-                  .profile,
+              Translations.of(context).profile,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: ArabicFonts.Cairo,
@@ -129,9 +127,7 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(Translations
-                          .of(context)
-                          .name,
+                      Text(Translations.of(context).name,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -159,9 +155,7 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(Translations
-                          .of(context)
-                          .phone,
+                      Text(Translations.of(context).phone,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -189,9 +183,7 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(Translations
-                          .of(context)
-                          .dateOfBarth,
+                      Text(Translations.of(context).dateOfBarth,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -219,9 +211,7 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(Translations
-                          .of(context)
-                          .email,
+                      Text(Translations.of(context).email,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -249,9 +239,7 @@ class _UserProfileState extends State<UserProfile>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(Translations
-                          .of(context)
-                          .gender,
+                      Text(Translations.of(context).gender,
                           textAlign: TextAlign.right,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
@@ -296,9 +284,7 @@ class _UserProfileState extends State<UserProfile>
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: new Text(
-                    Translations
-                        .of(context)
-                        .edite_profile_user,
+                    Translations.of(context).edite_profile_user,
                     style: TextStyle(
                       fontFamily: ArabicFonts.Cairo,
                       package: 'google_fonts_arabic',

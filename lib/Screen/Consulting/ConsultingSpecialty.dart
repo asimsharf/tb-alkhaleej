@@ -33,7 +33,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
 
   void _getCenterNames() async {
     final response = await dio
-        .get('http://23.111.185.155:3000/api/center/${widget.id}/department');
+        .get('http://23.111.185.155:3000/api/center/${widget.id}/Specialty');
     List<ModelConsultingSpecialty> tempList = <ModelConsultingSpecialty>[];
     for (int i = 0; i < response.data['departments'].length; i++) {
       var rest = response.data['departments'] as List;

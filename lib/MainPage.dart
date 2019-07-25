@@ -185,8 +185,7 @@ class _MainPageState extends State<MainPage> {
                   child: FadeInImage.assetNetwork(
                     fit: BoxFit.fill,
                     placeholder: 'assets/logo.png',
-                    image:
-                    'http://23.111.185.155:3000/uploads/user-default-avatar.png',
+                    image: 'assets/avatar_person.png',
                   ),
                 ),
               ),
