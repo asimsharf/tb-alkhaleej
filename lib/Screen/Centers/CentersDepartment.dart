@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Screen/Booking/Book.dart';
 import 'package:tb_alkhalij/model/ModelCentersDepartment.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -289,38 +291,62 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                       ),
                                     ),
                                     new MaterialButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                Book(
-                                                  id: widget.id,
-                                                  centerId: widget.centerId,
-                                                  departmentId:
-                                                  _centersDepartmentObj.id,
-                                                  name: _centersDepartmentObj
-                                                      .name,
-                                                  description:
-                                                  _centersDepartmentObj
-                                                      .description,
-                                                  logo: _centersDepartmentObj
-                                                      .image.filename,
-                                                  close: widget.close,
-                                                  open: widget.open,
-                                                  country: widget.country,
-                                                  postcode: widget.postcode,
-                                                  state: widget.state,
-                                                  street1: widget.street1,
-                                                  suburb: widget.suburb,
-                                                  centerType: widget.centerType,
-                                                  lang: widget.lang,
-                                                  lat: widget.lat,
-                                                  committee: widget.committee,
-                                                  days: widget.days,
+                                      onPressed: () async {
+                                        bool isLoggedIn =
+                                        await AppSharedPreferences
+                                            .isUserLoggedIn();
+                                        if (this.mounted) {
+                                          setState(() {
+                                            if (isLoggedIn != null &&
+                                                isLoggedIn) {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Book(
+                                                        id: widget.id,
+                                                        centerId:
+                                                        widget.centerId,
+                                                        departmentId:
+                                                        _centersDepartmentObj
+                                                            .id,
+                                                        name:
+                                                        _centersDepartmentObj
+                                                            .name,
+                                                        description:
+                                                        _centersDepartmentObj
+                                                            .description,
+                                                        logo:
+                                                        _centersDepartmentObj
+                                                            .image.filename,
+                                                        close: widget.close,
+                                                        open: widget.open,
+                                                        country: widget.country,
+                                                        postcode:
+                                                        widget.postcode,
+                                                        state: widget.state,
+                                                        street1: widget.street1,
+                                                        suburb: widget.suburb,
+                                                        centerType:
+                                                        widget.centerType,
+                                                        lang: widget.lang,
+                                                        lat: widget.lat,
+                                                        committee:
+                                                        widget.committee,
+                                                        days: widget.days,
+                                                      ),
                                                 ),
-                                          ),
-                                        );
+                                              );
+                                            } else {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                new MaterialPageRoute(
+                                                    builder: (context) =>
+                                                    new LoginPage()),
+                                              );
+                                            }
+                                          });
+                                        }
                                       },
                                       color: Color(0xFFE91E63),
                                       splashColor: Color(0xFFFF1B5E),

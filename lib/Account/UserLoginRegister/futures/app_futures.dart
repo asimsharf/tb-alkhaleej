@@ -29,7 +29,9 @@ Future<EventObject> loginUser(String emailId, String password) async {
   try {
     final response = await http.get(baseurl + emailId + '/' + password,
         headers: {"Accept": "application/json"});
-
+    print("#######: response login user: ");
+    print(response.body);
+    print("#######: response login user: ");
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
@@ -52,6 +54,21 @@ Future<EventObject> loginUser(String emailId, String password) async {
   }
 }
 
+String _toJson(String firstName, String lastName, String gender, String phone,
+    String email, String password, String birthDate) {
+  var mapData = new Map();
+  mapData["name.first"] = firstName;
+  mapData["name.last"] = lastName;
+  mapData["gender"] = gender;
+  mapData["phone"] = phone;
+  mapData["email"] = email;
+  mapData["password"] = password;
+  mapData["birth_day"] = birthDate;
+  String json = jsonEncode(mapData);
+
+  return json;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 Future<EventObject> registerUser(
     String firstName,
@@ -61,73 +78,31 @@ Future<EventObject> registerUser(
     String email,
     String password,
     String birthDate) async {
-//  router.get('/client/register/:city_id/:address_text/:identity_number/:name/:gender/:phone/:email/:password/:birth_date', client_controller.create_client);
-//  http://23.111.185.155:4000/takaful/api/client/register/1/'khartoum'/'1122335'/'adam'/1/'0925505684'/'a@a.com'/'123'/'2019-07-24'
-  ApiRequest apiRequest = new ApiRequest();
+  const _serviceUrl = 'http://23.111.185.155:3000/api/client/register';
+
+  final _headers = {'Content-Type': 'application/json'};
 
   try {
-    var genderTemp = '';
-    final encoding = APIConstants.OCTET_STREAM_ENCODING;
-    if (gender == 'ذكر') {
-      genderTemp += "1";
-    } else {
-      genderTemp += "2";
-    }
-
-    final response = await http.get(
-        'http://23.111.185.155:3000/api/client/register/' +
-            '\"' +
-            firstName +
-            '\"' +
-            '/' +
-            '\"' +
-            password +
-            '\"' +
-            '/' +
-            '\"' +
-            genderTemp +
-            '\"' +
-            '/' +
-            '\"' +
-            phone +
-            '\"' +
-            '/' +
-            '\"' +
-            email +
-            '\"' +
-            '/' +
-            '\"' +
-            birthDate +
-            '\"',
-        headers: {"Accept": "application/json"});
-
+    final response = await http.post(_serviceUrl,
+        headers: _headers,
+        body: _toJson(
+            firstName,
+            lastName,
+            gender,
+            phone,
+            email,
+            password,
+            birthDate));
     print("***********1****************");
     print(response.body.toString());
-    print("***********2****************");
-    print(encoding.toString());
-    print("***********3****************");
-    print('http://23.111.185.155:3000/api/client/register/' +
-        firstName +
-        ' ' +
-        password +
-        '/' +
-        genderTemp +
-        '/' +
-        phone +
-        '/' +
-        email +
-        '/' +
-        '\"' +
-        birthDate +
-        '\"');
-    print("***********4****************");
-    print(json.encode(apiRequest.toJson()).toString());
-    print("***********5****************");
+
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
         final responseJson = json.decode(response.body);
+
         ApiResponse apiResponse = ApiResponse.fromJson(responseJson);
+
         if (apiResponse.result == APIOperations.SUCCESS) {
           return new EventObject(
               id: EventConstants.USER_REGISTRATION_SUCCESSFUL, object: null);
@@ -138,8 +113,7 @@ Future<EventObject> registerUser(
               id: EventConstants.USER_REGISTRATION_UN_SUCCESSFUL);
         }
       } else {
-        return new EventObject(
-            id: EventConstants.USER_REGISTRATION_UN_SUCCESSFUL);
+        return new EventObject(id: EventConstants.USER_ALREADY_REGISTERED);
       }
     } else {
       return new EventObject();

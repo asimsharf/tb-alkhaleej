@@ -431,13 +431,18 @@ class RegisterPageState extends State<RegisterPage> {
 
     FocusScope.of(context).requestFocus(new FocusNode());
     progressDialog.showProgress();
+    /*
+    * String firstName, String lastName, String gender, String phone,
+    String email, String password, String birthDate
+    * */
+
     _registerUser(
       firstNameController.text,
       lastNameController.text,
-      emailController.text,
       genderController.text,
-      passwordController.text,
       phoneController.text,
+      emailController.text,
+      passwordController.text,
       dateTimeController.text,
     );
   }

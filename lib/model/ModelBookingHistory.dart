@@ -55,12 +55,13 @@ class Logo {
   final String originalname;
   final String url;
 
-  Logo({this.filename,
-    this.size,
-    this.mimetype,
-    this.path,
-    this.originalname,
-    this.url});
+  Logo(
+      {this.filename,
+      this.size,
+      this.mimetype,
+      this.path,
+      this.originalname,
+      this.url});
 
   factory Logo.fromJson(Map<String, dynamic> json) {
     return Logo(

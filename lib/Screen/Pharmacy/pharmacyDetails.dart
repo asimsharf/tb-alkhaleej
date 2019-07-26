@@ -7,6 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/futures/app_futures.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Static/Rating.dart';
 import 'package:tb_alkhalij/model/ModelRating.dart';
@@ -259,20 +261,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                         ),
                       ),
                       new FlatButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  Rating(
-                                    id: widget.id,
-                                    name: widget.name,
-                                    logo: widget.logo,
-                                    centerId: widget.id,
-                                  ),
-                            ),
-                          );
-                        },
+                        onPressed: _handleTapEventRating,
                         child: new Text(
                           'تقييم',
                           style: TextStyle(
@@ -758,6 +747,33 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
       );
     }
     return _ratingList;
+  }
+
+  void _handleTapEventRating() async {
+    bool isLoggedIn = await AppSharedPreferences.isUserLoggedIn();
+    if (this.mounted) {
+      setState(() {
+        if (isLoggedIn != null && isLoggedIn) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  Rating(
+                    id: widget.id,
+                    centerId: widget.id,
+                    name: widget.name,
+                    logo: widget.logo,
+                  ),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            new MaterialPageRoute(builder: (context) => new LoginPage()),
+          );
+        }
+      });
+    }
   }
 }
 

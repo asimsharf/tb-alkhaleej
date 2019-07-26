@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Screen/Booking/Book.dart';
 import 'package:tb_alkhalij/model/ModelClinicDepartment.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -13,9 +15,44 @@ class ClinicDepartment extends StatefulWidget {
   final String id;
   final String centerId;
   final String name;
+  final String email;
+  final String description;
+  final String close;
+  final String open;
+  final String lat;
+  final String lang;
+  final bool isActive;
+  final bool inviled;
+  final String centerType;
+  final String country;
+  final String postcode;
+  final String state;
+  final String street1;
+  final String suburb;
+  final String logo;
   final List committee;
+  final List days;
 
-  ClinicDepartment({this.id, this.name, this.committee, this.centerId});
+  ClinicDepartment({this.id,
+    this.name,
+    this.committee,
+    this.centerId,
+    this.email,
+    this.description,
+    this.close,
+    this.open,
+    this.lat,
+    this.lang,
+    this.isActive,
+    this.inviled,
+    this.centerType,
+    this.country,
+    this.postcode,
+    this.state,
+    this.street1,
+    this.suburb,
+    this.logo,
+    this.days});
 
   @override
   _ClinicDepartmentState createState() => _ClinicDepartmentState();
@@ -253,26 +290,83 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
                                       ),
                                     ),
                                     new MaterialButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                Book(
-                                                  id: widget.id,
-                                                  centerId: widget.centerId,
-                                                  name:
-                                                  _clinicDepartmentObj.name,
-                                                  description:
-                                                  _clinicDepartmentObj
-                                                      .description,
-                                                  logo: _clinicDepartmentObj
-                                                      .image.filename,
-                                                  committee: widget.committee,
+                                      onPressed: () async {
+                                        bool isLoggedIn =
+                                        await AppSharedPreferences
+                                            .isUserLoggedIn();
+                                        if (this.mounted) {
+                                          setState(() {
+                                            if (isLoggedIn != null &&
+                                                isLoggedIn) {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Book(
+                                                        id: widget.id,
+                                                        centerId:
+                                                        widget.centerId,
+                                                        departmentId:
+                                                        _clinicDepartmentObj
+                                                            .id,
+                                                        name:
+                                                        _clinicDepartmentObj
+                                                            .name,
+                                                        description:
+                                                        _clinicDepartmentObj
+                                                            .description,
+                                                        logo:
+                                                        _clinicDepartmentObj
+                                                            .image.filename,
+                                                        close: widget.close,
+                                                        open: widget.open,
+                                                        country: widget.country,
+                                                        postcode:
+                                                        widget.postcode,
+                                                        state: widget.state,
+                                                        street1: widget.street1,
+                                                        suburb: widget.suburb,
+                                                        centerType:
+                                                        widget.centerType,
+                                                        lang: widget.lang,
+                                                        lat: widget.lat,
+                                                        committee:
+                                                        widget.committee,
+                                                        days: widget.days,
+                                                      ),
                                                 ),
-                                          ),
-                                        );
+                                              );
+                                            } else {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                new MaterialPageRoute(
+                                                    builder: (context) =>
+                                                    new LoginPage()),
+                                              );
+                                            }
+                                          });
+                                        }
                                       },
+//                                      onPressed: () {
+//                                        Navigator.push(
+//                                          context,
+//                                          MaterialPageRoute(
+//                                            builder: (context) =>
+//                                                Book(
+//                                                  id: widget.id,
+//                                                  centerId: widget.centerId,
+//                                                  name:
+//                                                  _clinicDepartmentObj.name,
+//                                                  description:
+//                                                  _clinicDepartmentObj
+//                                                      .description,
+//                                                  logo: _clinicDepartmentObj
+//                                                      .image.filename,
+//                                                  committee: widget.committee,
+//                                                ),
+//                                          ),
+//                                        );
+//                                      },
                                       color: Color(0xFFE91E63),
                                       splashColor: Color(0xFFFF1B5E),
                                       textColor: Colors.white,

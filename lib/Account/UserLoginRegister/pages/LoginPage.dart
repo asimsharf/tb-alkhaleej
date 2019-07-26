@@ -30,11 +30,12 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        key: globalKey,
-        backgroundColor: Colors.white,
-        body: new Stack(
-          children: <Widget>[_loginContainer(), progressDialog],
-        ));
+      key: globalKey,
+      backgroundColor: Colors.white,
+      body: new Stack(
+        children: <Widget>[_loginContainer(), progressDialog],
+      ),
+    );
   }
 
 //------------------------------------------------------------------------------
@@ -75,24 +76,26 @@ class LoginPageState extends State<LoginPage> {
   Widget _formContainer() {
     return new Container(
       child: new Form(
-          child: new Theme(
-              data: new ThemeData(primarySwatch: Colors.lightBlue),
-              child: Container(
-                padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                child: new Column(
-                  children: <Widget>[
+        child: new Theme(
+          data: new ThemeData(primarySwatch: Colors.lightBlue),
+          child: Container(
+            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+            child: new Column(
+              children: <Widget>[
 //------------------------------------------------------------------------------
-                    _emailContainer(),
+                _emailContainer(),
 //------------------------------------------------------------------------------
-                    _passwordContainer(),
+                _passwordContainer(),
 //------------------------------------------------------------------------------
-                    _loginButtonContainer(),
+                _loginButtonContainer(),
 //------------------------------------------------------------------------------
-                    _registerNowLabel(),
+                _registerNowLabel(),
 //------------------------------------------------------------------------------
-                  ],
-                ),
-              ))),
+              ],
+            ),
+          ),
+        ),
+      ),
       margin: EdgeInsets.only(top: 20.0, left: 25.0, right: 25.0),
     );
   }
@@ -100,57 +103,67 @@ class LoginPageState extends State<LoginPage> {
 //------------------------------------------------------------------------------
   Widget _emailContainer() {
     return new Container(
-        child: new TextFormField(
-            controller: emailController,
-            decoration: InputDecoration(
-                prefixIcon: Icon(Icons.mail_outline),
-                labelText: Translations.of(context).username,
-                fillColor: Color(0xFF37505D),
-                labelStyle: TextStyle(
-                  fontFamily: ArabicFonts.Cairo,
-                  package: 'google_fonts_arabic',
-                  fontWeight: FontWeight.bold,
-                )),
-            keyboardType: TextInputType.emailAddress),
-        margin: EdgeInsets.only(bottom: 20.0));
+      child: new TextFormField(
+        controller: emailController,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.mail_outline),
+          labelText: Translations
+              .of(context)
+              .username,
+          fillColor: Color(0xFF37505D),
+          labelStyle: TextStyle(
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        keyboardType: TextInputType.emailAddress,
+      ),
+      margin: EdgeInsets.only(bottom: 20.0),
+    );
   }
 
 //------------------------------------------------------------------------------
   Widget _passwordContainer() {
     return new Container(
-        child: new TextFormField(
-          controller: passwordController,
-          decoration: InputDecoration(
-              prefixIcon: Icon(Icons.lock),
-              labelText: Translations.of(context).password,
-              fillColor: Color(0xFF37505D),
-              labelStyle: TextStyle(
-                fontFamily: ArabicFonts.Cairo,
-                package: 'google_fonts_arabic',
-                fontWeight: FontWeight.bold,
-              )),
-          keyboardType: TextInputType.text,
-          obscureText: true,
+      child: new TextFormField(
+        controller: passwordController,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.lock),
+          labelText: Translations
+              .of(context)
+              .password,
+          fillColor: Color(0xFF37505D),
+          labelStyle: TextStyle(
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        margin: EdgeInsets.only(bottom: 35.0));
+        keyboardType: TextInputType.text,
+        obscureText: true,
+      ),
+      margin: EdgeInsets.only(bottom: 35.0),
+    );
   }
 
 //------------------------------------------------------------------------------
   Widget _loginButtonContainer() {
     return new Container(
-        width: double.infinity,
-        decoration: new BoxDecoration(color: Colors.white),
-        child: new MaterialButton(
-          height: 40.0,
-          minWidth: 100.0,
-          color: Color(0xFF13A1C5),
-          splashColor: Color(0xFF009AFF),
-          textColor: Colors.white,
-          padding: EdgeInsets.all(15.0),
-          onPressed: _loginButtonAction,
-          child: new Icon(FontAwesomeIcons.signInAlt),
-        ),
-        margin: EdgeInsets.only(bottom: 30.0));
+      width: double.infinity,
+      decoration: new BoxDecoration(color: Colors.white),
+      child: new MaterialButton(
+        height: 40.0,
+        minWidth: 100.0,
+        color: Color(0xFF13A1C5),
+        splashColor: Color(0xFF009AFF),
+        textColor: Colors.white,
+        padding: EdgeInsets.all(15.0),
+        onPressed: _loginButtonAction,
+        child: new Icon(FontAwesomeIcons.signInAlt),
+      ),
+      margin: EdgeInsets.only(bottom: 30.0),
+    );
   }
 
 //------------------------------------------------------------------------------
@@ -158,34 +171,43 @@ class LoginPageState extends State<LoginPage> {
     return new GestureDetector(
       onTap: _goToRegisterScreen,
       child: new Container(
-          child: new Text(
-            Translations.of(context).new_user,
-            style: TextStyle(
-              color: Color(0xFF37505D),
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-            ),
+        child: new Text(
+          Translations
+              .of(context)
+              .new_user,
+          style: TextStyle(
+            color: Color(0xFF37505D),
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
           ),
-          margin: EdgeInsets.only(bottom: 30.0)),
+        ),
+        margin: EdgeInsets.only(bottom: 30.0),
+      ),
     );
   }
 
 //------------------------------------------------------------------------------
   Future _loginButtonAction() async {
     if (emailController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(SnackBarText.ENTER_EMAIL),
-      ));
+      globalKey.currentState.showSnackBar(
+        new SnackBar(
+          content: new Text(SnackBarText.ENTER_EMAIL),
+        ),
+      );
       return;
     }
 
     if (passwordController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(SnackBarText.ENTER_PASS),
-      ));
+      globalKey.currentState.showSnackBar(
+        new SnackBar(
+          content: new Text(SnackBarText.ENTER_PASS),
+        ),
+      );
       return;
     }
-    FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).requestFocus(
+      new FocusNode(),
+    );
     progressDialog.showProgress();
     _loginUser(emailController.text, passwordController.text);
   }
@@ -195,55 +217,89 @@ class LoginPageState extends State<LoginPage> {
     var eventObject = await loginUser(id, password);
     Map<String, dynamic> user = eventObject.object;
     print('############################### Print out the response here ');
-    print(eventObject.object.toString());
+    print(
+      eventObject.object.toString(),
+    );
     switch (eventObject.id) {
       case EventConstants.LOGIN_USER_SUCCESSFUL:
         {
-          setState(() {
-            AppSharedPreferences.setUserLoggedIn(true);
-            AppSharedPreferences.setInSession(
-                'firstName', user['profile']['name']['first'].toString());
-            AppSharedPreferences.setInSession(
-                'lastName', user['profile']['name']['last'].toString());
-            AppSharedPreferences.setInSession(
-                'userGender', user['profile']['gender'].toString());
-            AppSharedPreferences.setInSession(
-                'userPhone', user['profile']['phone'].toString());
-            AppSharedPreferences.setInSession(
-                'userBirth', user['profile']['birth_day'].toString());
-            AppSharedPreferences.setInSession(
-                'userEmail', user['profile']['email'].toString());
-            AppSharedPreferences.setInSession(
-                'userAvatar', user['profile']['avatar']['url'].toString());
-            AppSharedPreferences.setInSession(
-                'userId', user['profile']['_id'].toString());
+          setState(
+                () {
+              AppSharedPreferences.setUserLoggedIn(true);
+              AppSharedPreferences.setInSession(
+                'userName',
+                user['profile']['name']['first'].toString(),
+              );
+              AppSharedPreferences.setInSession(
+                'firstName',
+                user['profile']['name']['first'].toString(),
+              );
+              AppSharedPreferences.setInSession(
+                'lastName',
+                user['profile']['name']['last'].toString(),
+              );
+              AppSharedPreferences.setInSession(
+                'userGender',
+                user['profile']['gender'].toString(),
+              );
+              AppSharedPreferences.setInSession(
+                'userPhone',
+                user['profile']['phone'].toString(),
+              );
+              AppSharedPreferences.setInSession(
+                'userBirth',
+                user['profile']['birth_day'].toString(),
+              );
+              AppSharedPreferences.setInSession(
+                'userEmail',
+                user['profile']['email'].toString(),
+              );
+              AppSharedPreferences.setInSession(
+                'userAvatar',
+                user['profile']['avatar']['url'].toString(),
+              );
+              AppSharedPreferences.setInSession(
+                'userId',
+                user['profile']['_id'].toString(),
+              );
 
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.LOGIN_SUCCESSFUL),
-            ));
-            progressDialog.hideProgress();
-            _goToHomeScreen();
-          });
+              globalKey.currentState.showSnackBar(
+                new SnackBar(
+                  content: new Text(SnackBarText.LOGIN_SUCCESSFUL),
+                ),
+              );
+              progressDialog.hideProgress();
+              _goToHomeScreen();
+            },
+          );
         }
         break;
       case EventConstants.LOGIN_USER_UN_SUCCESSFUL:
         {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.LOGIN_UN_SUCCESSFUL),
-            ));
-            progressDialog.hideProgress();
-          });
+          setState(
+                () {
+              globalKey.currentState.showSnackBar(
+                new SnackBar(
+                  content: new Text(SnackBarText.LOGIN_UN_SUCCESSFUL),
+                ),
+              );
+              progressDialog.hideProgress();
+            },
+          );
         }
         break;
       case EventConstants.NO_INTERNET_CONNECTION:
         {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
-            ));
-            progressDialog.hideProgress();
-          });
+          setState(
+                () {
+              globalKey.currentState.showSnackBar(
+                new SnackBar(
+                  content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
+                ),
+              );
+              progressDialog.hideProgress();
+            },
+          );
         }
         break;
     }
@@ -253,7 +309,9 @@ class LoginPageState extends State<LoginPage> {
   void _goToHomeScreen() {
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(builder: (context) => new MainPage()),
+      new MaterialPageRoute(
+        builder: (context) => new MainPage(),
+      ),
     );
   }
 
@@ -261,7 +319,9 @@ class LoginPageState extends State<LoginPage> {
   void _goToRegisterScreen() {
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(builder: (context) => new RegisterPage()),
+      new MaterialPageRoute(
+        builder: (context) => new RegisterPage(),
+      ),
     );
   }
 //------------------------------------------------------------------------------

@@ -4,6 +4,8 @@ import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferenc
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/ui_widgets/SizeConfig.dart';
 
+import 'Account/UserLoginRegister/pages/LoginPage.dart';
+
 class MainPage extends StatefulWidget {
   final Widget child;
 
@@ -116,9 +118,7 @@ class _MainPageState extends State<MainPage> {
             new GestureDetector(
               child: makeDashboardItem(
                   Translations.of(context).booking, Icons.book),
-              onTap: () {
-                Navigator.pushNamed(context, '/BookingHistory');
-              },
+              onTap: _handleTapEvent,
             ),
           ],
         ),
@@ -163,22 +163,23 @@ class _MainPageState extends State<MainPage> {
                 accountEmail: new Text(
                   ((userEamil == null) ? "User Email" : userEamil),
                   style: TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                      color: Colors.white,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(3.0, 3.0),
-                          blurRadius: 3.0,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                        Shadow(
-                          offset: Offset(3.0, 3.0),
-                          blurRadius: 8.0,
-                          color: Color.fromARGB(125, 0, 0, 255),
-                        ),
-                      ]),
+                    fontSize: 14.0,
+                    fontFamily: ArabicFonts.Cairo,
+                    package: 'google_fonts_arabic',
+                    color: Colors.white,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 3.0,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 8.0,
+                        color: Color.fromARGB(125, 0, 0, 255),
+                      ),
+                    ],
+                  ),
                 ),
                 currentAccountPicture: new CircleAvatar(
                   backgroundColor: new Color(0xFF13A1C5),
@@ -235,32 +236,34 @@ class _MainPageState extends State<MainPage> {
                     size: 20.0,
                   ),
                 ),
-                title: Text(Translations.of(context).profile,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: ArabicFonts.Cairo,
-                      fontWeight: FontWeight.bold,
-                      package: 'google_fonts_arabic',
-                      fontSize: 20.0,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 3.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 8.0,
-                          color: Colors.black38,
-                        ),
-                      ],
-                    )),
-                onTap: () {
-                  Navigator.popAndPushNamed(context, '/UserProfile');
-                },
+                title: Text(
+                  Translations
+                      .of(context)
+                      .profile,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                    fontSize: 20.0,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: _handleTapEventProfile,
               ),
 
-              //Language
+              //Logout
               new ListTile(
                 leading: CircleAvatar(
                   backgroundColor: Color(0xFF13A1C5),
@@ -270,26 +273,28 @@ class _MainPageState extends State<MainPage> {
                     size: 20.0,
                   ),
                 ),
-                title: Text('LogOut !!!',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: ArabicFonts.Cairo,
-                      fontWeight: FontWeight.bold,
-                      package: 'google_fonts_arabic',
-                      fontSize: 20.0,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 3.0,
-                          color: Colors.black,
-                        ),
-                        Shadow(
-                          offset: Offset(2.0, 2.0),
-                          blurRadius: 8.0,
-                          color: Colors.black38,
-                        ),
-                      ],
-                    )),
+                title: Text(
+                  'LogOut !!!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                    fontSize: 20.0,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  ),
+                ),
                 onTap: () {
                   AppSharedPreferences.clear();
                   Navigator.popAndPushNamed(context, '/MainPage');
@@ -331,106 +336,83 @@ class _MainPageState extends State<MainPage> {
                   onTap: () {
                     Navigator.popAndPushNamed(context, '/SplashPageLoginTow');
                   }),
-              //Login
-              new ListTile(
-                  trailing: CircleAvatar(
-                    backgroundColor: Color(0xFF13A1C5),
-                    child: Icon(
-                      Icons.exit_to_app,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
-                  ),
-                  title: Text('Log Out !',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: ArabicFonts.Cairo,
-                        fontWeight: FontWeight.bold,
-                        package: 'google_fonts_arabic',
-                        fontSize: 20.0,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 3.0,
-                            color: Colors.black,
-                          ),
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 8.0,
-                            color: Colors.black38,
-                          ),
-                        ],
-                      )),
-                  onTap: () {
-                    AppSharedPreferences.clear();
-                    Navigator.popAndPushNamed(context, '/SearchScreen');
-                  }),
+
               //Help
               new ListTile(
-                  trailing: CircleAvatar(
-                    backgroundColor: Color(0xFF13A1C5),
-                    child: Icon(
-                      Icons.call,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
+                trailing: CircleAvatar(
+                  backgroundColor: Color(0xFF13A1C5),
+                  child: Icon(
+                    Icons.call,
+                    color: Colors.white,
+                    size: 20.0,
                   ),
-                  title: Text(Translations.of(context).support,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: ArabicFonts.Cairo,
-                        fontWeight: FontWeight.bold,
-                        package: 'google_fonts_arabic',
-                        fontSize: 20.0,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 3.0,
-                            color: Colors.black,
-                          ),
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 8.0,
-                            color: Colors.black38,
-                          ),
-                        ],
-                      )),
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/Help');
-                  }),
+                ),
+                title: Text(
+                  Translations
+                      .of(context)
+                      .support,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                    fontSize: 20.0,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/Help');
+                },
+              ),
               //About
               new ListTile(
-                  trailing: CircleAvatar(
-                    backgroundColor: Color(0xFF13A1C5),
-                    child: Icon(
-                      Icons.info,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
+                trailing: CircleAvatar(
+                  backgroundColor: Color(0xFF13A1C5),
+                  child: Icon(
+                    Icons.info,
+                    color: Colors.white,
+                    size: 20.0,
                   ),
-                  title: Text(Translations.of(context).about,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: ArabicFonts.Cairo,
-                        fontWeight: FontWeight.bold,
-                        package: 'google_fonts_arabic',
-                        fontSize: 20.0,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 3.0,
-                            color: Colors.black,
-                          ),
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 8.0,
-                            color: Colors.black38,
-                          ),
-                        ],
-                      )),
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/About');
-                  }),
+                ),
+                title: Text(
+                  Translations
+                      .of(context)
+                      .about,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                    fontSize: 20.0,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 3.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Colors.black38,
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/About');
+                },
+              ),
             ],
           ),
         ),
@@ -440,52 +422,166 @@ class _MainPageState extends State<MainPage> {
 
   Card makeDashboardItem(String title, IconData icon) {
     return Card(
-        color: Color(0xFF00C4C2),
-        elevation: 3.0,
-        margin: new EdgeInsets.all(1.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Color(0xFF13A1C5),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            verticalDirection: VerticalDirection.down,
-            children: <Widget>[
-              SizedBox(height: 15.0),
-              Center(
-                  child: Icon(
+      color: Color(0xFF00C4C2),
+      elevation: 3.0,
+      margin: new EdgeInsets.all(1.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Color(0xFF13A1C5),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          verticalDirection: VerticalDirection.down,
+          children: <Widget>[
+            SizedBox(height: 15.0),
+            Center(
+              child: Icon(
                 icon,
                 size: 105.0,
                 color: Colors.white,
-              )),
-              SizedBox(height: 15.0),
-              new Center(
-                child: new Text(
-                  title,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(3.0, 3.0),
-                          blurRadius: 3.0,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                        Shadow(
-                          offset: Offset(3.0, 3.0),
-                          blurRadius: 8.0,
-                          color: Color.fromARGB(125, 0, 0, 255),
-                        ),
-                      ]),
+              ),
+            ),
+            SizedBox(height: 15.0),
+            new Center(
+              child: new Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: ArabicFonts.Cairo,
+                  package: 'google_fonts_arabic',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(3.0, 3.0),
+                      blurRadius: 3.0,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    Shadow(
+                      offset: Offset(3.0, 3.0),
+                      blurRadius: 8.0,
+                      color: Color.fromARGB(125, 0, 0, 255),
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
-        ));
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
+
+  void _handleTapEvent() async {
+    bool isLoggedIn = await AppSharedPreferences.isUserLoggedIn();
+    if (this.mounted) {
+      setState(() {
+        if (isLoggedIn != null && isLoggedIn) {
+          Navigator.pushNamed(context, '/BookingHistory');
+        } else {
+          Navigator.pushReplacement(
+            context,
+            new MaterialPageRoute(builder: (context) => new LoginPage()),
+          );
+        }
+      });
+    }
+  }
+
+  void _handleTapEventProfile() async {
+    bool isLoggedIn = await AppSharedPreferences.isUserLoggedIn();
+    if (this.mounted) {
+      setState(() {
+        if (isLoggedIn != null && isLoggedIn) {
+          Navigator.popAndPushNamed(context, '/UserProfile');
+        } else {
+          Navigator.pushReplacement(
+            context,
+            new MaterialPageRoute(builder: (context) => new LoginPage()),
+          );
+        }
+      });
+    }
+  }
+
+//  void _handleTapEventLoginLogOut() async {
+//    bool isLoggedIn = await AppSharedPreferences.isUserLoggedIn();
+//    if (this.mounted) {
+//      setState(() {
+//        if (isLoggedIn != null && isLoggedIn) {
+//          new ListTile(
+//              trailing: CircleAvatar(
+//                backgroundColor: Color(0xFF13A1C5),
+//                child: Icon(
+//                  Icons.exit_to_app,
+//                  color: Colors.white,
+//                  size: 20.0,
+//                ),
+//              ),
+//              title: Text(Translations.of(context).login,
+//                  style: TextStyle(
+//                    color: Colors.white,
+//                    fontFamily: ArabicFonts.Cairo,
+//                    fontWeight: FontWeight.bold,
+//                    package: 'google_fonts_arabic',
+//                    fontSize: 20.0,
+//                    shadows: <Shadow>[
+//                      Shadow(
+//                        offset: Offset(2.0, 2.0),
+//                        blurRadius: 3.0,
+//                        color: Colors.black,
+//                      ),
+//                      Shadow(
+//                        offset: Offset(2.0, 2.0),
+//                        blurRadius: 8.0,
+//                        color: Colors.black38,
+//                      ),
+//                    ],
+//                  )),
+//              onTap: () {
+//                Navigator.popAndPushNamed(context, '/SplashPageLoginTow');
+//              });
+//        } else {
+//          new ListTile(
+//            leading: CircleAvatar(
+//              backgroundColor: Color(0xFF13A1C5),
+//              child: Icon(
+//                Icons.language,
+//                color: Colors.white,
+//                size: 20.0,
+//              ),
+//            ),
+//            title: Text(
+//              'LogOut !!!',
+//              style: TextStyle(
+//                color: Colors.white,
+//                fontFamily: ArabicFonts.Cairo,
+//                fontWeight: FontWeight.bold,
+//                package: 'google_fonts_arabic',
+//                fontSize: 20.0,
+//                shadows: <Shadow>[
+//                  Shadow(
+//                    offset: Offset(2.0, 2.0),
+//                    blurRadius: 3.0,
+//                    color: Colors.black,
+//                  ),
+//                  Shadow(
+//                    offset: Offset(2.0, 2.0),
+//                    blurRadius: 8.0,
+//                    color: Colors.black38,
+//                  ),
+//                ],
+//              ),
+//            ),
+//            onTap: () {
+//              AppSharedPreferences.clear();
+//              Navigator.popAndPushNamed(context, '/MainPage');
+//            },
+//          );
+//        }
+//      });
+//    }
+//  }
 }

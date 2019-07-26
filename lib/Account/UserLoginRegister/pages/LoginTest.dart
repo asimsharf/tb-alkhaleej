@@ -64,15 +64,16 @@ class LoginTestState extends State<LoginTest> {
 
 //------------------------------------------------------------------------------
 
-  void _logoutFromTheApp() {
-    AppSharedPreferences.clear();
-    setState(() {
-      Navigator.pushReplacement(
-        context,
-        new MaterialPageRoute(builder: (context) => new SplashPageLoginTow()),
-      );
-    });
-  }
+  //This is logout from the application
+//  void _logoutFromTheApp() {
+//    AppSharedPreferences.clear();
+//    setState(() {
+//      Navigator.pushReplacement(
+//        context,
+//        new MaterialPageRoute(builder: (context) => new SplashPageLoginTow()),
+//      );
+//    });
+//  }
 
 //------------------------------------------------------------------------------
 

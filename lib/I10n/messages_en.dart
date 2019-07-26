@@ -31,7 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("password is too short"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "edit_profile":
-        MessageLookupByLibrary.simpleMessage("Edit user profile"),
+            MessageLookupByLibrary.simpleMessage("Edit user profile"),
         "support": MessageLookupByLibrary.simpleMessage("Support"),
         "username": MessageLookupByLibrary.simpleMessage("Email address"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -95,16 +95,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "tb_alkalij": MessageLookupByLibrary.simpleMessage("Tb alkhalij"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "create_account":
-        MessageLookupByLibrary.simpleMessage("Create account"),
+            MessageLookupByLibrary.simpleMessage("Create account"),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "dateOfBarth": MessageLookupByLibrary.simpleMessage("barth of date"),
         "not_valid_date":
-        MessageLookupByLibrary.simpleMessage("Not valid date of barth"),
+            MessageLookupByLibrary.simpleMessage("Not valid date of barth"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
         "female": MessageLookupByLibrary.simpleMessage("Female"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "save_infos": MessageLookupByLibrary.simpleMessage("Save informations"),
         "edite_profile_user":
-        MessageLookupByLibrary.simpleMessage("Edit informmations"),
+            MessageLookupByLibrary.simpleMessage("Edit informmations"),
       };
 }

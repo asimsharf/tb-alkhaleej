@@ -6,6 +6,8 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Centers/CentersDepartment.dart';
 import 'package:tb_alkhalij/Static/Rating.dart';
@@ -281,19 +283,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                         ),
                       ),
                       new FlatButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Rating(
-                                id: widget.centerId,
-                                name: widget.name,
-                                logo: widget.logo,
-                                centerId: widget.centerId,
-                                  ),
-                            ),
-                          );
-                        },
+                        onPressed: _handleTapEventRating,
                         child: new Text(
                           Translations.of(context).rate,
                           style: TextStyle(
@@ -829,6 +819,33 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
       );
     }
     return _ratingList;
+  }
+
+  void _handleTapEventRating() async {
+    bool isLoggedIn = await AppSharedPreferences.isUserLoggedIn();
+    if (this.mounted) {
+      setState(() {
+        if (isLoggedIn != null && isLoggedIn) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  Rating(
+                    id: widget.centerId,
+                    name: widget.name,
+                    logo: widget.logo,
+                    centerId: widget.centerId,
+                  ),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            new MaterialPageRoute(builder: (context) => new LoginPage()),
+          );
+        }
+      });
+    }
   }
 }
 

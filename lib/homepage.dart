@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Language/scope_model_wrapper.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:video_player/video_player.dart';
@@ -147,9 +148,7 @@ class _HomePageState extends State<HomePage> {
                     color: Color(0xFF13A1C5),
                     textColor: Colors.white,
                     splashColor: Color(0xFF009AFF),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/RegisterPage');
-                    },
+                    onPressed: _handleTapEvent,
                   ),
                 ),
               ),
@@ -240,5 +239,18 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+
+  void _handleTapEvent() async {
+    bool isLoggedIn = await AppSharedPreferences.isUserLoggedIn();
+    if (this.mounted) {
+      setState(() {
+        if (isLoggedIn != null && isLoggedIn) {
+          Navigator.popAndPushNamed(context, '/MainPage');
+        } else {
+          Navigator.pushNamed(context, '/RegisterPage');
+        }
+      });
+    }
   }
 }
