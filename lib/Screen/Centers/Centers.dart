@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Centers/CentersDetails.dart';
 import 'package:tb_alkhalij/model/ModelCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -37,7 +38,10 @@ class _CentersState extends State<Centers> {
   List rates = [];
 
   Future<List<ModelCenters>> getCenters() async {
-    //
+//    String _url = ConstantsAPIs.API_BASE_URL;
+//    String _headers = ConstantsAPIs.OCTET_STREAM_ENCODING;
+//    String _route = Routers.HOSPITAL;
+
     String link = "http://23.111.185.155:3000/api/hospital";
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
@@ -77,7 +81,7 @@ class _CentersState extends State<Centers> {
 
   //---------------------------------------------------------------
   Widget _appBarTitle = new Text(
-//    Translations.of(context).insurance,
+    //Translations.of(context).insurance,
     'المستشفيات',
     style: TextStyle(
         fontWeight: FontWeight.bold,
@@ -178,6 +182,13 @@ class _CentersState extends State<Centers> {
         itemCount: _modelCenters.length,
         itemBuilder: (BuildContext context, index) {
           final _centersObj = _modelCenters[index];
+
+          if (_centersObj.centerType == 'hospital') {
+            _centersObj.centerType = Translations
+                .of(context)
+                .hospital;
+          }
+
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -305,6 +316,7 @@ class _CentersState extends State<Centers> {
                     id: _centersObj.id,
                     centerId: _centersObj.id,
                     name: _centersObj.name,
+                    centerName: _centersObj.name,
                     email: _centersObj.email,
                     description: _centersObj.description,
                     close: _centersObj.close,
@@ -338,7 +350,9 @@ class _CentersState extends State<Centers> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد مستشفيات !',
+              Translations
+                  .of(context)
+                  .no_hospital,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -376,7 +390,9 @@ class _CentersState extends State<Centers> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: 'بحث بإسم المستشفى...',
+            hintText: Translations
+                .of(context)
+                .search_by_hospital_name,
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -389,7 +405,9 @@ class _CentersState extends State<Centers> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          'المستشفيات',
+          Translations
+              .of(context)
+              .center,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,

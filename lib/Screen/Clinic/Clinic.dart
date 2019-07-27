@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Clinic/ClinicDetails.dart';
 import 'package:tb_alkhalij/model/ModelClinic.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -172,6 +173,11 @@ class _ClinicState extends State<Clinic> {
         itemCount: _modelClinic.length,
         itemBuilder: (BuildContext context, index) {
           final _clinicObj = _modelClinic[index];
+          if (_clinicObj.centerType == 'clinic') {
+            _clinicObj.centerType = Translations
+                .of(context)
+                .clinic;
+          }
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -299,6 +305,7 @@ class _ClinicState extends State<Clinic> {
                     id: _clinicObj.id,
                     centerId: _clinicObj.id,
                     name: _clinicObj.name,
+                    centerName: _clinicObj.name,
                     email: _clinicObj.email,
                     description: _clinicObj.description,
                     close: _clinicObj.close,

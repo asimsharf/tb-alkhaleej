@@ -7,6 +7,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Booking/Book.dart';
 import 'package:tb_alkhalij/model/ModelClinicDepartment.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -14,6 +15,7 @@ import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 class ClinicDepartment extends StatefulWidget {
   final String id;
   final String centerId;
+  final String centerName;
   final String name;
   final String email;
   final String description;
@@ -35,6 +37,7 @@ class ClinicDepartment extends StatefulWidget {
 
   ClinicDepartment({this.id,
     this.name,
+    this.centerName,
     this.committee,
     this.centerId,
     this.email,
@@ -306,6 +309,8 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
                                                         id: widget.id,
                                                         centerId:
                                                         widget.centerId,
+                                                        centerName:
+                                                        widget.centerName,
                                                         departmentId:
                                                         _clinicDepartmentObj
                                                             .id,
@@ -373,7 +378,10 @@ class _ClinicDepartmentState extends State<ClinicDepartment> {
                                       elevation: 0.2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
-                                        child: new Text("أحجز الأن",
+                                        child: new Text(
+                                            Translations
+                                                .of(context)
+                                                .book,
                                             style: TextStyle(
                                                 fontFamily: ArabicFonts.Cairo,
                                                 package: 'google_fonts_arabic',

@@ -6,6 +6,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/futures/app_futures.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Insurance/InsuranceCenterDetails.dart';
 import 'package:tb_alkhalij/model/ModelInsurancesCenters.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -188,6 +189,15 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
         itemBuilder: (BuildContext context, index) {
           final _centersObj = _modelInsurancesCenters[index];
 
+          if (_centersObj.centerType == 'hospital') {
+            _centersObj.centerType = Translations
+                .of(context)
+                .hospital;
+          } else if (_centersObj.centerType == 'clinic') {
+            _centersObj.centerType = Translations
+                .of(context)
+                .clinic;
+          }
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -313,6 +323,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
                   builder: (context) => InsuranceCenterDetails(
                       id: widget.id,
                       name: _centersObj.name,
+                      centerName: _centersObj.name,
                       email: _centersObj.email,
                       description: _centersObj.description,
                       close: _centersObj.close,
@@ -345,7 +356,9 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً التأمين غير مستخدم  !',
+              Translations
+                  .of(context)
+                  .not_insurance,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

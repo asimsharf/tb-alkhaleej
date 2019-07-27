@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/model/ModelBookingHistory.dart';
 
-class Cancel_Rating_api_response {
+class Cancel_booking_api_response {
   static const _serviceUrl = 'http://23.111.185.155:3000/api/booking';
   static final _headers = {'Content-Type': 'application/json'};
 

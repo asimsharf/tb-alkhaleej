@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/api/Cancel_booking_api_response.dart';
 import 'package:tb_alkhalij/model/ModelBookingHistory.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -39,8 +40,8 @@ class _BookingHistoryState extends State<BookingHistory> {
   List<ModelBookingHistory> _modelBookingHistory = <ModelBookingHistory>[];
 
   Future<List<ModelBookingHistory>> getCenters() async {
-    String link =
-        "http://23.111.185.155:3000/api/booking/" + userId + "/client";
+    String link = "http://23.111.185.155:3000/api/booking/${userId}/client";
+    print(link);
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
     setState(() {
@@ -81,7 +82,9 @@ class _BookingHistoryState extends State<BookingHistory> {
       key: _scaffoldKey,
       appBar: new AppBar(
         title: Text(
-          'حجوزاتي',
+          Translations
+              .of(context)
+              .booking_history,
           style: TextStyle(
               fontFamily: ArabicFonts.Cairo,
               package: 'google_fonts_arabic',
@@ -209,7 +212,9 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        '${_bookingHistoryObj.date.substring(11, 16)}  :   ${_bookingHistoryObj.date.substring(0, 10)}',
+                                        '${_bookingHistoryObj
+                                            .date}  :   ${_bookingHistoryObj
+                                            .date}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,
@@ -237,14 +242,16 @@ class _BookingHistoryState extends State<BookingHistory> {
                                       height: 9.0,
                                       onPressed: () {
                                         var createRate =
-                                        new Cancel_Rating_api_response();
+                                        new Cancel_booking_api_response();
                                         createRate
                                             .cancelBooking(
                                             '${_bookingHistoryObj.id}')
                                             .then(
                                               (value) =>
                                               showMessage(
-                                                'شكراً لتقييمك...',
+                                                Translations
+                                                    .of(context)
+                                                    .cancel_booking_history,
                                                 Colors.blue,
                                               ),
                                         );
@@ -259,7 +266,10 @@ class _BookingHistoryState extends State<BookingHistory> {
                                       elevation: 0.2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
-                                        child: new Text("إلغاء الحجز",
+                                        child: new Text(
+                                            Translations
+                                                .of(context)
+                                                .cancel_booking,
                                             style: TextStyle(
                                                 fontFamily: ArabicFonts.Cairo,
                                                 package: 'google_fonts_arabic',
@@ -293,7 +303,9 @@ class _BookingHistoryState extends State<BookingHistory> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لم تقم بعمليه حجز حتى الأن!',
+              Translations
+                  .of(context)
+                  .not_booking_yet,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

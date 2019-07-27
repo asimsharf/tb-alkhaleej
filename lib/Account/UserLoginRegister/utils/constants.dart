@@ -18,8 +18,8 @@ class EventConstants {
   static const int NO_INTERNET_CONNECTION = 0;
 
 ///////////////////////////////////////////////////////////////////////////////
-  static const int LOGIN_USER_SUCCESSFUL = 500;
-  static const int LOGIN_USER_UN_SUCCESSFUL = 501;
+  static const int LOGIN_USER_SUCCESSFUL = 1;
+  static const int LOGIN_USER_UN_SUCCESSFUL = 2;
 
 ///////////////////////////////////////////////////////////////////////////////
   static const int USER_REGISTRATION_SUCCESSFUL = 502;
@@ -46,10 +46,10 @@ class SharedPreferenceKeys {
 
 ///////////////////////////////////////////////////////////////////////////////
 class ProgressDialogTitles {
-  static const String IN_PROGRESS = "In Progress...";
-  static const String USER_LOG_IN = "Logging In...";
-  static const String USER_CHANGE_PASSWORD = "Changing...";
-  static const String USER_REGISTER = "Registering...";
+  static const String IN_PROGRESS = "...";
+  static const String USER_LOG_IN = "...";
+  static const String USER_CHANGE_PASSWORD = "...";
+  static const String USER_REGISTER = "...";
 }
 
 ///////////////////////////////////////////////////////////////////////////////

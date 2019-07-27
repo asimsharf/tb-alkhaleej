@@ -19,6 +19,7 @@ import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 class ClinicDetails extends StatefulWidget {
   final String id;
   final String centerId;
+  final String centerName;
   final String name;
   final String email;
   final String description;
@@ -41,6 +42,7 @@ class ClinicDetails extends StatefulWidget {
   ClinicDetails({
     this.id,
     this.centerId,
+    this.centerName,
     this.name,
     this.email,
     this.description,
@@ -153,6 +155,10 @@ class _CentersDetailsState extends State<ClinicDetails> {
 
   var rating = 1.2;
 
+  String tryParse(double rating) {
+    return rating.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -263,7 +269,9 @@ class _CentersDetailsState extends State<ClinicDetails> {
                       new FlatButton(
                         onPressed: _handleTapEventRating,
                         child: new Text(
-                          'تقييم',
+                          Translations
+                              .of(context)
+                              .rate,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
                               package: 'google_fonts_arabic',
@@ -501,6 +509,7 @@ class _CentersDetailsState extends State<ClinicDetails> {
                           ClinicDepartment(
                             id: widget.id,
                             centerId: widget.centerId,
+                            centerName: widget.centerName,
                             name: widget.name,
                             committee: widget.committee,
                             days: widget.days,
@@ -514,7 +523,9 @@ class _CentersDetailsState extends State<ClinicDetails> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("الأقسام",
+                  child: new Text(Translations
+                      .of(context)
+                      .department,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -548,7 +559,9 @@ class _CentersDetailsState extends State<ClinicDetails> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("التقييمات",
+                  child: new Text(Translations
+                      .of(context)
+                      .ratings,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -632,7 +645,9 @@ class _CentersDetailsState extends State<ClinicDetails> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'التقييم العام',
+                        Translations
+                            .of(context)
+                            .total_rating,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 15.0,
@@ -731,7 +746,10 @@ class _CentersDetailsState extends State<ClinicDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${_ratingObj.rate}',
+                                        '${Translations
+                                            .of(context)
+                                            .rating_number} ${tryParse(
+                                            _ratingObj.rate).substring(0, 3)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -781,7 +799,9 @@ class _CentersDetailsState extends State<ClinicDetails> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد تقييمات !',
+              Translations
+                  .of(context)
+                  .no_ratings,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

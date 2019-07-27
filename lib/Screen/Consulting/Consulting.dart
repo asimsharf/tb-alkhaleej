@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Consulting/ConsultingDetails.dart';
 import 'package:tb_alkhalij/model/ModelConsulting.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -173,6 +174,11 @@ class _ConsultingState extends State<Consulting> {
         itemCount: _modelConsulting.length,
         itemBuilder: (BuildContext context, index) {
           final _consultingObj = _modelConsulting[index];
+          if (_consultingObj.centerType == 'consulting') {
+            _consultingObj.centerType = Translations
+                .of(context)
+                .consulting;
+          }
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -298,6 +304,7 @@ class _ConsultingState extends State<Consulting> {
                   builder: (context) => ConsultingDetails(
                         id: _consultingObj.id,
                         name: _consultingObj.name,
+                    centerName: _consultingObj.name,
                         email: _consultingObj.email,
                         description: _consultingObj.description,
                         close: _consultingObj.close,
@@ -331,7 +338,9 @@ class _ConsultingState extends State<Consulting> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا يوجد إستشارين !',
+              Translations
+                  .of(context)
+                  .no_consultants,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

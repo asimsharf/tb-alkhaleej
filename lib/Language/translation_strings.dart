@@ -78,10 +78,38 @@ class Translations {
     );
   }
 
+  String get LOGIN_USER_UN_SUCCESSFUL {
+    return Intl.message(
+      'Wrong Email or Password!',
+      name: 'LOGIN_USER_UN_SUCCESSFUL',
+    );
+  }
+
   String get name {
     return Intl.message(
       'Name',
       name: 'name',
+    );
+  }
+
+  String get hospital {
+    return Intl.message(
+      'Hospital',
+      name: 'hospital',
+    );
+  }
+
+  String get ENTER_EMAIL {
+    return Intl.message(
+      'Please Enter your Email',
+      name: 'ENTER_EMAIL',
+    );
+  }
+
+  String get ENTER_PASS {
+    return Intl.message(
+      'Please Enter your Password',
+      name: 'ENTER_PASS',
     );
   }
 
@@ -386,6 +414,13 @@ class Translations {
     );
   }
 
+  String get book {
+    return Intl.message(
+      'Book now',
+      name: 'book',
+    );
+  }
+
   String get insurance {
     return Intl.message(
       'Insurance',
@@ -442,10 +477,115 @@ class Translations {
     );
   }
 
+  String get rating_number {
+    return Intl.message(
+      'Rating number',
+      name: 'rating_number',
+    );
+  }
+
+  String get specialty {
+    return Intl.message(
+      'Specializations',
+      name: 'specialty',
+    );
+  }
+
+  String get no_specialty {
+    return Intl.message(
+      'Sorry ther\'s now Specializations yet',
+      name: 'no_specialty',
+    );
+  }
+
+  String get no_ratings {
+    return Intl.message(
+      'Sorry No Ratings Yet!',
+      name: 'no_ratings',
+    );
+  }
+
+  String get search_by_hospital_name {
+    return Intl.message(
+      'Research by hospital name...',
+      name: 'search_by_hospital_name',
+    );
+  }
+
+  String get search_by_specialty_name {
+    return Intl.message(
+      'Research by specialty name...',
+      name: 'search_by_specialty_name',
+    );
+  }
+
+  String get search_by_insurance_name {
+    return Intl.message(
+      'Research by insurance company name...',
+      name: 'search_by_insurance_name',
+    );
+  }
+
+  String get not_insurance {
+    return Intl.message(
+      'Sorry insurance is not used!',
+      name: 'not_insurance',
+    );
+  }
+
+  String get search_by_pharmacy_name {
+    return Intl.message(
+      'Research by pharmacy name...',
+      name: 'search_by_pharmacy_name',
+    );
+  }
+
+  String get search_by_clinic_name {
+    return Intl.message(
+      'Research by clinic name...',
+      name: 'search_by_clinic_name',
+    );
+  }
+
+  String get search_by_department_name {
+    return Intl.message(
+      'Research by department name...',
+      name: 'search_by_department_name',
+    );
+  }
+
+  String get no_department {
+    return Intl.message(
+      'Sorry there\'r no department yet! ',
+      name: 'no_department',
+    );
+  }
+
+  String get no_hospital {
+    return Intl.message(
+      'Sorry there are no hospitals yet!',
+      name: 'no_hospital',
+    );
+  }
+
+  String get no_pharmacy {
+    return Intl.message(
+      'Sorry there are no pharmacies yet!',
+      name: 'no_pharmacy',
+    );
+  }
+
   String get add_review {
     return Intl.message(
       'Add review',
       name: 'add_review',
+    );
+  }
+
+  String get no_consultants {
+    return Intl.message(
+      'Sorry there are no consultants!',
+      name: 'no_consultants',
     );
   }
 
@@ -523,6 +663,105 @@ class Translations {
     return Intl.message(
       'Female',
       name: 'female',
+    );
+  }
+
+  //###################################################################
+  String get booking_history {
+    return Intl.message(
+      'Booking history',
+      name: 'booking_history',
+    );
+  }
+
+  String get cancel_booking_history {
+    return Intl.message(
+      'Successfully canceled booking',
+      name: 'cancel_booking_history',
+    );
+  }
+
+  String get cancel_booking {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel_booking',
+    );
+  }
+
+  String get not_booking_yet {
+    return Intl.message(
+      'Sorry, you have not made a book yet!',
+      name: 'not_booking_yet',
+    );
+  }
+
+  String get confirm_booking {
+    return Intl.message(
+      'Confirm booking',
+      name: 'confirm_booking',
+    );
+  }
+
+  String get select {
+    return Intl.message(
+      'Select',
+      name: 'select',
+    );
+  }
+
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+    );
+  }
+
+  String get time {
+    return Intl.message(
+      'Time',
+      name: 'time',
+    );
+  }
+
+  String get department_name {
+    return Intl.message(
+      'Department name',
+      name: 'department_name',
+    );
+  }
+
+  String get center_name {
+    return Intl.message(
+      'Center name',
+      name: 'center_name',
+    );
+  }
+
+  String get patient_name {
+    return Intl.message(
+      'Patient name',
+      name: 'patient_name',
+    );
+  }
+
+  String get add_rating_review {
+    return Intl.message(
+      'Add rating review',
+      name: 'add_rating_review',
+    );
+  }
+
+  String get thanks_for_rating {
+    return Intl.message(
+      'Thank you for your rating :)',
+      name: 'thanks_for_rating',
+    );
+  }
+
+  String get please_add_rating {
+    return Intl.message(
+      'Please write an evaluation of the services :)',
+      name: 'please_add_rating',
     );
   }
 }

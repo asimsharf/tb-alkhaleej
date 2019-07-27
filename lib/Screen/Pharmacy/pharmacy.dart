@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Pharmacy/pharmacyDetails.dart';
 import 'package:tb_alkhalij/model/ModelPharmacy.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -173,6 +174,12 @@ class _PharmacyState extends State<Pharmacy> {
         itemBuilder: (BuildContext context, index) {
           final _pharmacyObj = _modelPharmacy[index];
 
+          if (_pharmacyObj.centerType == 'pharmacy') {
+            _pharmacyObj.centerType = Translations
+                .of(context)
+                .hospital;
+          }
+
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -332,7 +339,9 @@ class _PharmacyState extends State<Pharmacy> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد صيدليات !',
+              Translations
+                  .of(context)
+                  .no_pharmacy,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -370,7 +379,9 @@ class _PharmacyState extends State<Pharmacy> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: 'بحث بإسم الصيدلية...',
+            hintText: Translations
+                .of(context)
+                .search_by_pharmacy_name,
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -383,7 +394,9 @@ class _PharmacyState extends State<Pharmacy> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          'الصيدليات',
+          Translations
+              .of(context)
+              .pharmacy,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,

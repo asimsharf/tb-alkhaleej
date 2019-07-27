@@ -7,6 +7,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Booking/Book.dart';
 import 'package:tb_alkhalij/model/ModelConsultingSpecialty.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -14,6 +15,7 @@ import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 class ConsultingSpecialty extends StatefulWidget {
   final String id;
   final String centerId;
+  final String centerName;
   final String name;
   final String email;
   final String description;
@@ -36,6 +38,7 @@ class ConsultingSpecialty extends StatefulWidget {
   ConsultingSpecialty({
     this.id,
     this.centerId,
+    this.centerName,
     this.name,
     this.email,
     this.description,
@@ -207,6 +210,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
         itemCount: _modelConsultingSpecialty.length,
         itemBuilder: (BuildContext context, index) {
           final _consultingSpecialtyObj = _modelConsultingSpecialty[index];
+
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -231,7 +235,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/department/${_consultingSpecialtyObj
+                              'http://23.111.185.155:3000/uploads/Specializations/${_consultingSpecialtyObj
                                   .image.filename}',
                             ),
                           ),
@@ -313,6 +317,8 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                                         name:
                                                         _consultingSpecialtyObj
                                                             .name,
+                                                        centerName:
+                                                        widget.centerName,
                                                         description:
                                                         _consultingSpecialtyObj
                                                             .description,
@@ -354,7 +360,10 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                       elevation: 0.2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
-                                        child: new Text("أحجز الأن",
+                                        child: new Text(
+                                            Translations
+                                                .of(context)
+                                                .book,
                                             style: TextStyle(
                                                 fontFamily: ArabicFonts.Cairo,
                                                 package: 'google_fonts_arabic',
@@ -388,7 +397,9 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد تخصصات !',
+              Translations
+                  .of(context)
+                  .no_specialty,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -426,7 +437,9 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: 'بحث بإسم التخصص...',
+            hintText: Translations
+                .of(context)
+                .search_by_specialty_name,
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -439,7 +452,9 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          'التخصصات',
+          Translations
+              .of(context)
+              .specialty,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,

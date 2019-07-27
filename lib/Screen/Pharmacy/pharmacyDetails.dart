@@ -152,6 +152,10 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
   //Initial rating value
   var rating = 1.0;
 
+  String tryParse(double rating) {
+    return rating.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -263,7 +267,9 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                       new FlatButton(
                         onPressed: _handleTapEventRating,
                         child: new Text(
-                          'تقييم',
+                          Translations
+                              .of(context)
+                              .rate,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
                               package: 'google_fonts_arabic',
@@ -501,7 +507,9 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("عرض التقييمات",
+                  child: new Text(Translations
+                      .of(context)
+                      .ratings,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -593,7 +601,9 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'التقييم العام',
+                        Translations
+                            .of(context)
+                            .total_rating,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 15.0,
@@ -684,7 +694,10 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${_ratingObj.rate}',
+                                        '${Translations
+                                            .of(context)
+                                            .rating_number} ${tryParse(
+                                            _ratingObj.rate).substring(0, 3)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -734,7 +747,9 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد تقييمات !',
+              Translations
+                  .of(context)
+                  .no_ratings,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

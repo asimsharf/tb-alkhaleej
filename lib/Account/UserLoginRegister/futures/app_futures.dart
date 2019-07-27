@@ -29,9 +29,6 @@ Future<EventObject> loginUser(String emailId, String password) async {
   try {
     final response = await http.get(baseurl + emailId + '/' + password,
         headers: {"Accept": "application/json"});
-    print("#######: response login user: ");
-    print(response.body);
-    print("#######: response login user: ");
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
@@ -39,12 +36,18 @@ Future<EventObject> loginUser(String emailId, String password) async {
 
         if (responseJson['code'] == 1) {
           return new EventObject(
-              id: EventConstants.LOGIN_USER_SUCCESSFUL, object: responseJson);
+              id: EventConstants.LOGIN_USER_SUCCESSFUL,
+              object: responseJson,
+              message: 'تمت عمليه الدخول بنجاح');
         } else {
-          return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
+          return new EventObject(
+              id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+              message: 'عفواً خطأ في كلمة المرور او إسم المستخدم!');
         }
       } else {
-        return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
+        return new EventObject(
+            id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+            message: 'عفواً خطأ في كلمة المرور او إسم المستخدم!');
       }
     } else {
       return new EventObject();
@@ -69,7 +72,7 @@ String _toJson(String firstName, String lastName, String gender, String phone,
   return json;
 }
 
-///////////////////////////////////////////////////////////////////////////////
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//
 Future<EventObject> registerUser(
     String firstName,
     String lastName,

@@ -19,6 +19,7 @@ import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 class ConsultingDetails extends StatefulWidget {
   final String id;
   final String name;
+  final String centerName;
   final String email;
   final String description;
   final String close;
@@ -40,6 +41,7 @@ class ConsultingDetails extends StatefulWidget {
   ConsultingDetails({
     this.id,
     this.name,
+    this.centerName,
     this.email,
     this.description,
     this.close,
@@ -149,6 +151,10 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
   }
 
   var rating = 1.2;
+
+  String tryParse(double rating) {
+    return rating.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +266,9 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                       new FlatButton(
                         onPressed: _handleTapEventRating,
                         child: new Text(
-                          'تقييم',
+                          Translations
+                              .of(context)
+                              .rate,
                           style: TextStyle(
                               fontFamily: ArabicFonts.Cairo,
                               package: 'google_fonts_arabic',
@@ -487,6 +495,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                       builder: (context) => ConsultingSpecialty(
                             id: widget.id,
                             centerId: widget.id,
+                        centerName: widget.centerName,
                             name: widget.name,
                             committee: widget.committee,
                             days: widget.days,
@@ -502,7 +511,9 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("التخصصات",
+                  child: new Text(Translations
+                      .of(context)
+                      .specialty,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -536,7 +547,9 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("التقييمات",
+                  child: new Text(Translations
+                      .of(context)
+                      .ratings,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -626,7 +639,9 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'التقييم العام',
+                        Translations
+                            .of(context)
+                            .total_rating,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 15.0,
@@ -715,7 +730,10 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${_ratingObj.rate}',
+                                        '${Translations
+                                            .of(context)
+                                            .rating_number} ${tryParse(
+                                            _ratingObj.rate).substring(0, 3)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -765,7 +783,9 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد تقييمات !',
+              Translations
+                  .of(context)
+                  .no_ratings,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

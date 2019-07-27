@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
-import 'package:tb_alkhalij/Screen/Booking/ConfirmBooking.dart';
 import 'package:tb_alkhalij/model/ModelRating.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 
 class Book extends StatefulWidget {
   final String id;
   final String centerId;
+  final String centerName;
   final String departmentId;
   final String name;
   final String email;
@@ -35,6 +36,7 @@ class Book extends StatefulWidget {
   Book({
     this.id,
     this.centerId,
+    this.centerName,
     this.departmentId,
     this.name,
     this.email,
@@ -61,59 +63,53 @@ class Book extends StatefulWidget {
 }
 
 class _BookState extends State<Book> {
-  static const int monday = 1;
-  static const int tuesday = 2;
-  static const int wednesday = 3;
-  static const int thursday = 4;
-  static const int friday = 5;
-  static const int saturday = 6;
-  static const int sunday = 7;
-  static const int daysPerWeek = 7;
+  var userName;
 
-  var weekdays;
-
-  _weekdays(dateTime) {
-    switch (DateTime
-        .now()
-        .weekday) {
-      case 1:
-        {
-          weekdays = 'الاثنين';
-        }
-        break;
-
-      case 2:
-        {
-          weekdays = 'الثلاثاء';
-        }
-        break;
-
-      case 3:
-        {
-          weekdays = 'الاربعاء';
-        }
-        break;
-
-      case 4:
-        {
-          weekdays = 'الخميس';
-        }
-        break;
-      case 5:
-        {
-          weekdays = 'الجمعه';
-        }
-        break;
-      case 6:
-        {
-          weekdays = 'السبت';
-        }
-        break;
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (userName == null) {
+      await initUserProfile();
     }
-    return weekdays;
   }
 
-  //########################################################################
+  Future<void> initUserProfile() async {
+    String name = await AppSharedPreferences.getFromSession('userName');
+
+    setState(() {
+      userName = name;
+    });
+  }
+
+  DateTime _date = new DateTime.now();
+  TimeOfDay _time = new TimeOfDay.now();
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: new DateTime(2019),
+      lastDate: new DateTime(2050),
+    );
+    if (picked != null && picked != _date) {
+      print('Date selected: ${_date.toString()}');
+      setState(() {
+        _date = picked;
+      });
+    }
+  }
+
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay picked =
+    await showTimePicker(context: context, initialTime: _time);
+    if (picked != null && picked != _time) {
+      print('Time selected: ${_time.toString()}');
+      setState(() {
+        _time = picked;
+      });
+    }
+  }
+
   String _myInsuranceSelection;
 
   bool loading = false;
@@ -145,140 +141,12 @@ class _BookState extends State<Book> {
     this.getRatings();
   }
 
+  String tryParse(double rating) {
+    return rating.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget _buildBookingDateTimeList() {
-      Widget _bookingDateTimeList;
-      _bookingDateTimeList = new ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.all(1.0),
-        shrinkWrap: true,
-        itemCount: widget.days.length,
-        itemBuilder: (BuildContext context, int i) {
-          final _listOfDays = widget.days[i];
-          return new Container(
-            height: 160.0,
-            width: 100.0,
-            color: Colors.blueAccent,
-            margin: EdgeInsets.all(2.0),
-            child: Column(
-              children: <Widget>[
-                new Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: new Text(
-//                        "${_weekdays(DateTime.now().weekday)} - ${DateTime.now().day} - ${DateTime.now().month}",
-                        "${_listOfDays['name']}",
-                        style: TextStyle(
-                          fontFamily: ArabicFonts.Cairo,
-                          package: 'google_fonts_arabic',
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 3.0,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                            Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 8.0,
-                              color: Color.fromARGB(125, 0, 0, 255),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                new Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new Text(
-                      'من ${widget.open.substring(11, 16)}ص \n الى ${widget
-                          .close.substring(11, 16)}م',
-                      style: TextStyle(
-                        fontFamily: ArabicFonts.Cairo,
-                        package: 'google_fonts_arabic',
-                        fontSize: 15.0,
-                        color: Colors.white,
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 3.0,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new Expanded(
-                      child: new MaterialButton(
-                        height: 10.0,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ConfirmBooking(
-                                    centerId: widget.centerId,
-                                    departmentId: widget.departmentId,
-                                    committee: _myInsuranceSelection,
-                                    bookingDay: _listOfDays['name'],
-                                  ),
-                            ),
-                          );
-                        },
-                        color: Color(0xFF13A1C5),
-                        splashColor: Color(0xFF009AFF),
-                        textColor: Colors.white,
-                        elevation: 2.0,
-                        child: Padding(
-                          padding: const EdgeInsets.all(11.0),
-                          child: new Text(
-                            "حجز",
-                            style: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              shadows: <Shadow>[
-                                Shadow(
-                                  offset: Offset(3.0, 3.0),
-                                  blurRadius: 3.0,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                ),
-                                Shadow(
-                                  offset: Offset(3.0, 3.0),
-                                  blurRadius: 8.0,
-                                  color: Color.fromARGB(125, 0, 0, 255),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          );
-        },
-      );
-      return _bookingDateTimeList;
-    }
-
     return new Scaffold(
       body: new CustomScrollView(
         slivers: <Widget>[
@@ -374,7 +242,7 @@ class _BookState extends State<Book> {
                     children: <Widget>[
                       new Expanded(
                         child: Text(
-                          widget.name,
+                          '${widget.name}',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 20.0,
@@ -491,11 +359,134 @@ class _BookState extends State<Book> {
               [
                 new Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: new Row(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Expanded(
+                      Text(
+                        Translations
+                            .of(context)
+                            .patient_name,
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                      Text(
+                        '${userName}',
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        Translations
+                            .of(context)
+                            .center_name,
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                      Text(
+                        '${widget.centerName}',
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        Translations
+                            .of(context)
+                            .department_name,
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                      Text(
+                        '${widget.name}',
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        Translations
+                            .of(context)
+                            .date,
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                      Text(
+                        '${_date.toString().substring(0, 11)}',
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                      new RaisedButton(
                         child: Text(
-                          'تاريخ الحجز',
+                          Translations
+                              .of(context)
+                              .select,
                           style: TextStyle(
                             color: Colors.lightBlueAccent,
                             fontFamily: ArabicFonts.Cairo,
@@ -503,18 +494,57 @@ class _BookState extends State<Book> {
                             fontWeight: FontWeight.bold,
                             fontSize: EventSizedConstants.TextTitleFontSized,
                           ),
-                          textAlign: TextAlign.center,
                         ),
+                        onPressed: () => _selectDate(context),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 160.0,
-                    width: 100.0,
-                    child: _buildBookingDateTimeList(),
+                new Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        Translations
+                            .of(context)
+                            .time,
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                      Text(
+                        '${_time.toString().substring(9, 16)}',
+                        style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontWeight: FontWeight.bold,
+                          fontSize: EventSizedConstants.TextTitleFontSized,
+                        ),
+                      ),
+                      new RaisedButton(
+                        child: Text(
+                          Translations
+                              .of(context)
+                              .select,
+                          style: TextStyle(
+                            color: Colors.lightBlueAccent,
+                            fontFamily: ArabicFonts.Cairo,
+                            package: 'google_fonts_arabic',
+                            fontWeight: FontWeight.bold,
+                            fontSize: EventSizedConstants.TextTitleFontSized,
+                          ),
+                        ),
+                        onPressed: () => _selectTime(context),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -535,7 +565,45 @@ class _BookState extends State<Book> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text("تقييمات المرضى",
+                  child: new Text(Translations
+                      .of(context)
+                      .ratings,
+                      style: TextStyle(
+                          fontFamily: ArabicFonts.Cairo,
+                          package: 'google_fonts_arabic',
+                          fontSize: EventSizedConstants.TextButtonFontSized,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 8.0,
+                              color: Color.fromARGB(125, 0, 0, 255),
+                            ),
+                          ])),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 2.0,
+            ),
+            new Expanded(
+              child: new MaterialButton(
+                onPressed: () {},
+                color: Color(0xFF13A1C5),
+                splashColor: Color(0xFF009AFF),
+                textColor: Colors.white,
+                elevation: 0.2,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Text(Translations
+                      .of(context)
+                      .confirm_booking,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -712,7 +780,10 @@ class _BookState extends State<Book> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${_ratingObj.rate}',
+                                        '${Translations
+                                            .of(context)
+                                            .rating_number} ${tryParse(
+                                            _ratingObj.rate).substring(0, 3)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -762,7 +833,9 @@ class _BookState extends State<Book> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد تقييمات !',
+              Translations
+                  .of(context)
+                  .no_ratings,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

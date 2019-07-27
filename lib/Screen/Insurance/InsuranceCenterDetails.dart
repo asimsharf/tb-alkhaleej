@@ -19,6 +19,7 @@ import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 class InsuranceCenterDetails extends StatefulWidget {
   final String id;
   final String centerId;
+  final String centerName;
   final String name;
   final String email;
   final String description;
@@ -40,6 +41,7 @@ class InsuranceCenterDetails extends StatefulWidget {
   InsuranceCenterDetails(
       {this.id,
         this.centerId,
+        this.centerName,
       this.name,
       this.email,
       this.description,
@@ -174,6 +176,10 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
   }
 
   var rating = 1.2;
+
+  String tryParse(double rating) {
+    return rating.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -515,6 +521,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                         id: widget.id,
                         centerId: widget.centerId,
                         name: widget.name,
+                        centerName: widget.centerName,
                         email: widget.email,
                         description: widget.description,
                         close: widget.close,
@@ -756,7 +763,10 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${_ratingObj.rate}',
+                                        '${Translations
+                                            .of(context)
+                                            .rating_number} ${tryParse(
+                                            _ratingObj.rate).substring(0, 3)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -806,7 +816,9 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد تقييمات !',
+              Translations
+                  .of(context)
+                  .no_ratings,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

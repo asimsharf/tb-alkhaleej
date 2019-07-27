@@ -108,5 +108,60 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("الإسم"),
         "edite_profile_user":
             MessageLookupByLibrary.simpleMessage("تعديل المعلومات"),
+    "LOGIN_USER_UN_SUCCESSFUL": MessageLookupByLibrary.simpleMessage(
+        "عفواَ كلمة المرور او المستخدم خطأ!!"),
+    "ENTER_EMAIL": MessageLookupByLibrary.simpleMessage(
+        "يرجى إدخال البريد الإلكتروني"),
+    "ENTER_PASS":
+    MessageLookupByLibrary.simpleMessage("يرجى إدخال كلمة المرور"),
+    "hospital": MessageLookupByLibrary.simpleMessage("مستشفى"),
+    "book": MessageLookupByLibrary.simpleMessage("إحجز الأن"),
+    "rating_number": MessageLookupByLibrary.simpleMessage("عدد التقيمات"),
+    "specialty": MessageLookupByLibrary.simpleMessage("التخصصات"),
+    "no_ratings":
+    MessageLookupByLibrary.simpleMessage("عفواً لا توجد تقييمات !"),
+    "no_consultants":
+    MessageLookupByLibrary.simpleMessage("عفواً لا يوجد إستشارين !"),
+    "no_hospitals":
+    MessageLookupByLibrary.simpleMessage("عفواً لا توجد مستشفيات !"),
+    "search_by_hospital_name":
+    MessageLookupByLibrary.simpleMessage("بحث بإسم المستشفى..."),
+    "no_department":
+    MessageLookupByLibrary.simpleMessage("عفواً لا يوجد أقسام الأن!"),
+    "search_by_clinic_name":
+    MessageLookupByLibrary.simpleMessage("بحث بإسم العيادة..."),
+    "search_by_insurance_name":
+    MessageLookupByLibrary.simpleMessage("بحث بإسم شركة التأمين..."),
+    "search_by_department_name":
+    MessageLookupByLibrary.simpleMessage("بحث بإسم القسم..."),
+    "no_department":
+    MessageLookupByLibrary.simpleMessage("عفواً لا توجد أقسام الأن!"),
+    "no_pharmacy":
+    MessageLookupByLibrary.simpleMessage("عفواً لا توجد صيدليات الأن!"),
+    "search_by_specialty_name":
+    MessageLookupByLibrary.simpleMessage("بحث بإسم التخصص..."),
+    "booking_history": MessageLookupByLibrary.simpleMessage("تاريخ الحجز"),
+    "cancel_booking_history":
+    MessageLookupByLibrary.simpleMessage("تم إلغاء الحجز بنجاح"),
+    "cancel_booking": MessageLookupByLibrary.simpleMessage("إلغاء الحجز"),
+    "not_booking_yet": MessageLookupByLibrary.simpleMessage(
+        "عفوا لم تقم عمليه حجز حتى الأن!"),
+    "confirm_booking": MessageLookupByLibrary.simpleMessage("تأكيد الحجز"),
+    "select": MessageLookupByLibrary.simpleMessage("إختيار"),
+    "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
+    "time": MessageLookupByLibrary.simpleMessage("الزمن"),
+    "department_name": MessageLookupByLibrary.simpleMessage("إسم القسم"),
+    "center_name": MessageLookupByLibrary.simpleMessage("إسم المركز"),
+    "patient_name": MessageLookupByLibrary.simpleMessage("إسم المريض"),
+    "add_rating_review":
+    MessageLookupByLibrary.simpleMessage("إضافة ملاحظة"),
+    "please_add_rating": MessageLookupByLibrary.simpleMessage(
+        "من فضلك اكتب تقييم عن الخدمات"),
+    "thanks_for_rating":
+    MessageLookupByLibrary.simpleMessage("شكراً لتقييمك :)"),
+    "no_specialty":
+    MessageLookupByLibrary.simpleMessage("عفواً لا توجد تخصصات الأن!"),
+    "not_insurance": MessageLookupByLibrary.simpleMessage(
+        "عفوا شركة التأمين غير مستخدمة!"),
       };
 }

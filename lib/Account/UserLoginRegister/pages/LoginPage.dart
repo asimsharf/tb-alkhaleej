@@ -191,7 +191,18 @@ class LoginPageState extends State<LoginPage> {
     if (emailController.text == "") {
       globalKey.currentState.showSnackBar(
         new SnackBar(
-          content: new Text(SnackBarText.ENTER_EMAIL),
+          content: new Text(
+            Translations
+                .of(context)
+                .ENTER_EMAIL,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: ArabicFonts.Cairo,
+              fontWeight: FontWeight.bold,
+              package: 'google_fonts_arabic',
+            ),
+          ),
+          backgroundColor: Colors.red,
         ),
       );
       return;
@@ -200,7 +211,18 @@ class LoginPageState extends State<LoginPage> {
     if (passwordController.text == "") {
       globalKey.currentState.showSnackBar(
         new SnackBar(
-          content: new Text(SnackBarText.ENTER_PASS),
+          content: new Text(
+            Translations
+                .of(context)
+                .ENTER_PASS,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: ArabicFonts.Cairo,
+              fontWeight: FontWeight.bold,
+              package: 'google_fonts_arabic',
+            ),
+          ),
+          backgroundColor: Colors.red,
         ),
       );
       return;
@@ -209,19 +231,16 @@ class LoginPageState extends State<LoginPage> {
       new FocusNode(),
     );
     progressDialog.showProgress();
-    _loginUser(emailController.text, passwordController.text);
+    _loginUser(emailController.text, passwordController.text, context);
   }
 
 //------------------------------------------------------------------------------
-  void _loginUser(String id, String password) async {
+  void _loginUser(String id, String password, BuildContext context) async {
     var eventObject = await loginUser(id, password);
     Map<String, dynamic> user = eventObject.object;
-    print('############################### Print out the response here ');
-    print(
-      eventObject.object.toString(),
-    );
+
     switch (eventObject.id) {
-      case EventConstants.LOGIN_USER_SUCCESSFUL:
+      case 1:
         {
           setState(
                 () {
@@ -254,10 +273,13 @@ class LoginPageState extends State<LoginPage> {
                 'userEmail',
                 user['profile']['email'].toString(),
               );
-              AppSharedPreferences.setInSession(
-                'userAvatar',
-                user['profile']['avatar']['url'].toString(),
-              );
+              if (user['profile']['avatar']['filename'] != '' ||
+                  user['profile']['avatar']['filename'] != null) {
+                AppSharedPreferences.setInSession(
+                  'userAvatar',
+                  user['profile']['avatar']['filename'].toString(),
+                );
+              }
               AppSharedPreferences.setInSession(
                 'userId',
                 user['profile']['_id'].toString(),
@@ -265,7 +287,16 @@ class LoginPageState extends State<LoginPage> {
 
               globalKey.currentState.showSnackBar(
                 new SnackBar(
-                  content: new Text(SnackBarText.LOGIN_SUCCESSFUL),
+                  content: new Text(
+                    eventObject.message,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: ArabicFonts.Cairo,
+                      fontWeight: FontWeight.bold,
+                      package: 'google_fonts_arabic',
+                    ),
+                  ),
+                  backgroundColor: Colors.green,
                 ),
               );
               progressDialog.hideProgress();
@@ -274,13 +305,22 @@ class LoginPageState extends State<LoginPage> {
           );
         }
         break;
-      case EventConstants.LOGIN_USER_UN_SUCCESSFUL:
+      case 2:
         {
           setState(
                 () {
               globalKey.currentState.showSnackBar(
                 new SnackBar(
-                  content: new Text(SnackBarText.LOGIN_UN_SUCCESSFUL),
+                  content: new Text(
+                    eventObject.message,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: ArabicFonts.Cairo,
+                      package: 'google_fonts_arabic',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  backgroundColor: Colors.red,
                 ),
               );
               progressDialog.hideProgress();
@@ -288,13 +328,22 @@ class LoginPageState extends State<LoginPage> {
           );
         }
         break;
-      case EventConstants.NO_INTERNET_CONNECTION:
+
+      case 0:
         {
           setState(
                 () {
               globalKey.currentState.showSnackBar(
                 new SnackBar(
-                  content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
+                  content: new Text(
+                    eventObject.message,
+                    style: TextStyle(
+                      color: Color(0xFF37505D),
+                      fontFamily: ArabicFonts.Cairo,
+                      package: 'google_fonts_arabic',
+                    ),
+                  ),
+                  backgroundColor: Colors.orange,
                 ),
               );
               progressDialog.hideProgress();

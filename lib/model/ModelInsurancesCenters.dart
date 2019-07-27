@@ -9,7 +9,7 @@ class ModelInsurancesCenters {
   final String lang;
   final bool isActive;
   final bool inviled;
-  final String centerType;
+  String centerType;
   final Address address;
   final Logo logo;
   final List<dynamic> committee;

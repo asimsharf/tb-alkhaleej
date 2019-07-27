@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/api/Rating_api_response.dart';
 import 'package:tb_alkhalij/model/Post.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -195,7 +196,9 @@ class _RatingState extends State<Rating> {
                               Radius.circular(5),
                             ),
                           ),
-                          hintText: "إضافة ملاحظة ...",
+                          hintText: Translations
+                              .of(context)
+                              .add_rating_review,
                           hintStyle: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             package: 'google_fonts_arabic',
@@ -219,7 +222,10 @@ class _RatingState extends State<Rating> {
                               elevation: 0.2,
                               child: new Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: new Text("إضافة تقييم",
+                                child: new Text(
+                                    Translations
+                                        .of(context)
+                                        .add_rating,
                                     style: TextStyle(
                                         fontFamily: ArabicFonts.Cairo,
                                         package: 'google_fonts_arabic',
@@ -267,7 +273,9 @@ class _RatingState extends State<Rating> {
       var createRate = new Rating_api_response();
       createRate.createPost(newPost).then(
             (value) => showMessage(
-                  'شكراً لتقييمك...',
+          Translations
+              .of(context)
+              .thanks_for_rating,
                   Colors.blue,
                 ),
           );
@@ -276,7 +284,9 @@ class _RatingState extends State<Rating> {
         Navigator.pop(context);
       });
     } else {
-      showMessage("من فضلك اكتب تقييم عن الخدمات", Colors.red);
+      showMessage(Translations
+          .of(context)
+          .please_add_rating, Colors.red);
       FocusScope.of(context).requestFocus(
         new FocusNode(),
       );

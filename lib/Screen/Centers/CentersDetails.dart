@@ -17,6 +17,7 @@ import 'package:tb_alkhalij/ui_widgets/TextIcon.dart';
 
 class CentersDetails extends StatefulWidget {
   final String id;
+  final String centerName;
   final String centerId;
   final String name;
   final String email;
@@ -39,6 +40,7 @@ class CentersDetails extends StatefulWidget {
 
   CentersDetails({
     this.id,
+    this.centerName,
     this.centerId,
     this.name,
     this.email,
@@ -484,6 +486,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                       builder: (context) =>
                           CentersDepartment(
                             id: widget.id,
+                            centerName: widget.name,
                             centerId: widget.centerId,
                             name: widget.name,
                             committee: widget.committee,
@@ -727,7 +730,9 @@ class _CentersDetailsState extends State<CentersDetails> {
                                         ),
                                       ),
                                       Text(
-                                        'عدد التقييمات ${tryParse(
+                                        '${Translations
+                                            .of(context)
+                                            .rating_number} ${tryParse(
                                             _ratingObj.rate).substring(0, 3)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
@@ -778,7 +783,9 @@ class _CentersDetailsState extends State<CentersDetails> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد تقييمات !',
+              Translations
+                  .of(context)
+                  .no_ratings,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

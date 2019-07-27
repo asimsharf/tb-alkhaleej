@@ -88,10 +88,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "locations": MessageLookupByLibrary.simpleMessage("Locations"),
         "rate": MessageLookupByLibrary.simpleMessage("Rate"),
         "ratings": MessageLookupByLibrary.simpleMessage("Ratings"),
-        "rating_review": MessageLookupByLibrary.simpleMessage("Rating_review"),
+    "rating_review": MessageLookupByLibrary.simpleMessage("Rating review"),
         "add_review": MessageLookupByLibrary.simpleMessage("Add review"),
         "add_rating": MessageLookupByLibrary.simpleMessage("Add rating"),
-        "total_rating": MessageLookupByLibrary.simpleMessage("total rating"),
+    "total_rating": MessageLookupByLibrary.simpleMessage("Total rating"),
         "tb_alkalij": MessageLookupByLibrary.simpleMessage("Tb alkhalij"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "create_account":
@@ -106,5 +106,61 @@ class MessageLookup extends MessageLookupByLibrary {
         "save_infos": MessageLookupByLibrary.simpleMessage("Save informations"),
         "edite_profile_user":
             MessageLookupByLibrary.simpleMessage("Edit informmations"),
+    "LOGIN_USER_UN_SUCCESSFUL":
+    MessageLookupByLibrary.simpleMessage("Wrong Email or Password!"),
+    "ENTER_EMAIL":
+    MessageLookupByLibrary.simpleMessage("Please Enter your Email"),
+    "ENTER_PASS":
+    MessageLookupByLibrary.simpleMessage("Please Enter your Password"),
+    "hospital": MessageLookupByLibrary.simpleMessage("Hospital"),
+    "book": MessageLookupByLibrary.simpleMessage("Book now"),
+    "rating_number": MessageLookupByLibrary.simpleMessage("Rating number"),
+    "specialty": MessageLookupByLibrary.simpleMessage("Specializations"),
+    "no_ratings":
+    MessageLookupByLibrary.simpleMessage("Sorry No Ratings Yet!"),
+    "no_consultants": MessageLookupByLibrary.simpleMessage(
+        "Sorry there are no consultants!"),
+    "no_hospitals": MessageLookupByLibrary.simpleMessage(
+        "Sorry there are no hospitals yet!"),
+    "search_by_hospital_name":
+    MessageLookupByLibrary.simpleMessage("Search by hospital name..."),
+    "search_by_insurance_name": MessageLookupByLibrary.simpleMessage(
+        "Search by insurance company name..."),
+    "search_by_department_name": MessageLookupByLibrary.simpleMessage(
+        "Search by department name..."),
+    "search_by_clinic_name":
+    MessageLookupByLibrary.simpleMessage("Search by clinic name..."),
+    "no_department": MessageLookupByLibrary.simpleMessage(
+        "Sorry there\'r no department yet! "),
+    "no_pharmacy": MessageLookupByLibrary.simpleMessage(
+        "Sorry there are no pharmacies yet! "),
+    "search_by_specialty_name":
+    MessageLookupByLibrary.simpleMessage("Search by specialty name..."),
+    "booking_history":
+    MessageLookupByLibrary.simpleMessage("Booking history"),
+    "cancel_booking_history": MessageLookupByLibrary.simpleMessage(
+        "Successfully canceled booking"),
+    "cancel_booking": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "not_booking_yet": MessageLookupByLibrary.simpleMessage(
+        "Sorry, you have not made a book yet!"),
+    "confirm_booking":
+    MessageLookupByLibrary.simpleMessage("Confirm booking"),
+    "select": MessageLookupByLibrary.simpleMessage("Select"),
+    "date": MessageLookupByLibrary.simpleMessage("Date"),
+    "time": MessageLookupByLibrary.simpleMessage("Time"),
+    "department_name":
+    MessageLookupByLibrary.simpleMessage("Department name"),
+    "center_name": MessageLookupByLibrary.simpleMessage("Center name"),
+    "patient_name": MessageLookupByLibrary.simpleMessage("Patient name"),
+    "add_rating_review":
+    MessageLookupByLibrary.simpleMessage("Add rating review"),
+    "please_add_rating": MessageLookupByLibrary.simpleMessage(
+        "Please write an evaluation of the services"),
+    "thanks_for_rating": MessageLookupByLibrary.simpleMessage(
+        "Thank you for your rating :)"),
+    "no_specialty": MessageLookupByLibrary.simpleMessage(
+        "Sorry ther\'s now Specializations yet"),
+    "not_insurance": MessageLookupByLibrary.simpleMessage(
+        "Sorry insurance is not used!"),
       };
 }

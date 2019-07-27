@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
               ],
               debugShowCheckedModeBanner: false,
               theme: hrTheme,
-              title: "Arabic Flutter",
+          title: 'طب الخليج الدائم',
               home: new SplashScreenPage(),
               routes: routes,
               onGenerateRoute: (RouteSettings settings) {
@@ -33,11 +33,6 @@ class MyApp extends StatelessWidget {
                 if (pathElements[0] != '') {
                   return null;
                 }
-//        if (pathElements[1] == 'product') {
-//          final int index = int.parse(pathElements[2]);
-//          return MaterialPageRoute<bool>(
-//              builder: (BuildContext context) => ProductsDetails());
-//        }
                 return null;
               },
               onUnknownRoute: (RouteSettings settings) {

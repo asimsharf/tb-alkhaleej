@@ -7,6 +7,7 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Booking/Book.dart';
 import 'package:tb_alkhalij/model/ModelCentersDepartment.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -14,6 +15,7 @@ import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
 class CentersDepartment extends StatefulWidget {
   final String id;
   final String centerId;
+  final String centerName;
   final String name;
   final String email;
   final String description;
@@ -36,6 +38,7 @@ class CentersDepartment extends StatefulWidget {
   CentersDepartment({
     this.id,
     this.centerId,
+    this.centerName,
     this.name,
     this.email,
     this.description,
@@ -307,6 +310,8 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                                         id: widget.id,
                                                         centerId:
                                                         widget.centerId,
+                                                        centerName:
+                                                        widget.centerName,
                                                         departmentId:
                                                         _centersDepartmentObj
                                                             .id,
@@ -354,7 +359,10 @@ class _CentersDepartmentState extends State<CentersDepartment> {
                                       elevation: 0.2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
-                                        child: new Text("أحجز الأن",
+                                        child: new Text(
+                                            Translations
+                                                .of(context)
+                                                .book,
                                             style: TextStyle(
                                                 fontFamily: ArabicFonts.Cairo,
                                                 package: 'google_fonts_arabic',
@@ -387,7 +395,9 @@ class _CentersDepartmentState extends State<CentersDepartment> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد أقسام !',
+              Translations
+                  .of(context)
+                  .no_department,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -425,7 +435,9 @@ class _CentersDepartmentState extends State<CentersDepartment> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: 'بحث بإسم القسم...',
+            hintText: Translations
+                .of(context)
+                .search_by_department_name,
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -438,7 +450,9 @@ class _CentersDepartmentState extends State<CentersDepartment> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          'الأقسام',
+          Translations
+              .of(context)
+              .department,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,

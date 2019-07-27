@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/Screen/Insurance/InsuranceDetails.dart';
 import 'package:tb_alkhalij/model/ModelInsurance.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
@@ -173,6 +174,7 @@ class _InsuranceState extends State<Insurance> {
         itemCount: names == null ? 0 : _modelInsurance.length,
         itemBuilder: (BuildContext context, int index) {
           final _insuranceObj = _modelInsurance[index];
+
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -261,7 +263,9 @@ class _InsuranceState extends State<Insurance> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              'عفواً لا توجد مستشفيات !',
+              Translations
+                  .of(context)
+                  .no_hospital,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -299,7 +303,9 @@ class _InsuranceState extends State<Insurance> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: 'بحث بإسم شركة التأمين...',
+            hintText: Translations
+                .of(context)
+                .search_by_insurance_name,
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -312,7 +318,9 @@ class _InsuranceState extends State<Insurance> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          'شركات التأمين',
+          Translations
+              .of(context)
+              .insurances,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,
