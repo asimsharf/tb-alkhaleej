@@ -21,7 +21,7 @@ class Centers extends StatefulWidget {
 class _CentersState extends State<Centers> {
   //---------------------------------------------------------------
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
+      new GlobalKey<RefreshIndicatorState>();
   final TextEditingController _filter = new TextEditingController();
   final dio = new Dio();
   String _searchText = "";
@@ -130,7 +130,7 @@ class _CentersState extends State<Centers> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
-          (_) => _refreshIndicatorKey.currentState.show(),
+      (_) => _refreshIndicatorKey.currentState.show(),
     );
     this.getCenters();
     this._getCenterNames();
@@ -184,9 +184,7 @@ class _CentersState extends State<Centers> {
           final _centersObj = _modelCenters[index];
 
           if (_centersObj.centerType == 'hospital') {
-            _centersObj.centerType = Translations
-                .of(context)
-                .hospital;
+            _centersObj.centerType = Translations.of(context).hospital;
           }
 
           return new GestureDetector(
@@ -213,15 +211,14 @@ class _CentersState extends State<Centers> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/files/${_centersObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/files/${_centersObj.logo.filename}',
                             ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             padding:
-                            const EdgeInsets.only(left: 5.0, right: 5.0),
+                                const EdgeInsets.only(left: 5.0, right: 5.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,7 +231,7 @@ class _CentersState extends State<Centers> {
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize:
-                                          EventSizedConstants.TextnameSize,
+                                              EventSizedConstants.TextnameSize,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: ArabicFonts.Cairo,
                                           package: 'google_fonts_arabic',
@@ -267,7 +264,7 @@ class _CentersState extends State<Centers> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${_centersObj.open.substring(11, 16)}",
+                                          "${_centersObj.open.substring(11, 16)}",
                                       icon: Icons.access_time,
                                       isColumn: false,
                                     ),
@@ -292,7 +289,7 @@ class _CentersState extends State<Centers> {
                                     TextIcon(
                                       size: EventSizedConstants.TextIconSized,
                                       text:
-                                      "${_centersObj.close.substring(11, 16)}",
+                                          "${_centersObj.close.substring(11, 16)}",
                                       icon: Icons.timer_off,
                                       isColumn: false,
                                     ),
@@ -313,28 +310,28 @@ class _CentersState extends State<Centers> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CentersDetails(
-                    id: _centersObj.id,
-                    centerId: _centersObj.id,
-                    name: _centersObj.name,
-                    centerName: _centersObj.name,
-                    email: _centersObj.email,
-                    description: _centersObj.description,
-                    close: _centersObj.close,
-                    open: _centersObj.open,
-                    isActive: _centersObj.isActive,
-                    inviled: _centersObj.inviled,
-                    country: _centersObj.address.country,
-                    postcode: _centersObj.address.postcode,
-                    state: _centersObj.address.state,
-                    street1: _centersObj.address.street1,
-                    suburb: _centersObj.address.suburb,
-                    centerType: _centersObj.centerType,
-                    logo: _centersObj.logo.filename,
-                    lang: _centersObj.lang,
-                    lat: _centersObj.lat,
-                    committee: _centersObj.committee,
-                    days: _centersObj.days,
-                  ),
+                        id: _centersObj.id,
+                        centerId: _centersObj.id,
+                        name: _centersObj.name,
+                        centerName: _centersObj.name,
+                        email: _centersObj.email,
+                        description: _centersObj.description,
+                        close: _centersObj.close,
+                        open: _centersObj.open,
+                        isActive: _centersObj.isActive,
+                        inviled: _centersObj.inviled,
+                        country: _centersObj.address.country,
+                        postcode: _centersObj.address.postcode,
+                        state: _centersObj.address.state,
+                        street1: _centersObj.address.street1,
+                        suburb: _centersObj.address.suburb,
+                        centerType: _centersObj.centerType,
+                        logo: _centersObj.logo.filename,
+                        lang: _centersObj.lang,
+                        lat: _centersObj.lat,
+                        committee: _centersObj.committee,
+                        days: _centersObj.days,
+                      ),
                 ),
               );
             },
@@ -350,9 +347,7 @@ class _CentersState extends State<Centers> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              Translations
-                  .of(context)
-                  .no_hospital,
+              Translations.of(context).no_hospital,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -390,9 +385,7 @@ class _CentersState extends State<Centers> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: Translations
-                .of(context)
-                .search_by_hospital_name,
+            hintText: Translations.of(context).search_by_hospital_name,
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -405,9 +398,7 @@ class _CentersState extends State<Centers> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          Translations
-              .of(context)
-              .center,
+          Translations.of(context).center,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,
