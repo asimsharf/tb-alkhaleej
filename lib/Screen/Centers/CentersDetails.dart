@@ -110,6 +110,7 @@ class _CentersDetailsState extends State<CentersDetails> {
         _modelRating = rest
             .map<ModelRating>((rest) => ModelRating.fromJson(rest))
             .toList();
+
         loading = false;
       }
     });
@@ -620,7 +621,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       SmoothStarRating(
-                        rating: 3.2,
+                        rating: 1.0,
                         size: 30,
                         color: Colors.yellow,
                         borderColor: Colors.grey,
@@ -657,8 +658,8 @@ class _CentersDetailsState extends State<CentersDetails> {
         });
   }
 
-  String tryParse(double rating) {
-    return rating.toString();
+  double tryParse(String rating) {
+    return double.parse(rating);
   }
 
   //Show builder for #Rating list
@@ -672,6 +673,9 @@ class _CentersDetailsState extends State<CentersDetails> {
         itemCount: _modelRating.length,
         itemBuilder: (BuildContext context, index) {
           final _ratingObj = _modelRating[index];
+//          if (_ratingObj.rate.truncateToDouble() != double) {
+//            _ratingObj.rate = _ratingObj.rate.toDouble();
+//          }
           return Padding(
             padding: const EdgeInsets.all(0.0),
             child: new Card(
@@ -733,7 +737,7 @@ class _CentersDetailsState extends State<CentersDetails> {
                                         '${Translations
                                             .of(context)
                                             .rating_number} ${tryParse(
-                                            _ratingObj.rate).substring(0, 3)}',
+                                            _ratingObj.rate)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,

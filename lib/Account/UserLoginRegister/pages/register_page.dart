@@ -386,46 +386,91 @@ class RegisterPageState extends State<RegisterPage> {
 //------------------------------------------------------------------------------
   void _registerButtonAction() {
     if (firstNameController.text == "" && lastNameController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(
-          SnackBarText.ENTER_NAME,
-          style: TextStyle(color: Colors.black),
+      globalKey.currentState.showSnackBar(
+        new SnackBar(
+          content: new Text(
+            'يرجى إدخال الإسم ',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: ArabicFonts.Cairo,
+              fontWeight: FontWeight.bold,
+              package: 'google_fonts_arabic',
+            ),
+          ),
+          backgroundColor: Colors.red,
         ),
-      ));
+      );
       return;
     }
 
     if (emailController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(
-          SnackBarText.ENTER_EMAIL,
-          style: TextStyle(color: Colors.black),
+      globalKey.currentState.showSnackBar(
+        new SnackBar(
+          content: new Text(
+            'يرجى إدخال البريد الإلكتروني',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: ArabicFonts.Cairo,
+              fontWeight: FontWeight.bold,
+              package: 'google_fonts_arabic',
+            ),
+          ),
+          backgroundColor: Colors.red,
         ),
-      ));
+      );
       return;
     }
 
     if (!isValidEmail(emailController.text)) {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(SnackBarText.ENTER_VALID_MAIL),
-      ));
+      globalKey.currentState.showSnackBar(
+        new SnackBar(
+          content: new Text(
+            'يرجى كتابة بريد صحيح',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: ArabicFonts.Cairo,
+              fontWeight: FontWeight.bold,
+              package: 'google_fonts_arabic',
+            ),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
 
     if (emailController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(
-          SnackBarText.ENTER_EMAIL,
-          style: TextStyle(color: Colors.black),
+      globalKey.currentState.showSnackBar(
+        new SnackBar(
+          content: new Text(
+            SnackBarText.ENTER_EMAIL,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: ArabicFonts.Cairo,
+              fontWeight: FontWeight.bold,
+              package: 'google_fonts_arabic',
+            ),
+          ),
+          backgroundColor: Colors.red,
         ),
-      ));
+      );
       return;
     }
 
     if (passwordController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(SnackBarText.ENTER_PASS),
-      ));
+      globalKey.currentState.showSnackBar(
+        new SnackBar(
+          content: new Text(
+            'يرجى إدخال كلمة المرور',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: ArabicFonts.Cairo,
+              fontWeight: FontWeight.bold,
+              package: 'google_fonts_arabic',
+            ),
+          ),
+        ),
+      );
       return;
     }
 
@@ -439,7 +484,7 @@ class RegisterPageState extends State<RegisterPage> {
     _registerUser(
       firstNameController.text,
       lastNameController.text,
-      genderController.text,
+      _gender,
       phoneController.text,
       emailController.text,
       passwordController.text,
@@ -450,27 +495,62 @@ class RegisterPageState extends State<RegisterPage> {
 //------------------------------------------------------------------------------
   void _registerUser(String firstName, String lastName, String gender,
       String phone, String email, String password, String birthDate) async {
+    String genderTemp;
+    switch (gender) {
+      case 'ذكر':
+        genderTemp = 'male';
+        break;
+      case 'انثى':
+        genderTemp = "female";
+        break;
+    }
     EventObject eventObject = await registerUser(
-        firstName, lastName, gender, phone, email, password, birthDate);
+        firstName,
+        lastName,
+        genderTemp,
+        phone,
+        email,
+        password,
+        birthDate);
     switch (eventObject.id) {
-      case EventConstants.USER_REGISTRATION_SUCCESSFUL:
+      case 1:
         {
           setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.REGISTER_SUCCESSFUL),
-            ));
+            globalKey.currentState.showSnackBar(
+              new SnackBar(
+                content: new Text(
+                  'تمت إنشاء حساب بنجاح',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                  ),
+                ),
+                backgroundColor: Colors.blueAccent,
+              ),
+            );
             progressDialog.hideProgress();
             _goToLoginScreen();
           });
         }
         break;
-      case EventConstants.USER_ALREADY_REGISTERED:
+      case 2:
         {
           setState(
-            () {
+                () {
               globalKey.currentState.showSnackBar(
                 new SnackBar(
-                  content: new Text(SnackBarText.USER_ALREADY_REGISTERED),
+                  content: new Text(
+                    'المستخدم موجود مسبقاً',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: ArabicFonts.Cairo,
+                      fontWeight: FontWeight.bold,
+                      package: 'google_fonts_arabic',
+                    ),
+                  ),
+                  backgroundColor: Colors.red,
                 ),
               );
               progressDialog.hideProgress();
@@ -478,30 +558,25 @@ class RegisterPageState extends State<RegisterPage> {
           );
         }
         break;
-      case EventConstants.USER_REGISTRATION_UN_SUCCESSFUL:
+      case 0:
         {
           setState(() {
             globalKey.currentState.showSnackBar(
               new SnackBar(
-                content: new Text(SnackBarText.REGISTER_UN_SUCCESSFUL),
+                content: new Text(
+                  "لم يتم إنشاء الحساب يرجى المحاوله مرى إخرى",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: ArabicFonts.Cairo,
+                    fontWeight: FontWeight.bold,
+                    package: 'google_fonts_arabic',
+                  ),
+                ),
+                backgroundColor: Colors.red,
               ),
             );
             progressDialog.hideProgress();
           });
-        }
-        break;
-      case EventConstants.NO_INTERNET_CONNECTION:
-        {
-          setState(
-            () {
-              globalKey.currentState.showSnackBar(
-                new SnackBar(
-                  content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
-                ),
-              );
-              progressDialog.hideProgress();
-            },
-          );
         }
         break;
     }

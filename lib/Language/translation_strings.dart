@@ -764,4 +764,32 @@ class Translations {
       name: 'please_add_rating',
     );
   }
+
+  String get system_error {
+    return Intl.message(
+      'Ooops there\'s error on the system please trye leater',
+      name: 'system_error',
+    );
+  }
+
+  String get not_booked {
+    return Intl.message(
+      'Sorry Booking not done tyle leater',
+      name: 'not_booked',
+    );
+  }
+
+  String get booking_okay_done {
+    return Intl.message(
+      'Your booking done Success',
+      name: 'booking_okay_done',
+    );
+  }
+
+  String get logout {
+    return Intl.message(
+      'Logout',
+      name: 'logout',
+    );
+  }
 }

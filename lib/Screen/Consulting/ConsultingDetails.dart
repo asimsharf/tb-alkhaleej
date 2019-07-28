@@ -152,8 +152,8 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
 
   var rating = 1.2;
 
-  String tryParse(double rating) {
-    return rating.toString();
+  double tryParse(String rating) {
+    return double.parse(rating);
   }
 
   @override
@@ -733,7 +733,7 @@ class _ConsultingDetailsState extends State<ConsultingDetails> {
                                         '${Translations
                                             .of(context)
                                             .rating_number} ${tryParse(
-                                            _ratingObj.rate).substring(0, 3)}',
+                                            _ratingObj.rate)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,

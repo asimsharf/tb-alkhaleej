@@ -155,8 +155,8 @@ class _CentersDetailsState extends State<ClinicDetails> {
 
   var rating = 1.2;
 
-  String tryParse(double rating) {
-    return rating.toString();
+  String tryParse(String rating) {
+    return double.parse(rating).toString();
   }
 
   @override

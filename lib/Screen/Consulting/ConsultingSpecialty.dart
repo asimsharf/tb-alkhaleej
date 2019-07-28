@@ -235,8 +235,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/Specializations/${_consultingSpecialtyObj
-                                  .image.filename}',
+                                  'http://23.111.185.155:3000/uploads/Specializations/${_consultingSpecialtyObj.image.filename}',
                             ),
                           ),
                         ),
@@ -284,8 +283,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        '${_consultingSpecialtyObj
-                                            .description}',
+                                        '${_consultingSpecialtyObj.description}',
                                         style: TextStyle(
                                           fontSize: 10.0,
                                           color: Colors.pinkAccent,
@@ -297,8 +295,8 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                     new MaterialButton(
                                       onPressed: () async {
                                         bool isLoggedIn =
-                                        await AppSharedPreferences
-                                            .isUserLoggedIn();
+                                            await AppSharedPreferences
+                                                .isUserLoggedIn();
                                         if (this.mounted) {
                                           setState(() {
                                             if (isLoggedIn != null &&
@@ -306,39 +304,38 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Book(
+                                                  builder: (context) => Book(
                                                         id: widget.id,
                                                         centerId:
-                                                        widget.centerId,
+                                                            widget.centerId,
                                                         departmentId:
-                                                        _consultingSpecialtyObj
-                                                            .id,
+                                                            _consultingSpecialtyObj
+                                                                .id,
                                                         name:
-                                                        _consultingSpecialtyObj
-                                                            .name,
+                                                            _consultingSpecialtyObj
+                                                                .name,
                                                         centerName:
-                                                        widget.centerName,
+                                                            widget.centerName,
                                                         description:
-                                                        _consultingSpecialtyObj
-                                                            .description,
+                                                            _consultingSpecialtyObj
+                                                                .description,
                                                         logo:
-                                                        _consultingSpecialtyObj
-                                                            .image.filename,
+                                                            _consultingSpecialtyObj
+                                                                .image.filename,
                                                         close: widget.close,
                                                         open: widget.open,
                                                         country: widget.country,
                                                         postcode:
-                                                        widget.postcode,
+                                                            widget.postcode,
                                                         state: widget.state,
                                                         street1: widget.street1,
                                                         suburb: widget.suburb,
                                                         centerType:
-                                                        widget.centerType,
+                                                            widget.centerType,
                                                         lang: widget.lang,
                                                         lat: widget.lat,
                                                         committee:
-                                                        widget.committee,
+                                                            widget.committee,
                                                         days: widget.days,
                                                       ),
                                                 ),
@@ -348,7 +345,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                                 context,
                                                 new MaterialPageRoute(
                                                     builder: (context) =>
-                                                    new LoginPage()),
+                                                        new LoginPage()),
                                               );
                                             }
                                           });
@@ -361,9 +358,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
                                         child: new Text(
-                                            Translations
-                                                .of(context)
-                                                .book,
+                                            Translations.of(context).book,
                                             style: TextStyle(
                                                 fontFamily: ArabicFonts.Cairo,
                                                 package: 'google_fonts_arabic',
@@ -397,9 +392,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              Translations
-                  .of(context)
-                  .no_specialty,
+              Translations.of(context).no_specialty,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -437,9 +430,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
               Icons.search,
               color: Colors.white,
             ),
-            hintText: Translations
-                .of(context)
-                .search_by_specialty_name,
+            hintText: Translations.of(context).search_by_specialty_name,
             hintStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -452,9 +443,7 @@ class _ConsultingSpecialtyState extends State<ConsultingSpecialty> {
           color: Colors.white,
         );
         this._appBarTitle = new Text(
-          Translations
-              .of(context)
-              .specialty,
+          Translations.of(context).specialty,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: ArabicFonts.Cairo,

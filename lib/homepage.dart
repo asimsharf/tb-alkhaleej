@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                     Translations.of(context).title,
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30.0,
+                        fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         fontFamily: ArabicFonts.Cairo,
                         package: 'google_fonts_arabic',
@@ -76,14 +76,14 @@ class _HomePageState extends State<HomePage> {
               new Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0),
                 child: Container(
-                  height: 50.0,
-                  width: 200.0,
+                  height: 40.0,
+                  width: 150.0,
                   child: RaisedButton(
                     child: Text(
                       Translations.of(context).login,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.bold,
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -118,14 +118,14 @@ class _HomePageState extends State<HomePage> {
               new Padding(
                 padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
                 child: Container(
-                  height: 50.0,
-                  width: 200.0,
+                  height: 40.0,
+                  width: 150.0,
                   child: RaisedButton(
                     child: Text(
                       Translations.of(context).new_user,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.bold,
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                       Translations.of(context).skip,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20.0,
+                          fontSize: 15.0,
                           fontWeight: FontWeight.bold,
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                             fontFamily: ArabicFonts.Cairo,
                             package: 'google_fonts_arabic',
                             color: Colors.white,
-                            fontSize: 16.0,
+                            fontSize: 15.0,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 0.3,
                             shadows: <Shadow>[

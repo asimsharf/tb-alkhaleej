@@ -50,6 +50,7 @@ class ProgressDialogTitles {
   static const String USER_LOG_IN = "...";
   static const String USER_CHANGE_PASSWORD = "...";
   static const String USER_REGISTER = "...";
+  static const String USER_BOOKING = "...";
 }
 
 ///////////////////////////////////////////////////////////////////////////////

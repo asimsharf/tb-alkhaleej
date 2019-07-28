@@ -162,5 +162,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sorry ther\'s now Specializations yet"),
     "not_insurance": MessageLookupByLibrary.simpleMessage(
         "Sorry insurance is not used!"),
+    "system_error": MessageLookupByLibrary.simpleMessage(
+        "Ooops there\'s error on the system please trye leater"),
+    "not_booked": MessageLookupByLibrary.simpleMessage(
+        "Sorry Booking not done tyle leater"),
+    "booking_okay_done":
+    MessageLookupByLibrary.simpleMessage("Your booking done Success"),
+    "logout": MessageLookupByLibrary.simpleMessage("Logout"),
       };
 }

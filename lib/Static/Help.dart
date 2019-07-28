@@ -35,7 +35,7 @@ class _HelpState extends State<Help>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: new AppBar(
         centerTitle: true,
         title: Text(
           Translations
@@ -62,178 +62,190 @@ class _HelpState extends State<Help>
           ),
         ),
       ),
-      body: Stack(
+      body: new Stack(
         fit: StackFit.expand,
         alignment: Alignment.center,
         children: <Widget>[
-          Column(
+          new Column(
             children: <Widget>[
-              new Container(
-                height: 220.0,
+              Flexible(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(0.0),
                   child: FadeInImage.assetNetwork(
                     fit: BoxFit.fill,
                     placeholder: 'assets/logo.png',
-                    image:
-                        'https://healthitsecurity.com/images/site/article_headers/_normal/2017-11-08large-data-breach.jpg',
+                    image: 'assets/logo.png2',
                   ),
                 ),
               ),
-              new Expanded(
+              new Flexible(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: <Widget>[
-                      new Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text("رقم الجوال",
+                      new Flexible(
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "رقم الجوال",
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   fontFamily: ArabicFonts.Cairo,
                                   package: 'google_fonts_arabic',
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xFF37505D),
-                                  fontSize: 14.0)),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Text(
-                            "209384572345",
-                            style: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
+                                  fontSize: 14.0),
                             ),
-                          )
-                        ],
+                            SizedBox(
+                              width: 20.0,
+                            ),
+                            Text(
+                              "209384572345",
+                              style: TextStyle(
+                                fontFamily: ArabicFonts.Cairo,
+                                package: 'google_fonts_arabic',
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      new Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text("الواتساب",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontFamily: ArabicFonts.Cairo,
-                                  package: 'google_fonts_arabic',
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF37505D),
-                                  fontSize: 14.0)),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Text(
-                            "209345875235",
-                            style: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
+                      new Flexible(
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text("الواتساب",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: ArabicFonts.Cairo,
+                                    package: 'google_fonts_arabic',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF37505D),
+                                    fontSize: 14.0)),
+                            SizedBox(
+                              width: 20.0,
                             ),
-                          )
-                        ],
+                            Text(
+                              "209345875235",
+                              style: TextStyle(
+                                fontFamily: ArabicFonts.Cairo,
+                                package: 'google_fonts_arabic',
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      new Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text("الموقع الإلكتروني",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontFamily: ArabicFonts.Cairo,
-                                  package: 'google_fonts_arabic',
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF37505D),
-                                  fontSize: 14.0)),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Text(
-                            "http://takaful.com/",
-                            style: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
+                      new Flexible(
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text("الموقع الإلكتروني",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: ArabicFonts.Cairo,
+                                    package: 'google_fonts_arabic',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF37505D),
+                                    fontSize: 14.0)),
+                            SizedBox(
+                              width: 20.0,
                             ),
-                          )
-                        ],
+                            Text(
+                              "http://takaful.com/",
+                              style: TextStyle(
+                                fontFamily: ArabicFonts.Cairo,
+                                package: 'google_fonts_arabic',
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      new Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text("البريد الإلكتروني",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontFamily: ArabicFonts.Cairo,
-                                  package: 'google_fonts_arabic',
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF37505D),
-                                  fontSize: 14.0)),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Text(
-                            "info@takaful.com",
-                            style: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
+                      new Flexible(
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text("البريد الإلكتروني",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: ArabicFonts.Cairo,
+                                    package: 'google_fonts_arabic',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF37505D),
+                                    fontSize: 14.0)),
+                            SizedBox(
+                              width: 20.0,
                             ),
-                          )
-                        ],
+                            Text(
+                              "info@takaful.com",
+                              style: TextStyle(
+                                fontFamily: ArabicFonts.Cairo,
+                                package: 'google_fonts_arabic',
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      new Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text("الدولة",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontFamily: ArabicFonts.Cairo,
-                                  package: 'google_fonts_arabic',
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF37505D),
-                                  fontSize: 14.0)),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Text(
-                            "المملكة العربية السعودية",
-                            style: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
+                      new Flexible(
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text("الدولة",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: ArabicFonts.Cairo,
+                                    package: 'google_fonts_arabic',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF37505D),
+                                    fontSize: 14.0)),
+                            SizedBox(
+                              width: 20.0,
                             ),
-                          )
-                        ],
+                            Text(
+                              "المملكة العربية السعودية",
+                              style: TextStyle(
+                                fontFamily: ArabicFonts.Cairo,
+                                package: 'google_fonts_arabic',
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      new Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text("المدينة",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontFamily: ArabicFonts.Cairo,
-                                  package: 'google_fonts_arabic',
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF37505D),
-                                  fontSize: 14.0)),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Text(
-                            "جدة",
-                            style: TextStyle(
-                              fontFamily: ArabicFonts.Cairo,
-                              package: 'google_fonts_arabic',
+                      new Flexible(
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text("المدينة",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: ArabicFonts.Cairo,
+                                    package: 'google_fonts_arabic',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF37505D),
+                                    fontSize: 14.0)),
+                            SizedBox(
+                              width: 20.0,
                             ),
-                          )
-                        ],
+                            Text(
+                              "جدة",
+                              style: TextStyle(
+                                fontFamily: ArabicFonts.Cairo,
+                                package: 'google_fonts_arabic',
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -243,7 +255,7 @@ class _HelpState extends State<Help>
           ),
           // Profile image
           new Positioned(
-            top: 120.0,
+            top: 100.0,
             child: Column(
               children: <Widget>[
                 Container(
@@ -252,15 +264,14 @@ class _HelpState extends State<Help>
                     children: <Widget>[
                       new Center(
                         child: Container(
-                          height: 100.0,
-                          width: 100.0,
+                          height: 70.0,
+                          width: 70.0,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
                               placeholder: 'assets/logo.png',
-                              image:
-                                  'https://healthitsecurity.com/images/site/article_headers/_normal/2017-11-08large-data-breach.jpg',
+                              image: 'assets/logo.png',
                             ),
                           ),
                         ),

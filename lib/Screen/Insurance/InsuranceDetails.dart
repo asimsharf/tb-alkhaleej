@@ -78,22 +78,22 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
       body: CustomScrollView(
         slivers: <Widget>[
           new SliverAppBar(
-            title: Text(
+            title: new Text(
               widget.name,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: new TextStyle(
                 fontSize: EventSizedConstants.TextappBarSize,
                 fontWeight: FontWeight.bold,
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
                 color: Colors.white,
                 shadows: <Shadow>[
-                  Shadow(
+                  new Shadow(
                     offset: Offset(3.0, 3.0),
                     blurRadius: 3.0,
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
-                  Shadow(
+                  new Shadow(
                     offset: Offset(3.0, 3.0),
                     blurRadius: 8.0,
                     color: Color.fromARGB(125, 0, 0, 255),
@@ -104,12 +104,12 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
             centerTitle: true,
             pinned: true,
             floating: false,
-            expandedHeight: 256,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
+            expandedHeight: 200,
+            flexibleSpace: new FlexibleSpaceBar(
+              background: new Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
-                  FadeInImage.assetNetwork(
+                  new FadeInImage.assetNetwork(
                     fit: BoxFit.cover,
                     placeholder: 'assets/logo.png',
                     image:
@@ -190,13 +190,9 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
           final _centersObj = _modelInsurancesCenters[index];
 
           if (_centersObj.centerType == 'hospital') {
-            _centersObj.centerType = Translations
-                .of(context)
-                .hospital;
+            _centersObj.centerType = Translations.of(context).hospital;
           } else if (_centersObj.centerType == 'clinic') {
-            _centersObj.centerType = Translations
-                .of(context)
-                .clinic;
+            _centersObj.centerType = Translations.of(context).clinic;
           }
           return new GestureDetector(
             child: Card(
@@ -356,9 +352,7 @@ class _InsuranceDetailsState extends State<InsuranceDetails> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              Translations
-                  .of(context)
-                  .not_insurance,
+              Translations.of(context).not_insurance,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',

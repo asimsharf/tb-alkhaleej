@@ -133,6 +133,9 @@ class _BookingHistoryState extends State<BookingHistory> {
         itemCount: _modelBookingHistory.length,
         itemBuilder: (BuildContext context, index) {
           final _bookingHistoryObj = _modelBookingHistory[index];
+          if (_bookingHistoryObj.committee.isEmpty) {
+            _bookingHistoryObj.committee = 'لا يوجد شركة تأمين';
+          }
           return new GestureDetector(
             child: Card(
               elevation: 0.0,
@@ -156,8 +159,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                             child: FadeInImage.assetNetwork(
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
-                              image:
-                                  'http://23.111.185.155:3000/uploads/avtar/${_bookingHistoryObj.logo.filename}',
+                              image: 'assets/avatar_person.png',
                             ),
                           ),
                         ),
@@ -212,9 +214,9 @@ class _BookingHistoryState extends State<BookingHistory> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        '${_bookingHistoryObj
-                                            .date}  :   ${_bookingHistoryObj
-                                            .date}',
+                                        '${_bookingHistoryObj.date.substring(
+                                            0, 10)}  :   ${_bookingHistoryObj
+                                            .date.substring(10, 15)}',
                                         style: TextStyle(
                                           fontSize: 8.0,
                                           color: Colors.pinkAccent,

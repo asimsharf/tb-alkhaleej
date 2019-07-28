@@ -40,8 +40,8 @@ class InsuranceCenterDetails extends StatefulWidget {
 
   InsuranceCenterDetails(
       {this.id,
-        this.centerId,
-        this.centerName,
+      this.centerId,
+      this.centerName,
       this.name,
       this.email,
       this.description,
@@ -56,7 +56,7 @@ class InsuranceCenterDetails extends StatefulWidget {
       this.state,
       this.street1,
       this.suburb,
-        this.centerType,
+      this.centerType,
       this.logo,
       this.committee});
 
@@ -80,8 +80,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
 
   Future<List<ModelInsurancesCenters>> getInsuranceCenter() async {
     String link =
-        "http://23.111.185.155:3000/api/insurances/${widget.id}/centers/${widget
-        .centerId}";
+        "http://23.111.185.155:3000/api/insurances/${widget.id}/centers/${widget.centerId}";
 
     var res = await http
         .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
@@ -177,8 +176,8 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
 
   var rating = 1.2;
 
-  String tryParse(double rating) {
-    return rating.toString();
+  double tryParse(String rating) {
+    return double.parse(rating);
   }
 
   @override
@@ -222,7 +221,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     fit: BoxFit.cover,
                     placeholder: 'assets/logo.png',
                     image:
-                    'http://23.111.185.155:3000/uploads/files/${widget.logo}',
+                        'http://23.111.185.155:3000/uploads/files/${widget.logo}',
                   ),
                   const DecoratedBox(
                     decoration: BoxDecoration(
@@ -332,8 +331,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                       ),
                       Expanded(
                         child: Text(
-                          '${widget.country}, ${widget.postcode}, ${widget
-                              .state}, ${widget.street1}, ${widget.suburb}',
+                          '${widget.country}, ${widget.postcode}, ${widget.state}, ${widget.street1}, ${widget.suburb}',
                           style: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             fontSize: 10.0,
@@ -438,10 +436,9 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                       direction: Axis.horizontal,
                       alignment: WrapAlignment.start,
                       children: getCommitteeList(widget.committee)
-                          .map((name) =>
-                          MyButton(
-                            name,
-                          ))
+                          .map((name) => MyButton(
+                                name,
+                              ))
                           .toList(),
                     )),
                 new SizedBox(
@@ -518,26 +515,26 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => CentersDepartment(
-                        id: widget.id,
-                        centerId: widget.centerId,
-                        name: widget.name,
-                        centerName: widget.centerName,
-                        email: widget.email,
-                        description: widget.description,
-                        close: widget.close,
-                        open: widget.open,
-                        isActive: widget.isActive,
-                        inviled: widget.inviled,
-                        country: widget.country,
-                        postcode: widget.postcode,
-                        state: widget.state,
-                        street1: widget.street1,
-                        suburb: widget.suburb,
-                        centerType: widget.centerType,
-                        logo: widget.logo,
-                        lang: widget.lang,
-                        lat: widget.lat,
-                        committee: widget.committee,
+                            id: widget.id,
+                            centerId: widget.centerId,
+                            name: widget.name,
+                            centerName: widget.centerName,
+                            email: widget.email,
+                            description: widget.description,
+                            close: widget.close,
+                            open: widget.open,
+                            isActive: widget.isActive,
+                            inviled: widget.inviled,
+                            country: widget.country,
+                            postcode: widget.postcode,
+                            state: widget.state,
+                            street1: widget.street1,
+                            suburb: widget.suburb,
+                            centerType: widget.centerType,
+                            logo: widget.logo,
+                            lang: widget.lang,
+                            lat: widget.lat,
+                            committee: widget.committee,
                           ),
                     ),
                   );
@@ -729,8 +726,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${_ratingObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/avtar/${_ratingObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -751,8 +747,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${_ratingObj.client.first + ' ' +
-                                              _ratingObj.client.last}',
+                                          '${_ratingObj.client.first + ' ' + _ratingObj.client.last}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 12.0,
@@ -763,10 +758,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
                                         ),
                                       ),
                                       Text(
-                                        '${Translations
-                                            .of(context)
-                                            .rating_number} ${tryParse(
-                                            _ratingObj.rate).substring(0, 3)}',
+                                        '${Translations.of(context).rating_number} ${tryParse(_ratingObj.rate)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -816,9 +808,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              Translations
-                  .of(context)
-                  .no_ratings,
+              Translations.of(context).no_ratings,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -841,8 +831,7 @@ class _InsuranceCenterDetailsState extends State<InsuranceCenterDetails> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  Rating(
+              builder: (context) => Rating(
                     id: widget.centerId,
                     name: widget.name,
                     logo: widget.logo,

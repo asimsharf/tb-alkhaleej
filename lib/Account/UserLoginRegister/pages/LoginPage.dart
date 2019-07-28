@@ -273,13 +273,17 @@ class LoginPageState extends State<LoginPage> {
                 'userEmail',
                 user['profile']['email'].toString(),
               );
-              if (user['profile']['avatar']['filename'] != '' ||
-                  user['profile']['avatar']['filename'] != null) {
-                AppSharedPreferences.setInSession(
-                  'userAvatar',
-                  user['profile']['avatar']['filename'].toString(),
-                );
-              }
+//              try {
+//                if (user['profile']['avatar']['filename'] != '' ||
+//                    user['profile']['avatar']['filename'] != null) {
+//                  AppSharedPreferences.setInSession(
+//                    'userAvatar',
+//                    user['profile']['avatar']['filename'].toString(),
+//                  );
+//                }
+//              } catch (e) {
+//                return;
+//              }
               AppSharedPreferences.setInSession(
                 'userId',
                 user['profile']['_id'].toString(),

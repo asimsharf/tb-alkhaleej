@@ -120,8 +120,11 @@ class _UserProfileState extends State<UserProfile>
           new SliverList(
             delegate: SliverChildListDelegate(
               [
+                SizedBox(
+                  height: 100.0,
+                ),
                 new Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: new Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,7 +152,7 @@ class _UserProfileState extends State<UserProfile>
                   ),
                 ),
                 new Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: new Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -177,7 +180,7 @@ class _UserProfileState extends State<UserProfile>
                   ),
                 ),
                 new Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: new Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,7 +208,7 @@ class _UserProfileState extends State<UserProfile>
                   ),
                 ),
                 new Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: new Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -233,7 +236,7 @@ class _UserProfileState extends State<UserProfile>
                   ),
                 ),
                 new Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: new Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,

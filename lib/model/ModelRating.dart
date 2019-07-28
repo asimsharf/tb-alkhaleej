@@ -3,7 +3,7 @@ class ModelRating {
   Client client;
   Logo logo;
   String center;
-  double rate;
+  String rate;
   String comment;
   double total;
 
@@ -21,7 +21,7 @@ class ModelRating {
       client: Client.fromJson(json['client']),
       logo: Logo.fromJson(json['logo']),
       center: json['center'] as String,
-      rate: json['rate'] as double,
+      rate: json['rate'] as String,
       comment: json['comment'] as String,
       total: json['total'] as double,
     );

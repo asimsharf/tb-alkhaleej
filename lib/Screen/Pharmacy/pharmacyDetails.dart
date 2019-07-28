@@ -152,8 +152,8 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
   //Initial rating value
   var rating = 1.0;
 
-  String tryParse(double rating) {
-    return rating.toString();
+  double tryParse(String rating) {
+    return double.parse(rating);
   }
 
   @override
@@ -697,7 +697,7 @@ class _PharmacyDetailsState extends State<PharmacyDetails> {
                                         '${Translations
                                             .of(context)
                                             .rating_number} ${tryParse(
-                                            _ratingObj.rate).substring(0, 3)}',
+                                            _ratingObj.rate)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,

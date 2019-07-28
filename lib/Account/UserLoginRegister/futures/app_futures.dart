@@ -15,6 +15,7 @@ Future<double> getTotalRate(String centerId) async {
   double totalRating = 0;
   var res = await http
       .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
+  print(res.body.toString());
   if (res.statusCode == 200) {
     var data = json.decode(res.body);
 
@@ -29,6 +30,7 @@ Future<EventObject> loginUser(String emailId, String password) async {
   try {
     final response = await http.get(baseurl + emailId + '/' + password,
         headers: {"Accept": "application/json"});
+    print(response.body.toString());
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
@@ -53,7 +55,7 @@ Future<EventObject> loginUser(String emailId, String password) async {
       return new EventObject();
     }
   } catch (Exception) {
-    return EventObject(id: 0);
+    return EventObject(id: 0, message: 'Exception !!!!!!!!!!!!!!!!!!');
   }
 }
 
@@ -67,6 +69,20 @@ String _toJson(String firstName, String lastName, String gender, String phone,
   mapData["email"] = email;
   mapData["password"] = password;
   mapData["birth_day"] = birthDate;
+  String json = jsonEncode(mapData);
+
+  return json;
+}
+
+String _bookingToJson(String centerId, String departmentId, String patientId,
+    String insuranceId, String bookingDateTime) {
+  var mapData = new Map();
+  mapData["hospital"] = centerId;
+  mapData["department"] = departmentId;
+  mapData["committee"] = insuranceId;
+  mapData["patient"] = patientId;
+  mapData["publishedDate"] = bookingDateTime;
+
   String json = jsonEncode(mapData);
 
   return json;
@@ -96,33 +112,43 @@ Future<EventObject> registerUser(
             email,
             password,
             birthDate));
-    print("***********1****************");
+    print("***********Register user response to json****************");
+    print(_toJson(
+        firstName,
+        lastName,
+        gender,
+        phone,
+        email,
+        password,
+        birthDate));
+    print("***********Register user response****************");
     print(response.body.toString());
 
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-        final responseJson = json.decode(response.body);
+        Map<String, dynamic> responseJson = json.decode(response.body);
 
-        ApiResponse apiResponse = ApiResponse.fromJson(responseJson);
-
-        if (apiResponse.result == APIOperations.SUCCESS) {
+        if (responseJson['code'] == 1) {
           return new EventObject(
-              id: EventConstants.USER_REGISTRATION_SUCCESSFUL, object: null);
-        } else if (apiResponse.result == APIOperations.FAILURE) {
-          return new EventObject(id: EventConstants.USER_ALREADY_REGISTERED);
+              id: EventConstants.LOGIN_USER_SUCCESSFUL,
+              object: responseJson,
+              message: 'تمت عمليه التسجيل بنجاح');
         } else {
           return new EventObject(
-              id: EventConstants.USER_REGISTRATION_UN_SUCCESSFUL);
+              id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+              message: 'عفواً خطأ في المدخلات');
         }
       } else {
-        return new EventObject(id: EventConstants.USER_ALREADY_REGISTERED);
+        return new EventObject(
+            id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+            message: 'عفواً خطأ في المدخلات ');
       }
     } else {
       return new EventObject();
     }
   } catch (Exception) {
-    return EventObject();
+    return EventObject(id: 0);
   }
 }
 
@@ -166,4 +192,50 @@ Future<EventObject> changePassword(
     return EventObject();
   }
 }
+
 ///////////////////////////////////////////////////////////////////////////////
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//
+Future<EventObject> patientAppointment(String centerId,
+    String departmentId,
+    String patientId,
+    String insuranceId,
+    String bookingDateTime,) async {
+  const _serviceUrl = 'http://23.111.185.155:3000/api/booking';
+
+  final _headers = {'Content-Type': 'application/json'};
+
+  try {
+    final response = await http.post(_serviceUrl,
+        headers: _headers,
+        body: _bookingToJson(
+            centerId, departmentId, patientId, insuranceId, bookingDateTime));
+    print("***********1****************");
+    print(response.body.toString());
+
+    if (response != null) {
+      if (response.statusCode == APIResponseCode.SC_OK &&
+          response.body != null) {
+        Map<String, dynamic> responseJson = json.decode(response.body);
+
+        if (responseJson['code'] == 1) {
+          return new EventObject(
+              id: EventConstants.LOGIN_USER_SUCCESSFUL,
+              object: responseJson,
+              message: 'تمت عمليه الحجز بنجاح');
+        } else {
+          return new EventObject(
+              id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+              message: 'عفواً خطأ في كلمة المدخلات');
+        }
+      } else {
+        return new EventObject(
+            id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+            message: 'عفواً خطأ في المدخلات ');
+      }
+    } else {
+      return new EventObject();
+    }
+  } catch (Exception) {
+    return EventObject(id: 0);
+  }
+}
