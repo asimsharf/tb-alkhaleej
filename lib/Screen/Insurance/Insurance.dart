@@ -38,17 +38,25 @@ class _InsuranceState extends State<Insurance> {
     for (int i = 0; i < response.data['committee'].length; i++) {
       var rest = response.data['committee'] as List;
       _modelInsurance = rest
-          .map<ModelInsurance>((rest) => ModelInsurance.fromJson(rest))
+          .map<ModelInsurance>(
+            (rest) => ModelInsurance.fromJson(rest),
+      )
           .toList();
-      tempList.add(ModelInsurance.fromJson(response.data['committee'][i]));
+      tempList.add(
+        ModelInsurance.fromJson(
+          response.data['committee'][i],
+        ),
+      );
     }
-    setState(() {
-      if (response.statusCode == 200) {
-        names = tempList;
-        names.shuffle();
-        _modelInsurance = names;
-      }
-    });
+    setState(
+          () {
+        if (response.statusCode == 200) {
+          names = tempList;
+          names.shuffle();
+          _modelInsurance = names;
+        }
+      },
+    );
   }
 
 //---------------------------------------------------------------
@@ -56,64 +64,78 @@ class _InsuranceState extends State<Insurance> {
 
   Future<List<ModelInsurance>> getInsurance() async {
     String link = "http://23.111.185.155:3000/api/insurances";
-    var res = await http
-        .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
-    setState(() {
-      if (res.statusCode == 200) {
-        var data = json.decode(res.body);
-        var rest = data['committee'] as List;
-        _modelInsurance = rest
-            .map<ModelInsurance>((rest) => ModelInsurance.fromJson(rest))
-            .toList();
-        _loading = false;
-      }
-    });
+    var res = await http.get(
+      Uri.encodeFull(link),
+      headers: {"Accept": "application/json"},
+    );
+    setState(
+          () {
+        if (res.statusCode == 200) {
+          var data = json.decode(res.body);
+          var rest = data['committee'] as List;
+          _modelInsurance = rest
+              .map<ModelInsurance>(
+                (rest) => ModelInsurance.fromJson(rest),
+          )
+              .toList();
+          _loading = false;
+        }
+      },
+    );
     return _modelInsurance;
   }
 
   //---------------------------------------------------------------
   Widget _appBarTitle = new Text(
-//    Translations.of(context).insurance,
     'شركات التأمين',
     style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontFamily: ArabicFonts.Cairo,
-        fontSize: EventSizedConstants.TextappBarSize,
-        color: Colors.white,
-        package: 'google_fonts_arabic',
-        shadows: <Shadow>[
-          Shadow(
-            offset: Offset(3.0, 3.0),
-            blurRadius: 3.0,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ),
-          Shadow(
-            offset: Offset(3.0, 3.0),
-            blurRadius: 8.0,
-            color: Color.fromARGB(125, 0, 0, 255),
-          ),
-        ]),
+      fontWeight: FontWeight.bold,
+      fontFamily: ArabicFonts.Cairo,
+      fontSize: EventSizedConstants.TextappBarSize,
+      color: Colors.white,
+      package: 'google_fonts_arabic',
+      shadows: <Shadow>[
+        Shadow(
+          offset: Offset(3.0, 3.0),
+          blurRadius: 3.0,
+          color: Color.fromARGB(255, 0, 0, 0),
+        ),
+        Shadow(
+          offset: Offset(3.0, 3.0),
+          blurRadius: 8.0,
+          color: Color.fromARGB(125, 0, 0, 255),
+        ),
+      ],
+    ),
   );
 
   _InsuranceState() {
-    _filter.addListener(() {
-      if (_filter.text.isEmpty) {
-        setState(() {
-          _searchText = "";
-          _modelInsurance = names;
-        });
-      } else {
-        setState(() {
-          _searchText = _filter.text;
-        });
-      }
-    });
+    _filter.addListener(
+          () {
+        if (_filter.text.isEmpty) {
+          setState(
+                () {
+              _searchText = "";
+              _modelInsurance = names;
+            },
+          );
+        } else {
+          setState(
+                () {
+              _searchText = _filter.text;
+            },
+          );
+        }
+      },
+    );
   }
 
   Future<Null> _refresh() {
-    return getInsurance().then((modelCen) {
-      setState(() => _modelInsurance = modelCen);
-    });
+    return getInsurance().then(
+          (modelCen) {
+        setState(() => _modelInsurance = modelCen);
+      },
+    );
   }
 
 //---------------------------------------------------------------
@@ -125,9 +147,11 @@ class _InsuranceState extends State<Insurance> {
     );
     this.getInsurance();
     this._getInsuranceNames();
-    setState(() {
-      _loading = true;
-    });
+    setState(
+          () {
+        _loading = true;
+      },
+    );
   }
 
   @override
@@ -142,7 +166,9 @@ class _InsuranceState extends State<Insurance> {
             children: <Widget>[
               new Expanded(
                   child: _loading
-                      ? new Center(child: new CircularProgressIndicator())
+                      ? new Center(
+                    child: new CircularProgressIndicator(),
+                  )
                       : _buildProductList()),
             ],
           ),

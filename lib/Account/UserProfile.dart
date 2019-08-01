@@ -170,7 +170,7 @@ class _UserProfileState extends State<UserProfile>
                         width: 20.0,
                       ),
                       Text(
-                        "0987654321",
+                        "${userPhone}",
                         style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',

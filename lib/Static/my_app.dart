@@ -12,33 +12,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<AppModel>(
-        builder: (context, child, model) => new MaterialApp(
-              locale: model.appLocal,
-              localizationsDelegates: [
-                const TranslationsDelegate(),
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              supportedLocales: [
-                const Locale('ar', ''), // Arabic
-                const Locale('en', ''), // English
-              ],
-              debugShowCheckedModeBanner: false,
-              theme: hrTheme,
-          title: 'طب الخليج الدائم',
-              home: new SplashScreenPage(),
-              routes: routes,
-              onGenerateRoute: (RouteSettings settings) {
-                final List<String> pathElements = settings.name.split('/');
-                if (pathElements[0] != '') {
-                  return null;
-                }
+      builder: (context, child, model) => new MaterialApp(
+            locale: model.appLocal,
+            localizationsDelegates: [
+              const TranslationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('ar', ''), // Arabic
+              const Locale('en', ''), // English
+            ],
+            debugShowCheckedModeBanner: false,
+            theme: hrTheme,
+            title: 'طب الخليج الدائم',
+            home: new SplashScreenPage(),
+            routes: routes,
+            onGenerateRoute: (RouteSettings settings) {
+              final List<String> pathElements = settings.name.split('/');
+              if (pathElements[0] != '') {
                 return null;
-              },
-              onUnknownRoute: (RouteSettings settings) {
-                return MaterialPageRoute(
-                    builder: (BuildContext context) => HomePage());
-              },
-            ));
+              }
+              return null;
+            },
+            onUnknownRoute: (RouteSettings settings) {
+              return MaterialPageRoute(
+                builder: (BuildContext context) => HomePage(),
+              );
+            },
+          ),
+    );
   }
 }

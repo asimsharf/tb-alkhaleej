@@ -10,7 +10,6 @@ class Cancel_booking_api_response {
 
   Future<ModelBookingHistory> cancelBooking(String post) async {
     try {
-      //final response = await http.get(_serviceUrl, headers: _headers, body: json);
       final response =
           await http.get(_serviceUrl + '/' + post, headers: _headers);
 
@@ -32,12 +31,5 @@ class Cancel_booking_api_response {
     var post = new ModelBookingHistory();
     post.id = map['centerId'];
     return post;
-  }
-
-  String _toJson(ModelBookingHistory post) {
-    var mapData = new Map();
-    mapData["id"] = post.id;
-    String json = jsonEncode(mapData);
-    return json;
   }
 }

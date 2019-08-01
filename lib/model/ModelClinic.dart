@@ -25,10 +25,10 @@ class ModelClinic {
       this.inviled,
       this.lat,
       this.lang,
-        this.centerType,
+      this.centerType,
       this.address,
       this.logo,
-        this.committee});
+      this.committee});
 
   factory ModelClinic.fromJson(Map<String, dynamic> json) {
     return ModelClinic(

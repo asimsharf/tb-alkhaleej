@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("English"),
         "links": MessageLookupByLibrary.simpleMessage("الروابط"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "login_successfully":
+    MessageLookupByLibrary.simpleMessage("تمت عمليه الدخول بنجاح"),
         "not_valid_username":
             MessageLookupByLibrary.simpleMessage("اسم المستخدم غير صحيح"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
@@ -170,5 +172,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "booking_okay_done":
             MessageLookupByLibrary.simpleMessage("تمت عمليه الحجز بنجاح"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
+    "enter_date_of_barth":
+    MessageLookupByLibrary.simpleMessage("إدخل تاريخ الميلاد"),
+    "pass_date_time": MessageLookupByLibrary.simpleMessage(
+        "عفوا لا يمكنك الحجز في وقت سابق"),
+    "old_password":
+    MessageLookupByLibrary.simpleMessage("كلمة السر القديمة"),
+    "new_password":
+    MessageLookupByLibrary.simpleMessage("كلمة السر الجديدة"),
+    "new_re_password":
+    MessageLookupByLibrary.simpleMessage("إعادة كلمة السر الجديدة"),
+    "fill_all_inputs":
+    MessageLookupByLibrary.simpleMessage("عفواً يرجى مل جميع الحقول"),
+    "not_much_password":
+    MessageLookupByLibrary.simpleMessage("عفواً كلمة المرور لا تتطابق"),
+    "successfully_changed_password":
+    MessageLookupByLibrary.simpleMessage("تمت غير كلمة المرور بنجاح"),
+    "incorrect_password": MessageLookupByLibrary.simpleMessage(
+        "عفواً كلمة المرور القديمة غير صحيحة"),
       };
 }

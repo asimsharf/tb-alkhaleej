@@ -3,15 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:tb_alkhalij/Account/Reset/ChangePassword.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/customviews/progress_dialog.dart';
-import 'package:tb_alkhalij/Account/UserLoginRegister/futures/app_futures.dart';
-import 'package:tb_alkhalij/Account/UserLoginRegister/pages/LoginPage.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/app_shared_preferences.dart';
 import 'package:tb_alkhalij/Account/UserLoginRegister/utils/constants.dart';
 import 'package:tb_alkhalij/Language/translation_strings.dart';
 import 'package:tb_alkhalij/ui_widgets/SizedText.dart';
-
-import 'UserLoginRegister/models/base/EventObject.dart';
 
 class EditUserProfile extends StatefulWidget {
   @override
@@ -29,6 +26,21 @@ class EditUserProfileState extends State<EditUserProfile> {
   var userEmail;
   var userAvatar;
   var userId;
+
+  ProgressDialog progressDialog =
+  ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_REGISTER);
+
+  TextEditingController firstNameController =
+  new TextEditingController(text: "");
+  TextEditingController dateTimeController =
+  new TextEditingController(text: "");
+  TextEditingController lastNameController =
+  new TextEditingController(text: "");
+  TextEditingController emailController = new TextEditingController(text: "");
+  TextEditingController phoneController = new TextEditingController(text: "");
+  TextEditingController passwordController =
+  new TextEditingController(text: "");
+  TextEditingController genderController = new TextEditingController(text: "");
 
   @override
   Future<void> didChangeDependencies() async {
@@ -55,6 +67,12 @@ class EditUserProfileState extends State<EditUserProfile> {
     String userAvata = await AppSharedPreferences.getFromSession('userAvatar');
     String userI = await AppSharedPreferences.getFromSession('userId');
     setState(() {
+      firstNameController.text = firstNam;
+      phoneController.text = userPhon;
+      lastNameController.text = lastNam;
+      genderController.text = userGende;
+      emailController.text = userEmai;
+
       firstName = firstNam;
       lastName = lastNam;
       userGender = userGende;
@@ -85,14 +103,10 @@ class EditUserProfileState extends State<EditUserProfile> {
     });
   }
 
-  List<String> _genders = <String>['', 'ذكر', 'انثى'];
-
   @override
   void initState() {
     super.initState();
   }
-
-  String _gender = '';
 
   DateTime convertToDate(String input) {
     try {
@@ -102,21 +116,6 @@ class EditUserProfileState extends State<EditUserProfile> {
       return null;
     }
   }
-
-  ProgressDialog progressDialog =
-      ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_REGISTER);
-
-  TextEditingController firstNameController =
-      new TextEditingController(text: "");
-  TextEditingController dateTimeController =
-      new TextEditingController(text: "");
-  TextEditingController lastNameController =
-      new TextEditingController(text: "");
-  TextEditingController emailController = new TextEditingController(text: "");
-  TextEditingController phoneController = new TextEditingController(text: "");
-  TextEditingController passwordController =
-      new TextEditingController(text: "");
-  TextEditingController genderController = new TextEditingController(text: "");
 
 //------------------------------------------------------------------------------
 
@@ -189,22 +188,28 @@ class EditUserProfileState extends State<EditUserProfile> {
                 child: new Column(
                   children: <Widget>[
 //------------------------------------------------------------------------------
+
                     _firstNameContainer(),
 //------------------------------------------------------------------------------
+
                     _lastNameContainer(),
-
 //-----------------------------------------------------------------------------
+
                     _dateOfBarth(),
-
 //-----------------------------------------------------------------------------
-                    _selectedGender(),
 
-//-----------------------------------------------------------------------------
                     _phoneContainer(),
+//-----------------------------------------------------------------------------
+
+                    _selectedGender(),
 //------------------------------------------------------------------------------
+
                     _emailContainer(),
 //------------------------------------------------------------------------------
+
                     _registerButtonContainer(),
+//------------------------------------------------------------------------------
+                    _changePasswordLabel()
                   ],
                 ),
               ))),
@@ -220,7 +225,6 @@ class EditUserProfileState extends State<EditUserProfile> {
           controller: firstNameController,
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.person),
-            labelText: firstName,
             labelStyle: TextStyle(
               fontFamily: ArabicFonts.Cairo,
               package: 'google_fonts_arabic',
@@ -239,7 +243,6 @@ class EditUserProfileState extends State<EditUserProfile> {
             controller: lastNameController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
-                labelText: lastName,
                 labelStyle: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -250,47 +253,21 @@ class EditUserProfileState extends State<EditUserProfile> {
   }
 
   Widget _selectedGender() {
-    return Container(
-      height: 40.0,
-      child: new FormField<String>(
-        enabled: false,
-        builder: (FormFieldState<String> state) {
-          return InputDecorator(
+    return new Container(
+        height: 40.0,
+        child: new TextFormField(
+            enabled: false,
+            controller: genderController,
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
-              prefixIcon: const Icon(Icons.person_pin),
-              labelText: userGender,
+              prefixIcon: Icon(Icons.person_pin),
               labelStyle: TextStyle(
-                color: Color(0xFF37505D),
-                fontWeight: FontWeight.bold,
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
-              ),
-              errorText: state.hasError ? state.errorText : null,
-            ),
-            isEmpty: _gender == '',
-            child: new DropdownButtonHideUnderline(
-              child: new DropdownButton<String>(
-                value: _gender,
-                isDense: true,
-                onChanged: (String newValue) {
-                  setState(() {
-                    _gender = newValue;
-                    state.didChange(newValue);
-                  });
-                },
-                items: _genders.map((String value) {
-                  return new DropdownMenuItem<String>(
-                    value: value,
-                    child: new Text(value),
-                  );
-                }).toList(),
+                fontWeight: FontWeight.bold,
               ),
             ),
-          );
-        },
-      ),
-    );
+            keyboardType: TextInputType.text),
+        margin: EdgeInsets.only(bottom: 5.0));
   }
 
   Widget _dateOfBarth() {
@@ -337,7 +314,6 @@ class EditUserProfileState extends State<EditUserProfile> {
             controller: emailController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.mail_outline),
-                labelText: userEmail,
                 fillColor: Color(0xFF37505D),
                 labelStyle: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
@@ -355,7 +331,6 @@ class EditUserProfileState extends State<EditUserProfile> {
           controller: phoneController,
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.person),
-              labelText: userPhone,
               labelStyle: TextStyle(
                 fontFamily: ArabicFonts.Cairo,
                 package: 'google_fonts_arabic',
@@ -452,83 +427,45 @@ class EditUserProfileState extends State<EditUserProfile> {
       return;
     }
 
-    if (passwordController.text == "") {
-      globalKey.currentState.showSnackBar(new SnackBar(
-        content: new Text(SnackBarText.ENTER_PASS),
-      ));
-      return;
-    }
-
     FocusScope.of(context).requestFocus(new FocusNode());
     progressDialog.showProgress();
-    _registerUser(
-      firstNameController.text,
-      lastNameController.text,
-      emailController.text,
-      genderController.text,
-      passwordController.text,
-      phoneController.text,
-      dateTimeController.text,
+  }
+
+  //------------------------------------------------------------------------------
+  Widget _changePasswordLabel() {
+    return new GestureDetector(
+      onTap: _goToChangePasswordScreen,
+      child: new Container(
+        child: new Text(
+          Translations
+              .of(context)
+              .change_password,
+          style: TextStyle(
+            color: Color(0xFF37505D),
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+          ),
+        ),
+        margin: EdgeInsets.only(bottom: 30.0),
+      ),
     );
   }
 
 //------------------------------------------------------------------------------
-  void _registerUser(String firstName, String lastName, String gender,
-      String phone, String email, String password, String birthDate) async {
-    EventObject eventObject = await registerUser(
-        firstName, lastName, gender, phone, email, password, birthDate);
-    switch (eventObject.id) {
-      case EventConstants.USER_REGISTRATION_SUCCESSFUL:
-        {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.REGISTER_SUCCESSFUL),
-            ));
-            progressDialog.hideProgress();
-            _goToLoginScreen();
-          });
-        }
-        break;
-      case EventConstants.USER_ALREADY_REGISTERED:
-        {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.USER_ALREADY_REGISTERED),
-            ));
-            progressDialog.hideProgress();
-          });
-        }
-        break;
-      case EventConstants.USER_REGISTRATION_UN_SUCCESSFUL:
-        {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.REGISTER_UN_SUCCESSFUL),
-            ));
-            progressDialog.hideProgress();
-          });
-        }
-        break;
-      case EventConstants.NO_INTERNET_CONNECTION:
-        {
-          setState(() {
-            globalKey.currentState.showSnackBar(new SnackBar(
-              content: new Text(SnackBarText.NO_INTERNET_CONNECTION),
-            ));
-            progressDialog.hideProgress();
-          });
-        }
-        break;
-    }
-  }
-
-//------------------------------------------------------------------------------
-
-  void _goToLoginScreen() {
+  void _goToChangePasswordScreen() {
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(builder: (context) => new LoginPage()),
+      new MaterialPageRoute(
+        builder: (context) => new ChangePassword(),
+      ),
     );
   }
+
+//  void _goTochangePasswordScreen() {
+//    Navigator.pushReplacement(
+//      context,
+//      new MaterialPageRoute(builder: (context) => new LoginPage()),
+//    );
+//  }
 //------------------------------------------------------------------------------
 }

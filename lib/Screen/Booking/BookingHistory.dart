@@ -28,9 +28,11 @@ class _BookingHistoryState extends State<BookingHistory> {
 
   Future<void> initUserProfile() async {
     String userI = await AppSharedPreferences.getFromSession('userId');
-    setState(() {
-      userId = userI;
-    });
+    setState(
+          () {
+        userId = userI;
+      },
+    );
   }
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -42,26 +44,33 @@ class _BookingHistoryState extends State<BookingHistory> {
   Future<List<ModelBookingHistory>> getCenters() async {
     String link = "http://23.111.185.155:3000/api/booking/${userId}/client";
     print(link);
-    var res = await http
-        .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
-    setState(() {
-      if (res.statusCode == 200) {
-        var data = json.decode(res.body);
-        var rest = data['departments'] as List;
-        _modelBookingHistory = rest
-            .map<ModelBookingHistory>(
-                (rest) => ModelBookingHistory.fromJson(rest))
-            .toList();
-        loading = false;
-      }
-    });
+    var res = await http.get(
+      Uri.encodeFull(link),
+      headers: {"Accept": "application/json"},
+    );
+    setState(
+          () {
+        if (res.statusCode == 200) {
+          var data = json.decode(res.body);
+          var rest = data['departments'] as List;
+          _modelBookingHistory = rest
+              .map<ModelBookingHistory>(
+                (rest) => ModelBookingHistory.fromJson(rest),
+          )
+              .toList();
+          loading = false;
+        }
+      },
+    );
     return _modelBookingHistory;
   }
 
   Future<Null> _refresh() {
-    return getCenters().then((modelCen) {
-      setState(() => _modelBookingHistory = modelCen);
-    });
+    return getCenters().then(
+          (modelCen) {
+        setState(() => _modelBookingHistory = modelCen);
+      },
+    );
   }
 
   @override
@@ -71,9 +80,11 @@ class _BookingHistoryState extends State<BookingHistory> {
       (_) => _refreshIndicatorKey.currentState.show(),
     );
     this.getCenters();
-    setState(() {
-      loading = true;
-    });
+    setState(
+          () {
+        loading = true;
+      },
+    );
   }
 
   @override
@@ -86,23 +97,24 @@ class _BookingHistoryState extends State<BookingHistory> {
               .of(context)
               .booking_history,
           style: TextStyle(
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontSize: EventSizedConstants.TextappBarSize,
-              shadows: <Shadow>[
-                Shadow(
-                  offset: Offset(3.0, 3.0),
-                  blurRadius: 3.0,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-                Shadow(
-                  offset: Offset(3.0, 3.0),
-                  blurRadius: 8.0,
-                  color: Color.fromARGB(125, 0, 0, 255),
-                ),
-              ]),
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontSize: EventSizedConstants.TextappBarSize,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 3.0,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+              Shadow(
+                offset: Offset(3.0, 3.0),
+                blurRadius: 8.0,
+                color: Color.fromARGB(125, 0, 0, 255),
+              ),
+            ],
+          ),
         ),
         centerTitle: true,
       ),
@@ -114,7 +126,9 @@ class _BookingHistoryState extends State<BookingHistory> {
             children: <Widget>[
               Expanded(
                   child: loading
-                      ? Center(child: CircularProgressIndicator())
+                      ? Center(
+                    child: CircularProgressIndicator(),
+                  )
                       : _buildProductList()),
             ],
           ),
@@ -269,15 +283,16 @@ class _BookingHistoryState extends State<BookingHistory> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
                                         child: new Text(
-                                            Translations
-                                                .of(context)
-                                                .cancel_booking,
-                                            style: TextStyle(
-                                                fontFamily: ArabicFonts.Cairo,
-                                                package: 'google_fonts_arabic',
-                                                fontSize: 9.0,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white)),
+                                          Translations
+                                              .of(context)
+                                              .cancel_booking,
+                                          style: TextStyle(
+                                              fontFamily: ArabicFonts.Cairo,
+                                              package: 'google_fonts_arabic',
+                                              fontSize: 9.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ],

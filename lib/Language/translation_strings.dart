@@ -120,6 +120,13 @@ class Translations {
     );
   }
 
+  String get login_successfully {
+    return Intl.message(
+      'Login Successfully',
+      name: 'login_successfully',
+    );
+  }
+
   String get save_infos {
     return Intl.message(
       'Save informations',
@@ -790,6 +797,70 @@ class Translations {
     return Intl.message(
       'Logout',
       name: 'logout',
+    );
+  }
+
+  String get pass_date_time {
+    return Intl.message(
+      'You can\'t book on past date time',
+      name: 'pass_date_time',
+    );
+  }
+
+  //##############################################################
+  String get old_password {
+    return Intl.message(
+      'Old password',
+      name: 'old_password',
+    );
+  }
+
+  String get new_re_password {
+    return Intl.message(
+      'Re-password',
+      name: 'new_re_password',
+    );
+  }
+
+  String get fill_all_inputs {
+    return Intl.message(
+      'Sorry you must fill all the inputs',
+      name: 'fill_all_inputs',
+    );
+  }
+
+  String get not_much_password {
+    return Intl.message(
+      'Sorry password\'s not mutch',
+      name: 'not_much_password',
+    );
+  }
+
+  String get successfully_changed_password {
+    return Intl.message(
+      'Your password hass been successfuly updated',
+      name: 'successfully_changed_password',
+    );
+  }
+
+  String get incorrect_password {
+    return Intl.message(
+      'Sorry old password\'s Incorrect',
+      name: 'incorrect_password',
+    );
+  }
+
+  String get whatsapp {
+    return Intl.message(
+      'WebSite',
+      name: 'whatsapp',
+    );
+  }
+
+  String get website {
+    return Intl.message(
+      'Whatsapp',
+      name: 'website',
     );
   }
 }

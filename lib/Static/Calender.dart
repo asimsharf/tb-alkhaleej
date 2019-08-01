@@ -37,7 +37,7 @@ List<DateTime> notAvailableDaes = [
 ];
 
 class _CalendarPage2State extends State<CalendarPage2> {
-  DateTime _currentDate2 = DateTime.now();
+//  DateTime _currentDate2 = DateTime.now();
 
   static Widget _availableIcon(String day) => Container(
         decoration: BoxDecoration(

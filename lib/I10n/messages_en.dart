@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("عربي"),
         "links": MessageLookupByLibrary.simpleMessage("Links"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "login_successfully":
+    MessageLookupByLibrary.simpleMessage("Login Successfully"),
         "not_valid_username":
             MessageLookupByLibrary.simpleMessage("Not Valid Username"),
         "password": MessageLookupByLibrary.simpleMessage("password"),
@@ -169,5 +171,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "booking_okay_done":
     MessageLookupByLibrary.simpleMessage("Your booking done Success"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "enter_date_of_barth":
+    MessageLookupByLibrary.simpleMessage("Enter date of barth"),
+    "pass_date_time": MessageLookupByLibrary.simpleMessage(
+        "You can\'t book on past date time"),
+    "old_password": MessageLookupByLibrary.simpleMessage("Old password"),
+    "new_password": MessageLookupByLibrary.simpleMessage("New password"),
+    "new_re_password":
+    MessageLookupByLibrary.simpleMessage("Re new password"),
+    "fill_all_inputs": MessageLookupByLibrary.simpleMessage(
+        "Sorry you must fill all the inputs"),
+    "not_much_password":
+    MessageLookupByLibrary.simpleMessage("Sorry password\'s not mutch"),
+    "successfully_changed_password": MessageLookupByLibrary.simpleMessage(
+        "Your password hass been successfuly updated"),
+    "incorrect_password": MessageLookupByLibrary.simpleMessage(
+        "Sorry old password\'s Incorrect"),
       };
 }

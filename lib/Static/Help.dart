@@ -90,7 +90,9 @@ class _HelpState extends State<Help>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              "رقم الجوال",
+                              Translations
+                                  .of(context)
+                                  .phone,
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   fontFamily: ArabicFonts.Cairo,
@@ -118,14 +120,16 @@ class _HelpState extends State<Help>
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text("الواتساب",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontFamily: ArabicFonts.Cairo,
-                                    package: 'google_fonts_arabic',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF37505D),
-                                    fontSize: 14.0)),
+                            Text(
+                              "الواتساب",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontFamily: ArabicFonts.Cairo,
+                                  package: 'google_fonts_arabic',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF37505D),
+                                  fontSize: 14.0),
+                            ),
                             SizedBox(
                               width: 20.0,
                             ),
@@ -157,7 +161,7 @@ class _HelpState extends State<Help>
                               width: 20.0,
                             ),
                             Text(
-                              "http://takaful.com/",
+                              "http://tbalkhalij.com/",
                               style: TextStyle(
                                 fontFamily: ArabicFonts.Cairo,
                                 package: 'google_fonts_arabic',
@@ -172,7 +176,9 @@ class _HelpState extends State<Help>
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text("البريد الإلكتروني",
+                            Text(Translations
+                                .of(context)
+                                .email,
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontFamily: ArabicFonts.Cairo,
@@ -184,7 +190,7 @@ class _HelpState extends State<Help>
                               width: 20.0,
                             ),
                             Text(
-                              "info@takaful.com",
+                              "info@citysoft.com",
                               style: TextStyle(
                                 fontFamily: ArabicFonts.Cairo,
                                 package: 'google_fonts_arabic',
@@ -296,8 +302,9 @@ class _HelpState extends State<Help>
                 textColor: Colors.white,
                 elevation: 0.2,
                 child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: new Icon(Icons.call)),
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Icon(Icons.call),
+                ),
               ),
             ),
             SizedBox(width: 3.0),
@@ -335,8 +342,9 @@ class _HelpState extends State<Help>
                 textColor: Colors.white,
                 elevation: 0.2,
                 child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: new Icon(FontAwesomeIcons.chrome)),
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Icon(FontAwesomeIcons.chrome),
+                ),
               ),
             ),
           ],
@@ -347,114 +355,119 @@ class _HelpState extends State<Help>
 
   _ChackMakeCall(context) {
     Alert(
-        context: context,
-        title: "إجراء مكالمة",
-        content: Text(
-          "هل تريد إجراء مكالمة",
-          style: TextStyle(
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-              color: Colors.black,
-              fontSize: 20),
-        ),
-        buttons: [
-          DialogButton(
-            onPressed: () => launch("tel://109238047901"),
-            color: Color(0xFF13A1C5),
-            child: Text(
-              "موافق",
-              style: TextStyle(
-                  fontFamily: ArabicFonts.Cairo,
-                  package: 'google_fonts_arabic',
-                  color: Colors.white,
-                  fontSize: 20),
-            ),
+      context: context,
+      title: "إجراء مكالمة",
+      content: Text(
+        "هل تريد إجراء مكالمة",
+        style: TextStyle(
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            color: Colors.black,
+            fontSize: 20),
+      ),
+      buttons: [
+        DialogButton(
+          onPressed: () => launch("tel://0024913000262"),
+          color: Color(0xFF13A1C5),
+          child: Text(
+            "موافق",
+            style: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white,
+                fontSize: 20),
           ),
-        ]).show();
+        ),
+      ],
+    ).show();
   }
 
   _ChackSendEmail(context) {
     Alert(
-        context: context,
-        title: "إرسال بريد إلكتروني",
-        content: Text(
-          "هل تريد إرسال بريد إلكتروني؟",
-          style: TextStyle(
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-              color: Colors.black,
-              fontSize: 20),
-        ),
-        buttons: [
-          DialogButton(
-            onPressed: () => launch(
-                "mailto://info@almohamigroup.com?subject=طلب المساعدة من التطبيق&body=السلام عليكم ورحمة الله "),
-            color: Color(0xFF13A1C5),
-            child: Text(
-              "موافق",
-              style: TextStyle(
-                  fontFamily: ArabicFonts.Cairo,
-                  package: 'google_fonts_arabic',
-                  color: Colors.white,
-                  fontSize: 20),
-            ),
+      context: context,
+      title: "إرسال بريد إلكتروني",
+      content: Text(
+        "هل تريد إرسال بريد إلكتروني؟",
+        style: TextStyle(
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            color: Colors.black,
+            fontSize: 20),
+      ),
+      buttons: [
+        DialogButton(
+          onPressed: () =>
+              launch(
+                  "mailto://info@tbalkhalij.com?subject=طلب المساعدة من التطبيق&body=السلام عليكم ورحمة الله "),
+          color: Color(0xFF13A1C5),
+          child: Text(
+            "موافق",
+            style: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white,
+                fontSize: 20),
           ),
-        ]).show();
+        ),
+      ],
+    ).show();
   }
 
   _ChackWhatsAppChat(context) {
     Alert(
-        context: context,
-        title: "إجراء دردشة واتساب",
-        content: Text(
-          "هل تريد إجراء دردشة واتساب؟",
-          style: TextStyle(
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-              color: Colors.black,
-              fontSize: 20),
-        ),
-        buttons: [
-          DialogButton(
-            onPressed: () => launch("whatsapp://send?phone=+249913000262"),
-            color: Color(0xFF13A1C5),
-            child: Text(
-              "موافق",
-              style: TextStyle(
-                  fontFamily: ArabicFonts.Cairo,
-                  package: 'google_fonts_arabic',
-                  color: Colors.white,
-                  fontSize: 20),
-            ),
+      context: context,
+      title: "إجراء دردشة واتساب",
+      content: Text(
+        "هل تريد إجراء دردشة واتساب؟",
+        style: TextStyle(
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            color: Colors.black,
+            fontSize: 20),
+      ),
+      buttons: [
+        DialogButton(
+          onPressed: () => launch("whatsapp://send?phone=+249913000262"),
+          color: Color(0xFF13A1C5),
+          child: Text(
+            "موافق",
+            style: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white,
+                fontSize: 20),
           ),
-        ]).show();
+        ),
+      ],
+    ).show();
   }
 
   _ChackLanchWebSite(context) {
     Alert(
-        context: context,
-        title: "الذهاب إلى الموقع",
-        content: Text(
-          "هل تريد الذهاب الى الموقغ؟",
-          style: TextStyle(
-              fontFamily: ArabicFonts.Cairo,
-              package: 'google_fonts_arabic',
-              color: Colors.black,
-              fontSize: 20),
-        ),
-        buttons: [
-          DialogButton(
-            onPressed: () => launch("http://takaful.com/"),
-            color: Color(0xFF13A1C5),
-            child: Text(
-              "موافق",
-              style: TextStyle(
-                  fontFamily: ArabicFonts.Cairo,
-                  package: 'google_fonts_arabic',
-                  color: Colors.white,
-                  fontSize: 20),
-            ),
+      context: context,
+      title: "الذهاب إلى الموقع",
+      content: Text(
+        "هل تريد الذهاب الى الموقغ؟",
+        style: TextStyle(
+            fontFamily: ArabicFonts.Cairo,
+            package: 'google_fonts_arabic',
+            color: Colors.black,
+            fontSize: 20),
+      ),
+      buttons: [
+        DialogButton(
+          onPressed: () => launch("http://tbalkalij.com/"),
+          color: Color(0xFF13A1C5),
+          child: Text(
+            "موافق",
+            style: TextStyle(
+                fontFamily: ArabicFonts.Cairo,
+                package: 'google_fonts_arabic',
+                color: Colors.white,
+                fontSize: 20),
           ),
-        ]).show();
+        ),
+      ],
+    ).show();
   }
 }

@@ -4,8 +4,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../models/ApiRequest.dart';
-import '../models/ApiResponse.dart';
-import '../models/User.dart';
 import '../models/base/EventObject.dart';
 import '../utils/constants.dart';
 
@@ -15,7 +13,6 @@ Future<double> getTotalRate(String centerId) async {
   double totalRating = 0;
   var res = await http
       .get(Uri.encodeFull(link), headers: {"Accept": "application/json"});
-  print(res.body.toString());
   if (res.statusCode == 200) {
     var data = json.decode(res.body);
 
@@ -30,7 +27,6 @@ Future<EventObject> loginUser(String emailId, String password) async {
   try {
     final response = await http.get(baseurl + emailId + '/' + password,
         headers: {"Accept": "application/json"});
-    print(response.body.toString());
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
@@ -77,8 +73,8 @@ String _toJson(String firstName, String lastName, String gender, String phone,
 String _bookingToJson(String centerId, String departmentId, String patientId,
     String insuranceId, String bookingDateTime) {
   var mapData = new Map();
-  mapData["hospital"] = centerId;
   mapData["department"] = departmentId;
+  mapData["hospital"] = centerId;
   mapData["committee"] = insuranceId;
   mapData["patient"] = patientId;
   mapData["publishedDate"] = bookingDateTime;
@@ -105,23 +101,11 @@ Future<EventObject> registerUser(
     final response = await http.post(_serviceUrl,
         headers: _headers,
         body: _toJson(
-            firstName,
-            lastName,
-            gender,
-            phone,
-            email,
-            password,
-            birthDate));
-    print("***********Register user response to json****************");
-    print(_toJson(
-        firstName,
-        lastName,
-        gender,
-        phone,
-        email,
-        password,
-        birthDate));
-    print("***********Register user response****************");
+            firstName, lastName, gender, phone, email, password, birthDate));
+    print("***********1****************");
+    print('##########' +
+        _toJson(
+            firstName, lastName, gender, phone, email, password, birthDate));
     print(response.body.toString());
 
     if (response != null) {
@@ -137,7 +121,7 @@ Future<EventObject> registerUser(
         } else {
           return new EventObject(
               id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
-              message: 'عفواً خطأ في المدخلات');
+              message: 'عفواً خطأ في كلمة المدخلات');
         }
       } else {
         return new EventObject(
@@ -156,34 +140,33 @@ Future<EventObject> registerUser(
 Future<EventObject> changePassword(
     String emailId, String oldPassword, String newPassword) async {
   ApiRequest apiRequest = new ApiRequest();
-  User user = new User(
-      email: emailId, old_password: oldPassword, new_password: newPassword);
-
   apiRequest.operation = APIOperations.CHANGE_PASSWORD;
-  apiRequest.user = user;
-
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
-    final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.toJson()),
+    final response = await http.post(
+        'http://23.111.185.155:3000/api/auth/reset_password',
+        body: _changePasswordToJson(emailId, oldPassword, newPassword),
         encoding: Encoding.getByName(encoding));
+
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-        final responseJson = json.decode(response.body);
-        ApiResponse apiResponse = ApiResponse.fromJson(responseJson);
-        if (apiResponse.result == APIOperations.SUCCESS) {
+        Map<String, dynamic> responseJson = json.decode(response.body);
+
+        if (responseJson['code'] == 1) {
           return new EventObject(
-              id: EventConstants.CHANGE_PASSWORD_SUCCESSFUL, object: null);
-        } else if (apiResponse.result == APIOperations.FAILURE) {
-          return new EventObject(id: EventConstants.INVALID_OLD_PASSWORD);
+              id: EventConstants.LOGIN_USER_SUCCESSFUL,
+              object: responseJson,
+              message: 'تمت عمليه الدخول بنجاح');
         } else {
           return new EventObject(
-              id: EventConstants.CHANGE_PASSWORD_UN_SUCCESSFUL);
+              id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+              message: 'عفواً خطأ في كلمة المرور او إسم المستخدم!');
         }
       } else {
         return new EventObject(
-            id: EventConstants.CHANGE_PASSWORD_UN_SUCCESSFUL);
+            id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+            message: 'عفواً خطأ في كلمة المرور او إسم المستخدم!');
       }
     } else {
       return new EventObject();
@@ -194,12 +177,38 @@ Future<EventObject> changePassword(
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+String _changePasswordToJson(
+    String emailId, String oldPassword, String newPassword) {
+  var mapData = new Map();
+
+  mapData["email"] = emailId;
+  mapData["password"] = oldPassword;
+  mapData["newPassword"] = newPassword;
+
+  String json = jsonEncode(mapData);
+
+  return json;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+String _upDateToJson(
+    String firstName, String lastName, String phone, String email) {
+  var mapData = new Map();
+
+  mapData["name.first"] = firstName;
+  mapData["name.last"] = lastName;
+  mapData["phone"] = phone;
+  mapData["email"] = email;
+
+  String json = jsonEncode(mapData);
+
+  return json;
+}
+
 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//
-Future<EventObject> patientAppointment(String centerId,
-    String departmentId,
-    String patientId,
-    String insuranceId,
-    String bookingDateTime,) async {
+
+Future<EventObject> patientAppointment(String centerId, String departmentId,
+    String patientId, String insuranceId, String bookingDateTime) async {
   const _serviceUrl = 'http://23.111.185.155:3000/api/booking';
 
   final _headers = {'Content-Type': 'application/json'};
@@ -222,6 +231,53 @@ Future<EventObject> patientAppointment(String centerId,
               id: EventConstants.LOGIN_USER_SUCCESSFUL,
               object: responseJson,
               message: 'تمت عمليه الحجز بنجاح');
+        } else {
+          return new EventObject(
+              id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+              message: 'عفواً خطأ في كلمة المدخلات');
+        }
+      } else {
+        return new EventObject(
+            id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,
+            message: 'عفواً خطأ في المدخلات ');
+      }
+    } else {
+      return new EventObject();
+    }
+  } catch (Exception) {
+    return EventObject(id: 0);
+  }
+}
+
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//
+Future<EventObject> updateUserInfo(String firstName, String lastName,
+    String phone, String email, String userId) async {
+  String id = '';
+  if (userId != null) {
+    id = userId;
+  }
+
+  final _headers = {'Content-Type': 'application/json'};
+
+  try {
+    final response = await http.put(
+        'http://23.111.185.155:3000/api/client/' + id + '/update',
+        headers: _headers,
+        body: _upDateToJson(firstName, lastName, phone, email));
+    print("***********1****************");
+    print('##########' + _upDateToJson(firstName, lastName, phone, email));
+    print(response.body.toString());
+
+    if (response != null) {
+      if (response.statusCode == APIResponseCode.SC_OK &&
+          response.body != null) {
+        Map<String, dynamic> responseJson = json.decode(response.body);
+
+        if (responseJson['code'] == 1) {
+          return new EventObject(
+              id: EventConstants.LOGIN_USER_SUCCESSFUL,
+              object: responseJson,
+              message: 'تمت عمليه التسجيل بنجاح');
         } else {
           return new EventObject(
               id: EventConstants.LOGIN_USER_UN_SUCCESSFUL,

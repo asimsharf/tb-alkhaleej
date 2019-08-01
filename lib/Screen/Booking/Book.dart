@@ -74,7 +74,7 @@ class _BookState extends State<Book> {
   final globalKey = new GlobalKey<ScaffoldState>();
 
   ProgressDialog progressDialog =
-  ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_BOOKING);
+      ProgressDialog.getProgressDialog(ProgressDialogTitles.USER_BOOKING);
 
   @override
   Future<void> didChangeDependencies() async {
@@ -114,7 +114,7 @@ class _BookState extends State<Book> {
 
   Future<Null> _selectTime(BuildContext context) async {
     final TimeOfDay picked =
-    await showTimePicker(context: context, initialTime: _time);
+        await showTimePicker(context: context, initialTime: _time);
     if (picked != null && picked != _time) {
       print('Time selected: ${_time.toString()}');
       setState(() {
@@ -202,8 +202,7 @@ class _BookState extends State<Book> {
                         fit: BoxFit.cover,
                         placeholder: 'assets/logo.png',
                         image:
-                        'http://23.111.185.155:3000/uploads/department/${widget
-                            .logo}',
+                            'http://23.111.185.155:3000/uploads/department/${widget.logo}',
                       ),
                       const DecoratedBox(
                         decoration: BoxDecoration(
@@ -310,16 +309,14 @@ class _BookState extends State<Book> {
                         children: <Widget>[
                           Expanded(
                             child: Text(
-                              Translations
-                                  .of(context)
-                                  .insurances,
+                              Translations.of(context).insurances,
                               style: TextStyle(
                                 color: Colors.lightBlueAccent,
                                 fontFamily: ArabicFonts.Cairo,
                                 package: 'google_fonts_arabic',
                                 fontWeight: FontWeight.bold,
                                 fontSize:
-                                EventSizedConstants.TextTitleFontSized,
+                                    EventSizedConstants.TextTitleFontSized,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -333,13 +330,13 @@ class _BookState extends State<Book> {
                         builder: (FormFieldState<String> state) {
                           return Padding(
                             padding:
-                            const EdgeInsets.only(left: 80.0, right: 80.0),
+                                const EdgeInsets.only(left: 80.0, right: 80.0),
                             child: InputDecorator(
                               decoration: InputDecoration(
                                 contentPadding:
-                                const EdgeInsets.symmetric(vertical: 5.0),
+                                    const EdgeInsets.symmetric(vertical: 5.0),
                                 errorText:
-                                state.hasError ? state.errorText : null,
+                                    state.hasError ? state.errorText : null,
                               ),
                               // ignore: unrelated_type_equality_checks
                               isEmpty: widget.committee == '',
@@ -393,9 +390,7 @@ class _BookState extends State<Book> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            Translations
-                                .of(context)
-                                .patient_name,
+                            Translations.of(context).patient_name,
                             style: TextStyle(
                               color: Colors.lightBlueAccent,
                               fontFamily: ArabicFonts.Cairo,
@@ -425,9 +420,7 @@ class _BookState extends State<Book> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            Translations
-                                .of(context)
-                                .center_name,
+                            Translations.of(context).center_name,
                             style: TextStyle(
                               color: Colors.lightBlueAccent,
                               fontFamily: ArabicFonts.Cairo,
@@ -457,9 +450,7 @@ class _BookState extends State<Book> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            Translations
-                                .of(context)
-                                .department_name,
+                            Translations.of(context).department_name,
                             style: TextStyle(
                               color: Colors.lightBlueAccent,
                               fontFamily: ArabicFonts.Cairo,
@@ -489,9 +480,7 @@ class _BookState extends State<Book> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            Translations
-                                .of(context)
-                                .date,
+                            Translations.of(context).date,
                             style: TextStyle(
                               color: Colors.lightBlueAccent,
                               fontFamily: ArabicFonts.Cairo,
@@ -512,16 +501,14 @@ class _BookState extends State<Book> {
                           ),
                           new RaisedButton(
                             child: Text(
-                              Translations
-                                  .of(context)
-                                  .select,
+                              Translations.of(context).select,
                               style: TextStyle(
                                 color: Colors.lightBlueAccent,
                                 fontFamily: ArabicFonts.Cairo,
                                 package: 'google_fonts_arabic',
                                 fontWeight: FontWeight.bold,
                                 fontSize:
-                                EventSizedConstants.TextTitleFontSized,
+                                    EventSizedConstants.TextTitleFontSized,
                               ),
                             ),
                             onPressed: () => _selectDate(context),
@@ -537,9 +524,7 @@ class _BookState extends State<Book> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            Translations
-                                .of(context)
-                                .time,
+                            Translations.of(context).time,
                             style: TextStyle(
                               color: Colors.lightBlueAccent,
                               fontFamily: ArabicFonts.Cairo,
@@ -560,16 +545,14 @@ class _BookState extends State<Book> {
                           ),
                           new RaisedButton(
                             child: Text(
-                              Translations
-                                  .of(context)
-                                  .select,
+                              Translations.of(context).select,
                               style: TextStyle(
                                 color: Colors.lightBlueAccent,
                                 fontFamily: ArabicFonts.Cairo,
                                 package: 'google_fonts_arabic',
                                 fontWeight: FontWeight.bold,
                                 fontSize:
-                                EventSizedConstants.TextTitleFontSized,
+                                    EventSizedConstants.TextTitleFontSized,
                               ),
                             ),
                             onPressed: () => _selectTime(context),
@@ -598,9 +581,7 @@ class _BookState extends State<Book> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text(Translations
-                      .of(context)
-                      .ratings,
+                  child: new Text(Translations.of(context).ratings,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -634,9 +615,7 @@ class _BookState extends State<Book> {
                 elevation: 0.2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: new Text(Translations
-                      .of(context)
-                      .confirm_booking,
+                  child: new Text(Translations.of(context).confirm_booking,
                       style: TextStyle(
                           fontFamily: ArabicFonts.Cairo,
                           package: 'google_fonts_arabic',
@@ -674,9 +653,7 @@ class _BookState extends State<Book> {
             appBar: AppBar(
               centerTitle: true,
               title: Text(
-                Translations
-                    .of(context)
-                    .rating_review,
+                Translations.of(context).rating_review,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: ArabicFonts.Cairo,
@@ -720,9 +697,7 @@ class _BookState extends State<Book> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        Translations
-                            .of(context)
-                            .total_rating,
+                        Translations.of(context).total_rating,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 15.0,
@@ -779,8 +754,7 @@ class _BookState extends State<Book> {
                               fit: BoxFit.fill,
                               placeholder: 'assets/avatar_person.png',
                               image:
-                              'http://23.111.185.155:3000/uploads/avtar/${_ratingObj
-                                  .logo.filename}',
+                                  'http://23.111.185.155:3000/uploads/avtar/${_ratingObj.logo.filename}',
                             ),
                           ),
                         ),
@@ -794,15 +768,14 @@ class _BookState extends State<Book> {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   new Row(
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          '${_ratingObj.client.first + ' ' +
-                                              _ratingObj.client.last}',
+                                          '${_ratingObj.client.first + ' ' + _ratingObj.client.last}',
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 12.0,
@@ -813,10 +786,7 @@ class _BookState extends State<Book> {
                                         ),
                                       ),
                                       Text(
-                                        '${Translations
-                                            .of(context)
-                                            .rating_number} ${tryParse(
-                                            _ratingObj.rate)}',
+                                        '${Translations.of(context).rating_number} ${tryParse(_ratingObj.rate)}',
                                         style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.green,
@@ -866,9 +836,7 @@ class _BookState extends State<Book> {
               child: Icon(Icons.hourglass_empty),
             ),
             Text(
-              Translations
-                  .of(context)
-                  .no_ratings,
+              Translations.of(context).no_ratings,
               style: TextStyle(
                   fontFamily: ArabicFonts.Cairo,
                   package: 'google_fonts_arabic',
@@ -885,102 +853,121 @@ class _BookState extends State<Book> {
 
 //------------------------------------------------------------------------------
   Future _bookingButtonAction() async {
-    String str = _date.toString().substring(0, 10) +
-        ' ' +
-        _time.toString().substring(10, 15);
-
-    var eventObject = await patientAppointment(widget.centerId,
-        widget.departmentId, patientId, _myInsuranceSelection, str);
-
-    switch (eventObject.id) {
-      case 1:
-        {
-          setState(
-                () {
-              globalKey.currentState.showSnackBar(
-                new SnackBar(
-                  content: new Text(
-                    Translations
-                        .of(context)
-                        .booking_okay_done,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  backgroundColor: Colors.blueAccent,
+    var now = new DateTime.now();
+    if (_date.isBefore(now)) {
+      setState(
+        () {
+          globalKey.currentState.showSnackBar(
+            new SnackBar(
+              content: new Text(
+                Translations.of(context).pass_date_time,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: ArabicFonts.Cairo,
+                  package: 'google_fonts_arabic',
+                  fontWeight: FontWeight.bold,
                 ),
-              );
-              progressDialog.hideProgress();
-              Timer(Duration(seconds: 2), () {
-                Timer(
-                  Duration(seconds: 1),
-                      () {
-                    progressDialog.hideProgress();
-                    _goToBookingHistory();
-                  },
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        },
+      );
+    } else {
+      FocusScope.of(context).requestFocus(
+        new FocusNode(),
+      );
+      String str = _date.toString().substring(0, 10) +
+          ' ' +
+          _time.toString().substring(10, 15);
+
+      var eventObject = await patientAppointment(widget.centerId,
+          widget.departmentId, patientId, _myInsuranceSelection, str);
+
+      switch (eventObject.id) {
+        case 1:
+          {
+            setState(
+              () {
+                globalKey.currentState.showSnackBar(
+                  new SnackBar(
+                    content: new Text(
+                      Translations.of(context).booking_okay_done,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: ArabicFonts.Cairo,
+                        package: 'google_fonts_arabic',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    backgroundColor: Colors.blueAccent,
+                  ),
                 );
-              });
-            },
-          );
-        }
-        break;
-      case 2:
-        {
-          setState(
-                () {
-              globalKey.currentState.showSnackBar(
-                new SnackBar(
-                  content: new Text(
-                    Translations
-                        .of(context)
-                        .not_booked,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
-                      fontWeight: FontWeight.bold,
+                progressDialog.hideProgress();
+                Timer(Duration(seconds: 2), () {
+                  Timer(
+                    Duration(seconds: 1),
+                    () {
+                      progressDialog.hideProgress();
+                      _goToBookingHistory();
+                    },
+                  );
+                });
+              },
+            );
+          }
+          break;
+        case 2:
+          {
+            setState(
+              () {
+                globalKey.currentState.showSnackBar(
+                  new SnackBar(
+                    content: new Text(
+                      Translations.of(context).not_booked,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: ArabicFonts.Cairo,
+                        package: 'google_fonts_arabic',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    backgroundColor: Colors.red,
                   ),
-                  backgroundColor: Colors.red,
-                ),
-              );
-              progressDialog.hideProgress();
-            },
-          );
-        }
-        break;
-      case 0:
-        {
-          setState(
-                () {
-              globalKey.currentState.showSnackBar(
-                new SnackBar(
-                  content: new Text(
-                    Translations
-                        .of(context)
-                        .system_error,
-                    style: TextStyle(
-                      color: Color(0xFF37505D),
-                      fontFamily: ArabicFonts.Cairo,
-                      package: 'google_fonts_arabic',
+                );
+                progressDialog.hideProgress();
+              },
+            );
+          }
+          break;
+        case 0:
+          {
+            setState(
+              () {
+                globalKey.currentState.showSnackBar(
+                  new SnackBar(
+                    content: new Text(
+                      Translations.of(context).system_error,
+                      style: TextStyle(
+                        color: Color(0xFF37505D),
+                        fontFamily: ArabicFonts.Cairo,
+                        package: 'google_fonts_arabic',
+                      ),
                     ),
+                    backgroundColor: Colors.red,
                   ),
-                  backgroundColor: Colors.red,
-                ),
-              );
-              progressDialog.hideProgress();
-            },
-          );
-        }
-        break;
+                );
+                progressDialog.hideProgress();
+              },
+            );
+          }
+          break;
+      }
+      FocusScope.of(context).requestFocus(
+        new FocusNode(),
+      );
+      progressDialog.showProgress();
     }
-    FocusScope.of(context).requestFocus(
-      new FocusNode(),
-    );
-    progressDialog.showProgress();
   }
 
   void _goToBookingHistory() {

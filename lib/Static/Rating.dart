@@ -39,9 +39,11 @@ class _RatingState extends State<Rating> {
 
   Future<void> initUserProfile() async {
     String userI = await AppSharedPreferences.getFromSession('userId');
-    setState(() {
-      userId = userI;
-    });
+    setState(
+      () {
+        userId = userI;
+      },
+    );
   }
 
   @override
@@ -108,33 +110,36 @@ class _RatingState extends State<Rating> {
                     bottom: 20,
                     left: 0,
                     child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            stops: [0.7, 0.9],
-                            colors: [
-                              Colors.white10,
-                              Colors.white12,
-                            ],
-                          ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: [0.7, 0.9],
+                          colors: [
+                            Colors.white10,
+                            Colors.white12,
+                          ],
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 16),
-                        //color: Color.fromRGBO(255, 255, 255, 0.5),
-                        child: SmoothStarRating(
-                          allowHalfRating: false,
-                          rating: 3.2,
-                          size: 25,
-                          color: Colors.yellow,
-                          borderColor: Colors.grey,
-                          starCount: 5,
-                          onRatingChanged: (value) {
-                            setState(() {
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      //color: Color.fromRGBO(255, 255, 255, 0.5),
+                      child: SmoothStarRating(
+                        allowHalfRating: false,
+                        rating: 3.2,
+                        size: 25,
+                        color: Colors.yellow,
+                        borderColor: Colors.grey,
+                        starCount: 5,
+                        onRatingChanged: (value) {
+                          setState(
+                            () {
                               rating = value;
-                            });
-                          },
-                        )),
+                            },
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -166,10 +171,12 @@ class _RatingState extends State<Rating> {
                               starCount: 5,
                               borderColor: Colors.yellow,
                               onRatingChanged: (value) {
-                                setState(() {
-                                  rating = value;
-                                  print(rating);
-                                });
+                                setState(
+                                  () {
+                                    rating = value;
+                                    print(rating);
+                                  },
+                                );
                               },
                             ),
                           ],
@@ -196,9 +203,7 @@ class _RatingState extends State<Rating> {
                               Radius.circular(5),
                             ),
                           ),
-                          hintText: Translations
-                              .of(context)
-                              .add_rating_review,
+                          hintText: Translations.of(context).add_rating_review,
                           hintStyle: TextStyle(
                             fontFamily: ArabicFonts.Cairo,
                             package: 'google_fonts_arabic',
@@ -223,29 +228,28 @@ class _RatingState extends State<Rating> {
                               child: new Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: new Text(
-                                    Translations
-                                        .of(context)
-                                        .add_rating,
-                                    style: TextStyle(
-                                        fontFamily: ArabicFonts.Cairo,
-                                        package: 'google_fonts_arabic',
-                                        fontSize: EventSizedConstants
-                                            .TextButtonFontSized,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        shadows: <Shadow>[
-                                          new Shadow(
-                                            offset: Offset(3.0, 3.0),
-                                            blurRadius: 3.0,
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                          ),
-                                          new Shadow(
-                                            offset: Offset(3.0, 3.0),
-                                            blurRadius: 8.0,
-                                            color:
-                                                Color.fromARGB(125, 0, 0, 255),
-                                          ),
-                                        ])),
+                                  Translations.of(context).add_rating,
+                                  style: TextStyle(
+                                    fontFamily: ArabicFonts.Cairo,
+                                    package: 'google_fonts_arabic',
+                                    fontSize:
+                                        EventSizedConstants.TextButtonFontSized,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    shadows: <Shadow>[
+                                      new Shadow(
+                                        offset: Offset(3.0, 3.0),
+                                        blurRadius: 3.0,
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                      ),
+                                      new Shadow(
+                                        offset: Offset(3.0, 3.0),
+                                        blurRadius: 8.0,
+                                        color: Color.fromARGB(125, 0, 0, 255),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -273,20 +277,19 @@ class _RatingState extends State<Rating> {
       var createRate = new Rating_api_response();
       createRate.createPost(newPost).then(
             (value) => showMessage(
-          Translations
-              .of(context)
-              .thanks_for_rating,
+                  Translations.of(context).thanks_for_rating,
                   Colors.blue,
                 ),
           );
 
-      Timer(Duration(seconds: 2), () {
-        Navigator.pop(context);
-      });
+      Timer(
+        Duration(seconds: 2),
+        () {
+          Navigator.pop(context);
+        },
+      );
     } else {
-      showMessage(Translations
-          .of(context)
-          .please_add_rating, Colors.red);
+      showMessage(Translations.of(context).please_add_rating, Colors.red);
       FocusScope.of(context).requestFocus(
         new FocusNode(),
       );

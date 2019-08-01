@@ -37,14 +37,12 @@ class RegisterPageState extends State<RegisterPage> {
     });
   }
 
-  List<String> _genders = <String>['', 'ذكر', 'انثى'];
-
   @override
   void initState() {
     super.initState();
   }
 
-  String _gender = '';
+  int _gender = -1;
 
   DateTime convertToDate(String input) {
     try {
@@ -85,11 +83,15 @@ class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        key: globalKey,
-        backgroundColor: Colors.white,
-        body: new Stack(
-          children: <Widget>[_loginContainer(), progressDialog],
-        ));
+      key: globalKey,
+      backgroundColor: Colors.white,
+      body: new Stack(
+        children: <Widget>[
+          _loginContainer(),
+          progressDialog,
+        ],
+      ),
+    );
   }
 
 //------------------------------------------------------------------------------
@@ -134,34 +136,37 @@ class RegisterPageState extends State<RegisterPage> {
   Widget _formContainer() {
     return new Container(
       child: new Form(
-          child: new Theme(
-              data: new ThemeData(primarySwatch: Colors.lightBlue),
-              child: Container(
-                padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                child: new Column(
-                  children: <Widget>[
+        child: new Theme(
+          data: new ThemeData(primarySwatch: Colors.lightBlue),
+          child: Container(
+            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+            child: new Column(
+              children: <Widget>[
 //------------------------------------------------------------------------------
-                    _firstNameContainer(),
+                _firstNameContainer(),
 //------------------------------------------------------------------------------
-                    _lastNameContainer(),
+                _lastNameContainer(),
+//------------------------------------------------------------------------------
+                _dateOfBarth(),
+//------------------------------------------------------------------------------
 
-                    _dateOfBarth(),
-
-                    _selectedGender(),
-
-                    _phoneContainer(),
+                _selectGenderTow(),
 //------------------------------------------------------------------------------
-                    _emailContainer(),
+                _phoneContainer(),
 //------------------------------------------------------------------------------
-                    _passwordContainer(),
+                _emailContainer(),
 //------------------------------------------------------------------------------
-                    _registerButtonContainer(),
+                _passwordContainer(),
 //------------------------------------------------------------------------------
-                    _loginNowLabel(),
+                _registerButtonContainer(),
 //------------------------------------------------------------------------------
-                  ],
-                ),
-              ))),
+                _loginNowLabel(),
+//------------------------------------------------------------------------------
+              ],
+            ),
+          ),
+        ),
+      ),
       margin: EdgeInsets.only(top: 20.0, left: 25.0, right: 25.0),
     );
   }
@@ -203,82 +208,92 @@ class RegisterPageState extends State<RegisterPage> {
         margin: EdgeInsets.only(bottom: 5.0));
   }
 
-  Widget _selectedGender() {
+  @override
+  Widget _selectGenderTow() {
     return Container(
-      height: 70.0,
-      child: new FormField<String>(
-        builder: (FormFieldState<String> state) {
-          return InputDecorator(
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
-              prefixIcon: const Icon(Icons.person_pin),
-              labelText: Translations.of(context).gender,
-              labelStyle: TextStyle(
-                color: Color(0xFF37505D),
-                fontWeight: FontWeight.bold,
-                fontFamily: ArabicFonts.Cairo,
-                package: 'google_fonts_arabic',
-              ),
-              errorText: state.hasError ? state.errorText : null,
-            ),
-            isEmpty: _gender == '',
-            child: new DropdownButtonHideUnderline(
-              child: new DropdownButton<String>(
-                value: _gender,
-                isDense: true,
-                onChanged: (String newValue) {
-                  setState(() {
-                    _gender = newValue;
-                    state.didChange(newValue);
-                  });
-                },
-                items: _genders.map((String value) {
-                  return new DropdownMenuItem<String>(
-                    value: value,
-                    child: new Text(value),
-                  );
-                }).toList(),
-              ),
-            ),
-          );
-        },
+      child: Column(
+        children: <Widget>[
+          _myRadioButton(
+            title: Translations
+                .of(context)
+                .male,
+            value: 0,
+            onChanged: (newValue) => setState(() => _gender = newValue),
+          ),
+          _myRadioButton(
+            title: Translations
+                .of(context)
+                .female,
+            value: 1,
+            onChanged: (newValue) => setState(() => _gender = newValue),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _myRadioButton({String title, int value, Function onChanged}) {
+    return RadioListTile(
+      value: value,
+      groupValue: _gender,
+      onChanged: onChanged,
+      title: Text(
+        title,
+        style: TextStyle(
+          color: Color(0xFF37505D),
+          fontWeight: FontWeight.bold,
+          fontFamily: ArabicFonts.Cairo,
+          package: 'google_fonts_arabic',
+        ),
       ),
     );
   }
 
   Widget _dateOfBarth() {
-    return Container(
-      height: 70.0,
-      child: new TextFormField(
-        decoration: new InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
-          prefixIcon: const Icon(Icons.calendar_today),
-          suffixIcon: new IconButton(
-            icon: new Icon(Icons.date_range),
-            onPressed: (() {
-              _chooseDate(context, dateTimeController.text);
-            }),
+    return GestureDetector(
+      onTap: () {
+        _chooseDate(context, dateTimeController.text);
+      },
+      child: Container(
+        height: 70.0,
+        child: new TextFormField(
+          decoration: new InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(vertical: 1.0),
+            prefixIcon: const Icon(Icons.calendar_today),
+            suffixIcon: new IconButton(
+              icon: new Icon(Icons.date_range),
+              onPressed: (() {
+                _chooseDate(context, dateTimeController.text);
+              }),
+            ),
+            hintText: Translations
+                .of(context)
+                .enter_date_of_barth,
+            labelText: Translations
+                .of(context)
+                .dateOfBarth,
+            labelStyle: TextStyle(
+              color: Color(0xFF37505D),
+              fontWeight: FontWeight.bold,
+              fontFamily: ArabicFonts.Cairo,
+              package: 'google_fonts_arabic',
+            ),
+            hintStyle: TextStyle(
+              fontFamily: ArabicFonts.Cairo,
+              package: 'google_fonts_arabic',
+            ),
           ),
-          hintText: Translations.of(context).enter_date_of_barth,
-          labelText: Translations.of(context).dateOfBarth,
-          labelStyle: TextStyle(
-            color: Color(0xFF37505D),
-            fontWeight: FontWeight.bold,
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-          ),
-          hintStyle: TextStyle(
-            fontFamily: ArabicFonts.Cairo,
-            package: 'google_fonts_arabic',
-          ),
+          controller: dateTimeController,
+          keyboardType: TextInputType.datetime,
+          validator: (val) =>
+          isValidDateBarth(val)
+              ? null
+              : '${Translations
+              .of(context)
+              .not_valid_date}',
         ),
-        controller: dateTimeController,
-        keyboardType: TextInputType.datetime,
-        validator: (val) => isValidDateBarth(val)
-            ? null
-            : '${Translations.of(context).not_valid_date}',
+        margin: EdgeInsets.only(bottom: 5.0),
       ),
-      margin: EdgeInsets.only(bottom: 5.0),
     );
   }
 
@@ -493,14 +508,14 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
 //------------------------------------------------------------------------------
-  void _registerUser(String firstName, String lastName, String gender,
+  void _registerUser(String firstName, String lastName, int gender,
       String phone, String email, String password, String birthDate) async {
     String genderTemp;
     switch (gender) {
-      case 'ذكر':
+      case 0:
         genderTemp = 'male';
         break;
-      case 'انثى':
+      case 1:
         genderTemp = "female";
         break;
     }
